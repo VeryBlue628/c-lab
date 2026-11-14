@@ -2,9 +2,9 @@
   "lessons": 111,
   "examples": 111,
   "solutions": 111,
-  "testCases": 328,
+  "testCases": 341,
   "errors": [],
-  "mastery": 17,
+  "mastery": 21,
   "standard": "C99 (199901L), C11 extensions rejected",
   "fileIsolation": "fresh virtual FS per test; absolute and relative paths supported"
 }

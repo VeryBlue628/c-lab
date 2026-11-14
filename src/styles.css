@@ -2865,3 +2865,5 @@ dialog::backdrop {
 
 .virtual-files {flex-shrink:0;}
 .textbook-dialog a {color:var(--green);}
+
+.page-review-row{padding:14px 18px;border-top:1px solid var(--line);font-size:12px;}.page-review-row p{font-size:12px;margin:7px 0;}.page-review-row>div{display:flex;flex-wrap:wrap;gap:8px;}.page-review-row button{font-size:11px;min-height:36px;}

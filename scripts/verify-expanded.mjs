@@ -9,7 +9,7 @@ const read = async (file) =>
   );
 const bank = await read("question-bank.json"),
   mastery = await read("mastery-challenges.json");
-const totals = [26, 85, 61, 44, 26, 53, 39, 47, 3];
+const totals = [26, 106, 67, 44, 26, 53, 39, 47, 3];
 let count = 0;
 const questions = new Set();
 for (let c = 1; c <= 9; c++) {
@@ -34,8 +34,8 @@ for (let c = 1; c <= 9; c++) {
   assert.equal(chapterCount, totals[c - 1]);
   count += chapterCount;
 }
-assert.equal(count, 384);
-assert.equal(Object.keys(mastery).length, 17);
+assert.equal(count, 411);
+assert.equal(Object.keys(mastery).length, 21);
 for (const m of Object.values(mastery)) {
   assert(m.tests.length >= 3);
   assert.equal(m.hints.length, 3);

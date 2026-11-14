@@ -10,6 +10,12 @@ const read = async (n) =>
 const added = await read("textbook-lessons.json"),
   guide = await read("textbook-guide.json");
 assert.equal(added.flatMap((c) => c.lessons).length, 48);
+const audit = await read("page-review.json");
+assert.equal(audit.status, "partial");
+assert.deepEqual(
+  audit.pages.map((p) => p.page),
+  Array.from({ length: 20 }, (_, i) => 37 + i),
+);
 const work = path.resolve(process.argv[2] || ".qa");
 await fs.mkdir(work, { recursive: true });
 const bundle = path.join(work, "textbook.mjs");
@@ -36,8 +42,8 @@ const { judge } = await import(
 );
 assert.equal(lessons.length, 111);
 assert.equal(chapters.length, 16);
-assert.equal(curriculumStats.questions, 528);
-assert.equal(curriculumStats.challenges, 128);
+assert.equal(curriculumStats.questions, 555);
+assert.equal(curriculumStats.challenges, 132);
 const ids = new Set(),
   qs = new Set();
 for (const l of lessons) {
@@ -60,6 +66,8 @@ for (const l of lessons) {
   }
 }
 for (const c of guide) for (const id of c.lessons) assert(lessonById[id], id);
+for (const p of audit.pages)
+  for (const id of p.lessons) assert(lessonById[id], "audit " + id);
 const mapped = new Set(guide.flatMap((c) => c.lessons));
 for (const l of lessons.filter((l) => l.chapter !== 9))
   assert(mapped.has(l.id), "unmapped " + l.id);
@@ -122,5 +130,5 @@ assert(
   )[0].passed,
 );
 console.log(
-  "Textbook mapping, 111 lessons / 528 questions / 128 challenges, file judging and progress migration passed.",
+  "Textbook mapping, 111 lessons / 555 questions / 132 challenges, file judging and progress migration passed.",
 );

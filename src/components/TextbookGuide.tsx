@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { X, ArrowRight, Check, BookOpen } from "lucide-react";
+import audit from "../data/page-review.json";
 import guide from "../data/textbook-guide.json";
 import { lessonById } from "../data/curriculum";
 import { completed, type Progress } from "../services/progress";
@@ -54,6 +55,36 @@ export function TextbookGuide({
             </a>
           </div>
         </div>
+        <details className="textbook-chapter">
+          <summary>正文逐页核对：已审 20 页（书内第 37—56 页）</summary>
+          <p>
+            已逐页检查出版社公开样章的正文和图表。其余正文及完整习题待取得后继续审阅。
+          </p>
+          <p>
+            <a href={audit.source} target="_blank" rel="noreferrer">
+              查看出版社样章 ↗
+            </a>
+          </p>
+          {audit.pages.map((p) => (
+            <div className="page-review-row" key={p.page}>
+              <strong>
+                第 {p.page} 页 · {p.topic}
+              </strong>
+              <p>{p.result}</p>
+              <div>
+                {p.lessons.map((id) => (
+                  <button
+                    className="text-button"
+                    key={id}
+                    onClick={() => onSelect(id)}
+                  >
+                    {lessonById[id].title} →
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </details>
         {guide.map((c) => (
           <details
             className="textbook-chapter"

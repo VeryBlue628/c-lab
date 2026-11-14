@@ -503,5 +503,125 @@
       "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
       "输入 n（1～20）、n 个整数和 target。输出 target 首次出现的下标；没有找到输出 -1。"
     ]
+  },
+  "c2-2": {
+    "id": "c2-2-mastery",
+    "title": "无符号整数转换实验",
+    "difficulty": "Medium",
+    "description": "将输入 int 显式转换为 unsigned short，并输出结果。本站 unsigned short 为 16 位；理解模转换，不执行有符号溢出。",
+    "input": "一个 -1000..65535 的整数。",
+    "output": "严格按样例格式输出，不添加提示。",
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 无符号整数转换实验 */\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\nint main(void){int n;if(scanf(\"%d\",&n)!=1)return 1;unsigned short u=(unsigned short)n;printf(\"%hu\\n\",u);return 0;}\n",
+    "tests": [
+      {
+        "input": "-1",
+        "output": "65535\n"
+      },
+      {
+        "input": "-2",
+        "output": "65534\n"
+      },
+      {
+        "input": "0",
+        "output": "0\n"
+      },
+      {
+        "input": "65535",
+        "output": "65535\n"
+      }
+    ],
+    "hints": [
+      "先读取到能容纳输入范围的 int 变量。",
+      "用 (unsigned short)n 转换，输出使用 %hu。",
+      "无符号转换按 USHRT_MAX+1 取模；不要用有符号溢出来模拟它。"
+    ]
+  },
+  "c2-4": {
+    "id": "c2-4-mastery",
+    "title": "输出带转义的实验标签",
+    "difficulty": "Medium",
+    "description": "读入编号，第一行输出 ID、一个水平制表符和编号；第二行输出 C:\\lab；第三行输出带双引号的 \"done\"。",
+    "input": "一个 1..100 的编号。",
+    "output": "严格按样例格式输出，不添加提示。",
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 输出带转义的实验标签 */\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\nint main(void){int n;if(scanf(\"%d\",&n)!=1)return 1;printf(\"ID\\t%d\\nC:\\\\lab\\n\\\"done\\\"\\n\",n);return 0;}\n",
+    "tests": [
+      {
+        "input": "1",
+        "output": "ID\t1\nC:\\lab\n\"done\"\n"
+      },
+      {
+        "input": "7",
+        "output": "ID\t7\nC:\\lab\n\"done\"\n"
+      },
+      {
+        "input": "100",
+        "output": "ID\t100\nC:\\lab\n\"done\"\n"
+      }
+    ],
+    "hints": [
+      "换行用 \\n，水平制表符用 \\t。",
+      "字符串中的反斜杠和双引号分别需要转义。",
+      "输出应包含三个独立的行；不要把源码里的转义拼写原样打印出来。"
+    ]
+  },
+  "c2-6": {
+    "id": "c2-6-mastery",
+    "title": "符号常量与常变量配合",
+    "difficulty": "Medium",
+    "description": "用 #define UNIT_PRICE 4 表示每件四元，用 const int fee=2 表示固定两元费用。输入件数 n，输出 n 件商品的总金额。",
+    "input": "一个 0..1000 的整数件数。",
+    "output": "严格按样例格式输出，不添加提示。",
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 符号常量与常变量配合 */\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#define UNIT_PRICE 4\nint main(void){const int fee=2;int n;if(scanf(\"%d\",&n)!=1)return 1;printf(\"%d\\n\",n*UNIT_PRICE+fee);return 0;}\n",
+    "tests": [
+      {
+        "input": "0",
+        "output": "2\n"
+      },
+      {
+        "input": "5",
+        "output": "22\n"
+      },
+      {
+        "input": "1000",
+        "output": "4002\n"
+      }
+    ],
+    "hints": [
+      "宏定义末尾不要把分号写进替换文本。",
+      "const int fee=2 是对象声明；UNIT_PRICE 在预处理时替换。",
+      "先算 n*UNIT_PRICE，再加 fee；件数为零也仍有固定费用。"
+    ]
+  },
+  "c3-1": {
+    "id": "c3-1-mastery",
+    "title": "分清结合性与括号",
+    "difficulty": "Medium",
+    "description": "读入 a、b、c，分别计算 a-b-c 和 a-(b-c)，依次输出两个结果。每个数的绝对值不超过 1000。",
+    "input": "三个 -1000..1000 的整数。",
+    "output": "严格按样例格式输出，不添加提示。",
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 分清结合性与括号 */\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\nint main(void){int a,b,c;if(scanf(\"%d%d%d\",&a,&b,&c)!=3)return 1;printf(\"%d %d\\n\",a-b-c,a-(b-c));return 0;}\n",
+    "tests": [
+      {
+        "input": "20 7 2",
+        "output": "11 15\n"
+      },
+      {
+        "input": "0 1 1",
+        "output": "-2 0\n"
+      },
+      {
+        "input": "5 -2 3",
+        "output": "4 10\n"
+      }
+    ],
+    "hints": [
+      "减法左结合，所以 a-b-c 按 (a-b)-c 分组。",
+      "第二个表达式有显式括号，先计算 b-c。",
+      "本题表达式没有副作用；结合性与一般求值顺序是不同概念。"
+    ]
   }
 }
