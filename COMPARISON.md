@@ -1,3 +1,5 @@
+> 2026-11-14 教材版后续更新：已增加 48 课与真实文件/多源文件能力，切换严格 C99；本文件下述 63 课范围为此前 Fundamentals 对照记录，当前范围见 [TEXTBOOK_ALIGNMENT.md](TEXTBOOK_ALIGNMENT.md)。
+
 # Coddy Fundamentals 对照与补全报告
 
 核查日期：2026-11-14。范围仅为用户原始需求中的 C Fundamentals 学习、编程、检测、反馈与进度。

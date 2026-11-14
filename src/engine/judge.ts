@@ -13,6 +13,15 @@ export function judge(tests: TestCase[], runs: Execution[]) {
     run: runs[i],
     passed:
       runs[i]?.status === "success" &&
-      normalize(test.output) === normalize(runs[i].stdout),
+      normalize(test.output) === normalize(runs[i].stdout) &&
+      Object.entries(test.expectedFiles || {}).every(([name, content]) => {
+        const bytes = runs[i]?.files?.[name];
+        const expected = new TextEncoder().encode(content);
+        return (
+          !!bytes &&
+          bytes.length === expected.length &&
+          bytes.every((b, j) => b === expected[j])
+        );
+      }),
   }));
 }

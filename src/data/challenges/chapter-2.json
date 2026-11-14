@@ -94,7 +94,7 @@
     "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 声明布尔量 enabled 为 true，finished 为 false，输出 1 0\n    \n    return 0;\n}\n",
     "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    bool enabled = true;\n    bool finished = false;\n    printf(\"%d %d\\n\", enabled, finished);\n    return 0;\n}\n",
     "hints": [
-      "在 C11 中引入 stdbool.h 并使用 bool。",
+      "在 C99 中引入 stdbool.h 并使用 bool。",
       "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
       "stdbool.h 提供 bool、true 和 false；布尔量用于表达条件。"
     ]

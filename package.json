@@ -11,7 +11,8 @@
     "test:compiler": "node scripts/verify-compiler.mjs",
     "test:progress": "node scripts/verify-progress.mjs",
     "build:github": "tsc -b && vite build --base=/c-lab/ --outDir=docs && node scripts/finalize-github-pages.mjs",
-    "test:expanded": "node scripts/verify-expanded.mjs"
+    "test:expanded": "node scripts/verify-expanded.mjs",
+    "test:textbook": "node scripts/verify-textbook.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",

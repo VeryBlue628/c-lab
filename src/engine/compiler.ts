@@ -1,3 +1,4 @@
+import type { RunOptions } from "../data/types";
 import type { Execution } from "./types";
 let worker: Worker | undefined;
 let active = false;
@@ -9,6 +10,7 @@ export async function runCode(
   code: string,
   inputs: string[],
   onStage: (s: string) => void = () => {},
+  options: RunOptions[] = [],
 ): Promise<Execution[]> {
   if (active) throw Error("请等待当前运行结束");
   if (code.length > 100000)
@@ -105,6 +107,7 @@ export async function runCode(
     worker!.postMessage({
       code,
       inputs,
+      options,
       toolchainBase: new URL("toolchain/", document.baseURI).href,
     });
   });

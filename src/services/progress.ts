@@ -7,6 +7,8 @@ export type QuestionState = {
   correct: number;
 };
 export type TaskState = {
+  files?: Record<string, string>;
+  args?: string[];
   draft?: string;
   input?: string;
   hint?: number;
@@ -152,6 +154,30 @@ export function validate(value: unknown): Progress {
         const task: TaskState = {};
         if (t.draft !== undefined) task.draft = text(t.draft);
         if (t.input !== undefined) task.input = text(t.input);
+        if (t.args !== undefined) {
+          if (!Array.isArray(t.args) || t.args.length > 20)
+            throw Error("参数不正确");
+          task.args = t.args.map((a) => text(a, 1000));
+        }
+        if (t.files !== undefined) {
+          if (!t.files || typeof t.files !== "object" || Array.isArray(t.files))
+            throw Error("虚拟文件不正确");
+          const entries = Object.entries(t.files);
+          if (entries.length > 16) throw Error("虚拟文件过多");
+          task.files = Object.create(null);
+          let size = 0;
+          for (const [name, content] of entries) {
+            if (
+              !/^[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}$/.test(name) ||
+              name === "main.c"
+            )
+              throw Error("虚拟文件名不正确");
+            const value = text(content, 131072);
+            size += new TextEncoder().encode(value).length;
+            task.files![name] = value;
+          }
+          if (size > 131072) throw Error("虚拟文件过大");
+        }
         if (t.hint !== undefined) task.hint = number(t.hint, 3);
         if (t.failures !== undefined) task.failures = number(t.failures);
         if (t.passed !== undefined) {

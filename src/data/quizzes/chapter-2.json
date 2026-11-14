@@ -62,7 +62,7 @@
   },
   "c2-6": {
     "type": "boolean",
-    "question": "判断：const int x = 3; x = 4; 能正常通过标准 C11 编译。",
+    "question": "判断：const int x = 3; x = 4; 能正常通过标准 C99 编译。",
     "options": [
       "正确",
       "错误"

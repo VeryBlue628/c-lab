@@ -53,7 +53,7 @@
   },
   "c7-6": {
     "type": "single",
-    "question": "哪个是声明“无参数且返回 int”的规范 C11 原型？",
+    "question": "哪个是声明“无参数且返回 int”的规范 C99 原型？",
     "options": [
       "int f(void);",
       "int f();",
@@ -62,7 +62,7 @@
     "answer": [
       "int f(void);"
     ],
-    "explanation": "void 参数列表明确说明没有参数；空括号在 C11 的声明中不提供这种类型约束。"
+    "explanation": "void 参数列表明确说明没有参数；空括号在 C99 的声明中不提供这种类型约束。"
   },
   "c7-7": {
     "type": "fill",

@@ -81,9 +81,9 @@ export function Sidebar({
         <span className="language-badge">C</span>
         <div>
           <strong>C Fundamentals</strong>
-          <small>C 语言基础 · 63 节课程</small>
+          <small>C99 · {lessons.length} 节课程</small>
         </div>
-        <span className="tiny-badge">C11</span>
+        <span className="tiny-badge">C99</span>
       </div>
       <div className="sidebar-heading">
         <span>学习路径</span>
@@ -216,13 +216,13 @@ export function Sidebar({
       <div className="sidebar-bottom">
         <div className="progress-label">
           <span>你的学习旅程</span>
-          <strong>{Math.round((done / 63) * 100)}%</strong>
+          <strong>{Math.round((done / lessons.length) * 100)}%</strong>
         </div>
         <div className="progress-track">
-          <i style={{ width: (done / 63) * 100 + "%" }} />
+          <i style={{ width: (done / lessons.length) * 100 + "%" }} />
         </div>
         <div className="progress-caption">
-          已完成 {done} / 63 节<span>慢慢来，比较快。</span>
+          已完成 {done} / {lessons.length} 节<span>慢慢来，比较快。</span>
         </div>
         <button className="progress-button" onClick={onStats}>
           <BookOpen size={16} />

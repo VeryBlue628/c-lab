@@ -20,10 +20,10 @@ import { QuizSequence } from "./QuizSequence";
 import { ReadAloud } from "./ReadAloud";
 function emphasize(text: string) {
   const terms =
-    /(?:C11|未定义行为|短路|值传递|基本情况|数组越界|整数除法|向零截断|原型)/;
+    /(?:C99|未定义行为|短路|值传递|基本情况|数组越界|整数除法|向零截断|原型)/;
   return text
     .split(
-      /(C11|未定义行为|短路|值传递|基本情况|数组越界|整数除法|向零截断|原型)/g,
+      /(C99|未定义行为|短路|值传递|基本情况|数组越界|整数除法|向零截断|原型)/g,
     )
     .map((part, i) =>
       terms.test(part) ? <strong key={i}>{part}</strong> : part,
@@ -126,6 +126,9 @@ export function LessonContent({
                   <p>{lesson.objective}</p>
                 </div>
               </div>
+              {lesson.textbook && (
+                <p className="textbook-tag">教材对应：{lesson.textbook}</p>
+              )}
               <section className="explanation">
                 <h2>
                   <span className="section-dot" />
@@ -138,7 +141,7 @@ export function LessonContent({
               <section>
                 <h2>语法拆解</h2>
                 <div className="syntax-block">
-                  <span>C11</span>
+                  <span>C99</span>
                   <pre>{lesson.syntax}</pre>
                 </div>
                 <p className="subtext">{lesson.syntaxNotes}</p>
@@ -158,6 +161,22 @@ export function LessonContent({
                   </div>
                   <pre>{lesson.example}</pre>
                 </div>
+                {lesson.exampleFiles && (
+                  <details className="example-files">
+                    <summary>示例配套文件（载入时一并打开）</summary>
+                    {Object.entries(lesson.exampleFiles).map(([n, c]) => (
+                      <div key={n}>
+                        <strong>{n}</strong>
+                        <pre>{c}</pre>
+                      </div>
+                    ))}
+                  </details>
+                )}
+                {lesson.exampleArgs && (
+                  <p className="subtext">
+                    程序参数：{lesson.exampleArgs.join(" · ") || "（无）"}
+                  </p>
+                )}
                 {lesson.exampleInput && (
                   <div className="example-output">
                     <span>示例输入</span>

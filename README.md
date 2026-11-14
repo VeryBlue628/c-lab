@@ -4,7 +4,7 @@
 
 源码仓库：[VeryBlue628/c-lab](https://github.com/VeryBlue628/c-lab)。
 
-一个可独立部署的中文 C11 交互式学习平台。课程顺序按用户提供的 Coddy Fundamentals 目录保留，包含 9 章、63 课。讲解、练习、解析与测试用例为本项目编写。无注册、订阅、排行榜或社交模块。
+一个可独立部署的中文 C99 交互式学习平台。保留原有 Coddy Fundamentals 风格的 9 章、63 课，并按谭浩强《C程序设计（第五版）》公开目录增加 48 课。现在共 16 个学习模块、111 课，另提供教材 10 章与附录的选课导航。讲解、练习、解析与测试用例为本项目编写。无注册、订阅、排行榜或社交模块。
 
 ## 快速启动（Windows）
 
@@ -19,15 +19,19 @@ npm.cmd run dev
 
 打开终端显示的地址，默认 http://127.0.0.1:5173 。也可运行本目录的 Start-Learning.ps1，它会在缺少依赖时安装，再启动。不要直接双击 index.html，Worker 和资源请求需要 HTTP。
 
+## 教材配套更新
+
+使用顶部“教材目录”可按书中第 1—10 章选课，该入口会开启自由探索。新增字符串、存储期与多文件、指针与回调、动态内存、结构体与链表、共用体、枚举、typedef 以及文件读写。编译使用严格 C99，已验证版本宏 199901L 并拒绝测试中的 C11 _Generic 与 _Static_assert。原有进度和代码草稿保留，新增文件与参数也会备份。
+
 ## 已实现
 
 - 固定分章课程树、课程搜索、状态图标、上次学习位置恢复。
-- 63 节中文课程，每节有目标、两段以上讲解、语法拆解、完整 C 示例、运行过程、易错点、知识检测、独立编程练习。
+- 111 节中文课程，每节有目标、两段以上讲解、语法拆解、完整 C 示例、运行过程、易错点、知识检测、独立编程练习。
 - CodeMirror 6：语法高亮、行号、缩进、括号匹配、自动闭合、基础补全、复制、清空、撤销、默认代码、字号调整、拖动调整高度、全屏。
-- 真实 Clang C11 编译与 wasm-ld 链接；支持 printf、scanf 和多行标准输入。
+- 真实 Clang C99 编译与 wasm-ld 链接；支持 printf、scanf 和多行标准输入。
 - 编译错误与行号定位、运行错误、超时、手动停止；输出与测试结果分别展示。
-- 80 道编程挑战（63 基础 + 17 Mastery）、186 个测试用例；按程序真实标准输出判题，提供逐个用例的输入、预期、实际结果。
-- 384 道课程测验，覆盖单选、多选、判断、填空、输出预测、错误分析；另有 9 道变式巩固题。
+- 128 道编程挑战（111 基础 + 17 Mastery）、328 个测试用例；按程序真实标准输出以及指定输出文件判题，提供逐个用例的输入、预期、实际结果。
+- 528 道课程测验，覆盖单选、多选、判断、填空、输出预测、错误分析；另有 9 道变式巩固题。
 - 三级提示、用户主动查看参考解、错题回顾、连续出错后的讲解推荐。
 - 章节自测按首次作答评分，80% 可标记已掌握并跳过；自由探索模式允许直接访问任意课程。
 - 只有本课全部知识检测和基础编程挑战都通过才标记“已完成”；跳过与完成分开统计。
@@ -45,6 +49,8 @@ src/components/           导航、课程、测验、工作台、学习记录
 src/data/lessons/         分章中文讲解与示例
 src/data/quizzes/         分章测验与解析
 src/data/challenges/      分章题目、测试、模板、参考解和提示
+src/data/textbook-lessons.json 48 节教材补充课程
+src/data/textbook-guide.json 教材章节与课程标识映射
 src/data/reinforcement.ts 独立变式题
 src/engine/               编译 Worker、调度器、输出判题器
 src/services/progress.ts  进度持久化与备份校验
@@ -56,8 +62,8 @@ scripts/                  内容验证、真实编译验证、工具链恢复
 
 1. 首次点击运行才下载本站工具链，合计约 19.2 MB；源码包已包含这些资源，无需请求第三方执行 API。
 2. 在独立 Web Worker 中解压并初始化 Clang 8.0.1（WebAssembly）。
-3. 用 -std=c11 -x c 编译 /main.c 为目标文件，再由 wasm-ld 与 WASI libc 链接为 WebAssembly。
-4. 每个测试建立全新的 WASI 实例及虚拟文件系统，预先提供 stdin，收集 stdout/stderr。
+3. 用 -std=c99 -pedantic-errors -x c 分别编译 main.c 与附加的 .c 文件为目标文件，再由 wasm-ld 与 WASI libc 链接为 WebAssembly。
+4. 每个测试建立全新的 WASI 实例及虚拟文件系统，预先提供 stdin、程序参数与文件，收集 stdout/stderr 和生成文件。为旧版 wasi-libc 提供虚拟根目录的相对路径别名。
 5. 学生程序没有宿主机文件系统或网络接口；链接器限制最大线性内存为 64 MiB，栈为 1 MiB。每次执行限时 2.5 秒、输出 64 KiB；超时或停止会终止 Worker。编译限时 20 秒，首次资源初始化最多等待 120 秒。
 
 当前判题忽略首尾及行末空白，并折叠同一行内连续空格；换行位置必须正确；不使用数值容差，数值格式需符合题目要求。相关逻辑独立于 UI，便于替换为其他编译器或判题规则。
@@ -69,6 +75,7 @@ npm.cmd run check
 npm.cmd run test:compiler
 npm.cmd run test:progress
 npm.cmd run test:expanded
+npm.cmd run test:textbook
 npm.cmd run build
 npm.cmd run preview
 ```
@@ -98,8 +105,8 @@ GitHub 会自动重新发布 docs/。不要手工编辑 docs/assets/，它们由
 
 ## 当前限制
 
-- 当前是 C Fundamentals：不包含第二阶段的指针、结构体、动态内存等专门课程。数组形参只解释必要的 C 语义。
-- WASI 适合教学用标准输入输出程序，不提供真实网络、系统进程、图形界面或本机操作系统 API。仅单源文件。Clang 8.0.1 为较旧工具链，教学统一使用 C11。
+- 按教材公开目录核对主题，并独立编写配套课程；未取得、逐页审校整本教材，未逐题覆盖书中全部例题和习题。目录映射见 TEXTBOOK_ALIGNMENT.md。
+- WASI 适合教学用标准输入输出程序，不提供真实网络、系统进程、图形界面或本机操作系统 API。支持附加 .c 与 .h 文件，虚拟文件最多 16 个、共 128 KiB；运行结果文件共限 1 MiB，可预览和下载。Clang 8.0.1 为较旧工具链，教学统一使用 C99。
 - stdin 在运行前完整填写，运行中不提供交互终端输入。
 - 64 MiB 限制针对学生程序的 WebAssembly 线性内存；工具链和浏览器自身仍需要额外内存，低内存手机首次编译可能较慢。
 - 数据只存在当前浏览器的当前站点域名中，不自动跨设备同步。清理浏览器数据前请导出备份。
@@ -109,4 +116,4 @@ GitHub 会自动重新发布 docs/。不要手工编辑 docs/assets/，它们由
 
 ## 参考
 
-[Coddy C 目录](https://coddy.tech/landing/c)、[公开路线](https://github.com/coddytech/curriculum)。Journey 页面依赖动态加载，没有绕过访问限制。技术运行器参考 [Runno](https://github.com/taybenlor/runno) 与 [binji/wasm-clang](https://github.com/binji/wasm-clang)，第三方声明见 THIRD_PARTY.md。
+[清华大学出版社教材介绍](https://www.tup.tsinghua.edu.cn/booksCenter/book_07645004.html)、[教材完整目录](https://www.tup.tsinghua.edu.cn/booksCenter/bookcatalog?id=07645004)、[Coddy C 目录](https://coddy.tech/landing/c)、[公开路线](https://github.com/coddytech/curriculum)。Journey 页面依赖动态加载，没有绕过访问限制。技术运行器参考 [Runno](https://github.com/taybenlor/runno) 与 [binji/wasm-clang](https://github.com/binji/wasm-clang)，第三方声明见 THIRD_PARTY.md。

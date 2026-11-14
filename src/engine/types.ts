@@ -6,6 +6,7 @@ export type Execution = {
     | "timeout"
     | "cancelled"
     | "system-error";
+  files?: Record<string, number[]>;
   stdout: string;
   stderr: string;
   exitCode: number;

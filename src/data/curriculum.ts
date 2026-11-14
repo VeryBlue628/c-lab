@@ -1,3 +1,4 @@
+import textbookChapters from "./textbook-lessons.json";
 import questionBank from "./question-bank.json";
 import masteryBank from "./mastery-challenges.json";
 import type { Chapter } from "./types";
@@ -52,7 +53,7 @@ const practices: Record<string, unknown> = Object.assign(
   p8,
   p9,
 );
-export const chapters: Chapter[] = [c1, c2, c3, c4, c5, c6, c7, c8, c9].map(
+const baseChapters: Chapter[] = [c1, c2, c3, c4, c5, c6, c7, c8, c9].map(
   (c) => ({
     ...c,
     lessons: c.lessons.map((l) => ({
@@ -64,9 +65,21 @@ export const chapters: Chapter[] = [c1, c2, c3, c4, c5, c6, c7, c8, c9].map(
     })),
   }),
 ) as Chapter[];
+export const chapters: Chapter[] = [
+  ...baseChapters,
+  ...(textbookChapters as Chapter[]),
+];
 export const lessons = chapters.flatMap((c) => c.lessons);
 export const lessonById: Record<string, (typeof lessons)[number]> =
   Object.assign(
     Object.create(null),
     Object.fromEntries(lessons.map((l) => [l.id, l])),
   );
+
+export const curriculumStats = {
+  chapters: chapters.length,
+  lessons: lessons.length,
+  mastery: lessons.filter((l) => l.mastery).length,
+  challenges: lessons.length + lessons.filter((l) => l.mastery).length,
+  questions: lessons.reduce((n, l) => n + l.quizzes.length, 0),
+};

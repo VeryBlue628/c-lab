@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { X, Check, Lock, ArrowRight, Target, SkipForward } from "lucide-react";
-import { chapters, lessons } from "../data/curriculum";
+import { chapters, lessons, curriculumStats } from "../data/curriculum";
 import { completed, unlocked, type Progress } from "../services/progress";
 export function Journey({
   progress,
@@ -42,7 +42,11 @@ export function Journey({
       </div>
       <div className="dialog-body">
         <div className="journey-summary">
-          <span>9 章 · 63 课 · 80 个挑战 · 384 道检测</span>
+          <span>
+            {chapters.length} 章 · {lessons.length} 课 ·{" "}
+            {curriculumStats.challenges} 个挑战 · {curriculumStats.questions}{" "}
+            道检测
+          </span>
           <button
             className="primary"
             onClick={() => onSelect(progress.current)}

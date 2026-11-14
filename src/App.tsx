@@ -29,6 +29,7 @@ import {
 import { Sidebar } from "./components/Sidebar";
 import { LessonContent, type Tab } from "./components/LessonContent";
 import { Workbench } from "./components/Workbench";
+import { TextbookGuide } from "./components/TextbookGuide";
 import { Journey } from "./components/Journey";
 import { Completion } from "./components/Completion";
 import { StudyDialog } from "./components/StudyDialog";
@@ -45,6 +46,7 @@ export default function App() {
       null,
     ),
     [journey, setJourney] = useState(false),
+    [textbook, setTextbook] = useState(false),
     [completion, setCompletion] = useState<string | null>(null),
     [input, setInput] = useState(""),
     [toast, setToast] = useState(""),
@@ -340,6 +342,9 @@ export default function App() {
               <span>YOUR C LEARNING JOURNEY</span>
             </div>
           </div>
+          <button className="review-button" onClick={() => setTextbook(true)}>
+            教材目录
+          </button>
           <button className="review-button" onClick={() => setJourney(true)}>
             学习路径
           </button>
@@ -370,6 +375,8 @@ export default function App() {
                 updateTask({
                   draft: lesson.example,
                   input: lesson.exampleInput || "",
+                  files: lesson.exampleFiles || {},
+                  args: lesson.exampleArgs || [],
                 });
                 setInput(lesson.exampleInput || "");
                 notify("示例已载入右侧编辑器，可点击运行代码");
@@ -398,17 +405,20 @@ export default function App() {
                     已掌握并跳过
                   </>
                 ) : (
-                  <>{index + 1} / 63 节</>
+                  <>
+                    {index + 1} / {lessons.length} 节
+                  </>
                 )}
               </span>
               <button
                 className="primary next"
                 disabled={
-                  index < 62 && !unlocked(lessons[index + 1].id, progress)
+                  index < lessons.length - 1 &&
+                  !unlocked(lessons[index + 1].id, progress)
                 }
                 onClick={next}
               >
-                {index === 62 ? "查看学习记录" : "下一课"}
+                {index === lessons.length - 1 ? "查看学习记录" : "下一课"}
                 <ArrowRight size={15} />
               </button>
             </footer>
@@ -417,6 +427,10 @@ export default function App() {
             key={lesson.id + activeChallenge}
             lesson={lesson}
             record={displayRecord}
+            files={task.files ?? lesson.challenge.files ?? {}}
+            args={task.args ?? lesson.challenge.args ?? []}
+            onFiles={(files) => updateTask({ files })}
+            onArgs={(args) => updateTask({ args })}
             onDraft={(s) => updateTask({ draft: s })}
             input={input}
             onInput={(s) => {
@@ -446,9 +460,20 @@ export default function App() {
             <span className="status-dot" />
             学以致用，每一行都算数。
           </span>
-          <span>C11 · WebAssembly · 本地进度</span>
+          <span>C99 · WebAssembly · 本地进度</span>
         </div>
       </div>
+      {textbook && (
+        <TextbookGuide
+          progress={progress}
+          onClose={() => setTextbook(false)}
+          onSelect={(id) => {
+            setProgress((p) => ({ ...p, freeMode: true, current: id }));
+            setTextbook(false);
+            setMobileNav(false);
+          }}
+        />
+      )}
       {journey && (
         <Journey
           progress={progress}

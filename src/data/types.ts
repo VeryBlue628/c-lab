@@ -6,19 +6,27 @@ export type Quiz = {
   answer: string[];
   explanation: string;
 };
-export type TestCase = { input: string; output: string };
+export type RunOptions = { files?: Record<string, string>; args?: string[] };
+export type TestCase = RunOptions & {
+  input: string;
+  output: string;
+  expectedFiles?: Record<string, string>;
+};
 export type Lesson = {
   id: string;
   chapter: number;
   index: number;
   en: string;
   title: string;
+  textbook?: string;
   objective: string;
   explanation: string[];
   syntax: string;
   syntaxNotes: string;
   example: string;
   exampleInput?: string;
+  exampleFiles?: Record<string, string>;
+  exampleArgs?: string[];
   exampleOutput: string;
   walkthrough: string;
   mistakes: string[];
@@ -26,7 +34,7 @@ export type Lesson = {
   quizzes: Quiz[];
   mastery?: Lesson["challenge"];
   quiz: Quiz;
-  challenge: {
+  challenge: RunOptions & {
     id?: string;
     title: string;
     difficulty: string;

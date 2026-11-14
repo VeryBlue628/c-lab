@@ -1,3 +1,9 @@
+# C99 教材版验收
+
+本次结果见 [TEXTBOOK_ALIGNMENT.md](TEXTBOOK_ALIGNMENT.md)。111 个示例、128 个参考解、328 组挑战用例全部通过真实 C99 编译运行；528 道检测结构、教材导航映射和旧进度兼容验证通过。
+
+以下为早期版本验收记录，数量不代表当前教材版。
+
 # 验收记录
 
 首版本与 GitHub 迁移的历史记录如下；本轮功能补全结果见 [COMPARISON.md](COMPARISON.md)。

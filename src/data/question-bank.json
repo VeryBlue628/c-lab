@@ -44,11 +44,11 @@
     },
     {
       "type": "boolean",
-      "question": "本工坊使用 cout 输出 C11 文本。",
+      "question": "本工坊使用 cout 输出 C99 文本。",
       "answer": [
         "错误"
       ],
-      "explanation": "cout 属于 C++；C11 使用 printf 或 puts 等标准库函数。",
+      "explanation": "cout 属于 C++；C99 使用 printf 或 puts 等标准库函数。",
       "options": [
         "正确",
         "错误"
@@ -190,7 +190,7 @@
     },
     {
       "type": "boolean",
-      "question": "标准 C11 允许 /* 外层 /* 内层 */ 外层 */ 这种嵌套注释。",
+      "question": "标准 C99 允许 /* 外层 /* 内层 */ 外层 */ 这种嵌套注释。",
       "answer": [
         "错误"
       ],
@@ -263,7 +263,7 @@
     },
     {
       "type": "boolean",
-      "question": "标准 C11 可以在 main 内定义另一个普通函数。",
+      "question": "标准 C99 可以在 main 内定义另一个普通函数。",
       "answer": [
         "错误"
       ],
@@ -356,7 +356,7 @@
     },
     {
       "type": "boolean",
-      "question": "int 在所有 C11 实现中都固定为 32 位。",
+      "question": "int 在所有 C99 实现中都固定为 32 位。",
       "answer": [
         "错误"
       ],
@@ -430,7 +430,7 @@
       "answer": [
         "-2"
       ],
-      "explanation": "C11 整数除法朝零截断。",
+      "explanation": "C99 整数除法朝零截断。",
       "id": "c2-2-q2"
     },
     {
@@ -725,7 +725,7 @@
     },
     {
       "type": "fill",
-      "question": "C11 中提供 bool 宏的头文件是什么？",
+      "question": "C99 中提供 bool 宏的头文件是什么？",
       "answer": [
         "stdbool.h"
       ],
@@ -743,7 +743,7 @@
     },
     {
       "type": "boolean",
-      "question": "C11 的原生布尔类型名称是 _Bool。",
+      "question": "C99 的原生布尔类型名称是 _Bool。",
       "answer": [
         "正确"
       ],
@@ -767,7 +767,7 @@
   "c2-6": [
     {
       "type": "boolean",
-      "question": "判断：const int x = 3; x = 4; 能正常通过标准 C11 编译。",
+      "question": "判断：const int x = 3; x = 4; 能正常通过标准 C99 编译。",
       "options": [
         "正确",
         "错误"
@@ -838,11 +838,11 @@
     },
     {
       "type": "boolean",
-      "question": "C11 中的 const int 总是整型常量表达式。",
+      "question": "C99 中的 const int 总是整型常量表达式。",
       "answer": [
         "错误"
       ],
-      "explanation": "不能把 C++ 的常量规则直接套到 C11。",
+      "explanation": "不能把 C++ 的常量规则直接套到 C99。",
       "options": [
         "正确",
         "错误"
@@ -3805,7 +3805,7 @@
   "c7-6": [
     {
       "type": "single",
-      "question": "哪个是声明“无参数且返回 int”的规范 C11 原型？",
+      "question": "哪个是声明“无参数且返回 int”的规范 C99 原型？",
       "options": [
         "int f(void);",
         "int f();",
@@ -3814,7 +3814,7 @@
       "answer": [
         "int f(void);"
       ],
-      "explanation": "void 参数列表明确说明没有参数；空括号在 C11 的声明中不提供这种类型约束。",
+      "explanation": "void 参数列表明确说明没有参数；空括号在 C99 的声明中不提供这种类型约束。",
       "id": "c7-6-q1"
     },
     {
@@ -3841,7 +3841,7 @@
     },
     {
       "type": "boolean",
-      "question": "C11 的 int f(); 声明与 int f(void); 提供相同的参数信息。",
+      "question": "C99 的 int f(); 声明与 int f(void); 提供相同的参数信息。",
       "answer": [
         "错误"
       ],

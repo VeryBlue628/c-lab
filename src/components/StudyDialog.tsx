@@ -12,7 +12,7 @@ import {
   Code2,
   Lightbulb,
 } from "lucide-react";
-import { chapters, lessons } from "../data/curriculum";
+import { chapters, lessons, curriculumStats } from "../data/curriculum";
 import { reinforcement } from "../data/reinforcement";
 import { accuracy, completed, type Progress } from "../services/progress";
 import { Quiz } from "./Quiz";
@@ -129,7 +129,7 @@ export function StudyDialog({
                 <CheckCircle2 size={18} />
                 <strong>
                   {count}
-                  <small>/ 63</small>
+                  <small>/ {lessons.length}</small>
                 </strong>
                 <span>已完成课程</span>
               </div>
@@ -153,13 +153,13 @@ export function StudyDialog({
                 lessons.filter((l) => progress.records[l.id]?.practicePassed)
                   .length
               }
-              /63 · Mastery 已通过{" "}
+              /{lessons.length} · Mastery 已通过{" "}
               {
                 lessons.filter(
                   (l) => progress.records[l.id]?.tasks?.mastery?.passed,
                 ).length
               }
-              /17
+              /{curriculumStats.mastery}
             </p>
             <div className="chapter-progress-list">
               {chapters.map((c) => {
@@ -471,15 +471,17 @@ export function StudyDialog({
               <Lightbulb size={17} />
             </div>
             <div className="reinforcement-tabs">
-              {chapters.map((c) => (
-                <button
-                  key={c.id}
-                  className={extra === c.id ? "selected" : ""}
-                  onClick={() => setExtra(c.id)}
-                >
-                  {c.title}
-                </button>
-              ))}
+              {chapters
+                .filter((c) => reinforcement[c.id])
+                .map((c) => (
+                  <button
+                    key={c.id}
+                    className={extra === c.id ? "selected" : ""}
+                    onClick={() => setExtra(c.id)}
+                  >
+                    {c.title}
+                  </button>
+                ))}
             </div>
             {extra && (
               <Quiz

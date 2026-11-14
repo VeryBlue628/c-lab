@@ -25,7 +25,7 @@ await fs.writeFile(
 );
 let worker = new Worker(wrapper);
 let serial = 0;
-function job(code, inputs, timeout = 20000) {
+function job(code, inputs, timeout = 20000, options = []) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       worker.terminate();
@@ -39,7 +39,7 @@ function job(code, inputs, timeout = 20000) {
       }
     };
     worker.on("message", handler);
-    worker.postMessage({ code, inputs });
+    worker.postMessage({ code, inputs, options });
   });
 }
 const normalize = (s) =>
@@ -56,24 +56,44 @@ const report = {
   testCases: 0,
   errors: [],
 };
-for (let i = 1; i <= 9; i++) {
+for (let i = 1; i <= 16; i++) {
   const c = await readChapter(i);
   for (const l of c.lessons) {
     for (const kind of ["example", "solution"]) {
       const code = kind === "example" ? l.example : l.challenge.solution;
       const cases =
         kind === "example"
-          ? [{ input: l.exampleInput || "", output: l.exampleOutput }]
+          ? [
+              {
+                input: l.exampleInput || "",
+                output: l.exampleOutput,
+                files: l.exampleFiles,
+                args: l.exampleArgs,
+              },
+            ]
           : l.challenge.tests;
       const runs = await job(
         code,
         cases.map((c) => c.input),
+        20000,
+        cases.map((t) => ({
+          files: {
+            ...(kind === "solution" ? l.challenge.files : {}),
+            ...t.files,
+          },
+          args: t.args ?? (kind === "solution" ? l.challenge.args : undefined),
+        })),
       );
       for (let t = 0; t < cases.length; t++) {
         const r = runs[t];
         if (
           r?.status !== "success" ||
-          normalize(r.stdout) !== normalize(cases[t].output)
+          normalize(r.stdout) !== normalize(cases[t].output) ||
+          !Object.entries(cases[t].expectedFiles || {}).every(
+            ([n, c]) =>
+              JSON.stringify(r?.files?.[n]) ===
+              JSON.stringify([...new TextEncoder().encode(c)]),
+          )
         )
           report.errors.push({
             lesson: l.id,
@@ -118,6 +138,27 @@ for (const [id, m] of Object.entries(mastery)) {
   report.mastery++;
   report.testCases += m.tests.length;
 }
+await fs.writeFile(
+  path.join(work, "compiler-report.json"),
+  JSON.stringify(report, null, 2),
+);
+const standard = await job(
+  '#include <stdio.h>\nint main(void){printf("%ld",(long)__STDC_VERSION__);return 0;}',
+  [""],
+);
+assert.equal(standard[0].stdout, "199901", JSON.stringify(standard));
+for (const extension of [
+  '_Static_assert(1,"ok");int main(void){return 0;}',
+  "int main(void){return _Generic(1,int:0,default:1);}",
+]) {
+  const check = await job(extension, [""]);
+  assert.equal(check[0].status, "compile-error");
+}
+report.standard = "C99 (199901L), C11 extensions rejected";
+const fileIsolation=await job('#include <stdio.h>\nint main(void){FILE*f=fopen("fresh.txt","r");if(f){fclose(f);puts("stale");return 0;}f=fopen("/fresh.txt","w");if(!f)return 1;fputs("ok",f);if(fclose(f)!=0)return 1;puts("fresh");return 0;}',["",""]);
+assert(fileIsolation.every(r=>r.status==="success"&&r.stdout.trim()==="fresh"));
+assert(fileIsolation.every(r=>JSON.stringify(r.files["fresh.txt"])==="[111,107]"));
+report.fileIsolation="fresh virtual FS per test; absolute and relative paths supported";
 const bad = await job("int main(void) { missing syntax }", [""]);
 assert.equal(bad[0].status, "compile-error");
 const trap = await job("int main(void) { __builtin_trap(); }", [""]);

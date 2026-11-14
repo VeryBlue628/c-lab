@@ -1,0 +1,5207 @@
+[
+  {
+    "id": 10,
+    "en": "Algorithms & C99",
+    "title": "算法与 C99 补充",
+    "description": "教材第 1—5 章补充：算法表达、标准、类型和典型求解过程。",
+    "lessons": [
+      {
+        "id": "c10-1",
+        "chapter": 10,
+        "index": 0,
+        "title": "把算法画出来",
+        "en": "Representing Algorithms",
+        "textbook": "2.1—2.6",
+        "objective": "比较两个整数并输出较大值",
+        "explanation": [
+          "算法描述的是解决一类问题的有限步骤；程序还要选择数据的表示方式。一个算法允许零个或多个输入，必须产生输出；每一步应明确、可执行，并在有限步骤后结束。先写步骤再写代码，能把思路错误和语法错误分开。",
+          "同一个判断可用自然语言、流程图、N-S 图、伪代码和 C 表达。流程图用菱形表示条件，用箭头连接路径；N-S 图把选择和循环放进嵌套矩形，不依赖随意跳转。顺序、选择、循环组合出结构化程序，再把复杂任务逐层分解。"
+        ],
+        "syntax": "伪代码：读入 a,b → 若 a>b 则输出 a，否则输出 b\n流程图：开始 → 输入 → [a>b?] ┬是→输出 a→结束\n                                  └否→输出 b→结束\nN-S 图：┌ 读入 a,b ──────────┐\n         ├ a>b：是 │ 否      ┤\n         │ 输出 a  │ 输出 b  │\n         └─────────┴─────────┘",
+        "syntaxNotes": "先定义输入与输出，再让两个分支各产生一个结果；相等时输出任意一个即可。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if (scanf(\"%d%d\",&a,&b)!=2) return 1;\n    printf(\"%d\\n\", a>b?a:b);\n    return 0;\n}\n",
+        "exampleInput": "4 9",
+        "exampleOutput": "9\n",
+        "walkthrough": "先定义输入与输出，再让两个分支各产生一个结果；相等时输出任意一个即可。",
+        "mistakes": [
+          "循环没有终止条件时不满足有穷性，不能只看某一步能执行。",
+          "有穷性要求算法结束，循环可以存在，但必须有终止依据。"
+        ],
+        "summary": "比较两个整数并输出较大值",
+        "quizzes": [
+          {
+            "id": "c10-1-q1",
+            "type": "single",
+            "question": "哪个描述符合算法的有穷性？",
+            "options": [
+              "对允许的输入，有限步骤后结束",
+              "必须包含 for 语句",
+              "必须只有一个输入"
+            ],
+            "answer": [
+              "对允许的输入，有限步骤后结束"
+            ],
+            "explanation": "有穷性要求算法结束，循环可以存在，但必须有终止依据。"
+          },
+          {
+            "id": "c10-1-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "9"
+            ],
+            "explanation": "先定义输入与输出，再让两个分支各产生一个结果；相等时输出任意一个即可。"
+          },
+          {
+            "id": "c10-1-q3",
+            "type": "boolean",
+            "question": "无限打印数字且没有终止条件，也满足算法的有穷性。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "循环没有终止条件时不满足有穷性，不能只看某一步能执行。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-1-q1",
+          "type": "single",
+          "question": "哪个描述符合算法的有穷性？",
+          "options": [
+            "对允许的输入，有限步骤后结束",
+            "必须包含 for 语句",
+            "必须只有一个输入"
+          ],
+          "answer": [
+            "对允许的输入，有限步骤后结束"
+          ],
+          "explanation": "有穷性要求算法结束，循环可以存在，但必须有终止依据。"
+        },
+        "challenge": {
+          "id": "c10-1-practice",
+          "title": "比较两个整数并输出较大值",
+          "difficulty": "Easy",
+          "description": "比较两个整数并输出较大值。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 int 范围内的整数 a、b。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "4 9",
+              "output": "9\n"
+            },
+            {
+              "input": "-2 -5",
+              "output": "-2\n"
+            },
+            {
+              "input": "7 7",
+              "output": "7\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 比较两个整数并输出较大值 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if (scanf(\"%d%d\",&a,&b)!=2) return 1;\n    printf(\"%d\\n\", a>b?a:b);\n    return 0;\n}\n",
+          "hints": [
+            "伪代码：读入 a,b → 若 a>b 则输出 a，否则输出 b",
+            "先定义输入与输出，再让两个分支各产生一个结果；相等时输出任意一个即可。",
+            "循环没有终止条件时不满足有穷性，不能只看某一步能执行。"
+          ]
+        }
+      },
+      {
+        "id": "c10-2",
+        "chapter": 10,
+        "index": 1,
+        "title": "用结构化步骤求最大公约数",
+        "en": "Euclidean Algorithm",
+        "textbook": "2.3、2.6、5.8",
+        "objective": "用辗转相除求两个正整数的最大公约数",
+        "explanation": [
+          "问题可以分解为读入、计算、输出三个部分。求最大公约数时，用 gcd(a,b)=gcd(b,a%b) 把规模缩小；当余数为零时，最后的非零除数就是答案。不要用没有依据的重复试算代替可说明的步骤。",
+          "跟踪 a、b、r 的表格，可以观察每次循环是否保持公约数不变。循环中先保存余数，再更新两个变量，避免前一次赋值覆盖后一步需要的数据。正整数条件也保证每次取模的除数非零。"
+        ],
+        "syntax": "while (b != 0) { int r=a%b; a=b; b=r; }",
+        "syntaxNotes": "输入均为 1..1000000；b 递减到零后 a 为所求结果。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2 || a<=0 || b<=0) return 1;\n    while(b){int r=a%b; a=b; b=r;}\n    printf(\"%d\\n\",a);\n    return 0;\n}\n",
+        "exampleInput": "48 18",
+        "exampleOutput": "6\n",
+        "walkthrough": "输入均为 1..1000000；b 递减到零后 a 为所求结果。",
+        "mistakes": [
+          "取余才保持公约数关系，整除的商不能替代余数。",
+          "赋值会改变变量当前值，后续表达式看到的是新值。临时变量明确保存旧值。"
+        ],
+        "summary": "用辗转相除求两个正整数的最大公约数",
+        "quizzes": [
+          {
+            "id": "c10-2-q1",
+            "type": "single",
+            "question": "为什么先用 r 保存 a%b？",
+            "options": [
+              "为了把 int 变成浮点数",
+              "因为每个循环必须有三个变量",
+              "防止更新 a 后丢失原始数据"
+            ],
+            "answer": [
+              "防止更新 a 后丢失原始数据"
+            ],
+            "explanation": "赋值会改变变量当前值，后续表达式看到的是新值。临时变量明确保存旧值。"
+          },
+          {
+            "id": "c10-2-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "6"
+            ],
+            "explanation": "输入均为 1..1000000；b 递减到零后 a 为所求结果。"
+          },
+          {
+            "id": "c10-2-q3",
+            "type": "boolean",
+            "question": "只要把 % 换成 /，算法仍然求最大公约数。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "取余才保持公约数关系，整除的商不能替代余数。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-2-q1",
+          "type": "single",
+          "question": "为什么先用 r 保存 a%b？",
+          "options": [
+            "为了把 int 变成浮点数",
+            "因为每个循环必须有三个变量",
+            "防止更新 a 后丢失原始数据"
+          ],
+          "answer": [
+            "防止更新 a 后丢失原始数据"
+          ],
+          "explanation": "赋值会改变变量当前值，后续表达式看到的是新值。临时变量明确保存旧值。"
+        },
+        "challenge": {
+          "id": "c10-2-practice",
+          "title": "用辗转相除求两个正整数的最大公约数",
+          "difficulty": "Easy",
+          "description": "用辗转相除求两个正整数的最大公约数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 1..1000000 的正整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "48 18",
+              "output": "6\n"
+            },
+            {
+              "input": "17 13",
+              "output": "1\n"
+            },
+            {
+              "input": "25 25",
+              "output": "25\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用辗转相除求两个正整数的最大公约数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2 || a<=0 || b<=0) return 1;\n    while(b){int r=a%b; a=b; b=r;}\n    printf(\"%d\\n\",a);\n    return 0;\n}\n",
+          "hints": [
+            "while (b != 0) { int r=a%b; a=b; b=r; }",
+            "输入均为 1..1000000；b 递减到零后 a 为所求结果。",
+            "取余才保持公约数关系，整除的商不能替代余数。"
+          ]
+        }
+      },
+      {
+        "id": "c10-3",
+        "chapter": 10,
+        "index": 2,
+        "title": "认识 C99 与编译过程",
+        "en": "C99 and the Build Pipeline",
+        "textbook": "1.1—1.6",
+        "objective": "输出当前 C 标准版本宏",
+        "explanation": [
+          "C 语言把源代码交给编译系统处理。通常先预处理头文件与宏，再编译、汇编得到目标文件，最后链接库和其他目标文件成为可执行程序。编译通过只说明语言和链接检查通过，算法是否正确还要用测试验证。",
+          "本网站使用 C99 模式。C99 支持 // 注释、块内混合声明、for 初始化声明、long long、_Bool 和标准头文件 stdbool.h；_Generic 和 _Static_assert 是后来的 C99 特性。本机的 ABI、终端和系统库可能与浏览器 WASI 环境不同。"
+        ],
+        "syntax": "printf(\"%ld\\n\", (long)__STDC_VERSION__);",
+        "syntaxNotes": "C99 的 __STDC_VERSION__ 是 199901L；用 long 和 %ld 正确输出该宏。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    printf(\"%ld\\n\",(long)__STDC_VERSION__);\n    return 0;\n}\n",
+        "exampleInput": "",
+        "exampleOutput": "199901\n",
+        "walkthrough": "C99 的 __STDC_VERSION__ 是 199901L；用 long 和 %ld 正确输出该宏。",
+        "mistakes": [
+          "for(int i=0;...) 是 C99 支持的语法；C90 中不能这样写。",
+          "声明让编译器知道接口，链接时还需要找到函数定义或库实现。"
+        ],
+        "summary": "输出当前 C 标准版本宏",
+        "quizzes": [
+          {
+            "id": "c10-3-q1",
+            "type": "single",
+            "question": "源文件使用已声明但未定义的外部函数，通常在哪一步失败？",
+            "options": [
+              "预处理删除注释时",
+              "链接阶段",
+              "运行第一条 printf 时"
+            ],
+            "answer": [
+              "链接阶段"
+            ],
+            "explanation": "声明让编译器知道接口，链接时还需要找到函数定义或库实现。"
+          },
+          {
+            "id": "c10-3-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "199901"
+            ],
+            "explanation": "C99 的 __STDC_VERSION__ 是 199901L；用 long 和 %ld 正确输出该宏。"
+          },
+          {
+            "id": "c10-3-q3",
+            "type": "boolean",
+            "question": "C99 允许在 for 的初始化部分声明变量。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "正确"
+            ],
+            "explanation": "for(int i=0;...) 是 C99 支持的语法；C90 中不能这样写。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-3-q1",
+          "type": "single",
+          "question": "源文件使用已声明但未定义的外部函数，通常在哪一步失败？",
+          "options": [
+            "预处理删除注释时",
+            "链接阶段",
+            "运行第一条 printf 时"
+          ],
+          "answer": [
+            "链接阶段"
+          ],
+          "explanation": "声明让编译器知道接口，链接时还需要找到函数定义或库实现。"
+        },
+        "challenge": {
+          "id": "c10-3-practice",
+          "title": "输出当前 C 标准版本宏",
+          "difficulty": "Easy",
+          "description": "不硬编码版本号，用标准预定义宏输出正在使用的语言标准版本。",
+          "input": "无输入。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "",
+              "output": "199901\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 输出当前 C 标准版本宏 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    printf(\"%ld\\n\",(long)__STDC_VERSION__);\n    return 0;\n}\n",
+          "hints": [
+            "printf(\"%ld\\n\", (long)__STDC_VERSION__);",
+            "C99 的 __STDC_VERSION__ 是 199901L；用 long 和 %ld 正确输出该宏。",
+            "for(int i=0;...) 是 C99 支持的语法；C90 中不能这样写。"
+          ]
+        }
+      },
+      {
+        "id": "c10-4",
+        "chapter": 10,
+        "index": 3,
+        "title": "常量类型、整数范围与 sizeof",
+        "en": "Integer Types and Literals",
+        "textbook": "3.2、3.3、附录 B",
+        "objective": "计算非负 long long 整数的加法",
+        "explanation": [
+          "整数常量的进制和后缀共同决定候选类型。10 是十进制，010 是八进制，0x10 是十六进制；U 表示无符号，LL 表示 long long。浮点常量默认 double，1.0f 才是 float。字符常量如 'A' 的类型在 C 中是 int。",
+          "C99 规定整数类型的最小表示范围，不要求所有机器的 int 都是 4 字节。sizeof 的结果是 size_t，printf 用 %zu；limits.h 可查询范围。无符号运算按模回绕，有符号溢出是未定义行为，因此先约束输入范围。"
+        ],
+        "syntax": "long long n=10000000000LL;\nprintf(\"%lld %zu\", n, sizeof n);",
+        "syntaxNotes": "本题每个加数为 0..1000000000000，和远小于 long long 的最小保证上界。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    long long a,b;\n    if(scanf(\"%lld%lld\",&a,&b)!=2) return 1;\n    printf(\"%lld\\n\",a+b);\n    return 0;\n}\n",
+        "exampleInput": "10000000000 20",
+        "exampleOutput": "10000000020\n",
+        "walkthrough": "本题每个加数为 0..1000000000000，和远小于 long long 的最小保证上界。",
+        "mistakes": [
+          "有符号整数溢出是未定义行为；先保证结果在可表示范围内。",
+          "sizeof 返回 size_t，%zu 是对应的 C99 输出格式，不能假定它等同于 int。"
+        ],
+        "summary": "计算非负 long long 整数的加法",
+        "quizzes": [
+          {
+            "id": "c10-4-q1",
+            "type": "single",
+            "question": "C99 中 sizeof 表达式的结果应该用哪个格式输出？",
+            "options": [
+              "%zu",
+              "%d 总是正确",
+              "%f"
+            ],
+            "answer": [
+              "%zu"
+            ],
+            "explanation": "sizeof 返回 size_t，%zu 是对应的 C99 输出格式，不能假定它等同于 int。"
+          },
+          {
+            "id": "c10-4-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "10000000020"
+            ],
+            "explanation": "本题每个加数为 0..1000000000000，和远小于 long long 的最小保证上界。"
+          },
+          {
+            "id": "c10-4-q3",
+            "type": "boolean",
+            "question": "有符号整数溢出一定会自动回到负数，并且可移植。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "有符号整数溢出是未定义行为；先保证结果在可表示范围内。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-4-q1",
+          "type": "single",
+          "question": "C99 中 sizeof 表达式的结果应该用哪个格式输出？",
+          "options": [
+            "%zu",
+            "%d 总是正确",
+            "%f"
+          ],
+          "answer": [
+            "%zu"
+          ],
+          "explanation": "sizeof 返回 size_t，%zu 是对应的 C99 输出格式，不能假定它等同于 int。"
+        },
+        "challenge": {
+          "id": "c10-4-practice",
+          "title": "计算非负 long long 整数的加法",
+          "difficulty": "Easy",
+          "description": "计算非负 long long 整数的加法。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 0..1000000000000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "10000000000 20",
+              "output": "10000000020\n"
+            },
+            {
+              "input": "0 0",
+              "output": "0\n"
+            },
+            {
+              "input": "999999999999 1",
+              "output": "1000000000000\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 计算非负 long long 整数的加法 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    long long a,b;\n    if(scanf(\"%lld%lld\",&a,&b)!=2) return 1;\n    printf(\"%lld\\n\",a+b);\n    return 0;\n}\n",
+          "hints": [
+            "long long n=10000000000LL;",
+            "本题每个加数为 0..1000000000000，和远小于 long long 的最小保证上界。",
+            "有符号整数溢出是未定义行为；先保证结果在可表示范围内。"
+          ]
+        }
+      },
+      {
+        "id": "c10-5",
+        "chapter": 10,
+        "index": 4,
+        "title": "字符流与 EOF",
+        "en": "Character Streams",
+        "textbook": "3.5.5",
+        "objective": "用 getchar 统计一行或多行中的小写英文字母",
+        "explanation": [
+          "getchar 从标准输入读取一个字节，并以 int 返回字符值，读到末尾返回 EOF。用 char 保存结果可能把合法字节与 EOF 混淆，所以读取变量应为 int。这里按 ASCII 英文字母统计；一个 UTF-8 汉字通常占多个字节。",
+          "putchar 输出一个字符。字符、整数和字符编码相关但不同：'7' 是字符常量，7 是数值。先判断是否 EOF，再使用字符值；ctype.h 的分类函数只接受 EOF 或能表示为 unsigned char 的值。"
+        ],
+        "syntax": "int ch;\nwhile ((ch=getchar()) != EOF) { /* 处理一个字节 */ }",
+        "syntaxNotes": "用赋值外层的括号保证先保存返回值，再与 EOF 比较；输入结束后循环自然退出。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int ch,n=0;\n    while((ch=getchar())!=EOF) if(ch>='a' && ch<='z') n++;\n    printf(\"%d\\n\",n);\n    return 0;\n}\n",
+        "exampleInput": "Abc 9!\nxyz",
+        "exampleOutput": "5\n",
+        "walkthrough": "用赋值外层的括号保证先保存返回值，再与 EOF 比较；输入结束后循环自然退出。",
+        "mistakes": [
+          "读取操作先报告失败，EOF 标志才置位；应使用读取函数的返回值控制循环。",
+          "int 可以区分返回的字节值和 EOF；char 的符号性和范围因实现而异。"
+        ],
+        "summary": "用 getchar 统计一行或多行中的小写英文字母",
+        "quizzes": [
+          {
+            "id": "c10-5-q1",
+            "type": "single",
+            "question": "getchar 的返回值应先存入什么类型？",
+            "options": [
+              "char，因为输入是字符",
+              "float，可以保存 EOF",
+              "int"
+            ],
+            "answer": [
+              "int"
+            ],
+            "explanation": "int 可以区分返回的字节值和 EOF；char 的符号性和范围因实现而异。"
+          },
+          {
+            "id": "c10-5-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "5"
+            ],
+            "explanation": "用赋值外层的括号保证先保存返回值，再与 EOF 比较；输入结束后循环自然退出。"
+          },
+          {
+            "id": "c10-5-q3",
+            "type": "boolean",
+            "question": "while(!feof(stdin)) 能避免最后一个字符被重复处理。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "读取操作先报告失败，EOF 标志才置位；应使用读取函数的返回值控制循环。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-5-q1",
+          "type": "single",
+          "question": "getchar 的返回值应先存入什么类型？",
+          "options": [
+            "char，因为输入是字符",
+            "float，可以保存 EOF",
+            "int"
+          ],
+          "answer": [
+            "int"
+          ],
+          "explanation": "int 可以区分返回的字节值和 EOF；char 的符号性和范围因实现而异。"
+        },
+        "challenge": {
+          "id": "c10-5-practice",
+          "title": "用 getchar 统计一行或多行中的小写英文字母",
+          "difficulty": "Easy",
+          "description": "用 getchar 统计一行或多行中的小写英文字母。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "最多 10000 字节文本，读取到输入末尾。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "Abc 9!\nxyz",
+              "output": "5\n"
+            },
+            {
+              "input": "ABC",
+              "output": "0\n"
+            },
+            {
+              "input": "",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用 getchar 统计一行或多行中的小写英文字母 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int ch,n=0;\n    while((ch=getchar())!=EOF) if(ch>='a' && ch<='z') n++;\n    printf(\"%d\\n\",n);\n    return 0;\n}\n",
+          "hints": [
+            "int ch;",
+            "用赋值外层的括号保证先保存返回值，再与 EOF 比较；输入结束后循环自然退出。",
+            "读取操作先报告失败，EOF 标志才置位；应使用读取函数的返回值控制循环。"
+          ]
+        }
+      },
+      {
+        "id": "c10-6",
+        "chapter": 10,
+        "index": 5,
+        "title": "格式控制与有效输入",
+        "en": "Formatted Input and Output",
+        "textbook": "3.5.3—3.5.4",
+        "objective": "把两个实数的平均值保留两位小数输出",
+        "explanation": [
+          "格式字符串是函数与实参之间的约定。printf 中 %f 接收经过提升的 double，scanf 中 %f 需要 float*、%lf 需要 double*；混用会以错误的方式访问内存。输入成功与否要看 scanf 返回的成功转换项数。",
+          "输出宽度是最小字段宽度，精度控制小数位或有效数字；%8.2f 表示至少八列、保留两位小数，%e 是科学计数法，%g 选择紧凑形式。计算中使用浮点值，最后输出时再做显示舍入。"
+        ],
+        "syntax": "double x;\nif(scanf(\"%lf\",&x)==1) printf(\"%.2f\\n\",x);",
+        "syntaxNotes": "输入两个 double，scanf 返回 2 后才计算；用 %.2f 控制最终显示的小数位数。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    double a,b;\n    if(scanf(\"%lf%lf\",&a,&b)!=2) return 1;\n    printf(\"%.2f\\n\",(a+b)/2.0);\n    return 0;\n}\n",
+        "exampleInput": "1 2",
+        "exampleOutput": "1.50\n",
+        "walkthrough": "输入两个 double，scanf 返回 2 后才计算；用 %.2f 控制最终显示的小数位数。",
+        "mistakes": [
+          "输出精度只改变显示方式，变量保存的值不会被 printf 修改。",
+          "%lf 与 double* 匹配；还应检查返回值是否为 1。"
+        ],
+        "summary": "把两个实数的平均值保留两位小数输出",
+        "quizzes": [
+          {
+            "id": "c10-6-q1",
+            "type": "single",
+            "question": "scanf 读取 double 变量 x 应写什么？",
+            "options": [
+              "scanf(\"%lf\", x)",
+              "scanf(\"%lf\", &x)",
+              "scanf(\"%f\", &x)"
+            ],
+            "answer": [
+              "scanf(\"%lf\", &x)"
+            ],
+            "explanation": "%lf 与 double* 匹配；还应检查返回值是否为 1。"
+          },
+          {
+            "id": "c10-6-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "1.50"
+            ],
+            "explanation": "输入两个 double，scanf 返回 2 后才计算；用 %.2f 控制最终显示的小数位数。"
+          },
+          {
+            "id": "c10-6-q3",
+            "type": "boolean",
+            "question": "printf 的 %.2f 会把变量本身永久修改成两位小数。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "输出精度只改变显示方式，变量保存的值不会被 printf 修改。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-6-q1",
+          "type": "single",
+          "question": "scanf 读取 double 变量 x 应写什么？",
+          "options": [
+            "scanf(\"%lf\", x)",
+            "scanf(\"%lf\", &x)",
+            "scanf(\"%f\", &x)"
+          ],
+          "answer": [
+            "scanf(\"%lf\", &x)"
+          ],
+          "explanation": "%lf 与 double* 匹配；还应检查返回值是否为 1。"
+        },
+        "challenge": {
+          "id": "c10-6-practice",
+          "title": "把两个实数的平均值保留两位小数输出",
+          "difficulty": "Easy",
+          "description": "把两个实数的平均值保留两位小数输出。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个绝对值不超过 100000 的有限实数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1 2",
+              "output": "1.50\n"
+            },
+            {
+              "input": "-3 5",
+              "output": "1.00\n"
+            },
+            {
+              "input": "0 0",
+              "output": "0.00\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 把两个实数的平均值保留两位小数输出 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    double a,b;\n    if(scanf(\"%lf%lf\",&a,&b)!=2) return 1;\n    printf(\"%.2f\\n\",(a+b)/2.0);\n    return 0;\n}\n",
+          "hints": [
+            "double x;",
+            "输入两个 double，scanf 返回 2 后才计算；用 %.2f 控制最终显示的小数位数。",
+            "输出精度只改变显示方式，变量保存的值不会被 printf 修改。"
+          ]
+        }
+      },
+      {
+        "id": "c10-7",
+        "chapter": 10,
+        "index": 6,
+        "title": "提升、逗号与表达式求值",
+        "en": "Expression Evaluation",
+        "textbook": "3.3—3.4",
+        "objective": "使用逗号表达式更新后输出两个整数",
+        "explanation": [
+          "小整数参与算术运算前会发生整数提升，不同算术类型通常还要做通常算术转换。转换后再计算，最终赋值才转换为目标类型；把除法结果转成 double 不能补回整数除法已经丢失的小数。",
+          "逗号运算符先求左表达式，再求右表达式，整个表达式的值为右侧结果。函数实参之间的逗号只是分隔符，不提供同样的先后保证。C99 中同一变量在没有适当顺序保证的表达式里多次修改，可能导致未定义行为。"
+        ],
+        "syntax": "a+=1, b+=a; /* 此处逗号是运算符 */",
+        "syntaxNotes": "a 先加一，再把更新后的 a 加到 b；输入绝对值均不超过 1000，不会溢出。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2) return 1;\n    a+=1,b+=a;\n    printf(\"%d %d\\n\",a,b);\n    return 0;\n}\n",
+        "exampleInput": "2 3",
+        "exampleOutput": "3 6\n",
+        "walkthrough": "a 先加一，再把更新后的 a 加到 b；输入绝对值均不超过 1000，不会溢出。",
+        "mistakes": [
+          "函数实参没有这种顺序保证；不要在同一调用的实参中多次修改同一变量。",
+          "逗号运算符按顺序求值，以最后的表达式值作为整个表达式值。"
+        ],
+        "summary": "使用逗号表达式更新后输出两个整数",
+        "quizzes": [
+          {
+            "id": "c10-7-q1",
+            "type": "single",
+            "question": "表达式 (1, 2, 3) 的值是什么？",
+            "options": [
+              "3",
+              "1",
+              "6"
+            ],
+            "answer": [
+              "3"
+            ],
+            "explanation": "逗号运算符按顺序求值，以最后的表达式值作为整个表达式值。"
+          },
+          {
+            "id": "c10-7-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "3 6"
+            ],
+            "explanation": "a 先加一，再把更新后的 a 加到 b；输入绝对值均不超过 1000，不会溢出。"
+          },
+          {
+            "id": "c10-7-q3",
+            "type": "boolean",
+            "question": "printf(\"%d %d\", i++, i++) 在 C99 中保证从左到右更新 i。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "函数实参没有这种顺序保证；不要在同一调用的实参中多次修改同一变量。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-7-q1",
+          "type": "single",
+          "question": "表达式 (1, 2, 3) 的值是什么？",
+          "options": [
+            "3",
+            "1",
+            "6"
+          ],
+          "answer": [
+            "3"
+          ],
+          "explanation": "逗号运算符按顺序求值，以最后的表达式值作为整个表达式值。"
+        },
+        "challenge": {
+          "id": "c10-7-practice",
+          "title": "使用逗号表达式更新后输出两个整数",
+          "difficulty": "Easy",
+          "description": "使用逗号表达式更新后输出两个整数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "2 3",
+              "output": "3 6\n"
+            },
+            {
+              "input": "0 0",
+              "output": "1 1\n"
+            },
+            {
+              "input": "-2 5",
+              "output": "-1 4\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 使用逗号表达式更新后输出两个整数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2) return 1;\n    a+=1,b+=a;\n    printf(\"%d %d\\n\",a,b);\n    return 0;\n}\n",
+          "hints": [
+            "a+=1, b+=a; /* 此处逗号是运算符 */",
+            "a 先加一，再把更新后的 a 加到 b；输入绝对值均不超过 1000，不会溢出。",
+            "函数实参没有这种顺序保证；不要在同一调用的实参中多次修改同一变量。"
+          ]
+        }
+      },
+      {
+        "id": "c10-8",
+        "chapter": 10,
+        "index": 7,
+        "title": "试除法判断素数",
+        "en": "Prime Testing",
+        "textbook": "5.8",
+        "objective": "判断 2..1000000 的整数是不是素数",
+        "explanation": [
+          "素数只有 1 和自身两个正因数。如果 n 有因数 a、b 且 a*b=n，那么至少一个因数不超过平方根，因此不必尝试到 n-1。程序可以遇到因数就结束计算，用明确的标志表示当前结论。",
+          "写 d*d<=n 看起来直接，但对较大 int 可能溢出。使用 d<=n/d 表达同一边界，前提是 n 和 d 都为正。循环边界必须包含平方根，否则完全平方数可能被错判。"
+        ],
+        "syntax": "for(int d=2; d<=n/d; ++d)\n    if(n%d==0) { prime=0; break; }",
+        "syntaxNotes": "初始化 prime 为 n>=2；一旦找到因数就将标志清零。输出 1 表示素数，0 表示合数或小于 2。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1) return 1;\n    int prime=n>=2;\n    for(int d=2;d<=n/d;++d) if(n%d==0){prime=0;break;}\n    printf(\"%d\\n\",prime);\n    return 0;\n}\n",
+        "exampleInput": "29",
+        "exampleOutput": "1\n",
+        "walkthrough": "初始化 prime 为 n>=2；一旦找到因数就将标志清零。输出 1 表示素数，0 表示合数或小于 2。",
+        "mistakes": [
+          "素数定义要求大于 1，应先处理小于 2 的数。",
+          "例如 49 的非平凡小因数是 7；使用严格小于边界会漏掉它。"
+        ],
+        "summary": "判断 2..1000000 的整数是不是素数",
+        "quizzes": [
+          {
+            "id": "c10-8-q1",
+            "type": "single",
+            "question": "试除法为什么必须检查平方根这个边界？",
+            "options": [
+              "因为素数都是奇数",
+              "因为除法不能使用 int",
+              "完全平方数可能只有平方根处才找到因数"
+            ],
+            "answer": [
+              "完全平方数可能只有平方根处才找到因数"
+            ],
+            "explanation": "例如 49 的非平凡小因数是 7；使用严格小于边界会漏掉它。"
+          },
+          {
+            "id": "c10-8-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "1"
+            ],
+            "explanation": "初始化 prime 为 n>=2；一旦找到因数就将标志清零。输出 1 表示素数，0 表示合数或小于 2。"
+          },
+          {
+            "id": "c10-8-q3",
+            "type": "boolean",
+            "question": "1 是素数，因此 prime 应始终初始化为 1。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "素数定义要求大于 1，应先处理小于 2 的数。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-8-q1",
+          "type": "single",
+          "question": "试除法为什么必须检查平方根这个边界？",
+          "options": [
+            "因为素数都是奇数",
+            "因为除法不能使用 int",
+            "完全平方数可能只有平方根处才找到因数"
+          ],
+          "answer": [
+            "完全平方数可能只有平方根处才找到因数"
+          ],
+          "explanation": "例如 49 的非平凡小因数是 7；使用严格小于边界会漏掉它。"
+        },
+        "challenge": {
+          "id": "c10-8-practice",
+          "title": "判断 2..1000000 的整数是不是素数",
+          "difficulty": "Easy",
+          "description": "判断 2..1000000 的整数是不是素数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 1..1000000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "29",
+              "output": "1\n"
+            },
+            {
+              "input": "49",
+              "output": "0\n"
+            },
+            {
+              "input": "1",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 判断 2..1000000 的整数是不是素数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1) return 1;\n    int prime=n>=2;\n    for(int d=2;d<=n/d;++d) if(n%d==0){prime=0;break;}\n    printf(\"%d\\n\",prime);\n    return 0;\n}\n",
+          "hints": [
+            "for(int d=2; d<=n/d; ++d)",
+            "初始化 prime 为 n>=2；一旦找到因数就将标志清零。输出 1 表示素数，0 表示合数或小于 2。",
+            "素数定义要求大于 1，应先处理小于 2 的数。"
+          ]
+        }
+      },
+      {
+        "id": "c10-9",
+        "chapter": 10,
+        "index": 8,
+        "title": "用迭代逼近平方根",
+        "en": "Numerical Iteration",
+        "textbook": "5.8",
+        "objective": "用牛顿迭代求正实数的平方根",
+        "explanation": [
+          "某些数值问题可以从一个初始近似值出发，反复修正。求 x 的平方根时令 t 的下一值为 (t+x/t)/2；两次近似足够接近时结束。浮点计算一般用误差阈值判断收敛，直接要求相等可能失去对误差的控制。",
+          "程序还要限制迭代次数，以免数值异常时一直循环。本题限定 x>0，初始值也为正，避免除零。将算法、停止条件、输入范围与输出精度一起设计，才能得到稳定的数值程序。"
+        ],
+        "syntax": "next=(t+x/t)/2.0;\nif(fabs(next-t)<1e-10) break;",
+        "syntaxNotes": "从 x>1?x:1 开始，最多迭代 100 次；输出保留四位小数。",
+        "example": "#include <stdio.h>\n#include <math.h>\n\nint main(void) {\n    double x; if(scanf(\"%lf\",&x)!=1 || x<=0) return 1;\n    double t=x>1?x:1;\n    for(int i=0;i<100;i++){double next=(t+x/t)/2; if(fabs(next-t)<1e-10){t=next;break;} t=next;}\n    printf(\"%.4f\\n\",t);\n    return 0;\n}\n",
+        "exampleInput": "2",
+        "exampleOutput": "1.4142\n",
+        "walkthrough": "从 x>1?x:1 开始，最多迭代 100 次；输出保留四位小数。",
+        "mistakes": [
+          "t 为零会导致除零，必须先设计零输入分支或限定输入为正。",
+          "容差对应精度要求，还应加上最大迭代次数作为保护。"
+        ],
+        "summary": "用牛顿迭代求正实数的平方根",
+        "quizzes": [
+          {
+            "id": "c10-9-q1",
+            "type": "single",
+            "question": "数值迭代通常用什么判断相邻近似足够接近？",
+            "options": [
+              "固定只做一次迭代",
+              "差的绝对值小于指定误差",
+              "一定要浮点值逐位相等"
+            ],
+            "answer": [
+              "差的绝对值小于指定误差"
+            ],
+            "explanation": "容差对应精度要求，还应加上最大迭代次数作为保护。"
+          },
+          {
+            "id": "c10-9-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "1.4142"
+            ],
+            "explanation": "从 x>1?x:1 开始，最多迭代 100 次；输出保留四位小数。"
+          },
+          {
+            "id": "c10-9-q3",
+            "type": "boolean",
+            "question": "输入为零也可以直接套用任何初始值为零的 x/t 计算。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "t 为零会导致除零，必须先设计零输入分支或限定输入为正。"
+          }
+        ],
+        "quiz": {
+          "id": "c10-9-q1",
+          "type": "single",
+          "question": "数值迭代通常用什么判断相邻近似足够接近？",
+          "options": [
+            "固定只做一次迭代",
+            "差的绝对值小于指定误差",
+            "一定要浮点值逐位相等"
+          ],
+          "answer": [
+            "差的绝对值小于指定误差"
+          ],
+          "explanation": "容差对应精度要求，还应加上最大迭代次数作为保护。"
+        },
+        "challenge": {
+          "id": "c10-9-practice",
+          "title": "用牛顿迭代求正实数的平方根",
+          "difficulty": "Easy",
+          "description": "用牛顿迭代求正实数的平方根。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 0.0001..10000 的正实数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "2",
+              "output": "1.4142\n"
+            },
+            {
+              "input": "9",
+              "output": "3.0000\n"
+            },
+            {
+              "input": "0.25",
+              "output": "0.5000\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用牛顿迭代求正实数的平方根 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <math.h>\n\nint main(void) {\n    double x; if(scanf(\"%lf\",&x)!=1 || x<=0) return 1;\n    double t=x>1?x:1;\n    for(int i=0;i<100;i++){double next=(t+x/t)/2; if(fabs(next-t)<1e-10){t=next;break;} t=next;}\n    printf(\"%.4f\\n\",t);\n    return 0;\n}\n",
+          "hints": [
+            "next=(t+x/t)/2.0;",
+            "从 x>1?x:1 开始，最多迭代 100 次；输出保留四位小数。",
+            "t 为零会导致除零，必须先设计零输入分支或限定输入为正。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "en": "Character Arrays & Strings",
+    "title": "字符数组与字符串",
+    "description": "教材第 6 章补充：终止符、安全输入与字符串处理。",
+    "lessons": [
+      {
+        "id": "c11-1",
+        "chapter": 11,
+        "index": 0,
+        "title": "字符数组不是普通文本盒子",
+        "en": "Null-Terminated Strings",
+        "textbook": "6.3.1—6.3.4",
+        "objective": "计算一个单词的长度",
+        "explanation": [
+          "C 字符串是以值为零的字符结束的 char 序列，终止符写作 \\0。char s[]=\"cat\" 实际分配四个元素，最后一个是终止符；字符数组如果没有终止符，就不能直接交给 strlen 或 %s。",
+          "数组容量和文本长度是不同的量：sizeof s 给出整个数组占用的字节数，strlen(s) 从起点读到终止符之前。读取单词时必须为最后的终止符留下一个位置，scanf 的字段宽度不包含自动追加的终止符。"
+        ],
+        "syntax": "char s[81];\nscanf(\"%80s\",s);\nprintf(\"%zu\",strlen(s));",
+        "syntaxNotes": "容量为 81，最多读取 80 个非空白字节；长度不包含终止符。",
+        "example": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[81];\n    if(scanf(\"%80s\",s)!=1) return 1;\n    printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
+        "exampleInput": "hello",
+        "exampleOutput": "5\n",
+        "walkthrough": "容量为 81，最多读取 80 个非空白字节；长度不包含终止符。",
+        "mistakes": [
+          "strlen 只统计终止符之前的字节，不包含终止符本身。",
+          "三个可见字符后还有一个零终止符；数组容量必须容纳它。"
+        ],
+        "summary": "计算一个单词的长度",
+        "quizzes": [
+          {
+            "id": "c11-1-q1",
+            "type": "single",
+            "question": "char s[]=\"cat\"; 的数组容量是多少个 char？",
+            "options": [
+              "4",
+              "3",
+              "取决于 strlen 的实现"
+            ],
+            "answer": [
+              "4"
+            ],
+            "explanation": "三个可见字符后还有一个零终止符；数组容量必须容纳它。"
+          },
+          {
+            "id": "c11-1-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "5"
+            ],
+            "explanation": "容量为 81，最多读取 80 个非空白字节；长度不包含终止符。"
+          },
+          {
+            "id": "c11-1-q3",
+            "type": "boolean",
+            "question": "strlen 会统计字符串结束的 \\0。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "strlen 只统计终止符之前的字节，不包含终止符本身。"
+          }
+        ],
+        "quiz": {
+          "id": "c11-1-q1",
+          "type": "single",
+          "question": "char s[]=\"cat\"; 的数组容量是多少个 char？",
+          "options": [
+            "4",
+            "3",
+            "取决于 strlen 的实现"
+          ],
+          "answer": [
+            "4"
+          ],
+          "explanation": "三个可见字符后还有一个零终止符；数组容量必须容纳它。"
+        },
+        "challenge": {
+          "id": "c11-1-practice",
+          "title": "计算一个单词的长度",
+          "difficulty": "Easy",
+          "description": "计算一个单词的长度。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个不含空白、长度 1..80 的 ASCII 单词。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "hello",
+              "output": "5\n"
+            },
+            {
+              "input": "C",
+              "output": "1\n"
+            },
+            {
+              "input": "abc123",
+              "output": "6\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 计算一个单词的长度 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[81];\n    if(scanf(\"%80s\",s)!=1) return 1;\n    printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
+          "hints": [
+            "char s[81];",
+            "容量为 81，最多读取 80 个非空白字节；长度不包含终止符。",
+            "strlen 只统计终止符之前的字节，不包含终止符本身。"
+          ]
+        }
+      },
+      {
+        "id": "c11-2",
+        "chapter": 11,
+        "index": 1,
+        "title": "读取含空格的一整行",
+        "en": "Safe Line Input",
+        "textbook": "6.3.5",
+        "objective": "读入一行并去掉行末换行后输出长度",
+        "explanation": [
+          "%s 遇到空白就停止，所以不能读取姓名或句子中的空格。fgets 指定缓冲区容量，最多存入容量减一的字符，再补上终止符；如果读到了换行，这个换行会保留在数组中。返回 NULL 时不能把缓冲区当成新读到的字符串使用。",
+          "可以用 strcspn 找到第一个换行并替换成终止符。puts 输出字符串后另加一个换行。gets 无法知道目标容量，不能用于安全程序；不要把它作为 fgets 的替代方法。长于缓冲区的行需要分段读取或明确拒绝。"
+        ],
+        "syntax": "if(fgets(s,sizeof s,stdin))\n    s[strcspn(s,\"\\n\")]='\\0';",
+        "syntaxNotes": "本题一行最多 80 字节，用容量 82 读取整行，然后删除末尾换行。",
+        "example": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[82];\n    if(!fgets(s,sizeof s,stdin)) return 1;\n    s[strcspn(s,\"\\n\")]='\\0';\n    printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
+        "exampleInput": "hello C\n",
+        "exampleOutput": "7\n",
+        "walkthrough": "本题一行最多 80 字节，用容量 82 读取整行，然后删除末尾换行。",
+        "mistakes": [
+          "gets 没有容量参数，会造成越界风险；课程使用 fgets 和有宽度的 scanf。",
+          "fgets 在容量允许时保留读到的换行，必要时由程序删除。"
+        ],
+        "summary": "读入一行并去掉行末换行后输出长度",
+        "quizzes": [
+          {
+            "id": "c11-2-q1",
+            "type": "single",
+            "question": "fgets 成功读到换行时通常如何处理它？",
+            "options": [
+              "自动丢弃换行",
+              "把它替换成空格",
+              "保留在目标数组中"
+            ],
+            "answer": [
+              "保留在目标数组中"
+            ],
+            "explanation": "fgets 在容量允许时保留读到的换行，必要时由程序删除。"
+          },
+          {
+            "id": "c11-2-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "7"
+            ],
+            "explanation": "本题一行最多 80 字节，用容量 82 读取整行，然后删除末尾换行。"
+          },
+          {
+            "id": "c11-2-q3",
+            "type": "boolean",
+            "question": "gets 和 fgets 一样能够根据缓冲区容量限制输入。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "gets 没有容量参数，会造成越界风险；课程使用 fgets 和有宽度的 scanf。"
+          }
+        ],
+        "quiz": {
+          "id": "c11-2-q1",
+          "type": "single",
+          "question": "fgets 成功读到换行时通常如何处理它？",
+          "options": [
+            "自动丢弃换行",
+            "把它替换成空格",
+            "保留在目标数组中"
+          ],
+          "answer": [
+            "保留在目标数组中"
+          ],
+          "explanation": "fgets 在容量允许时保留读到的换行，必要时由程序删除。"
+        },
+        "challenge": {
+          "id": "c11-2-practice",
+          "title": "读入一行并去掉行末换行后输出长度",
+          "difficulty": "Easy",
+          "description": "读入一行并去掉行末换行后输出长度。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一行 0..80 个 ASCII 字节，可含空格。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "hello C\n",
+              "output": "7\n"
+            },
+            {
+              "input": "\n",
+              "output": "0\n"
+            },
+            {
+              "input": "a b c",
+              "output": "5\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 读入一行并去掉行末换行后输出长度 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[82];\n    if(!fgets(s,sizeof s,stdin)) return 1;\n    s[strcspn(s,\"\\n\")]='\\0';\n    printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
+          "hints": [
+            "if(fgets(s,sizeof s,stdin))",
+            "本题一行最多 80 字节，用容量 82 读取整行，然后删除末尾换行。",
+            "gets 没有容量参数，会造成越界风险；课程使用 fgets 和有宽度的 scanf。"
+          ]
+        }
+      },
+      {
+        "id": "c11-3",
+        "chapter": 11,
+        "index": 2,
+        "title": "复制与连接字符串",
+        "en": "Copy and Concatenate",
+        "textbook": "6.3.6",
+        "objective": "用连字符连接两个短单词",
+        "explanation": [
+          "数组不能像普通变量一样用 = 在定义后整体复制。strcpy 把源字符串连同终止符复制到目标，strcat 找到目标末尾再追加源字符串。目标容量必须事先足够，两块参与复制的区域也不能重叠。",
+          "strncpy 不保证源长度达到限制时补上终止符，不能盲目把它当作安全版 strcpy。本题每个单词最多 30 字节，连接一个连字符再加终止符，容量 62 足够；实际项目应先根据长度验证目标容量。"
+        ],
+        "syntax": "strcpy(out,a);\nstrcat(out,\"-\");\nstrcat(out,b);",
+        "syntaxNotes": "两段文本最长各 30 字节，最大结果长度 61，再留 1 字节给终止符。",
+        "example": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char a[31],b[31],out[62];\n    if(scanf(\"%30s%30s\",a,b)!=2) return 1;\n    strcpy(out,a);strcat(out,\"-\");strcat(out,b);\n    puts(out);\n    return 0;\n}\n",
+        "exampleInput": "red blue",
+        "exampleOutput": "red-blue\n",
+        "walkthrough": "两段文本最长各 30 字节，最大结果长度 61，再留 1 字节给终止符。",
+        "mistakes": [
+          "strcpy 连同末尾的零字符一起复制，目标需要额外一个字符位置。",
+          "strcat 从目标原终止符处继续写入，目标必须已经是有效字符串且可写。"
+        ],
+        "summary": "用连字符连接两个短单词",
+        "quizzes": [
+          {
+            "id": "c11-3-q1",
+            "type": "single",
+            "question": "strcat 的目标数组在调用前必须满足什么条件？",
+            "options": [
+              "只要指针非 NULL 就能连接",
+              "已有终止符且剩余容量足够",
+              "可以没有终止符"
+            ],
+            "answer": [
+              "已有终止符且剩余容量足够"
+            ],
+            "explanation": "strcat 从目标原终止符处继续写入，目标必须已经是有效字符串且可写。"
+          },
+          {
+            "id": "c11-3-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "red-blue"
+            ],
+            "explanation": "两段文本最长各 30 字节，最大结果长度 61，再留 1 字节给终止符。"
+          },
+          {
+            "id": "c11-3-q3",
+            "type": "boolean",
+            "question": "strcpy 只复制可见字符，不复制终止符。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "strcpy 连同末尾的零字符一起复制，目标需要额外一个字符位置。"
+          }
+        ],
+        "quiz": {
+          "id": "c11-3-q1",
+          "type": "single",
+          "question": "strcat 的目标数组在调用前必须满足什么条件？",
+          "options": [
+            "只要指针非 NULL 就能连接",
+            "已有终止符且剩余容量足够",
+            "可以没有终止符"
+          ],
+          "answer": [
+            "已有终止符且剩余容量足够"
+          ],
+          "explanation": "strcat 从目标原终止符处继续写入，目标必须已经是有效字符串且可写。"
+        },
+        "challenge": {
+          "id": "c11-3-practice",
+          "title": "用连字符连接两个短单词",
+          "difficulty": "Easy",
+          "description": "用连字符连接两个短单词。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 1..30 字节、无空白的 ASCII 单词。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "red blue",
+              "output": "red-blue\n"
+            },
+            {
+              "input": "a z",
+              "output": "a-z\n"
+            },
+            {
+              "input": "C 99",
+              "output": "C-99\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用连字符连接两个短单词 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char a[31],b[31],out[62];\n    if(scanf(\"%30s%30s\",a,b)!=2) return 1;\n    strcpy(out,a);strcat(out,\"-\");strcat(out,b);\n    puts(out);\n    return 0;\n}\n",
+          "hints": [
+            "strcpy(out,a);",
+            "两段文本最长各 30 字节，最大结果长度 61，再留 1 字节给终止符。",
+            "strcpy 连同末尾的零字符一起复制，目标需要额外一个字符位置。"
+          ]
+        }
+      },
+      {
+        "id": "c11-4",
+        "chapter": 11,
+        "index": 3,
+        "title": "按内容比较字符串",
+        "en": "Lexicographic Comparison",
+        "textbook": "6.3.6",
+        "objective": "比较两个单词并输出 -1、0 或 1",
+        "explanation": [
+          "字符串变量在表达式中通常转换成首元素指针，直接写 a==b 比较的是地址，不能判断内容。strcmp 逐字节比较两个以零结尾的字符串，遇到第一个不同字节或末尾时得出结果。",
+          "strcmp 返回负数、零或正数，不保证只返回 -1、0、1。要按指定格式输出时先判断结果的符号。比较大小按字符编码顺序进行，不等于自然语言中的拼音或词典排序；本题限制为小写英文字母。"
+        ],
+        "syntax": "int r=strcmp(a,b);\nprintf(\"%d\", (r>0)-(r<0));",
+        "syntaxNotes": "相同输出 0，前者较小输出 -1，前者较大输出 1；只依赖返回值符号。",
+        "example": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char a[41],b[41];\n    if(scanf(\"%40s%40s\",a,b)!=2) return 1;\n    int r=strcmp(a,b);\n    printf(\"%d\\n\",(r>0)-(r<0));\n    return 0;\n}\n",
+        "exampleInput": "apple banana",
+        "exampleOutput": "-1\n",
+        "walkthrough": "相同输出 0，前者较小输出 -1，前者较大输出 1；只依赖返回值符号。",
+        "mistakes": [
+          "数组转换成指针后，== 比较地址，比较内容应使用 strcmp。",
+          "标准只规定返回值的正负与相等关系，不规定差值大小。"
+        ],
+        "summary": "比较两个单词并输出 -1、0 或 1",
+        "quizzes": [
+          {
+            "id": "c11-4-q1",
+            "type": "single",
+            "question": "strcmp(a,b) 返回 -12 时说明什么？",
+            "options": [
+              "a 按字节序小于 b",
+              "a 的长度恰好少 12",
+              "调用失败"
+            ],
+            "answer": [
+              "a 按字节序小于 b"
+            ],
+            "explanation": "标准只规定返回值的正负与相等关系，不规定差值大小。"
+          },
+          {
+            "id": "c11-4-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "-1"
+            ],
+            "explanation": "相同输出 0，前者较小输出 -1，前者较大输出 1；只依赖返回值符号。"
+          },
+          {
+            "id": "c11-4-q3",
+            "type": "boolean",
+            "question": "两个不同数组保存相同文本时，a==b 一定为真。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "数组转换成指针后，== 比较地址，比较内容应使用 strcmp。"
+          }
+        ],
+        "quiz": {
+          "id": "c11-4-q1",
+          "type": "single",
+          "question": "strcmp(a,b) 返回 -12 时说明什么？",
+          "options": [
+            "a 按字节序小于 b",
+            "a 的长度恰好少 12",
+            "调用失败"
+          ],
+          "answer": [
+            "a 按字节序小于 b"
+          ],
+          "explanation": "标准只规定返回值的正负与相等关系，不规定差值大小。"
+        },
+        "challenge": {
+          "id": "c11-4-practice",
+          "title": "比较两个单词并输出 -1、0 或 1",
+          "difficulty": "Easy",
+          "description": "比较两个单词并输出 -1、0 或 1。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 1..40 个小写英文字母组成的单词。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "apple banana",
+              "output": "-1\n"
+            },
+            {
+              "input": "cat cat",
+              "output": "0\n"
+            },
+            {
+              "input": "zoo a",
+              "output": "1\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 比较两个单词并输出 -1、0 或 1 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char a[41],b[41];\n    if(scanf(\"%40s%40s\",a,b)!=2) return 1;\n    int r=strcmp(a,b);\n    printf(\"%d\\n\",(r>0)-(r<0));\n    return 0;\n}\n",
+          "hints": [
+            "int r=strcmp(a,b);",
+            "相同输出 0，前者较小输出 -1，前者较大输出 1；只依赖返回值符号。",
+            "数组转换成指针后，== 比较地址，比较内容应使用 strcmp。"
+          ]
+        }
+      },
+      {
+        "id": "c11-5",
+        "chapter": 11,
+        "index": 4,
+        "title": "亲手遍历字符串",
+        "en": "String Processing",
+        "textbook": "6.3.7",
+        "objective": "反转一个不含空格的字符串",
+        "explanation": [
+          "熟悉库函数之后，也要能写出对字符数组的遍历。字符串终止符提供长度边界；修改字符时不能把终止符覆盖成普通字符，也不能访问容量之外的位置。反转只需交换两端，逐步向中间推进。",
+          "空字符串会让 length-1 在无符号类型中下溢，所以循环条件应明确处理长度。这里先取长度，循环 i<n/2，再访问 n-1-i，只有长度至少为 2 才会进入交换。数组仍保留原来的末尾终止符。"
+        ],
+        "syntax": "for(size_t i=0;i<n/2;i++){\n    char t=s[i];s[i]=s[n-1-i];s[n-1-i]=t;\n}",
+        "syntaxNotes": "每次交换一对对称位置，最多处理一半字符；最后由 puts 输出一个换行。",
+        "example": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[81];if(scanf(\"%80s\",s)!=1)return 1;\n    size_t n=strlen(s);\n    for(size_t i=0;i<n/2;i++){char t=s[i];s[i]=s[n-1-i];s[n-1-i]=t;}\n    puts(s);\n    return 0;\n}\n",
+        "exampleInput": "abcd",
+        "exampleOutput": "dcba\n",
+        "walkthrough": "每次交换一对对称位置，最多处理一半字符；最后由 puts 输出一个换行。",
+        "mistakes": [
+          "终止符标记结束位置，不参与可见字符的反转。",
+          "若处理全部位置，后半轮会把之前的交换再换回来。"
+        ],
+        "summary": "反转一个不含空格的字符串",
+        "quizzes": [
+          {
+            "id": "c11-5-q1",
+            "type": "single",
+            "question": "为什么反转时只循环到 n/2？",
+            "options": [
+              "因为后半部分不可写",
+              "因为终止符算作一个字符",
+              "每次交换已经同时处理两端"
+            ],
+            "answer": [
+              "每次交换已经同时处理两端"
+            ],
+            "explanation": "若处理全部位置，后半轮会把之前的交换再换回来。"
+          },
+          {
+            "id": "c11-5-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "dcba"
+            ],
+            "explanation": "每次交换一对对称位置，最多处理一半字符；最后由 puts 输出一个换行。"
+          },
+          {
+            "id": "c11-5-q3",
+            "type": "boolean",
+            "question": "反转时应该把末尾终止符和第一个字符交换。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "终止符标记结束位置，不参与可见字符的反转。"
+          }
+        ],
+        "quiz": {
+          "id": "c11-5-q1",
+          "type": "single",
+          "question": "为什么反转时只循环到 n/2？",
+          "options": [
+            "因为后半部分不可写",
+            "因为终止符算作一个字符",
+            "每次交换已经同时处理两端"
+          ],
+          "answer": [
+            "每次交换已经同时处理两端"
+          ],
+          "explanation": "若处理全部位置，后半轮会把之前的交换再换回来。"
+        },
+        "challenge": {
+          "id": "c11-5-practice",
+          "title": "反转一个不含空格的字符串",
+          "difficulty": "Easy",
+          "description": "反转一个不含空格的字符串。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 1..80 字节的 ASCII 单词。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "abcd",
+              "output": "dcba\n"
+            },
+            {
+              "input": "x",
+              "output": "x\n"
+            },
+            {
+              "input": "level",
+              "output": "level\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 反转一个不含空格的字符串 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[81];if(scanf(\"%80s\",s)!=1)return 1;\n    size_t n=strlen(s);\n    for(size_t i=0;i<n/2;i++){char t=s[i];s[i]=s[n-1-i];s[n-1-i]=t;}\n    puts(s);\n    return 0;\n}\n",
+          "hints": [
+            "for(size_t i=0;i<n/2;i++){",
+            "每次交换一对对称位置，最多处理一半字符；最后由 puts 输出一个换行。",
+            "终止符标记结束位置，不参与可见字符的反转。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "en": "Scope & Modular Programs",
+    "title": "函数、作用域与模块",
+    "description": "教材第 7 章补充：生存期、链接属性、多文件和二维数组形参。",
+    "lessons": [
+      {
+        "id": "c12-1",
+        "chapter": 12,
+        "index": 0,
+        "title": "局部、全局与遮蔽",
+        "en": "Scope and Shadowing",
+        "textbook": "7.8",
+        "objective": "观察局部变量和全局变量的独立变化",
+        "explanation": [
+          "作用域决定标识符在源代码哪些位置可见。函数体内定义的变量是局部变量，文件作用域的变量通常称为全局变量；内层同名声明会遮蔽外层名称，但不会删除外层对象。优先使用清楚的名称和显式参数，减少意外共享状态。",
+          "函数参数也属于局部变量。把数据作为参数传递比隐式读写全局变量更容易测试。本例特意使用同名变量观察遮蔽：main 中的 value 与 show 中访问的文件作用域 value 是两个对象，修改前者不会改变后者。"
+        ],
+        "syntax": "int value=10;\nvoid show(void){ printf(\"%d\",value); }",
+        "syntaxNotes": "先打印 main 中读入的局部 value，再调用 show 打印全局的固定值 10。",
+        "example": "#include <stdio.h>\nint value=10;\nstatic void show(void){printf(\"%d\\n\",value); }\nint main(void) {\n    int value; if(scanf(\"%d\",&value)!=1)return 1;\n    printf(\"%d \",value);show();\n    return 0;\n}\n",
+        "exampleInput": "7",
+        "exampleOutput": "7 10\n",
+        "walkthrough": "先打印 main 中读入的局部 value，再调用 show 打印全局的固定值 10。",
+        "mistakes": [
+          "局部名称只在相应作用域可见，跨函数传递应使用参数或合适的接口。",
+          "名称查找选择内层可见声明，不改变外层对象的生存期。"
+        ],
+        "summary": "观察局部变量和全局变量的独立变化",
+        "quizzes": [
+          {
+            "id": "c12-1-q1",
+            "type": "single",
+            "question": "内层定义同名变量后，外层对象会怎样？",
+            "options": [
+              "仍然存在，但同名引用暂时被遮蔽",
+              "被自动销毁",
+              "与内层变量自动合并"
+            ],
+            "answer": [
+              "仍然存在，但同名引用暂时被遮蔽"
+            ],
+            "explanation": "名称查找选择内层可见声明，不改变外层对象的生存期。"
+          },
+          {
+            "id": "c12-1-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "7 10"
+            ],
+            "explanation": "先打印 main 中读入的局部 value，再调用 show 打印全局的固定值 10。"
+          },
+          {
+            "id": "c12-1-q3",
+            "type": "boolean",
+            "question": "一个函数的局部变量可以直接被另一个无关函数按名称访问。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "局部名称只在相应作用域可见，跨函数传递应使用参数或合适的接口。"
+          }
+        ],
+        "quiz": {
+          "id": "c12-1-q1",
+          "type": "single",
+          "question": "内层定义同名变量后，外层对象会怎样？",
+          "options": [
+            "仍然存在，但同名引用暂时被遮蔽",
+            "被自动销毁",
+            "与内层变量自动合并"
+          ],
+          "answer": [
+            "仍然存在，但同名引用暂时被遮蔽"
+          ],
+          "explanation": "名称查找选择内层可见声明，不改变外层对象的生存期。"
+        },
+        "challenge": {
+          "id": "c12-1-practice",
+          "title": "观察局部变量和全局变量的独立变化",
+          "difficulty": "Easy",
+          "description": "观察局部变量和全局变量的独立变化。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "7",
+              "output": "7 10\n"
+            },
+            {
+              "input": "-2",
+              "output": "-2 10\n"
+            },
+            {
+              "input": "10",
+              "output": "10 10\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 观察局部变量和全局变量的独立变化 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint value=10;\nstatic void show(void){printf(\"%d\\n\",value); }\nint main(void) {\n    int value; if(scanf(\"%d\",&value)!=1)return 1;\n    printf(\"%d \",value);show();\n    return 0;\n}\n",
+          "hints": [
+            "int value=10;",
+            "先打印 main 中读入的局部 value，再调用 show 打印全局的固定值 10。",
+            "局部名称只在相应作用域可见，跨函数传递应使用参数或合适的接口。"
+          ]
+        }
+      },
+      {
+        "id": "c12-2",
+        "chapter": 12,
+        "index": 1,
+        "title": "存储类别和生存期",
+        "en": "Storage Duration",
+        "textbook": "7.9",
+        "objective": "调用带 static 计数器的函数 n 次",
+        "explanation": [
+          "生存期决定对象在运行时存在多久。通常的块内变量具有自动存储期，每次进入块建立；static 局部变量具有静态存储期，整个程序运行期间存在，只初始化一次。没有显式初始化的静态存储期对象会被零初始化。",
+          "auto 显式说明自动存储类别，但平时一般省略；register 是优化建议，不保证放进寄存器，而且不能对 register 对象取地址。作用域和生存期要分开：static 局部变量仍只在块内可见，保存值并不使它成为全局名称。"
+        ],
+        "syntax": "int tick(void){static int n=0;return ++n;}",
+        "syntaxNotes": "调用次数 n 为 1..20，函数内计数器保留上一次的值，每次返回加一后的值。",
+        "example": "#include <stdio.h>\nstatic int tick(void){static int n=0;return ++n;}\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1 || n<1 || n>20)return 1;\n    for(int i=0;i<n;i++)printf(\"%s%d\",i?\" \":\"\",tick());\n    putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "3",
+        "exampleOutput": "1 2 3\n",
+        "walkthrough": "调用次数 n 为 1..20，函数内计数器保留上一次的值，每次返回加一后的值。",
+        "mistakes": [
+          "register 只是允许编译器考虑的建议，不能据此推断实际硬件位置。",
+          "静态存储期贯穿整个程序，但名称作用域仍是所在块。"
+        ],
+        "summary": "调用带 static 计数器的函数 n 次",
+        "quizzes": [
+          {
+            "id": "c12-2-q1",
+            "type": "single",
+            "question": "static 局部变量在函数返回后会怎样？",
+            "options": [
+              "每次返回都销毁",
+              "变成所有函数可见的名称",
+              "对象继续存在并保留值"
+            ],
+            "answer": [
+              "对象继续存在并保留值"
+            ],
+            "explanation": "静态存储期贯穿整个程序，但名称作用域仍是所在块。"
+          },
+          {
+            "id": "c12-2-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "1 2 3"
+            ],
+            "explanation": "调用次数 n 为 1..20，函数内计数器保留上一次的值，每次返回加一后的值。"
+          },
+          {
+            "id": "c12-2-q3",
+            "type": "boolean",
+            "question": "C99 的 register 声明保证对象必定位于 CPU 寄存器。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "register 只是允许编译器考虑的建议，不能据此推断实际硬件位置。"
+          }
+        ],
+        "quiz": {
+          "id": "c12-2-q1",
+          "type": "single",
+          "question": "static 局部变量在函数返回后会怎样？",
+          "options": [
+            "每次返回都销毁",
+            "变成所有函数可见的名称",
+            "对象继续存在并保留值"
+          ],
+          "answer": [
+            "对象继续存在并保留值"
+          ],
+          "explanation": "静态存储期贯穿整个程序，但名称作用域仍是所在块。"
+        },
+        "challenge": {
+          "id": "c12-2-practice",
+          "title": "调用带 static 计数器的函数 n 次",
+          "difficulty": "Easy",
+          "description": "调用带 static 计数器的函数 n 次。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 1..20 的整数 n。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3",
+              "output": "1 2 3\n"
+            },
+            {
+              "input": "1",
+              "output": "1\n"
+            },
+            {
+              "input": "5",
+              "output": "1 2 3 4 5\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 调用带 static 计数器的函数 n 次 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic int tick(void){static int n=0;return ++n;}\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1 || n<1 || n>20)return 1;\n    for(int i=0;i<n;i++)printf(\"%s%d\",i?\" \":\"\",tick());\n    putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "int tick(void){static int n=0;return ++n;}",
+            "调用次数 n 为 1..20，函数内计数器保留上一次的值，每次返回加一后的值。",
+            "register 只是允许编译器考虑的建议，不能据此推断实际硬件位置。"
+          ]
+        }
+      },
+      {
+        "id": "c12-3",
+        "chapter": 12,
+        "index": 2,
+        "title": "声明、定义与跨文件链接",
+        "en": "Multiple Translation Units",
+        "textbook": "7.10—7.11",
+        "objective": "通过头文件调用另一个源文件中的函数",
+        "explanation": [
+          "声明说明名称及其类型，定义还负责建立对象或给出函数体。头文件通常放函数原型和 extern 变量声明，每个需要使用接口的源文件包含它；变量定义通常只放在一个源文件，避免重复定义。头文件保护宏防止同一翻译单元重复展开。",
+          "文件作用域 static 函数或变量具有内部链接，只能被当前翻译单元按该链接名称引用；普通函数定义通常具有外部链接。网站会分别编译 main.c 和附加的 .c 文件，再链接。编辑下方 calc.h、calc.c，能实际观察接口不匹配和链接错误。"
+        ],
+        "syntax": "/* calc.h */\n#ifndef CALC_H\n#define CALC_H\nint twice(int n);\nextern int bias;\n#endif",
+        "syntaxNotes": "main.c 包含 calc.h；calc.c 定义 bias 和 twice，内部 helper 用 static 隐藏；计算 2*n+1。",
+        "example": "#include <stdio.h>\n #include \"calc.h\"\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    printf(\"%d\\n\",twice(n)+bias);\n    return 0;\n}\n",
+        "exampleInput": "3",
+        "exampleOutput": "7\n",
+        "walkthrough": "main.c 包含 calc.h；calc.c 定义 bias 和 twice，内部 helper 用 static 隐藏；计算 2*n+1。",
+        "mistakes": [
+          "static 函数具有内部链接，跨文件共享接口应使用外部函数。",
+          "无初始化器的 extern 声明不在此建立新的对象定义；链接时仍需一个定义。"
+        ],
+        "summary": "通过头文件调用另一个源文件中的函数",
+        "quizzes": [
+          {
+            "id": "c12-3-q1",
+            "type": "single",
+            "question": "头文件中 extern int bias; 通常是什么？",
+            "options": [
+              "只能出现在 main 函数中",
+              "声明由其他位置定义的 int 对象",
+              "给 bias 分配新空间的唯一写法"
+            ],
+            "answer": [
+              "声明由其他位置定义的 int 对象"
+            ],
+            "explanation": "无初始化器的 extern 声明不在此建立新的对象定义；链接时仍需一个定义。"
+          },
+          {
+            "id": "c12-3-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "7"
+            ],
+            "explanation": "main.c 包含 calc.h；calc.c 定义 bias 和 twice，内部 helper 用 static 隐藏；计算 2*n+1。"
+          },
+          {
+            "id": "c12-3-q3",
+            "type": "boolean",
+            "question": "文件作用域 static 函数可由另一个 .c 文件直接按名称链接调用。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "static 函数具有内部链接，跨文件共享接口应使用外部函数。"
+          }
+        ],
+        "quiz": {
+          "id": "c12-3-q1",
+          "type": "single",
+          "question": "头文件中 extern int bias; 通常是什么？",
+          "options": [
+            "只能出现在 main 函数中",
+            "声明由其他位置定义的 int 对象",
+            "给 bias 分配新空间的唯一写法"
+          ],
+          "answer": [
+            "声明由其他位置定义的 int 对象"
+          ],
+          "explanation": "无初始化器的 extern 声明不在此建立新的对象定义；链接时仍需一个定义。"
+        },
+        "challenge": {
+          "id": "c12-3-practice",
+          "title": "通过头文件调用另一个源文件中的函数",
+          "difficulty": "Easy",
+          "description": "通过头文件调用另一个源文件中的函数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3",
+              "output": "7\n"
+            },
+            {
+              "input": "0",
+              "output": "1\n"
+            },
+            {
+              "input": "-4",
+              "output": "-7\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 通过头文件调用另一个源文件中的函数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n #include \"calc.h\"\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    printf(\"%d\\n\",twice(n)+bias);\n    return 0;\n}\n",
+          "hints": [
+            "/* calc.h */",
+            "main.c 包含 calc.h；calc.c 定义 bias 和 twice，内部 helper 用 static 隐藏；计算 2*n+1。",
+            "static 函数具有内部链接，跨文件共享接口应使用外部函数。"
+          ],
+          "files": {
+            "calc.h": "#ifndef CALC_H\n#define CALC_H\nint twice(int n);\nextern int bias;\n#endif\n",
+            "calc.c": "#include \"calc.h\"\nint bias=1;\nstatic int helper(int n){return n*2;}\nint twice(int n){return helper(n);}\n"
+          }
+        },
+        "exampleFiles": {
+          "calc.h": "#ifndef CALC_H\n#define CALC_H\nint twice(int n);\nextern int bias;\n#endif\n",
+          "calc.c": "#include \"calc.h\"\nint bias=1;\nstatic int helper(int n){return n*2;}\nint twice(int n){return helper(n);}\n"
+        }
+      },
+      {
+        "id": "c12-4",
+        "chapter": 12,
+        "index": 3,
+        "title": "二维数组作为函数参数",
+        "en": "Two-Dimensional Parameters",
+        "textbook": "7.7.3",
+        "objective": "用函数计算 2×3 矩阵的元素总和",
+        "explanation": [
+          "二维数组按行连续存放。传给函数时，参数 int a[][3] 会调整为指向三个 int 组成的数组的指针；编译器需要列数来计算下一行地址，不能把列宽随意省去，也不能用 int** 代替连续二维数组的类型。",
+          "C99 还允许使用可变长度数组形参，如 int sum(int r,int c,int a[r][c])，前面的尺寸参数必须先可见。本节使用固定列数建立清楚的步长模型：a[i][j] 的位置相当于从起点跨过 i*3+j 个 int。"
+        ],
+        "syntax": "int sum(int rows, int a[][3]);",
+        "syntaxNotes": "函数收到行数和固定列宽；双重循环分别遍历行、列，元素值限制在 -100..100。",
+        "example": "#include <stdio.h>\nstatic int sum(int rows,int a[][3]){int s=0;for(int i=0;i<rows;i++)for(int j=0;j<3;j++)s+=a[i][j];return s;}\nint main(void) {\n    int a[2][3];for(int i=0;i<2;i++)for(int j=0;j<3;j++)if(scanf(\"%d\",&a[i][j])!=1)return 1;\n    printf(\"%d\\n\",sum(2,a));\n    return 0;\n}\n",
+        "exampleInput": "1 2 3 4 5 6",
+        "exampleOutput": "21\n",
+        "walkthrough": "函数收到行数和固定列宽；双重循环分别遍历行、列，元素值限制在 -100..100。",
+        "mistakes": [
+          "访问下一行需要列宽信息；可以用固定列宽或 C99 可变长度数组形参显式传入尺寸。",
+          "数组表达式转换为首元素指针，而二维数组的首元素是一整行。"
+        ],
+        "summary": "用函数计算 2×3 矩阵的元素总和",
+        "quizzes": [
+          {
+            "id": "c12-4-q1",
+            "type": "single",
+            "question": "int a[2][3] 作为实参传给函数后通常对应什么指针？",
+            "options": [
+              "指向含 3 个 int 的数组的指针",
+              "int**",
+              "char*"
+            ],
+            "answer": [
+              "指向含 3 个 int 的数组的指针"
+            ],
+            "explanation": "数组表达式转换为首元素指针，而二维数组的首元素是一整行。"
+          },
+          {
+            "id": "c12-4-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "21"
+            ],
+            "explanation": "函数收到行数和固定列宽；双重循环分别遍历行、列，元素值限制在 -100..100。"
+          },
+          {
+            "id": "c12-4-q3",
+            "type": "boolean",
+            "question": "二维数组形参可以总是不指定列数，编译器会运行时自动猜出。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "访问下一行需要列宽信息；可以用固定列宽或 C99 可变长度数组形参显式传入尺寸。"
+          }
+        ],
+        "quiz": {
+          "id": "c12-4-q1",
+          "type": "single",
+          "question": "int a[2][3] 作为实参传给函数后通常对应什么指针？",
+          "options": [
+            "指向含 3 个 int 的数组的指针",
+            "int**",
+            "char*"
+          ],
+          "answer": [
+            "指向含 3 个 int 的数组的指针"
+          ],
+          "explanation": "数组表达式转换为首元素指针，而二维数组的首元素是一整行。"
+        },
+        "challenge": {
+          "id": "c12-4-practice",
+          "title": "用函数计算 2×3 矩阵的元素总和",
+          "difficulty": "Easy",
+          "description": "用函数计算 2×3 矩阵的元素总和。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "按行输入六个 -100..100 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1 2 3 4 5 6",
+              "output": "21\n"
+            },
+            {
+              "input": "0 0 0 0 0 0",
+              "output": "0\n"
+            },
+            {
+              "input": "-1 2 -3 4 -5 6",
+              "output": "3\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用函数计算 2×3 矩阵的元素总和 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic int sum(int rows,int a[][3]){int s=0;for(int i=0;i<rows;i++)for(int j=0;j<3;j++)s+=a[i][j];return s;}\nint main(void) {\n    int a[2][3];for(int i=0;i<2;i++)for(int j=0;j<3;j++)if(scanf(\"%d\",&a[i][j])!=1)return 1;\n    printf(\"%d\\n\",sum(2,a));\n    return 0;\n}\n",
+          "hints": [
+            "int sum(int rows, int a[][3]);",
+            "函数收到行数和固定列宽；双重循环分别遍历行、列，元素值限制在 -100..100。",
+            "访问下一行需要列宽信息；可以用固定列宽或 C99 可变长度数组形参显式传入尺寸。"
+          ]
+        }
+      },
+      {
+        "id": "c12-5",
+        "chapter": 12,
+        "index": 4,
+        "title": "嵌套调用与递归状态",
+        "en": "Calls and Recursion",
+        "textbook": "7.3—7.6",
+        "objective": "通过递归计算一个非负整数的十进制各位之和",
+        "explanation": [
+          "嵌套调用是一个函数调用另一个函数；递归是函数直接或间接再次调用自身。C99 不允许在一个函数体内定义另一个普通函数。调用之前需要可见且匹配的声明，函数原型能让编译器检查参数和返回类型。",
+          "递归必须定义终止情况，并确保每次调用向它靠近。本题 sum(n)=n%10+sum(n/10)，当 n<10 时直接返回 n；每一层的参数 n 是各自独立的对象，不能把不同层的局部变量当成同一个变量。"
+        ],
+        "syntax": "int digits(int n){\n    return n<10?n:n%10+digits(n/10);\n}",
+        "syntaxNotes": "输入 0..1000000000，整数除以 10 逐步缩短位数；零也满足终止情况。",
+        "example": "#include <stdio.h>\nstatic int digits(int n){return n<10?n:n%10+digits(n/10); }\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1 || n<0)return 1;\n    printf(\"%d\\n\",digits(n));\n    return 0;\n}\n",
+        "exampleInput": "1203",
+        "exampleOutput": "6\n",
+        "walkthrough": "输入 0..1000000000，整数除以 10 逐步缩短位数；零也满足终止情况。",
+        "mistakes": [
+          "标准 C99 不支持嵌套函数定义；函数可以相互调用，但定义放在文件作用域。",
+          "只写出口而递归参数不变，仍会无限调用并耗尽栈空间。"
+        ],
+        "summary": "通过递归计算一个非负整数的十进制各位之和",
+        "quizzes": [
+          {
+            "id": "c12-5-q1",
+            "type": "single",
+            "question": "递归正确终止需要哪两项？",
+            "options": [
+              "只能用全局变量且没有参数",
+              "只能调用一次且不能返回值",
+              "终止情况，以及让问题规模向它减小的步骤"
+            ],
+            "answer": [
+              "终止情况，以及让问题规模向它减小的步骤"
+            ],
+            "explanation": "只写出口而递归参数不变，仍会无限调用并耗尽栈空间。"
+          },
+          {
+            "id": "c12-5-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "6"
+            ],
+            "explanation": "输入 0..1000000000，整数除以 10 逐步缩短位数；零也满足终止情况。"
+          },
+          {
+            "id": "c12-5-q3",
+            "type": "boolean",
+            "question": "C99 允许把一个完整函数定义放在另一个函数体内部。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "标准 C99 不支持嵌套函数定义；函数可以相互调用，但定义放在文件作用域。"
+          }
+        ],
+        "quiz": {
+          "id": "c12-5-q1",
+          "type": "single",
+          "question": "递归正确终止需要哪两项？",
+          "options": [
+            "只能用全局变量且没有参数",
+            "只能调用一次且不能返回值",
+            "终止情况，以及让问题规模向它减小的步骤"
+          ],
+          "answer": [
+            "终止情况，以及让问题规模向它减小的步骤"
+          ],
+          "explanation": "只写出口而递归参数不变，仍会无限调用并耗尽栈空间。"
+        },
+        "challenge": {
+          "id": "c12-5-practice",
+          "title": "通过递归计算一个非负整数的十进制各位之和",
+          "difficulty": "Easy",
+          "description": "通过递归计算一个非负整数的十进制各位之和。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 0..1000000000 的非负整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1203",
+              "output": "6\n"
+            },
+            {
+              "input": "0",
+              "output": "0\n"
+            },
+            {
+              "input": "99999",
+              "output": "45\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 通过递归计算一个非负整数的十进制各位之和 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic int digits(int n){return n<10?n:n%10+digits(n/10); }\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1 || n<0)return 1;\n    printf(\"%d\\n\",digits(n));\n    return 0;\n}\n",
+          "hints": [
+            "int digits(int n){",
+            "输入 0..1000000000，整数除以 10 逐步缩短位数；零也满足终止情况。",
+            "标准 C99 不支持嵌套函数定义；函数可以相互调用，但定义放在文件作用域。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "en": "Pointers & Memory",
+    "title": "指针与动态内存",
+    "description": "教材第 8 章：地址、数组、函数指针、多重指针和动态分配。",
+    "lessons": [
+      {
+        "id": "c13-1",
+        "chapter": 13,
+        "index": 0,
+        "title": "地址、间接访问与空指针",
+        "en": "Addresses and Indirection",
+        "textbook": "8.1—8.2.3",
+        "objective": "通过指针把一个整数增加 5",
+        "explanation": [
+          "变量对象占据存储空间，取地址运算符 & 得到它的地址。int* 保存指向 int 的指针值，*p 则访问所指对象。声明中的 * 表示指针类型，表达式中的 * 表示间接访问，要根据上下文区分。",
+          "指针只能在指向有效且类型合适的对象时解引用。NULL 表示空指针，初始化为空能够表达尚未指向对象，但不能因此访问 *p。指针不是普通整数；输出地址应使用 %p 并转换为 void*，不依赖某个固定地址值。"
+        ],
+        "syntax": "int *p=&n;\n*p+=5;",
+        "syntaxNotes": "p 保存 n 的地址，对 *p 赋值会修改 n 本身；n 取 -1000..1000。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    int *p=&n;*p+=5;printf(\"%d\\n\",n);\n    return 0;\n}\n",
+        "exampleInput": "3",
+        "exampleOutput": "8\n",
+        "walkthrough": "p 保存 n 的地址，对 *p 赋值会修改 n 本身；n 取 -1000..1000。",
+        "mistakes": [
+          "空指针并不指向有效对象，必须先让它指向对象才能解引用。",
+          "解引用表达式指称所指对象，赋值写入该对象。"
+        ],
+        "summary": "通过指针把一个整数增加 5",
+        "quizzes": [
+          {
+            "id": "c13-1-q1",
+            "type": "single",
+            "question": "int *p=&n; 后执行 *p=9; 会修改什么？",
+            "options": [
+              "p 所指向的 n 对象",
+              "只修改 p 的地址",
+              "新建一个名为 n 的变量"
+            ],
+            "answer": [
+              "p 所指向的 n 对象"
+            ],
+            "explanation": "解引用表达式指称所指对象，赋值写入该对象。"
+          },
+          {
+            "id": "c13-1-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "8"
+            ],
+            "explanation": "p 保存 n 的地址，对 *p 赋值会修改 n 本身；n 取 -1000..1000。"
+          },
+          {
+            "id": "c13-1-q3",
+            "type": "boolean",
+            "question": "将指针初始化为 NULL 后就可以安全地读取 *p。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "空指针并不指向有效对象，必须先让它指向对象才能解引用。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-1-q1",
+          "type": "single",
+          "question": "int *p=&n; 后执行 *p=9; 会修改什么？",
+          "options": [
+            "p 所指向的 n 对象",
+            "只修改 p 的地址",
+            "新建一个名为 n 的变量"
+          ],
+          "answer": [
+            "p 所指向的 n 对象"
+          ],
+          "explanation": "解引用表达式指称所指对象，赋值写入该对象。"
+        },
+        "challenge": {
+          "id": "c13-1-practice",
+          "title": "通过指针把一个整数增加 5",
+          "difficulty": "Medium",
+          "description": "通过指针把一个整数增加 5。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3",
+              "output": "8\n"
+            },
+            {
+              "input": "-5",
+              "output": "0\n"
+            },
+            {
+              "input": "0",
+              "output": "5\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 通过指针把一个整数增加 5 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    int *p=&n;*p+=5;printf(\"%d\\n\",n);\n    return 0;\n}\n",
+          "hints": [
+            "int *p=&n;",
+            "p 保存 n 的地址，对 *p 赋值会修改 n 本身；n 取 -1000..1000。",
+            "空指针并不指向有效对象，必须先让它指向对象才能解引用。"
+          ]
+        }
+      },
+      {
+        "id": "c13-2",
+        "chapter": 13,
+        "index": 1,
+        "title": "指针形参与交换",
+        "en": "Swapping Through Pointers",
+        "textbook": "8.2.4",
+        "objective": "用函数交换两个整数",
+        "explanation": [
+          "C 的函数调用按值传递。把普通整数传入函数，只会复制数值；把地址传入函数，也是在复制指针值，但复制后的地址仍指向原来的对象，因此函数可以通过它修改调用者的数据。",
+          "交换函数用两个 int* 形参接收地址，使用临时变量保存原值。swap(&a,&b) 与 swap(a,b) 的类型和含义完全不同；不要把“传入地址能修改对象”误称为 C 自动采用了引用传递。"
+        ],
+        "syntax": "void swap(int *a,int *b){int t=*a;*a=*b;*b=t;}",
+        "syntaxNotes": "先保存 *a，再复制 *b，最后回写临时值；调用处必须传入变量地址。",
+        "example": "#include <stdio.h>\nstatic void swap(int*a,int*b){int t=*a;*a=*b;*b=t;}\nint main(void) {\n    int a,b;if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    swap(&a,&b);printf(\"%d %d\\n\",a,b);\n    return 0;\n}\n",
+        "exampleInput": "2 9",
+        "exampleOutput": "9 2\n",
+        "walkthrough": "先保存 *a，再复制 *b，最后回写临时值；调用处必须传入变量地址。",
+        "mistakes": [
+          "普通形参是局部副本，要修改调用者对象，需要传入地址并解引用。",
+          "指针参数本身是局部副本，但副本仍可保存原对象地址。"
+        ],
+        "summary": "用函数交换两个整数",
+        "quizzes": [
+          {
+            "id": "c13-2-q1",
+            "type": "single",
+            "question": "C 将指针传给函数时采用什么传递方式？",
+            "options": [
+              "自动改成引用传递",
+              "直接移动调用者的变量",
+              "按值复制指针，随后可访问同一对象"
+            ],
+            "answer": [
+              "按值复制指针，随后可访问同一对象"
+            ],
+            "explanation": "指针参数本身是局部副本，但副本仍可保存原对象地址。"
+          },
+          {
+            "id": "c13-2-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "9 2"
+            ],
+            "explanation": "先保存 *a，再复制 *b，最后回写临时值；调用处必须传入变量地址。"
+          },
+          {
+            "id": "c13-2-q3",
+            "type": "boolean",
+            "question": "swap(int a,int b) 内交换 a、b 就能交换调用者的两个 int。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "普通形参是局部副本，要修改调用者对象，需要传入地址并解引用。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-2-q1",
+          "type": "single",
+          "question": "C 将指针传给函数时采用什么传递方式？",
+          "options": [
+            "自动改成引用传递",
+            "直接移动调用者的变量",
+            "按值复制指针，随后可访问同一对象"
+          ],
+          "answer": [
+            "按值复制指针，随后可访问同一对象"
+          ],
+          "explanation": "指针参数本身是局部副本，但副本仍可保存原对象地址。"
+        },
+        "challenge": {
+          "id": "c13-2-practice",
+          "title": "用函数交换两个整数",
+          "difficulty": "Medium",
+          "description": "用函数交换两个整数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 -1000000..1000000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "2 9",
+              "output": "9 2\n"
+            },
+            {
+              "input": "0 -1",
+              "output": "-1 0\n"
+            },
+            {
+              "input": "7 7",
+              "output": "7 7\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用函数交换两个整数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic void swap(int*a,int*b){int t=*a;*a=*b;*b=t;}\nint main(void) {\n    int a,b;if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    swap(&a,&b);printf(\"%d %d\\n\",a,b);\n    return 0;\n}\n",
+          "hints": [
+            "void swap(int *a,int *b){int t=*a;*a=*b;*b=t;}",
+            "先保存 *a，再复制 *b，最后回写临时值；调用处必须传入变量地址。",
+            "普通形参是局部副本，要修改调用者对象，需要传入地址并解引用。"
+          ]
+        }
+      },
+      {
+        "id": "c13-3",
+        "chapter": 13,
+        "index": 2,
+        "title": "指针算术与数组边界",
+        "en": "Pointer Arithmetic",
+        "textbook": "8.3.1—8.3.4",
+        "objective": "使用指针遍历并累加数组",
+        "explanation": [
+          "数组表达式通常转换为首元素地址，p+1 移动到下一个同类型元素，而不是简单移动一个字节。a[i] 等价于 *(a+i)。数组名并非可以任意赋值的指针变量，sizeof 数组与 sizeof 指针也有不同含义。",
+          "合法的指针算术限定在同一个数组内部及其尾后位置。尾后指针可以构造和比较，不能解引用；两个指针相减也应来自同一个数组。函数接收数组时通常还需另传长度，不能从指针的 sizeof 推断元素个数。"
+        ],
+        "syntax": "for(int *p=a;p<a+n;++p) sum+=*p;",
+        "syntaxNotes": "n 为 1..20，数组元素为 -100..100；p 逐元素移动，到尾后位置立即停止。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int n,a[20],sum=0;if(scanf(\"%d\",&n)!=1||n<1||n>20)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    for(int*p=a;p<a+n;p++)sum+=*p;\n    printf(\"%d\\n\",sum);\n    return 0;\n}\n",
+        "exampleInput": "3 2 4 6",
+        "exampleOutput": "12\n",
+        "walkthrough": "n 为 1..20，数组元素为 -100..100；p 逐元素移动，到尾后位置立即停止。",
+        "mistakes": [
+          "尾后位置只可用于合法的比较和运算，不能解引用。",
+          "步长由所指类型大小决定，访问前仍须检查是否到达尾后位置。"
+        ],
+        "summary": "使用指针遍历并累加数组",
+        "quizzes": [
+          {
+            "id": "c13-3-q1",
+            "type": "single",
+            "question": "int* p 指向数组元素时，p+1 指向哪里？",
+            "options": [
+              "必然指向数组外部",
+              "同一数组的下一个 int 位置",
+              "地址固定增加一个字节"
+            ],
+            "answer": [
+              "同一数组的下一个 int 位置"
+            ],
+            "explanation": "步长由所指类型大小决定，访问前仍须检查是否到达尾后位置。"
+          },
+          {
+            "id": "c13-3-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "12"
+            ],
+            "explanation": "n 为 1..20，数组元素为 -100..100；p 逐元素移动，到尾后位置立即停止。"
+          },
+          {
+            "id": "c13-3-q3",
+            "type": "boolean",
+            "question": "数组尾后指针 a+n 可以作为结束标记，也可以读取 *(a+n)。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "尾后位置只可用于合法的比较和运算，不能解引用。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-3-q1",
+          "type": "single",
+          "question": "int* p 指向数组元素时，p+1 指向哪里？",
+          "options": [
+            "必然指向数组外部",
+            "同一数组的下一个 int 位置",
+            "地址固定增加一个字节"
+          ],
+          "answer": [
+            "同一数组的下一个 int 位置"
+          ],
+          "explanation": "步长由所指类型大小决定，访问前仍须检查是否到达尾后位置。"
+        },
+        "challenge": {
+          "id": "c13-3-practice",
+          "title": "使用指针遍历并累加数组",
+          "difficulty": "Medium",
+          "description": "使用指针遍历并累加数组。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "n（1..20），随后 n 个 -100..100 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3 2 4 6",
+              "output": "12\n"
+            },
+            {
+              "input": "1 -7",
+              "output": "-7\n"
+            },
+            {
+              "input": "4 0 1 -1 0",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 使用指针遍历并累加数组 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int n,a[20],sum=0;if(scanf(\"%d\",&n)!=1||n<1||n>20)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    for(int*p=a;p<a+n;p++)sum+=*p;\n    printf(\"%d\\n\",sum);\n    return 0;\n}\n",
+          "hints": [
+            "for(int *p=a;p<a+n;++p) sum+=*p;",
+            "n 为 1..20，数组元素为 -100..100；p 逐元素移动，到尾后位置立即停止。",
+            "尾后位置只可用于合法的比较和运算，不能解引用。"
+          ]
+        }
+      },
+      {
+        "id": "c13-4",
+        "chapter": 13,
+        "index": 3,
+        "title": "行指针与二维数组",
+        "en": "Pointers to Rows",
+        "textbook": "8.3.5",
+        "objective": "用行指针输出 2×3 矩阵的第 k 列之和",
+        "explanation": [
+          "int (*p)[3] 声明的是指向含三个 int 的数组的指针，括号确保 *p 先结合。int *p[3] 则是三个 int 指针组成的数组。两种写法只差括号，但存储对象和指针运算的步长都不同。",
+          "二维数组 a[2][3] 转换为指向第一行的指针，所以 p=a 合法，p+1 跨过一整行。通过 (*p)[j] 或 p[i][j] 访问元素。连续二维数组不应强制转换为 int**，后者要求指向指针对象的结构。"
+        ],
+        "syntax": "int (*p)[3]=a;\nint value=p[1][2];",
+        "syntaxNotes": "输入 k 为 0..2，随后按行输入六个元素，计算 p[0][k]+p[1][k]。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int k,a[2][3];if(scanf(\"%d\",&k)!=1||k<0||k>2)return 1;\n    for(int i=0;i<2;i++)for(int j=0;j<3;j++)if(scanf(\"%d\",&a[i][j])!=1)return 1;\n    int(*p)[3]=a;printf(\"%d\\n\",p[0][k]+p[1][k]);\n    return 0;\n}\n",
+        "exampleInput": "1 1 2 3 4 5 6",
+        "exampleOutput": "7\n",
+        "walkthrough": "输入 k 为 0..2，随后按行输入六个元素，计算 p[0][k]+p[1][k]。",
+        "mistakes": [
+          "前者是指针数组，后者是数组指针；括号改变声明的结合方式。",
+          "p 指向一整行，下一位置跨过该行的三个元素。"
+        ],
+        "summary": "用行指针输出 2×3 矩阵的第 k 列之和",
+        "quizzes": [
+          {
+            "id": "c13-4-q1",
+            "type": "single",
+            "question": "int (*p)[3] 中 p+1 跨过多少个 int？",
+            "options": [
+              "3",
+              "1",
+              "取决于数组的行数"
+            ],
+            "answer": [
+              "3"
+            ],
+            "explanation": "p 指向一整行，下一位置跨过该行的三个元素。"
+          },
+          {
+            "id": "c13-4-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "7"
+            ],
+            "explanation": "输入 k 为 0..2，随后按行输入六个元素，计算 p[0][k]+p[1][k]。"
+          },
+          {
+            "id": "c13-4-q3",
+            "type": "boolean",
+            "question": "int *p[3] 与 int (*p)[3] 是完全相同的类型。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "前者是指针数组，后者是数组指针；括号改变声明的结合方式。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-4-q1",
+          "type": "single",
+          "question": "int (*p)[3] 中 p+1 跨过多少个 int？",
+          "options": [
+            "3",
+            "1",
+            "取决于数组的行数"
+          ],
+          "answer": [
+            "3"
+          ],
+          "explanation": "p 指向一整行，下一位置跨过该行的三个元素。"
+        },
+        "challenge": {
+          "id": "c13-4-practice",
+          "title": "用行指针输出 2×3 矩阵的第 k 列之和",
+          "difficulty": "Medium",
+          "description": "用行指针输出 2×3 矩阵的第 k 列之和。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "列索引 k（0..2），然后六个 -100..100 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1 1 2 3 4 5 6",
+              "output": "7\n"
+            },
+            {
+              "input": "0 -1 0 0 1 0 0",
+              "output": "0\n"
+            },
+            {
+              "input": "2 1 2 8 4 5 9",
+              "output": "17\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用行指针输出 2×3 矩阵的第 k 列之和 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int k,a[2][3];if(scanf(\"%d\",&k)!=1||k<0||k>2)return 1;\n    for(int i=0;i<2;i++)for(int j=0;j<3;j++)if(scanf(\"%d\",&a[i][j])!=1)return 1;\n    int(*p)[3]=a;printf(\"%d\\n\",p[0][k]+p[1][k]);\n    return 0;\n}\n",
+          "hints": [
+            "int (*p)[3]=a;",
+            "输入 k 为 0..2，随后按行输入六个元素，计算 p[0][k]+p[1][k]。",
+            "前者是指针数组，后者是数组指针；括号改变声明的结合方式。"
+          ]
+        }
+      },
+      {
+        "id": "c13-5",
+        "chapter": 13,
+        "index": 4,
+        "title": "可写数组与字符串指针",
+        "en": "Pointers to Strings",
+        "textbook": "8.4",
+        "objective": "通过字符指针把小写英文变成大写",
+        "explanation": [
+          "char a[]=\"cat\" 建立可写的字符数组；const char* p=\"cat\" 让指针指向字符串字面量。字面量的内容不能修改，即使把它赋给 char*，尝试写入仍是未定义行为；const 让接口更清楚地表达只读用途。",
+          "字符指针传参仍需明确容量、终止符和是否可修改。本题先把输入读进可写数组，再用指针逐字节遍历。不要仅凭指针非空就断定整段字符串可访问；必须保证最终遇到终止符且没有越界。"
+        ],
+        "syntax": "for(char*p=s;*p;p++)\n    if(*p>='a'&&*p<='z') *p=(char)(*p-'a'+'A');",
+        "syntaxNotes": "只转换 ASCII 小写字母，其余字节保持不变；容量为 81，输入最多 80 字节。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    char s[81];if(scanf(\"%80s\",s)!=1)return 1;\n    for(char*p=s;*p;p++)if(*p>='a'&&*p<='z')*p=(char)(*p-'a'+'A');\n    puts(s);\n    return 0;\n}\n",
+        "exampleInput": "aBc9",
+        "exampleOutput": "ABC9\n",
+        "walkthrough": "只转换 ASCII 小写字母，其余字节保持不变；容量为 81，输入最多 80 字节。",
+        "mistakes": [
+          "修改字符串字面量是未定义行为，应使用字符数组存放需要修改的文本。",
+          "数组初始化得到独立且可写的元素，字符串字面量本身不能修改。"
+        ],
+        "summary": "通过字符指针把小写英文变成大写",
+        "quizzes": [
+          {
+            "id": "c13-5-q1",
+            "type": "single",
+            "question": "哪一种对象可以按字符修改？",
+            "options": [
+              "字符串字面量本身",
+              "NULL 指向的文本",
+              "char s[]=\"cat\" 所建立的数组"
+            ],
+            "answer": [
+              "char s[]=\"cat\" 所建立的数组"
+            ],
+            "explanation": "数组初始化得到独立且可写的元素，字符串字面量本身不能修改。"
+          },
+          {
+            "id": "c13-5-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "ABC9"
+            ],
+            "explanation": "只转换 ASCII 小写字母，其余字节保持不变；容量为 81，输入最多 80 字节。"
+          },
+          {
+            "id": "c13-5-q3",
+            "type": "boolean",
+            "question": "char *p=\"cat\"; p[0]='C'; 在标准 C99 中是可靠写法。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "修改字符串字面量是未定义行为，应使用字符数组存放需要修改的文本。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-5-q1",
+          "type": "single",
+          "question": "哪一种对象可以按字符修改？",
+          "options": [
+            "字符串字面量本身",
+            "NULL 指向的文本",
+            "char s[]=\"cat\" 所建立的数组"
+          ],
+          "answer": [
+            "char s[]=\"cat\" 所建立的数组"
+          ],
+          "explanation": "数组初始化得到独立且可写的元素，字符串字面量本身不能修改。"
+        },
+        "challenge": {
+          "id": "c13-5-practice",
+          "title": "通过字符指针把小写英文变成大写",
+          "difficulty": "Medium",
+          "description": "通过字符指针把小写英文变成大写。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个长度 1..80、无空白的 ASCII 单词。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "aBc9",
+              "output": "ABC9\n"
+            },
+            {
+              "input": "hello",
+              "output": "HELLO\n"
+            },
+            {
+              "input": "99",
+              "output": "99\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 通过字符指针把小写英文变成大写 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    char s[81];if(scanf(\"%80s\",s)!=1)return 1;\n    for(char*p=s;*p;p++)if(*p>='a'&&*p<='z')*p=(char)(*p-'a'+'A');\n    puts(s);\n    return 0;\n}\n",
+          "hints": [
+            "for(char*p=s;*p;p++)",
+            "只转换 ASCII 小写字母，其余字节保持不变；容量为 81，输入最多 80 字节。",
+            "修改字符串字面量是未定义行为，应使用字符数组存放需要修改的文本。"
+          ]
+        }
+      },
+      {
+        "id": "c13-6",
+        "chapter": 13,
+        "index": 5,
+        "title": "函数指针与回调",
+        "en": "Function Pointers",
+        "textbook": "8.5",
+        "objective": "通过函数指针选择加法或乘法",
+        "explanation": [
+          "函数指针保存可调用函数的地址。int (*op)(int,int) 表示指向接收两个 int 并返回 int 的函数的指针；调用可写 op(a,b)。函数指针的参数和返回类型必须与实际函数兼容，不能通过强制转换掩盖不匹配。",
+          "把函数指针作为参数可以把“怎样处理”交给调用者。例如同一个 apply 函数可以使用加法或乘法策略。函数指针与对象指针并不保证能互相转换，不能一律转成 void* 保存；先看清声明再使用。"
+        ],
+        "syntax": "int apply(int a,int b,int(*op)(int,int)){return op(a,b);}",
+        "syntaxNotes": "输入模式 0 表示相加、1 表示相乘；a、b 的绝对值不超过 100。",
+        "example": "#include <stdio.h>\nstatic int add(int a,int b){return a+b;}\nstatic int mul(int a,int b){return a*b;}\nstatic int apply(int a,int b,int(*op)(int,int)){return op(a,b); }\nint main(void) {\n    int mode,a,b;if(scanf(\"%d%d%d\",&mode,&a,&b)!=3)return 1;\n    int(*op)(int,int)=mode?mul:add;\n    printf(\"%d\\n\",apply(a,b,op));\n    return 0;\n}\n",
+        "exampleInput": "0 3 4",
+        "exampleOutput": "7\n",
+        "walkthrough": "输入模式 0 表示相加、1 表示相乘；a、b 的绝对值不超过 100。",
+        "mistakes": [
+          "调用必须使用兼容的函数类型，不匹配可能产生未定义行为。",
+          "(*op) 的括号让 op 先成为指针，后面的括号描述函数参数。"
+        ],
+        "summary": "通过函数指针选择加法或乘法",
+        "quizzes": [
+          {
+            "id": "c13-6-q1",
+            "type": "single",
+            "question": "int (*op)(int,int) 声明的是什么？",
+            "options": [
+              "两个 int 指针的数组",
+              "指向接收两个 int 并返回 int 的函数的指针",
+              "返回 int* 的普通函数"
+            ],
+            "answer": [
+              "指向接收两个 int 并返回 int 的函数的指针"
+            ],
+            "explanation": "(*op) 的括号让 op 先成为指针，后面的括号描述函数参数。"
+          },
+          {
+            "id": "c13-6-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "7"
+            ],
+            "explanation": "输入模式 0 表示相加、1 表示相乘；a、b 的绝对值不超过 100。"
+          },
+          {
+            "id": "c13-6-q3",
+            "type": "boolean",
+            "question": "所有函数地址都能通过任意类型函数指针调用而没有风险。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "调用必须使用兼容的函数类型，不匹配可能产生未定义行为。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-6-q1",
+          "type": "single",
+          "question": "int (*op)(int,int) 声明的是什么？",
+          "options": [
+            "两个 int 指针的数组",
+            "指向接收两个 int 并返回 int 的函数的指针",
+            "返回 int* 的普通函数"
+          ],
+          "answer": [
+            "指向接收两个 int 并返回 int 的函数的指针"
+          ],
+          "explanation": "(*op) 的括号让 op 先成为指针，后面的括号描述函数参数。"
+        },
+        "challenge": {
+          "id": "c13-6-practice",
+          "title": "通过函数指针选择加法或乘法",
+          "difficulty": "Medium",
+          "description": "通过函数指针选择加法或乘法。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "mode（0 或 1），再输入两个 -100..100 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "0 3 4",
+              "output": "7\n"
+            },
+            {
+              "input": "1 3 4",
+              "output": "12\n"
+            },
+            {
+              "input": "1 -2 5",
+              "output": "-10\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 通过函数指针选择加法或乘法 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic int add(int a,int b){return a+b;}\nstatic int mul(int a,int b){return a*b;}\nstatic int apply(int a,int b,int(*op)(int,int)){return op(a,b); }\nint main(void) {\n    int mode,a,b;if(scanf(\"%d%d%d\",&mode,&a,&b)!=3)return 1;\n    int(*op)(int,int)=mode?mul:add;\n    printf(\"%d\\n\",apply(a,b,op));\n    return 0;\n}\n",
+          "hints": [
+            "int apply(int a,int b,int(*op)(int,int)){return op(a,b);}",
+            "输入模式 0 表示相加、1 表示相乘；a、b 的绝对值不超过 100。",
+            "调用必须使用兼容的函数类型，不匹配可能产生未定义行为。"
+          ]
+        }
+      },
+      {
+        "id": "c13-7",
+        "chapter": 13,
+        "index": 6,
+        "title": "返回指针与对象生存期",
+        "en": "Returning Pointers",
+        "textbook": "8.6",
+        "objective": "返回数组最大元素的地址并将该元素加一",
+        "explanation": [
+          "函数可以返回对象的地址，但对象必须在函数返回后仍然存在。自动局部变量在离开函数后结束生存期，返回它的地址会产生悬空指针；返回参数所指数组内元素的地址则取决于调用者数组的生存期。",
+          "接口应说明空输入如何处理，以及返回值是否允许修改。这里数组由 main 保存，查找函数只返回第一个最大元素的地址；main 通过这个指针加一并输出原数组，因此能直接观察别名指向同一对象。"
+        ],
+        "syntax": "int *findmax(int*a,int n){\n    int*p=a;for(int i=1;i<n;i++)if(a[i]>*p)p=a+i;return p;\n}",
+        "syntaxNotes": "n 为 1..10，元素为 -100..100；相同最大值只修改第一次出现的那个。",
+        "example": "#include <stdio.h>\nstatic int*findmax(int*a,int n){int*p=a;for(int i=1;i<n;i++)if(a[i]>*p)p=a+i;return p;}\nint main(void) {\n    int n,a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    ++*findmax(a,n);\n    for(int i=0;i<n;i++)printf(\"%s%d\",i?\" \":\"\",a[i]);putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "3 2 7 1",
+        "exampleOutput": "2 8 1\n",
+        "walkthrough": "n 为 1..10，元素为 -100..100；相同最大值只修改第一次出现的那个。",
+        "mistakes": [
+          "复制地址不会延长对象生存期，函数返回后仍然悬空。",
+          "所指对象的生存期由调用者的数组决定，不能返回已经结束生存期的对象。"
+        ],
+        "summary": "返回数组最大元素的地址并将该元素加一",
+        "quizzes": [
+          {
+            "id": "c13-7-q1",
+            "type": "single",
+            "question": "哪个返回地址的方式在调用者数组仍存在时有效？",
+            "options": [
+              "返回传入数组中某个元素的地址",
+              "返回自动局部 int 的地址",
+              "返回已经 free 的内存地址"
+            ],
+            "answer": [
+              "返回传入数组中某个元素的地址"
+            ],
+            "explanation": "所指对象的生存期由调用者的数组决定，不能返回已经结束生存期的对象。"
+          },
+          {
+            "id": "c13-7-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "2 8 1"
+            ],
+            "explanation": "n 为 1..10，元素为 -100..100；相同最大值只修改第一次出现的那个。"
+          },
+          {
+            "id": "c13-7-q3",
+            "type": "boolean",
+            "question": "把局部变量地址先存入另一个指针再返回，就能延长局部变量生存期。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "复制地址不会延长对象生存期，函数返回后仍然悬空。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-7-q1",
+          "type": "single",
+          "question": "哪个返回地址的方式在调用者数组仍存在时有效？",
+          "options": [
+            "返回传入数组中某个元素的地址",
+            "返回自动局部 int 的地址",
+            "返回已经 free 的内存地址"
+          ],
+          "answer": [
+            "返回传入数组中某个元素的地址"
+          ],
+          "explanation": "所指对象的生存期由调用者的数组决定，不能返回已经结束生存期的对象。"
+        },
+        "challenge": {
+          "id": "c13-7-practice",
+          "title": "返回数组最大元素的地址并将该元素加一",
+          "difficulty": "Medium",
+          "description": "返回数组最大元素的地址并将该元素加一。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "n（1..10），随后 n 个 -100..100 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3 2 7 1",
+              "output": "2 8 1\n"
+            },
+            {
+              "input": "1 -3",
+              "output": "-2\n"
+            },
+            {
+              "input": "3 5 5 1",
+              "output": "6 5 1\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 返回数组最大元素的地址并将该元素加一 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic int*findmax(int*a,int n){int*p=a;for(int i=1;i<n;i++)if(a[i]>*p)p=a+i;return p;}\nint main(void) {\n    int n,a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    ++*findmax(a,n);\n    for(int i=0;i<n;i++)printf(\"%s%d\",i?\" \":\"\",a[i]);putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "int *findmax(int*a,int n){",
+            "n 为 1..10，元素为 -100..100；相同最大值只修改第一次出现的那个。",
+            "复制地址不会延长对象生存期，函数返回后仍然悬空。"
+          ]
+        }
+      },
+      {
+        "id": "c13-8",
+        "chapter": 13,
+        "index": 7,
+        "title": "指针数组与二级指针",
+        "en": "Arrays of Pointers",
+        "textbook": "8.7.1—8.7.2",
+        "objective": "用二级指针让一个指针改为指向第二个整数",
+        "explanation": [
+          "int* items[2] 是两个指针组成的数组，每个元素可指向独立对象。int** pp 指向一个 int* 对象，解引用一次得到指针，再解引用一次才得到 int。二级指针常用于让函数修改调用者保存的指针值。",
+          "二维 int 数组与 int* 数组的内存形状不同，不能随意互换。本例把两个独立变量地址放进 items，再把 p 的地址交给 select_second；函数修改 *out，使 main 的 p 改为保存 items[1]。"
+        ],
+        "syntax": "void select_second(int **out,int *items[2]){*out=items[1];}",
+        "syntaxNotes": "输入两个整数，输出重新指向的第二个整数；没有复制整数内容，只改变了指针指向。",
+        "example": "#include <stdio.h>\nstatic void select_second(int**out,int*items[2]){*out=items[1]; }\nint main(void) {\n    int a,b;if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    int*items[2]={&a,&b},*p=&a;\n    select_second(&p,items);printf(\"%d\\n\",*p);\n    return 0;\n}\n",
+        "exampleInput": "3 9",
+        "exampleOutput": "9\n",
+        "walkthrough": "输入两个整数，输出重新指向的第二个整数；没有复制整数内容，只改变了指针指向。",
+        "mistakes": [
+          "int** 指向指针对象，而二维数组转换成指向一行数组的指针。",
+          "要修改指针对象本身，需要传它的地址，解引用一次后对该对象赋值。"
+        ],
+        "summary": "用二级指针让一个指针改为指向第二个整数",
+        "quizzes": [
+          {
+            "id": "c13-8-q1",
+            "type": "single",
+            "question": "为了让函数修改调用者的 int* 变量 p，应传入什么？",
+            "options": [
+              "p 指向整数的副本",
+              "sizeof p",
+              "&p，函数以 int** 接收"
+            ],
+            "answer": [
+              "&p，函数以 int** 接收"
+            ],
+            "explanation": "要修改指针对象本身，需要传它的地址，解引用一次后对该对象赋值。"
+          },
+          {
+            "id": "c13-8-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "9"
+            ],
+            "explanation": "输入两个整数，输出重新指向的第二个整数；没有复制整数内容，只改变了指针指向。"
+          },
+          {
+            "id": "c13-8-q3",
+            "type": "boolean",
+            "question": "int** 可以总是直接接收 int a[2][3] 转换出的指针。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "int** 指向指针对象，而二维数组转换成指向一行数组的指针。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-8-q1",
+          "type": "single",
+          "question": "为了让函数修改调用者的 int* 变量 p，应传入什么？",
+          "options": [
+            "p 指向整数的副本",
+            "sizeof p",
+            "&p，函数以 int** 接收"
+          ],
+          "answer": [
+            "&p，函数以 int** 接收"
+          ],
+          "explanation": "要修改指针对象本身，需要传它的地址，解引用一次后对该对象赋值。"
+        },
+        "challenge": {
+          "id": "c13-8-practice",
+          "title": "用二级指针让一个指针改为指向第二个整数",
+          "difficulty": "Medium",
+          "description": "用二级指针让一个指针改为指向第二个整数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3 9",
+              "output": "9\n"
+            },
+            {
+              "input": "1 -7",
+              "output": "-7\n"
+            },
+            {
+              "input": "0 0",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用二级指针让一个指针改为指向第二个整数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic void select_second(int**out,int*items[2]){*out=items[1]; }\nint main(void) {\n    int a,b;if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    int*items[2]={&a,&b},*p=&a;\n    select_second(&p,items);printf(\"%d\\n\",*p);\n    return 0;\n}\n",
+          "hints": [
+            "void select_second(int **out,int *items[2]){*out=items[1];}",
+            "输入两个整数，输出重新指向的第二个整数；没有复制整数内容，只改变了指针指向。",
+            "int** 指向指针对象，而二维数组转换成指向一行数组的指针。"
+          ]
+        }
+      },
+      {
+        "id": "c13-9",
+        "chapter": 13,
+        "index": 8,
+        "title": "main 的命令行参数",
+        "en": "Command-Line Arguments",
+        "textbook": "8.7.3",
+        "objective": "输出用户命令行参数个数及第一个参数",
+        "explanation": [
+          "int main(int argc,char*argv[]) 是带参数的标准入口形式。argc 是参数个数，argv 是指针数组，argv[0] 通常表示程序名，用户参数从 argv[1] 开始；argv[argc] 是空指针。必须先检查 argc 才能访问可选参数。",
+          "命令行参数不是标准输入。网站在编辑器的“程序参数”中逐行指定一个参数，再把它们交给 WASI 的入口；例如一个带空格的参数应写在同一行。实参是字符串，解析为数字时应检查完整转换和范围。"
+        ],
+        "syntax": "int main(int argc,char *argv[]) {\n    /* argv[1] 仅在 argc>1 时可访问 */\n}",
+        "syntaxNotes": "程序名由运行器提供；输出用户参数个数，然后输出首个参数，没有时输出 NONE。",
+        "example": "#include <stdio.h>\nint main(int argc,char*argv[]){printf(\"%d %s\\n\",argc-1,argc>1?argv[1]:\"NONE\");return 0;}\n",
+        "exampleInput": "",
+        "exampleOutput": "2 apple\n",
+        "walkthrough": "程序名由运行器提供；输出用户参数个数，然后输出首个参数，没有时输出 NONE。",
+        "mistakes": [
+          "命令行参数和标准输入是两个不同的输入通道。",
+          "运行器提供 argv[0] 作为程序名，用户参数数量为 argc-1。"
+        ],
+        "summary": "输出用户命令行参数个数及第一个参数",
+        "quizzes": [
+          {
+            "id": "c13-9-q1",
+            "type": "single",
+            "question": "没有用户参数时，argc 通常是多少？",
+            "options": [
+              "-1",
+              "1",
+              "0"
+            ],
+            "answer": [
+              "1"
+            ],
+            "explanation": "运行器提供 argv[0] 作为程序名，用户参数数量为 argc-1。"
+          },
+          {
+            "id": "c13-9-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "2 apple"
+            ],
+            "explanation": "程序名由运行器提供；输出用户参数个数，然后输出首个参数，没有时输出 NONE。"
+          },
+          {
+            "id": "c13-9-q3",
+            "type": "boolean",
+            "question": "在 stdin 中写入 apple 就等于提供 argv[1]。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "命令行参数和标准输入是两个不同的输入通道。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-9-q1",
+          "type": "single",
+          "question": "没有用户参数时，argc 通常是多少？",
+          "options": [
+            "-1",
+            "1",
+            "0"
+          ],
+          "answer": [
+            "1"
+          ],
+          "explanation": "运行器提供 argv[0] 作为程序名，用户参数数量为 argc-1。"
+        },
+        "challenge": {
+          "id": "c13-9-practice",
+          "title": "输出用户命令行参数个数及第一个参数",
+          "difficulty": "Medium",
+          "description": "输出用户命令行参数个数及第一个参数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "标准输入不用填写；在程序参数区域逐行填写 0..10 个参数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "",
+              "output": "2 apple\n",
+              "args": [
+                "apple",
+                "blue"
+              ]
+            },
+            {
+              "input": "",
+              "output": "0 NONE\n",
+              "args": []
+            },
+            {
+              "input": "",
+              "output": "1 hello world\n",
+              "args": [
+                "hello world"
+              ]
+            }
+          ],
+          "starter": "#include <stdio.h>\nint main(int argc,char *argv[]) {\n    /* TODO: 输出参数个数与首个参数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(int argc,char*argv[]){printf(\"%d %s\\n\",argc-1,argc>1?argv[1]:\"NONE\");return 0;}\n",
+          "hints": [
+            "int main(int argc,char *argv[]) {",
+            "程序名由运行器提供；输出用户参数个数，然后输出首个参数，没有时输出 NONE。",
+            "命令行参数和标准输入是两个不同的输入通道。"
+          ],
+          "args": [
+            "apple",
+            "blue"
+          ]
+        },
+        "exampleArgs": [
+          "apple",
+          "blue"
+        ]
+      },
+      {
+        "id": "c13-10",
+        "chapter": 13,
+        "index": 9,
+        "title": "malloc、calloc、void* 与 free",
+        "en": "Dynamic Allocation",
+        "textbook": "8.8.1—8.8.3",
+        "objective": "动态分配 n 个整数并计算总和",
+        "explanation": [
+          "动态分配在运行时申请存储空间。malloc 返回 void*，在 C 中可以隐式转换为对象指针；使用 sizeof *p 按元素类型计算容量，可以降低类型修改后遗漏尺寸的风险。分配可能失败，必须先检查 NULL 再访问。",
+          "malloc 不初始化空间，calloc 把分配区域的所有字节置零；对整数数组可得到零值。内存不再使用时用 free 释放一次，之后原指针及别名不可继续访问。void* 本身没有可解引用的对象类型，需转换为合适的对象指针；不能对它做标准 C 的元素运算。"
+        ],
+        "syntax": "int *p=calloc((size_t)n,sizeof *p);\nif(!p) return 1;\n/* 使用 */ free(p);",
+        "syntaxNotes": "输入 n 为 1..100，元素为 -1000..1000；读入失败和正常结束两条路径都释放内存。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<1||n>100)return 1;\n    int*p=calloc((size_t)n,sizeof*p);if(!p)return 1;\n    int sum=0;for(int i=0;i<n;i++){if(scanf(\"%d\",&p[i])!=1){free(p);return 1;}sum+=p[i];}\n    printf(\"%d\\n\",sum);free(p);\n    return 0;\n}\n",
+        "exampleInput": "3 1 2 3",
+        "exampleOutput": "6\n",
+        "walkthrough": "输入 n 为 1..100，元素为 -1000..1000；读入失败和正常结束两条路径都释放内存。",
+        "mistakes": [
+          "释放结束对象生存期，所有指向它的别名都不能继续用来访问对象。",
+          "分配失败没有获得对象空间；强制转换不能创造有效存储。"
+        ],
+        "summary": "动态分配 n 个整数并计算总和",
+        "quizzes": [
+          {
+            "id": "c13-10-q1",
+            "type": "single",
+            "question": "malloc 返回 NULL 时应怎样处理？",
+            "options": [
+              "按分配失败处理，不能解引用",
+              "立即写入 p[0] 看看是否可用",
+              "把 NULL 转成 int* 就能访问"
+            ],
+            "answer": [
+              "按分配失败处理，不能解引用"
+            ],
+            "explanation": "分配失败没有获得对象空间；强制转换不能创造有效存储。"
+          },
+          {
+            "id": "c13-10-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "6"
+            ],
+            "explanation": "输入 n 为 1..100，元素为 -1000..1000；读入失败和正常结束两条路径都释放内存。"
+          },
+          {
+            "id": "c13-10-q3",
+            "type": "boolean",
+            "question": "free(p) 后，另一个仍保存同一地址的指针也可以继续访问原对象。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "释放结束对象生存期，所有指向它的别名都不能继续用来访问对象。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-10-q1",
+          "type": "single",
+          "question": "malloc 返回 NULL 时应怎样处理？",
+          "options": [
+            "按分配失败处理，不能解引用",
+            "立即写入 p[0] 看看是否可用",
+            "把 NULL 转成 int* 就能访问"
+          ],
+          "answer": [
+            "按分配失败处理，不能解引用"
+          ],
+          "explanation": "分配失败没有获得对象空间；强制转换不能创造有效存储。"
+        },
+        "challenge": {
+          "id": "c13-10-practice",
+          "title": "动态分配 n 个整数并计算总和",
+          "difficulty": "Medium",
+          "description": "动态分配 n 个整数并计算总和。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "n（1..100），随后 n 个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3 1 2 3",
+              "output": "6\n"
+            },
+            {
+              "input": "1 -9",
+              "output": "-9\n"
+            },
+            {
+              "input": "4 0 0 0 0",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 动态分配 n 个整数并计算总和 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<1||n>100)return 1;\n    int*p=calloc((size_t)n,sizeof*p);if(!p)return 1;\n    int sum=0;for(int i=0;i<n;i++){if(scanf(\"%d\",&p[i])!=1){free(p);return 1;}sum+=p[i];}\n    printf(\"%d\\n\",sum);free(p);\n    return 0;\n}\n",
+          "hints": [
+            "int *p=calloc((size_t)n,sizeof *p);",
+            "输入 n 为 1..100，元素为 -1000..1000；读入失败和正常结束两条路径都释放内存。",
+            "释放结束对象生存期，所有指向它的别名都不能继续用来访问对象。"
+          ]
+        }
+      },
+      {
+        "id": "c13-11",
+        "chapter": 13,
+        "index": 10,
+        "title": "安全扩容与 realloc",
+        "en": "Resizing Allocations",
+        "textbook": "8.8",
+        "objective": "给动态整数数组追加一个元素",
+        "explanation": [
+          "realloc 可能移动分配区域，也可能在原位置调整大小。成功时原指针不再用于访问旧区域，应使用返回的新指针；原内容在新旧长度较小的范围内保留。扩出的部分没有自动初始化，必须自己写入。",
+          "直接写 p=realloc(p,newsize) 可能在失败时丢失原来的地址。先把结果存入临时指针，成功后再替换 p；失败时仍由 p 持有旧分配并负责释放。本题将长度限制为 1..20，因此容量乘法不会溢出。"
+        ],
+        "syntax": "int *next=realloc(p,(n+1)*sizeof *p);\nif(!next){free(p);return 1;}\np=next;",
+        "syntaxNotes": "分配初始 n 个元素，读入新元素 x 后扩为 n+1，把 x 写到 p[n]，再输出整个数组。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<1||n>20)return 1;\n    int*p=malloc((size_t)n*sizeof*p);if(!p)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&p[i])!=1){free(p);return 1;}\n    int x;if(scanf(\"%d\",&x)!=1){free(p);return 1;}\n    int*next=realloc(p,(size_t)(n+1)*sizeof*p);if(!next){free(p);return 1;}p=next;p[n]=x;\n    for(int i=0;i<=n;i++)printf(\"%s%d\",i?\" \":\"\",p[i]);putchar('\\n');free(p);\n    return 0;\n}\n",
+        "exampleInput": "2 1 2 9",
+        "exampleOutput": "1 2 9\n",
+        "walkthrough": "分配初始 n 个元素，读入新元素 x 后扩为 n+1，把 x 写到 p[n]，再输出整个数组。",
+        "mistakes": [
+          "成功的 realloc 可能移动对象，旧指针值不能再用于访问，需更新相关指针。",
+          "realloc 失败返回 NULL，但原区域仍有效；直接覆盖 p 可能造成内存泄漏。"
+        ],
+        "summary": "给动态整数数组追加一个元素",
+        "quizzes": [
+          {
+            "id": "c13-11-q1",
+            "type": "single",
+            "question": "为什么用临时指针接收 realloc 返回值？",
+            "options": [
+              "避免 sizeof 返回 size_t",
+              "保证地址一定不改变",
+              "失败时仍保留原分配地址以便释放"
+            ],
+            "answer": [
+              "失败时仍保留原分配地址以便释放"
+            ],
+            "explanation": "realloc 失败返回 NULL，但原区域仍有效；直接覆盖 p 可能造成内存泄漏。"
+          },
+          {
+            "id": "c13-11-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "1 2 9"
+            ],
+            "explanation": "分配初始 n 个元素，读入新元素 x 后扩为 n+1，把 x 写到 p[n]，再输出整个数组。"
+          },
+          {
+            "id": "c13-11-q3",
+            "type": "boolean",
+            "question": "realloc 成功后可以继续使用扩容前保存的所有旧别名。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "成功的 realloc 可能移动对象，旧指针值不能再用于访问，需更新相关指针。"
+          }
+        ],
+        "quiz": {
+          "id": "c13-11-q1",
+          "type": "single",
+          "question": "为什么用临时指针接收 realloc 返回值？",
+          "options": [
+            "避免 sizeof 返回 size_t",
+            "保证地址一定不改变",
+            "失败时仍保留原分配地址以便释放"
+          ],
+          "answer": [
+            "失败时仍保留原分配地址以便释放"
+          ],
+          "explanation": "realloc 失败返回 NULL，但原区域仍有效；直接覆盖 p 可能造成内存泄漏。"
+        },
+        "challenge": {
+          "id": "c13-11-practice",
+          "title": "给动态整数数组追加一个元素",
+          "difficulty": "Medium",
+          "description": "给动态整数数组追加一个元素。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "n（1..20），n 个 -1000..1000 的整数，再输入一个待追加整数 x。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "2 1 2 9",
+              "output": "1 2 9\n"
+            },
+            {
+              "input": "1 -3 0",
+              "output": "-3 0\n"
+            },
+            {
+              "input": "3 5 6 7 8",
+              "output": "5 6 7 8\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 给动态整数数组追加一个元素 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<1||n>20)return 1;\n    int*p=malloc((size_t)n*sizeof*p);if(!p)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&p[i])!=1){free(p);return 1;}\n    int x;if(scanf(\"%d\",&x)!=1){free(p);return 1;}\n    int*next=realloc(p,(size_t)(n+1)*sizeof*p);if(!next){free(p);return 1;}p=next;p[n]=x;\n    for(int i=0;i<=n;i++)printf(\"%s%d\",i?\" \":\"\",p[i]);putchar('\\n');free(p);\n    return 0;\n}\n",
+          "hints": [
+            "int *next=realloc(p,(n+1)*sizeof *p);",
+            "分配初始 n 个元素，读入新元素 x 后扩为 n+1，把 x 写到 p[n]，再输出整个数组。",
+            "成功的 realloc 可能移动对象，旧指针值不能再用于访问，需更新相关指针。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "en": "User-Defined Types",
+    "title": "结构体、链表与自定义类型",
+    "description": "教材第 9 章：聚合数据、结构体指针、链表、共用体、枚举和类型别名。",
+    "lessons": [
+      {
+        "id": "c14-1",
+        "chapter": 14,
+        "index": 0,
+        "title": "定义与初始化结构体",
+        "en": "Struct Basics",
+        "textbook": "9.1",
+        "objective": "用结构体保存坐标并输出坐标和",
+        "explanation": [
+          "结构体把不同成员组成一个新的对象类型，每个成员有自己的存储。struct Point {int x,y;}; 定义类型，struct Point p={1,2}; 定义对象；类型定义和变量定义并不相同。使用点运算符访问对象成员。",
+          "C99 支持指定成员初始化，例如 {.y=2,.x=1}。结构体对象可以整体赋值，但一般不能使用 == 比较整个结构体；成员间还可能有填充字节，所以不要把内存布局等同于成员大小的简单相加。"
+        ],
+        "syntax": "struct Point { int x,y; };\nstruct Point p={.x=1,.y=2};",
+        "syntaxNotes": "把输入存入 p.x、p.y，再输出两者之和；每个坐标绝对值不超过 1000。",
+        "example": "#include <stdio.h>\nstruct Point {int x,y;};\nint main(void) {\n    struct Point p;\n    if(scanf(\"%d%d\",&p.x,&p.y)!=2)return 1;\n    printf(\"%d\\n\",p.x+p.y);\n    return 0;\n}\n",
+        "exampleInput": "2 5",
+        "exampleOutput": "7\n",
+        "walkthrough": "把输入存入 p.x、p.y，再输出两者之和；每个坐标绝对值不超过 1000。",
+        "mistakes": [
+          "实现可能插入填充字节以满足对齐要求，不能假定没有填充。",
+          "点运算符用于结构体或共用体对象；箭头用于指向它们的指针。"
+        ],
+        "summary": "用结构体保存坐标并输出坐标和",
+        "quizzes": [
+          {
+            "id": "c14-1-q1",
+            "type": "single",
+            "question": "访问结构体变量 p 的成员 x 应使用什么？",
+            "options": [
+              "p.x",
+              "p->x，任何时候都如此",
+              "p[x]"
+            ],
+            "answer": [
+              "p.x"
+            ],
+            "explanation": "点运算符用于结构体或共用体对象；箭头用于指向它们的指针。"
+          },
+          {
+            "id": "c14-1-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "7"
+            ],
+            "explanation": "把输入存入 p.x、p.y，再输出两者之和；每个坐标绝对值不超过 1000。"
+          },
+          {
+            "id": "c14-1-q3",
+            "type": "boolean",
+            "question": "所有结构体的 sizeof 都严格等于各成员 sizeof 之和。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "实现可能插入填充字节以满足对齐要求，不能假定没有填充。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-1-q1",
+          "type": "single",
+          "question": "访问结构体变量 p 的成员 x 应使用什么？",
+          "options": [
+            "p.x",
+            "p->x，任何时候都如此",
+            "p[x]"
+          ],
+          "answer": [
+            "p.x"
+          ],
+          "explanation": "点运算符用于结构体或共用体对象；箭头用于指向它们的指针。"
+        },
+        "challenge": {
+          "id": "c14-1-practice",
+          "title": "用结构体保存坐标并输出坐标和",
+          "difficulty": "Medium",
+          "description": "用结构体保存坐标并输出坐标和。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "两个 -1000..1000 的整数坐标。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "2 5",
+              "output": "7\n"
+            },
+            {
+              "input": "-2 2",
+              "output": "0\n"
+            },
+            {
+              "input": "0 0",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用结构体保存坐标并输出坐标和 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstruct Point {int x,y;};\nint main(void) {\n    struct Point p;\n    if(scanf(\"%d%d\",&p.x,&p.y)!=2)return 1;\n    printf(\"%d\\n\",p.x+p.y);\n    return 0;\n}\n",
+          "hints": [
+            "struct Point { int x,y; };",
+            "把输入存入 p.x、p.y，再输出两者之和；每个坐标绝对值不超过 1000。",
+            "实现可能插入填充字节以满足对齐要求，不能假定没有填充。"
+          ]
+        }
+      },
+      {
+        "id": "c14-2",
+        "chapter": 14,
+        "index": 1,
+        "title": "结构体数组与记录查找",
+        "en": "Arrays of Records",
+        "textbook": "9.2",
+        "objective": "从记录数组中找出最高分记录的编号",
+        "explanation": [
+          "数组可以保存多个结构体，a[i].score 先选择第 i 条记录，再访问它的成员。比起维护互不关联的编号数组和成绩数组，结构体数组更容易让一条记录的数据保持一致，也便于整体复制和交换。",
+          "查找最高分需要先用第一条有效记录初始化候选，再逐项比较。若规则要求并列时保留最先出现的记录，只在严格大于时更新。输入数量与数组容量分开保存，遍历只使用有效记录范围。"
+        ],
+        "syntax": "struct Record {int id,score;};\nif(a[i].score>a[best].score) best=i;",
+        "syntaxNotes": "n 为 1..10，成绩为 0..100；并列保留第一条，输出它的 id。",
+        "example": "#include <stdio.h>\nstruct Record{int id,score;};\nint main(void) {\n    int n;struct Record a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d%d\",&a[i].id,&a[i].score)!=2)return 1;\n    int best=0;for(int i=1;i<n;i++)if(a[i].score>a[best].score)best=i;\n    printf(\"%d\\n\",a[best].id);\n    return 0;\n}\n",
+        "exampleInput": "3 11 80 12 95 13 90",
+        "exampleOutput": "12\n",
+        "walkthrough": "n 为 1..10，成绩为 0..100；并列保留第一条，输出它的 id。",
+        "mistakes": [
+          ">= 会用后来的并列记录替换候选，保留第一条应使用 >。",
+          "先通过下标取得结构体对象，再用点运算符选择成员。"
+        ],
+        "summary": "从记录数组中找出最高分记录的编号",
+        "quizzes": [
+          {
+            "id": "c14-2-q1",
+            "type": "single",
+            "question": "结构体数组 a 中第 i 条记录的 score 成员怎么访问？",
+            "options": [
+              "a.score[i]",
+              "a[i][score]",
+              "a[i].score"
+            ],
+            "answer": [
+              "a[i].score"
+            ],
+            "explanation": "先通过下标取得结构体对象，再用点运算符选择成员。"
+          },
+          {
+            "id": "c14-2-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "12"
+            ],
+            "explanation": "n 为 1..10，成绩为 0..100；并列保留第一条，输出它的 id。"
+          },
+          {
+            "id": "c14-2-q3",
+            "type": "boolean",
+            "question": "为了在并列时保留最先出现的记录，更新条件应写 >=。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": ">= 会用后来的并列记录替换候选，保留第一条应使用 >。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-2-q1",
+          "type": "single",
+          "question": "结构体数组 a 中第 i 条记录的 score 成员怎么访问？",
+          "options": [
+            "a.score[i]",
+            "a[i][score]",
+            "a[i].score"
+          ],
+          "answer": [
+            "a[i].score"
+          ],
+          "explanation": "先通过下标取得结构体对象，再用点运算符选择成员。"
+        },
+        "challenge": {
+          "id": "c14-2-practice",
+          "title": "从记录数组中找出最高分记录的编号",
+          "difficulty": "Medium",
+          "description": "从记录数组中找出最高分记录的编号。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "n（1..10），随后 n 对编号 id（1..1000）与成绩 score（0..100）。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3 11 80 12 95 13 90",
+              "output": "12\n"
+            },
+            {
+              "input": "2 4 90 5 90",
+              "output": "4\n"
+            },
+            {
+              "input": "1 7 0",
+              "output": "7\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 从记录数组中找出最高分记录的编号 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstruct Record{int id,score;};\nint main(void) {\n    int n;struct Record a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d%d\",&a[i].id,&a[i].score)!=2)return 1;\n    int best=0;for(int i=1;i<n;i++)if(a[i].score>a[best].score)best=i;\n    printf(\"%d\\n\",a[best].id);\n    return 0;\n}\n",
+          "hints": [
+            "struct Record {int id,score;};",
+            "n 为 1..10，成绩为 0..100；并列保留第一条，输出它的 id。",
+            ">= 会用后来的并列记录替换候选，保留第一条应使用 >。"
+          ]
+        }
+      },
+      {
+        "id": "c14-3",
+        "chapter": 14,
+        "index": 2,
+        "title": "结构体指针与函数传参",
+        "en": "Struct Pointers",
+        "textbook": "9.3",
+        "objective": "通过结构体指针给坐标的两个成员加上偏移",
+        "explanation": [
+          "指向结构体的指针使用 -> 访问成员，p->x 等价于 (*p).x。括号不能省略为 *p.x，因为点运算符结合更紧。传结构体值会复制对象；传指针让函数可以访问调用者的原对象。",
+          "只读取结构体时，可以使用 const struct Point* 明确禁止通过此指针修改成员。要修改原对象则接收普通结构体指针，并保证调用者传入有效地址。本节把位移操作封装成函数，调用处能看出修改目标。"
+        ],
+        "syntax": "void move(struct Point*p,int d){p->x+=d;p->y+=d;}",
+        "syntaxNotes": "输入 x、y、d 均为 -100..100，函数更新原对象并输出新的两个成员。",
+        "example": "#include <stdio.h>\nstruct Point{int x,y;};\nstatic void move(struct Point*p,int d){p->x+=d;p->y+=d;}\nint main(void) {\n    struct Point p;int d;if(scanf(\"%d%d%d\",&p.x,&p.y,&d)!=3)return 1;\n    move(&p,d);printf(\"%d %d\\n\",p.x,p.y);\n    return 0;\n}\n",
+        "exampleInput": "1 2 3",
+        "exampleOutput": "4 5\n",
+        "walkthrough": "输入 x、y、d 均为 -100..100，函数更新原对象并输出新的两个成员。",
+        "mistakes": [
+          "按值传参复制结构体；要修改调用者对象，需要传入其地址。",
+          "先对指针解引用得到结构体对象，再选择成员；括号决定运算顺序。"
+        ],
+        "summary": "通过结构体指针给坐标的两个成员加上偏移",
+        "quizzes": [
+          {
+            "id": "c14-3-q1",
+            "type": "single",
+            "question": "p 为结构体指针时，p->x 等价于哪项？",
+            "options": [
+              "&p.x",
+              "(*p).x",
+              "*p.x"
+            ],
+            "answer": [
+              "(*p).x"
+            ],
+            "explanation": "先对指针解引用得到结构体对象，再选择成员；括号决定运算顺序。"
+          },
+          {
+            "id": "c14-3-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "4 5"
+            ],
+            "explanation": "输入 x、y、d 均为 -100..100，函数更新原对象并输出新的两个成员。"
+          },
+          {
+            "id": "c14-3-q3",
+            "type": "boolean",
+            "question": "把结构体按值传入函数后，修改形参成员就能修改调用者对象。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "按值传参复制结构体；要修改调用者对象，需要传入其地址。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-3-q1",
+          "type": "single",
+          "question": "p 为结构体指针时，p->x 等价于哪项？",
+          "options": [
+            "&p.x",
+            "(*p).x",
+            "*p.x"
+          ],
+          "answer": [
+            "(*p).x"
+          ],
+          "explanation": "先对指针解引用得到结构体对象，再选择成员；括号决定运算顺序。"
+        },
+        "challenge": {
+          "id": "c14-3-practice",
+          "title": "通过结构体指针给坐标的两个成员加上偏移",
+          "difficulty": "Medium",
+          "description": "通过结构体指针给坐标的两个成员加上偏移。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "三个 -100..100 的整数 x、y、d。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1 2 3",
+              "output": "4 5\n"
+            },
+            {
+              "input": "0 0 -1",
+              "output": "-1 -1\n"
+            },
+            {
+              "input": "-3 5 0",
+              "output": "-3 5\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 通过结构体指针给坐标的两个成员加上偏移 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstruct Point{int x,y;};\nstatic void move(struct Point*p,int d){p->x+=d;p->y+=d;}\nint main(void) {\n    struct Point p;int d;if(scanf(\"%d%d%d\",&p.x,&p.y,&d)!=3)return 1;\n    move(&p,d);printf(\"%d %d\\n\",p.x,p.y);\n    return 0;\n}\n",
+          "hints": [
+            "void move(struct Point*p,int d){p->x+=d;p->y+=d;}",
+            "输入 x、y、d 均为 -100..100，函数更新原对象并输出新的两个成员。",
+            "按值传参复制结构体；要修改调用者对象，需要传入其地址。"
+          ]
+        }
+      },
+      {
+        "id": "c14-4",
+        "chapter": 14,
+        "index": 3,
+        "title": "静态链表与遍历",
+        "en": "Static Linked Lists",
+        "textbook": "9.4.1—9.4.2",
+        "objective": "把三个节点连成链表并按链顺序输出",
+        "explanation": [
+          "链表节点除数据外还保存后继节点的地址。节点在内存中不必相邻，next 决定逻辑顺序。结构体内部可以声明指向自身类型的指针，因为指针大小不依赖完整节点大小；不能直接把同类型完整对象无限嵌入自身。",
+          "静态链表使用已经存在的节点对象，通过指针串联，不需要动态分配。遍历从头指针开始，每次处理当前节点后移动到 next，到 NULL 结束。节点的生存期必须覆盖整个遍历，不能保存已经失效的局部节点地址。"
+        ],
+        "syntax": "struct Node{int value;struct Node*next;};\nfor(struct Node*p=head;p;p=p->next) /* 访问 p */",
+        "syntaxNotes": "输入三个数，节点按第一个、第三个、第二个的顺序连接，输出该逻辑顺序。",
+        "example": "#include <stdio.h>\nstruct Node{int value;struct Node*next;};\nint main(void) {\n    struct Node a,b,c;if(scanf(\"%d%d%d\",&a.value,&b.value,&c.value)!=3)return 1;\n    a.next=&c;c.next=&b;b.next=NULL;\n    int first=1;for(struct Node*p=&a;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "1 2 3",
+        "exampleOutput": "1 3 2\n",
+        "walkthrough": "输入三个数，节点按第一个、第三个、第二个的顺序连接，输出该逻辑顺序。",
+        "mistakes": [
+          "完整对象不能无限包含自身，但可以包含指向自身类型的指针。",
+          "链表按链接关系遍历，节点在物理存储中不需要连续。"
+        ],
+        "summary": "把三个节点连成链表并按链顺序输出",
+        "quizzes": [
+          {
+            "id": "c14-4-q1",
+            "type": "single",
+            "question": "链表的逻辑访问顺序由什么决定？",
+            "options": [
+              "每个节点的 next 指针",
+              "节点实际内存地址从小到大",
+              "变量在文件中的字母顺序"
+            ],
+            "answer": [
+              "每个节点的 next 指针"
+            ],
+            "explanation": "链表按链接关系遍历，节点在物理存储中不需要连续。"
+          },
+          {
+            "id": "c14-4-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "1 3 2"
+            ],
+            "explanation": "输入三个数，节点按第一个、第三个、第二个的顺序连接，输出该逻辑顺序。"
+          },
+          {
+            "id": "c14-4-q3",
+            "type": "boolean",
+            "question": "结构体 Node 可以直接含一个完整的 struct Node 成员而没有终止层。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "完整对象不能无限包含自身，但可以包含指向自身类型的指针。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-4-q1",
+          "type": "single",
+          "question": "链表的逻辑访问顺序由什么决定？",
+          "options": [
+            "每个节点的 next 指针",
+            "节点实际内存地址从小到大",
+            "变量在文件中的字母顺序"
+          ],
+          "answer": [
+            "每个节点的 next 指针"
+          ],
+          "explanation": "链表按链接关系遍历，节点在物理存储中不需要连续。"
+        },
+        "challenge": {
+          "id": "c14-4-practice",
+          "title": "把三个节点连成链表并按链顺序输出",
+          "difficulty": "Medium",
+          "description": "把三个节点连成链表并按链顺序输出。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "三个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1 2 3",
+              "output": "1 3 2\n"
+            },
+            {
+              "input": "0 -1 5",
+              "output": "0 5 -1\n"
+            },
+            {
+              "input": "7 7 7",
+              "output": "7 7 7\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 把三个节点连成链表并按链顺序输出 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstruct Node{int value;struct Node*next;};\nint main(void) {\n    struct Node a,b,c;if(scanf(\"%d%d%d\",&a.value,&b.value,&c.value)!=3)return 1;\n    a.next=&c;c.next=&b;b.next=NULL;\n    int first=1;for(struct Node*p=&a;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "struct Node{int value;struct Node*next;};",
+            "输入三个数，节点按第一个、第三个、第二个的顺序连接，输出该逻辑顺序。",
+            "完整对象不能无限包含自身，但可以包含指向自身类型的指针。"
+          ]
+        }
+      },
+      {
+        "id": "c14-5",
+        "chapter": 14,
+        "index": 4,
+        "title": "建立、释放动态链表",
+        "en": "Dynamic Linked Lists",
+        "textbook": "9.4.3—9.4.4",
+        "objective": "动态建立链表并输出各节点数值之和",
+        "explanation": [
+          "动态链表为每个新节点申请空间，设置数据和 next，再接入链中。头插法让新节点成为 head，因此顺序与输入相反；如果需要保持输入顺序，可以维护尾指针，或使用指向下一链接位置的二级指针。",
+          "每次 malloc 都可能失败，失败路径也要释放之前建立的节点。销毁时先保存 next，再释放当前节点，随后移动到保存的地址；free 后不能再读取当前节点的 next。空链表用 NULL 表示，遍历和释放都应能处理它。"
+        ],
+        "syntax": "node->next=head; head=node;\n/* 释放 */ next=head->next; free(head); head=next;",
+        "syntaxNotes": "输入 n 为 0..20，使用头插法建立，累加后逐一释放；空链表的总和为 0。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\nstruct Node{int value;struct Node*next;};\nstatic void destroy(struct Node*p){while(p){struct Node*next=p->next;free(p);p=next;}}\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<0||n>20)return 1;\n    struct Node*head=NULL;\n    for(int i=0;i<n;i++){int x;if(scanf(\"%d\",&x)!=1){destroy(head);return 1;}struct Node*p=malloc(sizeof*p);if(!p){destroy(head);return 1;}p->value=x;p->next=head;head=p;}\n    int sum=0;for(struct Node*p=head;p;p=p->next)sum+=p->value;\n    printf(\"%d\\n\",sum);destroy(head);\n    return 0;\n}\n",
+        "exampleInput": "3 2 3 4",
+        "exampleOutput": "9\n",
+        "walkthrough": "输入 n 为 0..20，使用头插法建立，累加后逐一释放；空链表的总和为 0。",
+        "mistakes": [
+          "每次独立分配的节点需要单独释放，C 不会自动沿 next 销毁链。",
+          "free 结束节点对象生存期，之后通过它读取 next 也属于无效访问。"
+        ],
+        "summary": "动态建立链表并输出各节点数值之和",
+        "quizzes": [
+          {
+            "id": "c14-5-q1",
+            "type": "single",
+            "question": "释放一个链表节点之前为什么保存 next？",
+            "options": [
+              "为了让 free 释放所有后继",
+              "因为 NULL 不能赋值",
+              "释放后不能再读取该节点的成员"
+            ],
+            "answer": [
+              "释放后不能再读取该节点的成员"
+            ],
+            "explanation": "free 结束节点对象生存期，之后通过它读取 next 也属于无效访问。"
+          },
+          {
+            "id": "c14-5-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "9"
+            ],
+            "explanation": "输入 n 为 0..20，使用头插法建立，累加后逐一释放；空链表的总和为 0。"
+          },
+          {
+            "id": "c14-5-q3",
+            "type": "boolean",
+            "question": "只要 free(head)，整条 malloc 建立的链表就会自动全部释放。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "每次独立分配的节点需要单独释放，C 不会自动沿 next 销毁链。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-5-q1",
+          "type": "single",
+          "question": "释放一个链表节点之前为什么保存 next？",
+          "options": [
+            "为了让 free 释放所有后继",
+            "因为 NULL 不能赋值",
+            "释放后不能再读取该节点的成员"
+          ],
+          "answer": [
+            "释放后不能再读取该节点的成员"
+          ],
+          "explanation": "free 结束节点对象生存期，之后通过它读取 next 也属于无效访问。"
+        },
+        "challenge": {
+          "id": "c14-5-practice",
+          "title": "动态建立链表并输出各节点数值之和",
+          "difficulty": "Medium",
+          "description": "动态建立链表并输出各节点数值之和。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "n（0..20），随后 n 个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3 2 3 4",
+              "output": "9\n"
+            },
+            {
+              "input": "0",
+              "output": "0\n"
+            },
+            {
+              "input": "2 -5 5",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 动态建立链表并输出各节点数值之和 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\nstruct Node{int value;struct Node*next;};\nstatic void destroy(struct Node*p){while(p){struct Node*next=p->next;free(p);p=next;}}\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<0||n>20)return 1;\n    struct Node*head=NULL;\n    for(int i=0;i<n;i++){int x;if(scanf(\"%d\",&x)!=1){destroy(head);return 1;}struct Node*p=malloc(sizeof*p);if(!p){destroy(head);return 1;}p->value=x;p->next=head;head=p;}\n    int sum=0;for(struct Node*p=head;p;p=p->next)sum+=p->value;\n    printf(\"%d\\n\",sum);destroy(head);\n    return 0;\n}\n",
+          "hints": [
+            "node->next=head; head=node;",
+            "输入 n 为 0..20，使用头插法建立，累加后逐一释放；空链表的总和为 0。",
+            "每次独立分配的节点需要单独释放，C 不会自动沿 next 销毁链。"
+          ]
+        }
+      },
+      {
+        "id": "c14-6",
+        "chapter": 14,
+        "index": 5,
+        "title": "链表插入与删除",
+        "en": "Inserting and Removing Nodes",
+        "textbook": "9.4 扩展练习",
+        "objective": "在三节点链表中删除首个等于目标的节点",
+        "explanation": [
+          "插入和删除都需要重新连接相邻节点。头节点没有前驱，容易造成额外分支；用指向链接位置的二级指针，可以统一处理 head 和某个节点的 next。修改 *link 就是在修改真正保存当前节点地址的那个位置。",
+          "删除节点前先把链接指向其后继，再释放被删节点。只删除第一次匹配要及时停止；没有匹配时保留原链。此练习使用三条动态记录，先按输入顺序构建，再输出删除后的序列，并释放所有剩余节点。"
+        ],
+        "syntax": "struct Node **link=&head;\nwhile(*link && (*link)->value!=target) link=&(*link)->next;\nif(*link){old=*link;*link=old->next;free(old);}",
+        "syntaxNotes": "读取三个值和一个目标，只删除首个匹配。剩余节点按原顺序输出，以空格分隔。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\nstruct Node{int value;struct Node*next;};\nstatic void destroy(struct Node*p){while(p){struct Node*n=p->next;free(p);p=n;}}\nint main(void) {\n    struct Node*head=NULL,**tail=&head;int target;\n    for(int i=0;i<3;i++){int x;if(scanf(\"%d\",&x)!=1){destroy(head);return 1;}struct Node*p=malloc(sizeof*p);if(!p){destroy(head);return 1;}p->value=x;p->next=NULL;*tail=p;tail=&p->next;}\n    if(scanf(\"%d\",&target)!=1){destroy(head);return 1;}\n    struct Node**link=&head;while(*link&&(*link)->value!=target)link=&(*link)->next;\n    if(*link){struct Node*old=*link;*link=old->next;free(old);}\n    int first=1;for(struct Node*p=head;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}putchar('\\n');destroy(head);\n    return 0;\n}\n",
+        "exampleInput": "1 2 3 1",
+        "exampleOutput": "2 3\n",
+        "walkthrough": "读取三个值和一个目标，只删除首个匹配。剩余节点按原顺序输出，以空格分隔。",
+        "mistakes": [
+          "先读取并保存后继或直接重接链接，再 free，不能访问已释放对象。",
+          "删除后 head 应指向原头的后继；二级指针可以统一修改头链接和 next 链接。"
+        ],
+        "summary": "在三节点链表中删除首个等于目标的节点",
+        "quizzes": [
+          {
+            "id": "c14-6-q1",
+            "type": "single",
+            "question": "删除头节点时，必须更新哪个链接？",
+            "options": [
+              "必须移动所有节点的实际内存",
+              "head 保存的首节点地址",
+              "只更新一个局部整数"
+            ],
+            "answer": [
+              "head 保存的首节点地址"
+            ],
+            "explanation": "删除后 head 应指向原头的后继；二级指针可以统一修改头链接和 next 链接。"
+          },
+          {
+            "id": "c14-6-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "2 3"
+            ],
+            "explanation": "读取三个值和一个目标，只删除首个匹配。剩余节点按原顺序输出，以空格分隔。"
+          },
+          {
+            "id": "c14-6-q3",
+            "type": "boolean",
+            "question": "先 free(old)，随后再访问 old->next 更新链接，是安全的删除顺序。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "先读取并保存后继或直接重接链接，再 free，不能访问已释放对象。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-6-q1",
+          "type": "single",
+          "question": "删除头节点时，必须更新哪个链接？",
+          "options": [
+            "必须移动所有节点的实际内存",
+            "head 保存的首节点地址",
+            "只更新一个局部整数"
+          ],
+          "answer": [
+            "head 保存的首节点地址"
+          ],
+          "explanation": "删除后 head 应指向原头的后继；二级指针可以统一修改头链接和 next 链接。"
+        },
+        "challenge": {
+          "id": "c14-6-practice",
+          "title": "在三节点链表中删除首个等于目标的节点",
+          "difficulty": "Medium",
+          "description": "在三节点链表中删除首个等于目标的节点。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "三个 -100..100 的节点值，再输入一个 -100..100 的目标值。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1 2 3 1",
+              "output": "2 3\n"
+            },
+            {
+              "input": "1 2 3 2",
+              "output": "1 3\n"
+            },
+            {
+              "input": "1 2 3 9",
+              "output": "1 2 3\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 在三节点链表中删除首个等于目标的节点 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\nstruct Node{int value;struct Node*next;};\nstatic void destroy(struct Node*p){while(p){struct Node*n=p->next;free(p);p=n;}}\nint main(void) {\n    struct Node*head=NULL,**tail=&head;int target;\n    for(int i=0;i<3;i++){int x;if(scanf(\"%d\",&x)!=1){destroy(head);return 1;}struct Node*p=malloc(sizeof*p);if(!p){destroy(head);return 1;}p->value=x;p->next=NULL;*tail=p;tail=&p->next;}\n    if(scanf(\"%d\",&target)!=1){destroy(head);return 1;}\n    struct Node**link=&head;while(*link&&(*link)->value!=target)link=&(*link)->next;\n    if(*link){struct Node*old=*link;*link=old->next;free(old);}\n    int first=1;for(struct Node*p=head;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}putchar('\\n');destroy(head);\n    return 0;\n}\n",
+          "hints": [
+            "struct Node **link=&head;",
+            "读取三个值和一个目标，只删除首个匹配。剩余节点按原顺序输出，以空格分隔。",
+            "先读取并保存后继或直接重接链接，再 free，不能访问已释放对象。"
+          ]
+        }
+      },
+      {
+        "id": "c14-7",
+        "chapter": 14,
+        "index": 6,
+        "title": "共用体与有效成员",
+        "en": "Unions and Tagged Values",
+        "textbook": "9.5",
+        "objective": "用标签区分整数值与实数值并输出",
+        "explanation": [
+          "共用体的成员共享存储，同一时刻通常用其中一个成员表达当前值。它与结构体不同，不能把成员当成彼此独立的数据。给一个成员赋值会影响同一区域内其他成员的表示，因此接口必须知道当前有效的成员。",
+          "实践中把共用体与标签配对：标签表示当前保存的是整数还是浮点数，读取时只选择对应成员。读取非当前成员涉及对象表示、实现差异及潜在陷阱，初学阶段不应把它当作可靠的数值转换方式。"
+        ],
+        "syntax": "union Value{int i;double d;};\n/* tag=0 使用 i，tag=1 使用 d */",
+        "syntaxNotes": "模式为 0 时输入 int 并原样输出；模式为 1 时输入 double 并保留两位小数输出。",
+        "example": "#include <stdio.h>\nunion Value{int i;double d;};\nint main(void) {\n    int tag;union Value v;if(scanf(\"%d\",&tag)!=1)return 1;\n    if(tag==0){if(scanf(\"%d\",&v.i)!=1)return 1;printf(\"%d\\n\",v.i);}\n    else{if(scanf(\"%lf\",&v.d)!=1)return 1;printf(\"%.2f\\n\",v.d);}\n    return 0;\n}\n",
+        "exampleInput": "0 42",
+        "exampleOutput": "42\n",
+        "walkthrough": "模式为 0 时输入 int 并原样输出；模式为 1 时输入 double 并保留两位小数输出。",
+        "mistakes": [
+          "共享对象表示不等于算术转换；需要数值转换时显式使用合适的转换表达式。",
+          "成员共享存储，标签提供当前数值的解释方式，避免读错成员。"
+        ],
+        "summary": "用标签区分整数值与实数值并输出",
+        "quizzes": [
+          {
+            "id": "c14-7-q1",
+            "type": "single",
+            "question": "为什么常给 union 配套一个标签字段？",
+            "options": [
+              "说明当前应读取哪个成员",
+              "让所有成员同时拥有独立空间",
+              "把共用体转换成数组"
+            ],
+            "answer": [
+              "说明当前应读取哪个成员"
+            ],
+            "explanation": "成员共享存储，标签提供当前数值的解释方式，避免读错成员。"
+          },
+          {
+            "id": "c14-7-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "42"
+            ],
+            "explanation": "模式为 0 时输入 int 并原样输出；模式为 1 时输入 double 并保留两位小数输出。"
+          },
+          {
+            "id": "c14-7-q3",
+            "type": "boolean",
+            "question": "给 union 的 double 成员赋值后，int 成员自动得到正确的强制类型转换结果。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "共享对象表示不等于算术转换；需要数值转换时显式使用合适的转换表达式。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-7-q1",
+          "type": "single",
+          "question": "为什么常给 union 配套一个标签字段？",
+          "options": [
+            "说明当前应读取哪个成员",
+            "让所有成员同时拥有独立空间",
+            "把共用体转换成数组"
+          ],
+          "answer": [
+            "说明当前应读取哪个成员"
+          ],
+          "explanation": "成员共享存储，标签提供当前数值的解释方式，避免读错成员。"
+        },
+        "challenge": {
+          "id": "c14-7-practice",
+          "title": "用标签区分整数值与实数值并输出",
+          "difficulty": "Medium",
+          "description": "用标签区分整数值与实数值并输出。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "tag（0 或 1），然后输入对应整数或有限实数，绝对值不超过 1000。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "0 42",
+              "output": "42\n"
+            },
+            {
+              "input": "1 2.5",
+              "output": "2.50\n"
+            },
+            {
+              "input": "0 -3",
+              "output": "-3\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用标签区分整数值与实数值并输出 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nunion Value{int i;double d;};\nint main(void) {\n    int tag;union Value v;if(scanf(\"%d\",&tag)!=1)return 1;\n    if(tag==0){if(scanf(\"%d\",&v.i)!=1)return 1;printf(\"%d\\n\",v.i);}\n    else{if(scanf(\"%lf\",&v.d)!=1)return 1;printf(\"%.2f\\n\",v.d);}\n    return 0;\n}\n",
+          "hints": [
+            "union Value{int i;double d;};",
+            "模式为 0 时输入 int 并原样输出；模式为 1 时输入 double 并保留两位小数输出。",
+            "共享对象表示不等于算术转换；需要数值转换时显式使用合适的转换表达式。"
+          ]
+        }
+      },
+      {
+        "id": "c14-8",
+        "chapter": 14,
+        "index": 7,
+        "title": "枚举、typedef 与类型名称",
+        "en": "Enums and Type Aliases",
+        "textbook": "9.6—9.7",
+        "objective": "使用枚举状态输出对应名称",
+        "explanation": [
+          "enum 为一组整数常量命名，未指定的首项默认为零，后续项在前项值上加一。枚举让状态判断比直接写魔法数字更清楚，但 C 不会自动把外部输入限制为列举的那些值，仍需验证范围。",
+          "typedef 为已有类型建立别名，不建立新的存储对象，也不会自动创建与原类型不兼容的新类型。可以用 typedef struct {...} Record 简化类型名称；给指针取别名时尤其要留意 const 修饰的是别名代表的整体类型。"
+        ],
+        "syntax": "typedef enum { READY=0,RUNNING=1,DONE=2 } State;",
+        "syntaxNotes": "输入 0..2，通过 switch 输出 READY、RUNNING 或 DONE；超出范围报告输入失败。",
+        "example": "#include <stdio.h>\ntypedef enum{READY=0,RUNNING=1,DONE=2}State;\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<0||n>2)return 1;\n    State s=(State)n;switch(s){case READY:puts(\"READY\");break;case RUNNING:puts(\"RUNNING\");break;case DONE:puts(\"DONE\");break;}\n    return 0;\n}\n",
+        "exampleInput": "0",
+        "exampleOutput": "READY\n",
+        "walkthrough": "输入 0..2，通过 switch 输出 READY、RUNNING 或 DONE；超出范围报告输入失败。",
+        "mistakes": [
+          "没有显式赋值的枚举常量在前一个枚举值基础上加一。",
+          "typedef 建立名称，声明变量时才创建相应对象。"
+        ],
+        "summary": "使用枚举状态输出对应名称",
+        "quizzes": [
+          {
+            "id": "c14-8-q1",
+            "type": "single",
+            "question": "typedef int Score; 的含义是什么？",
+            "options": [
+              "分配一个名叫 Score 的 int 变量",
+              "创建与 int 完全不兼容的独立类型",
+              "给 int 建立类型别名 Score"
+            ],
+            "answer": [
+              "给 int 建立类型别名 Score"
+            ],
+            "explanation": "typedef 建立名称，声明变量时才创建相应对象。"
+          },
+          {
+            "id": "c14-8-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "READY"
+            ],
+            "explanation": "输入 0..2，通过 switch 输出 READY、RUNNING 或 DONE；超出范围报告输入失败。"
+          },
+          {
+            "id": "c14-8-q3",
+            "type": "boolean",
+            "question": "enum A { X=3,Y,Z }; 中 Y 的值是 4。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "正确"
+            ],
+            "explanation": "没有显式赋值的枚举常量在前一个枚举值基础上加一。"
+          }
+        ],
+        "quiz": {
+          "id": "c14-8-q1",
+          "type": "single",
+          "question": "typedef int Score; 的含义是什么？",
+          "options": [
+            "分配一个名叫 Score 的 int 变量",
+            "创建与 int 完全不兼容的独立类型",
+            "给 int 建立类型别名 Score"
+          ],
+          "answer": [
+            "给 int 建立类型别名 Score"
+          ],
+          "explanation": "typedef 建立名称，声明变量时才创建相应对象。"
+        },
+        "challenge": {
+          "id": "c14-8-practice",
+          "title": "使用枚举状态输出对应名称",
+          "difficulty": "Medium",
+          "description": "使用枚举状态输出对应名称。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 0、1 或 2。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "0",
+              "output": "READY\n"
+            },
+            {
+              "input": "1",
+              "output": "RUNNING\n"
+            },
+            {
+              "input": "2",
+              "output": "DONE\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 使用枚举状态输出对应名称 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\ntypedef enum{READY=0,RUNNING=1,DONE=2}State;\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<0||n>2)return 1;\n    State s=(State)n;switch(s){case READY:puts(\"READY\");break;case RUNNING:puts(\"RUNNING\");break;case DONE:puts(\"DONE\");break;}\n    return 0;\n}\n",
+          "hints": [
+            "typedef enum { READY=0,RUNNING=1,DONE=2 } State;",
+            "输入 0..2，通过 switch 输出 READY、RUNNING 或 DONE；超出范围报告输入失败。",
+            "没有显式赋值的枚举常量在前一个枚举值基础上加一。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "en": "File Input & Output",
+    "title": "文件输入输出",
+    "description": "教材第 10 章：流、文本与二进制、定位和错误检查。",
+    "lessons": [
+      {
+        "id": "c15-1",
+        "chapter": 15,
+        "index": 0,
+        "title": "文件流、打开模式与关闭",
+        "en": "Opening and Closing Files",
+        "textbook": "10.1—10.2",
+        "objective": "把输入单词写入 note.txt 并输出写入长度",
+        "explanation": [
+          "C 使用 FILE* 管理流状态，包括缓冲区、文件位置和错误标志。文件可用于保存文本或二进制数据；文件名和目录规则由运行环境决定。本网站的文件位于每次运行独立的虚拟文件系统，运行后可查看和下载，不会写入电脑磁盘。",
+          "fopen 的 r 要求文件已存在，w 创建或截断，a 创建或追加；带 + 可读写，b 表示二进制模式。打开失败返回 NULL，不能继续读写。fclose 刷新并关闭流，也应检查结果；更新流切换读写方向还需要按规则刷新或定位。"
+        ],
+        "syntax": "FILE*f=fopen(\"note.txt\",\"w\");\nif(!f) return 1;\n/* 写入 */ if(fclose(f)!=0) return 1;",
+        "syntaxNotes": "读取最多 40 字节的单词，写入文件并加换行；输出单词字节数，文件内容也会参加判题。",
+        "example": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[41];if(scanf(\"%40s\",s)!=1)return 1;\n    FILE*f=fopen(\"note.txt\",\"w\");if(!f)return 1;\n    if(fprintf(f,\"%s\\n\",s)<0){fclose(f);return 1;}\n    if(fclose(f)!=0)return 1;printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
+        "exampleInput": "hello",
+        "exampleOutput": "5\n",
+        "walkthrough": "读取最多 40 字节的单词，写入文件并加换行；输出单词字节数，文件内容也会参加判题。",
+        "mistakes": [
+          "返回值可能是 NULL，打开失败后必须停止使用该流指针。",
+          "追加应使用 a；w 会创建新文件或截断已有文件。"
+        ],
+        "summary": "把输入单词写入 note.txt 并输出写入长度",
+        "quizzes": [
+          {
+            "id": "c15-1-q1",
+            "type": "single",
+            "question": "用 w 模式打开已经存在的文本文件会发生什么？",
+            "options": [
+              "原内容被截断，准备从头写入",
+              "一定在原文件末尾追加",
+              "保持旧内容并从随机位置开始"
+            ],
+            "answer": [
+              "原内容被截断，准备从头写入"
+            ],
+            "explanation": "追加应使用 a；w 会创建新文件或截断已有文件。"
+          },
+          {
+            "id": "c15-1-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "5"
+            ],
+            "explanation": "读取最多 40 字节的单词，写入文件并加换行；输出单词字节数，文件内容也会参加判题。"
+          },
+          {
+            "id": "c15-1-q3",
+            "type": "boolean",
+            "question": "只要 fopen 返回了一个 FILE* 变量，就不必检查 NULL。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "返回值可能是 NULL，打开失败后必须停止使用该流指针。"
+          }
+        ],
+        "quiz": {
+          "id": "c15-1-q1",
+          "type": "single",
+          "question": "用 w 模式打开已经存在的文本文件会发生什么？",
+          "options": [
+            "原内容被截断，准备从头写入",
+            "一定在原文件末尾追加",
+            "保持旧内容并从随机位置开始"
+          ],
+          "answer": [
+            "原内容被截断，准备从头写入"
+          ],
+          "explanation": "追加应使用 a；w 会创建新文件或截断已有文件。"
+        },
+        "challenge": {
+          "id": "c15-1-practice",
+          "title": "把输入单词写入 note.txt 并输出写入长度",
+          "difficulty": "Medium",
+          "description": "创建 note.txt，把输入单词和一个换行写入文件；终端输出单词长度。判题同时检查终端和文件内容。",
+          "input": "一个 1..40 字节、不含空白的 ASCII 单词。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "hello",
+              "output": "5\n",
+              "expectedFiles": {
+                "note.txt": "hello\n"
+              }
+            },
+            {
+              "input": "C99",
+              "output": "3\n",
+              "expectedFiles": {
+                "note.txt": "C99\n"
+              }
+            },
+            {
+              "input": "a",
+              "output": "1\n",
+              "expectedFiles": {
+                "note.txt": "a\n"
+              }
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 把输入单词写入 note.txt 并输出写入长度 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[41];if(scanf(\"%40s\",s)!=1)return 1;\n    FILE*f=fopen(\"note.txt\",\"w\");if(!f)return 1;\n    if(fprintf(f,\"%s\\n\",s)<0){fclose(f);return 1;}\n    if(fclose(f)!=0)return 1;printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
+          "hints": [
+            "FILE*f=fopen(\"note.txt\",\"w\");",
+            "读取最多 40 字节的单词，写入文件并加换行；输出单词字节数，文件内容也会参加判题。",
+            "返回值可能是 NULL，打开失败后必须停止使用该流指针。"
+          ]
+        }
+      },
+      {
+        "id": "c15-2",
+        "chapter": 15,
+        "index": 1,
+        "title": "逐字符复制文件",
+        "en": "Character File I/O",
+        "textbook": "10.3.1",
+        "objective": "把 source.txt 的内容复制到 copy.txt",
+        "explanation": [
+          "fgetc 与 getchar 相似，返回一个字节值或 EOF；fputc 把一个字符写到指定流。复制文件应以读取函数的返回值为循环条件，不能在读取前只依赖 feof，因为 EOF 标志要在读取失败后才会设置。",
+          "两个流都要检查打开结果。写入失败、读取错误或关闭失败都可能使复制不完整，成功路径与错误路径都要关闭已经打开的流。练习的 source.txt 由虚拟文件区域提供，每次测试使用新的文件系统，互不影响。"
+        ],
+        "syntax": "int ch;\nwhile((ch=fgetc(in))!=EOF)\n    if(fputc(ch,out)==EOF) /* 写失败 */;",
+        "syntaxNotes": "复制后输出字节数；读取到 EOF 后检查 ferror，避免把读取错误当作正常结束。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    FILE*in=fopen(\"source.txt\",\"r\");if(!in)return 1;\n    FILE*out=fopen(\"copy.txt\",\"w\");if(!out){fclose(in);return 1;}\n    int ch,n=0,ok=1;while((ch=fgetc(in))!=EOF){if(fputc(ch,out)==EOF){ok=0;break;}n++;}\n    if(ferror(in))ok=0;if(fclose(in)!=0)ok=0;if(fclose(out)!=0)ok=0;\n    if(!ok)return 1;printf(\"%d\\n\",n);\n    return 0;\n}\n",
+        "exampleInput": "",
+        "exampleOutput": "4\n",
+        "walkthrough": "复制后输出字节数；读取到 EOF 后检查 ferror，避免把读取错误当作正常结束。",
+        "mistakes": [
+          "EOF 是读取函数报告结束或错误的返回值，不是每个文件末尾存储的一个字节。",
+          "EOF 也可能表示读取失败，ferror 用来区分流错误。"
+        ],
+        "summary": "把 source.txt 的内容复制到 copy.txt",
+        "quizzes": [
+          {
+            "id": "c15-2-q1",
+            "type": "single",
+            "question": "fgetc 的结果应该如何判断文件正常结束？",
+            "options": [
+              "先用 feof 再决定是否读取",
+              "用 char 保存后与零比较",
+              "用 int 保存并与 EOF 比较，结束后检查 ferror"
+            ],
+            "answer": [
+              "用 int 保存并与 EOF 比较，结束后检查 ferror"
+            ],
+            "explanation": "EOF 也可能表示读取失败，ferror 用来区分流错误。"
+          },
+          {
+            "id": "c15-2-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "4"
+            ],
+            "explanation": "复制后输出字节数；读取到 EOF 后检查 ferror，避免把读取错误当作正常结束。"
+          },
+          {
+            "id": "c15-2-q3",
+            "type": "boolean",
+            "question": "文件末尾一定保存一个名为 EOF 的特殊字符。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "EOF 是读取函数报告结束或错误的返回值，不是每个文件末尾存储的一个字节。"
+          }
+        ],
+        "quiz": {
+          "id": "c15-2-q1",
+          "type": "single",
+          "question": "fgetc 的结果应该如何判断文件正常结束？",
+          "options": [
+            "先用 feof 再决定是否读取",
+            "用 char 保存后与零比较",
+            "用 int 保存并与 EOF 比较，结束后检查 ferror"
+          ],
+          "answer": [
+            "用 int 保存并与 EOF 比较，结束后检查 ferror"
+          ],
+          "explanation": "EOF 也可能表示读取失败，ferror 用来区分流错误。"
+        },
+        "challenge": {
+          "id": "c15-2-practice",
+          "title": "把 source.txt 的内容复制到 copy.txt",
+          "difficulty": "Medium",
+          "description": "把 source.txt 的内容复制到 copy.txt。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "无标准输入；source.txt 由虚拟文件区域提供，内容不超过 10000 字节。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "",
+              "output": "4\n",
+              "files": {
+                "source.txt": "abc\n"
+              },
+              "expectedFiles": {
+                "copy.txt": "abc\n"
+              }
+            },
+            {
+              "input": "",
+              "output": "0\n",
+              "files": {
+                "source.txt": ""
+              },
+              "expectedFiles": {
+                "copy.txt": ""
+              }
+            },
+            {
+              "input": "",
+              "output": "5\n",
+              "files": {
+                "source.txt": "A B!\n"
+              },
+              "expectedFiles": {
+                "copy.txt": "A B!\n"
+              }
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 把 source.txt 的内容复制到 copy.txt */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    FILE*in=fopen(\"source.txt\",\"r\");if(!in)return 1;\n    FILE*out=fopen(\"copy.txt\",\"w\");if(!out){fclose(in);return 1;}\n    int ch,n=0,ok=1;while((ch=fgetc(in))!=EOF){if(fputc(ch,out)==EOF){ok=0;break;}n++;}\n    if(ferror(in))ok=0;if(fclose(in)!=0)ok=0;if(fclose(out)!=0)ok=0;\n    if(!ok)return 1;printf(\"%d\\n\",n);\n    return 0;\n}\n",
+          "hints": [
+            "int ch;",
+            "复制后输出字节数；读取到 EOF 后检查 ferror，避免把读取错误当作正常结束。",
+            "EOF 是读取函数报告结束或错误的返回值，不是每个文件末尾存储的一个字节。"
+          ],
+          "files": {
+            "source.txt": "abc\n"
+          }
+        },
+        "exampleFiles": {
+          "source.txt": "abc\n"
+        }
+      },
+      {
+        "id": "c15-3",
+        "chapter": 15,
+        "index": 2,
+        "title": "按行读写文件",
+        "en": "Line File I/O",
+        "textbook": "10.3.2",
+        "objective": "统计 lines.txt 读到的行数",
+        "explanation": [
+          "fgets 可以从任意 FILE* 读取文本，fputs 把字符串写到流中且不自动添加换行。与 puts 不同，fputs 是否输出换行取决于字符串本身。按行处理时必须考虑缓冲区大小和文件最后一行是否带换行。",
+          "一条长行可能被 fgets 拆成多次返回，因此“调用成功次数”等于行数只在行长有界且缓冲区足够时成立。本题明确每行最多 80 个字节，用 82 字节缓冲区读取；末尾没有换行的非空行也算一行。"
+        ],
+        "syntax": "while(fgets(line,sizeof line,f)) ++count;",
+        "syntaxNotes": "文件每行最多 80 字节；空文件为 0 行，只有换行的文件包含一条空行。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"lines.txt\",\"r\");if(!f)return 1;\n    char line[82];int n=0;while(fgets(line,sizeof line,f))n++;\n    int ok=!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    printf(\"%d\\n\",n);\n    return 0;\n}\n",
+        "exampleInput": "",
+        "exampleOutput": "2\n",
+        "walkthrough": "文件每行最多 80 字节；空文件为 0 行，只有换行的文件包含一条空行。",
+        "mistakes": [
+          "容量不够时一行会分成多次返回，必须处理分段或限制输入行长。",
+          "puts 向 stdout 写入并附加换行；fputs 不自动补换行。"
+        ],
+        "summary": "统计 lines.txt 读到的行数",
+        "quizzes": [
+          {
+            "id": "c15-3-q1",
+            "type": "single",
+            "question": "fputs(\"abc\",f) 会自动附加换行吗？",
+            "options": [
+              "会附加两个换行",
+              "不会，按字符串本身写入",
+              "总会附加一个换行"
+            ],
+            "answer": [
+              "不会，按字符串本身写入"
+            ],
+            "explanation": "puts 向 stdout 写入并附加换行；fputs 不自动补换行。"
+          },
+          {
+            "id": "c15-3-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "2"
+            ],
+            "explanation": "文件每行最多 80 字节；空文件为 0 行，只有换行的文件包含一条空行。"
+          },
+          {
+            "id": "c15-3-q3",
+            "type": "boolean",
+            "question": "无论一行多长，每次 fgets 成功都一定得到完整的一行。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "容量不够时一行会分成多次返回，必须处理分段或限制输入行长。"
+          }
+        ],
+        "quiz": {
+          "id": "c15-3-q1",
+          "type": "single",
+          "question": "fputs(\"abc\",f) 会自动附加换行吗？",
+          "options": [
+            "会附加两个换行",
+            "不会，按字符串本身写入",
+            "总会附加一个换行"
+          ],
+          "answer": [
+            "不会，按字符串本身写入"
+          ],
+          "explanation": "puts 向 stdout 写入并附加换行；fputs 不自动补换行。"
+        },
+        "challenge": {
+          "id": "c15-3-practice",
+          "title": "统计 lines.txt 读到的行数",
+          "difficulty": "Medium",
+          "description": "统计 lines.txt 读到的行数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "无标准输入；编辑 lines.txt，每行不超过 80 字节，文件不超过 10000 字节。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "",
+              "output": "2\n",
+              "files": {
+                "lines.txt": "first\nsecond"
+              }
+            },
+            {
+              "input": "",
+              "output": "0\n",
+              "files": {
+                "lines.txt": ""
+              }
+            },
+            {
+              "input": "",
+              "output": "1\n",
+              "files": {
+                "lines.txt": "\n"
+              }
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 统计 lines.txt 读到的行数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"lines.txt\",\"r\");if(!f)return 1;\n    char line[82];int n=0;while(fgets(line,sizeof line,f))n++;\n    int ok=!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    printf(\"%d\\n\",n);\n    return 0;\n}\n",
+          "hints": [
+            "while(fgets(line,sizeof line,f)) ++count;",
+            "文件每行最多 80 字节；空文件为 0 行，只有换行的文件包含一条空行。",
+            "容量不够时一行会分成多次返回，必须处理分段或限制输入行长。"
+          ],
+          "files": {
+            "lines.txt": "first\nsecond"
+          }
+        },
+        "exampleFiles": {
+          "lines.txt": "first\nsecond"
+        }
+      },
+      {
+        "id": "c15-4",
+        "chapter": 15,
+        "index": 3,
+        "title": "格式化读写记录文件",
+        "en": "Formatted File I/O",
+        "textbook": "10.3.3",
+        "objective": "从 scores.txt 读取编号与成绩并写总分文件",
+        "explanation": [
+          "fprintf 和 fscanf 分别把 printf、scanf 的格式转换用于指定的流。格式化文件便于人阅读，但仍需处理不完整记录和错误数据。读取一条含两个字段的记录时，只有返回 2 才能把它作为完整记录使用。",
+          "文件格式是程序之间的约定。练习限定每条记录为编号和整数成绩，中间可有空白；输入结束时允许最后没有换行。若只读到一项或遇到不能转换的内容，程序应报告失败，而不是继续使用未初始化的字段。"
+        ],
+        "syntax": "while((r=fscanf(f,\"%d%d\",&id,&score))==2) sum+=score;\nif(r!=EOF || ferror(f)) /* 输入错误 */;",
+        "syntaxNotes": "统计每条记录成绩，写入 total.txt，以 sum=数字 的格式保存，并在终端输出总分。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"scores.txt\",\"r\");if(!f)return 1;\n    int id,s,r,sum=0;while((r=fscanf(f,\"%d%d\",&id,&s))==2)sum+=s;\n    int ok=r==EOF&&!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    FILE*out=fopen(\"total.txt\",\"w\");if(!out)return 1;\n    ok=fprintf(out,\"sum=%d\\n\",sum)>=0;if(fclose(out)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",sum);\n    return 0;\n}\n",
+        "exampleInput": "",
+        "exampleOutput": "170\n",
+        "walkthrough": "统计每条记录成绩，写入 total.txt，以 sum=数字 的格式保存，并在终端输出总分。",
+        "mistakes": [
+          "换行需要在格式字符串中显式写出，否则记录可能直接连在一起。",
+          "返回值是成功转换并赋值的字段数，少于 2 就不是完整记录。"
+        ],
+        "summary": "从 scores.txt 读取编号与成绩并写总分文件",
+        "quizzes": [
+          {
+            "id": "c15-4-q1",
+            "type": "single",
+            "question": "fscanf 读取含两个字段的完整记录时，应要求返回多少？",
+            "options": [
+              "2",
+              "0",
+              "只要不是 EOF 就行"
+            ],
+            "answer": [
+              "2"
+            ],
+            "explanation": "返回值是成功转换并赋值的字段数，少于 2 就不是完整记录。"
+          },
+          {
+            "id": "c15-4-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "170"
+            ],
+            "explanation": "统计每条记录成绩，写入 total.txt，以 sum=数字 的格式保存，并在终端输出总分。"
+          },
+          {
+            "id": "c15-4-q3",
+            "type": "boolean",
+            "question": "fprintf 会自动把每次调用都写成一个带换行的新记录。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "换行需要在格式字符串中显式写出，否则记录可能直接连在一起。"
+          }
+        ],
+        "quiz": {
+          "id": "c15-4-q1",
+          "type": "single",
+          "question": "fscanf 读取含两个字段的完整记录时，应要求返回多少？",
+          "options": [
+            "2",
+            "0",
+            "只要不是 EOF 就行"
+          ],
+          "answer": [
+            "2"
+          ],
+          "explanation": "返回值是成功转换并赋值的字段数，少于 2 就不是完整记录。"
+        },
+        "challenge": {
+          "id": "c15-4-practice",
+          "title": "从 scores.txt 读取编号与成绩并写总分文件",
+          "difficulty": "Medium",
+          "description": "从 scores.txt 读取编号与成绩并写总分文件。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "无标准输入；scores.txt 含 0..20 对编号与成绩，成绩为 0..100。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "",
+              "output": "170\n",
+              "files": {
+                "scores.txt": "1 80\n2 90\n"
+              },
+              "expectedFiles": {
+                "total.txt": "sum=170\n"
+              }
+            },
+            {
+              "input": "",
+              "output": "0\n",
+              "files": {
+                "scores.txt": ""
+              },
+              "expectedFiles": {
+                "total.txt": "sum=0\n"
+              }
+            },
+            {
+              "input": "",
+              "output": "45\n",
+              "files": {
+                "scores.txt": "7 45"
+              },
+              "expectedFiles": {
+                "total.txt": "sum=45\n"
+              }
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 从 scores.txt 读取编号与成绩并写总分文件 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"scores.txt\",\"r\");if(!f)return 1;\n    int id,s,r,sum=0;while((r=fscanf(f,\"%d%d\",&id,&s))==2)sum+=s;\n    int ok=r==EOF&&!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    FILE*out=fopen(\"total.txt\",\"w\");if(!out)return 1;\n    ok=fprintf(out,\"sum=%d\\n\",sum)>=0;if(fclose(out)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",sum);\n    return 0;\n}\n",
+          "hints": [
+            "while((r=fscanf(f,\"%d%d\",&id,&score))==2) sum+=score;",
+            "统计每条记录成绩，写入 total.txt，以 sum=数字 的格式保存，并在终端输出总分。",
+            "换行需要在格式字符串中显式写出，否则记录可能直接连在一起。"
+          ],
+          "files": {
+            "scores.txt": "1 80\n2 90\n"
+          }
+        },
+        "exampleFiles": {
+          "scores.txt": "1 80\n2 90\n"
+        }
+      },
+      {
+        "id": "c15-5",
+        "chapter": 15,
+        "index": 4,
+        "title": "二进制块读写",
+        "en": "Binary File I/O",
+        "textbook": "10.3.4",
+        "objective": "把三个整数写入二进制文件再读回求和",
+        "explanation": [
+          "fwrite 和 fread 按对象大小与数量搬运字节，返回成功处理的完整对象个数，而不是总字节数。二进制模式用 wb、rb 表达意图；文本与二进制在某些系统存在换行转换差异，浏览器环境中不应据此推断所有系统都相同。",
+          "直接保存 int 或结构体的原始表示，只适合相同实现之间的实验。字节序、类型宽度和结构体填充都可能不同，不能把本例的二进制文件当成可移植交换格式。跨平台文件应自行约定字节格式，再逐字段编码。"
+        ],
+        "syntax": "fwrite(a,sizeof a[0],3,f);\nfread(b,sizeof b[0],3,f);",
+        "syntaxNotes": "先用 wb 保存，关闭后再用 rb 打开读取；必须确认写入、读取都完成三个对象。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    int a[3],b[3];for(int i=0;i<3;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    FILE*f=fopen(\"numbers.bin\",\"wb\");if(!f)return 1;\n    int ok=fwrite(a,sizeof a[0],3,f)==3;if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    f=fopen(\"numbers.bin\",\"rb\");if(!f)return 1;ok=fread(b,sizeof b[0],3,f)==3;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",b[0]+b[1]+b[2]);\n    return 0;\n}\n",
+        "exampleInput": "1 2 3",
+        "exampleOutput": "6\n",
+        "walkthrough": "先用 wb 保存，关闭后再用 rb 打开读取；必须确认写入、读取都完成三个对象。",
+        "mistakes": [
+          "填充、字节序和类型表示可能不同；可移植格式需要显式定义编码。",
+          "返回成功写入的对象个数，size 参数已经给出了每个对象的字节数。"
+        ],
+        "summary": "把三个整数写入二进制文件再读回求和",
+        "quizzes": [
+          {
+            "id": "c15-5-q1",
+            "type": "single",
+            "question": "fwrite(a,sizeof(int),3,f) 成功写完时通常返回什么？",
+            "options": [
+              "3*sizeof(int)",
+              "0",
+              "3"
+            ],
+            "answer": [
+              "3"
+            ],
+            "explanation": "返回成功写入的对象个数，size 参数已经给出了每个对象的字节数。"
+          },
+          {
+            "id": "c15-5-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "6"
+            ],
+            "explanation": "先用 wb 保存，关闭后再用 rb 打开读取；必须确认写入、读取都完成三个对象。"
+          },
+          {
+            "id": "c15-5-q3",
+            "type": "boolean",
+            "question": "直接 fwrite 一个结构体产生的文件总能跨任意机器按同样结构读回。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "填充、字节序和类型表示可能不同；可移植格式需要显式定义编码。"
+          }
+        ],
+        "quiz": {
+          "id": "c15-5-q1",
+          "type": "single",
+          "question": "fwrite(a,sizeof(int),3,f) 成功写完时通常返回什么？",
+          "options": [
+            "3*sizeof(int)",
+            "0",
+            "3"
+          ],
+          "answer": [
+            "3"
+          ],
+          "explanation": "返回成功写入的对象个数，size 参数已经给出了每个对象的字节数。"
+        },
+        "challenge": {
+          "id": "c15-5-practice",
+          "title": "把三个整数写入二进制文件再读回求和",
+          "difficulty": "Medium",
+          "description": "把三个整数写入二进制文件再读回求和。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "三个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "1 2 3",
+              "output": "6\n"
+            },
+            {
+              "input": "-2 0 2",
+              "output": "0\n"
+            },
+            {
+              "input": "10 20 30",
+              "output": "60\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 把三个整数写入二进制文件再读回求和 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    int a[3],b[3];for(int i=0;i<3;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    FILE*f=fopen(\"numbers.bin\",\"wb\");if(!f)return 1;\n    int ok=fwrite(a,sizeof a[0],3,f)==3;if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    f=fopen(\"numbers.bin\",\"rb\");if(!f)return 1;ok=fread(b,sizeof b[0],3,f)==3;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",b[0]+b[1]+b[2]);\n    return 0;\n}\n",
+          "hints": [
+            "fwrite(a,sizeof a[0],3,f);",
+            "先用 wb 保存，关闭后再用 rb 打开读取；必须确认写入、读取都完成三个对象。",
+            "填充、字节序和类型表示可能不同；可移植格式需要显式定义编码。"
+          ]
+        }
+      },
+      {
+        "id": "c15-6",
+        "chapter": 15,
+        "index": 5,
+        "title": "文件位置、定位与回退",
+        "en": "Random File Access",
+        "textbook": "10.4",
+        "objective": "定位到 data.txt 的第 k 个字节并读取",
+        "explanation": [
+          "每个流维护当前位置。ftell 查询位置，fseek 按起点和偏移调整位置，rewind 回到起点并清除错误标志。读取某条固定宽度二进制记录时可以根据记录序号计算偏移，但必须检查乘法范围和定位操作是否成功。",
+          "文本流的位置值不一定等于简单字节计数，标准对文本流的 fseek 用法有额外限制。本节使用 rb 二进制模式和 ASCII 测试数据，从 SEEK_SET 定位到给定字节；如果位置到达文件末尾，读取将返回 EOF。"
+        ],
+        "syntax": "if(fseek(f,k,SEEK_SET)!=0) return 1;\nint ch=fgetc(f);",
+        "syntaxNotes": "输入 k 为 0..4，在五字节文件 ABCDE 中读取一个字符，rewind 后再读取首字符。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    long k;if(scanf(\"%ld\",&k)!=1||k<0||k>4)return 1;\n    FILE*f=fopen(\"data.txt\",\"rb\");if(!f)return 1;\n    if(fseek(f,k,SEEK_SET)!=0){fclose(f);return 1;}int ch=fgetc(f);\n    rewind(f);int first=fgetc(f);int ok=!ferror(f)&&ch!=EOF&&first!=EOF;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%c %c\\n\",ch,first);\n    return 0;\n}\n",
+        "exampleInput": "2",
+        "exampleOutput": "C A\n",
+        "walkthrough": "输入 k 为 0..4，在五字节文件 ABCDE 中读取一个字符，rewind 后再读取首字符。",
+        "mistakes": [
+          "文本流的位置值有实现相关含义，不应当作一般字节数；本题用二进制模式定位。",
+          "SEEK_CUR 相对当前位置，SEEK_END 相对末尾；每次定位都应检查返回值。"
+        ],
+        "summary": "定位到 data.txt 的第 k 个字节并读取",
+        "quizzes": [
+          {
+            "id": "c15-6-q1",
+            "type": "single",
+            "question": "SEEK_SET 作为 fseek 第三个参数表示什么？",
+            "options": [
+              "相对文件末尾",
+              "相对文件开头",
+              "相对当前位置"
+            ],
+            "answer": [
+              "相对文件开头"
+            ],
+            "explanation": "SEEK_CUR 相对当前位置，SEEK_END 相对末尾；每次定位都应检查返回值。"
+          },
+          {
+            "id": "c15-6-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "C A"
+            ],
+            "explanation": "输入 k 为 0..4，在五字节文件 ABCDE 中读取一个字符，rewind 后再读取首字符。"
+          },
+          {
+            "id": "c15-6-q3",
+            "type": "boolean",
+            "question": "在所有标准 C 文本流中，ftell 的返回值一定等于已读取字节数。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "文本流的位置值有实现相关含义，不应当作一般字节数；本题用二进制模式定位。"
+          }
+        ],
+        "quiz": {
+          "id": "c15-6-q1",
+          "type": "single",
+          "question": "SEEK_SET 作为 fseek 第三个参数表示什么？",
+          "options": [
+            "相对文件末尾",
+            "相对文件开头",
+            "相对当前位置"
+          ],
+          "answer": [
+            "相对文件开头"
+          ],
+          "explanation": "SEEK_CUR 相对当前位置，SEEK_END 相对末尾；每次定位都应检查返回值。"
+        },
+        "challenge": {
+          "id": "c15-6-practice",
+          "title": "定位到 data.txt 的第 k 个字节并读取",
+          "difficulty": "Medium",
+          "description": "定位到 data.txt 的第 k 个字节并读取。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 0..4 的位置索引 k；data.txt 初始为 ABCDE。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "2",
+              "output": "C A\n"
+            },
+            {
+              "input": "0",
+              "output": "A A\n"
+            },
+            {
+              "input": "4",
+              "output": "E A\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 定位到 data.txt 的第 k 个字节并读取 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    long k;if(scanf(\"%ld\",&k)!=1||k<0||k>4)return 1;\n    FILE*f=fopen(\"data.txt\",\"rb\");if(!f)return 1;\n    if(fseek(f,k,SEEK_SET)!=0){fclose(f);return 1;}int ch=fgetc(f);\n    rewind(f);int first=fgetc(f);int ok=!ferror(f)&&ch!=EOF&&first!=EOF;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%c %c\\n\",ch,first);\n    return 0;\n}\n",
+          "hints": [
+            "if(fseek(f,k,SEEK_SET)!=0) return 1;",
+            "输入 k 为 0..4，在五字节文件 ABCDE 中读取一个字符，rewind 后再读取首字符。",
+            "文本流的位置值有实现相关含义，不应当作一般字节数；本题用二进制模式定位。"
+          ],
+          "files": {
+            "data.txt": "ABCDE"
+          }
+        },
+        "exampleFiles": {
+          "data.txt": "ABCDE"
+        }
+      },
+      {
+        "id": "c15-7",
+        "chapter": 15,
+        "index": 6,
+        "title": "EOF、错误标志与 clearerr",
+        "en": "Stream Error Detection",
+        "textbook": "10.5",
+        "objective": "读到文件末尾后观察并清除 EOF 标志",
+        "explanation": [
+          "feof 查询流的结束标志，ferror 查询错误标志，它们不会主动读取文件。一次读取返回 EOF 时，必须查看相应状态，才能区分正常末尾和错误。clearerr 清除两个标志，但不会移动文件位置，也不会修复导致错误的外部原因。",
+          "rewind 既回到起点，也清除流错误标志；fseek 成功会清除 EOF 标志。关闭错误同样可能表示缓冲数据没有完整写出。可靠的文件程序要检查打开、读取、写入、定位和关闭这些步骤，而不只检查 fopen 一次。"
+        ],
+        "syntax": "while(fgetc(f)!=EOF){}\nint before=feof(f)!=0;clearerr(f);int after=feof(f)!=0;",
+        "syntaxNotes": "把文件读取到正常末尾，输出清除前和清除后的 EOF 标志；本例应为 1 0。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"end.txt\",\"r\");if(!f)return 1;\n    while(fgetc(f)!=EOF){}\n    if(ferror(f)){fclose(f);return 1;}\n    int before=feof(f)!=0;clearerr(f);int after=feof(f)!=0;\n    if(fclose(f)!=0)return 1;printf(\"%d %d\\n\",before,after);\n    return 0;\n}\n",
+        "exampleInput": "",
+        "exampleOutput": "1 0\n",
+        "walkthrough": "把文件读取到正常末尾，输出清除前和清除后的 EOF 标志；本例应为 1 0。",
+        "mistakes": [
+          "clearerr 不改变位置，rewind 才回到起点并清除流错误标志。",
+          "状态标志与当前位置是两个不同概念；清除标志不等于重新定位。"
+        ],
+        "summary": "读到文件末尾后观察并清除 EOF 标志",
+        "quizzes": [
+          {
+            "id": "c15-7-q1",
+            "type": "single",
+            "question": "clearerr(f) 会做什么？",
+            "options": [
+              "清除 EOF 和错误标志，不移动位置",
+              "自动回到文件开头",
+              "保证后续写入一定成功"
+            ],
+            "answer": [
+              "清除 EOF 和错误标志，不移动位置"
+            ],
+            "explanation": "状态标志与当前位置是两个不同概念；清除标志不等于重新定位。"
+          },
+          {
+            "id": "c15-7-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "1 0"
+            ],
+            "explanation": "把文件读取到正常末尾，输出清除前和清除后的 EOF 标志；本例应为 1 0。"
+          },
+          {
+            "id": "c15-7-q3",
+            "type": "boolean",
+            "question": "读取到 EOF 后调用 clearerr 就等于调用 rewind。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "clearerr 不改变位置，rewind 才回到起点并清除流错误标志。"
+          }
+        ],
+        "quiz": {
+          "id": "c15-7-q1",
+          "type": "single",
+          "question": "clearerr(f) 会做什么？",
+          "options": [
+            "清除 EOF 和错误标志，不移动位置",
+            "自动回到文件开头",
+            "保证后续写入一定成功"
+          ],
+          "answer": [
+            "清除 EOF 和错误标志，不移动位置"
+          ],
+          "explanation": "状态标志与当前位置是两个不同概念；清除标志不等于重新定位。"
+        },
+        "challenge": {
+          "id": "c15-7-practice",
+          "title": "读到文件末尾后观察并清除 EOF 标志",
+          "difficulty": "Medium",
+          "description": "读到文件末尾后观察并清除 EOF 标志。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "无标准输入；编辑 end.txt，长度不超过 10000 字节。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "",
+              "output": "1 0\n",
+              "files": {
+                "end.txt": "abc"
+              }
+            },
+            {
+              "input": "",
+              "output": "1 0\n",
+              "files": {
+                "end.txt": ""
+              }
+            },
+            {
+              "input": "",
+              "output": "1 0\n",
+              "files": {
+                "end.txt": "\n"
+              }
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 读到文件末尾后观察并清除 EOF 标志 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"end.txt\",\"r\");if(!f)return 1;\n    while(fgetc(f)!=EOF){}\n    if(ferror(f)){fclose(f);return 1;}\n    int before=feof(f)!=0;clearerr(f);int after=feof(f)!=0;\n    if(fclose(f)!=0)return 1;printf(\"%d %d\\n\",before,after);\n    return 0;\n}\n",
+          "hints": [
+            "while(fgetc(f)!=EOF){}",
+            "把文件读取到正常末尾，输出清除前和清除后的 EOF 标志；本例应为 1 0。",
+            "clearerr 不改变位置，rewind 才回到起点并清除流错误标志。"
+          ],
+          "files": {
+            "end.txt": "abc"
+          }
+        },
+        "exampleFiles": {
+          "end.txt": "abc"
+        }
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "en": "Preprocessing & Reference",
+    "title": "预处理与常用速查",
+    "description": "教材附录配套与扩展：头文件、宏、位运算及库函数。",
+    "lessons": [
+      {
+        "id": "c16-1",
+        "chapter": 16,
+        "index": 0,
+        "title": "宏、头文件与条件编译",
+        "en": "Preprocessor Basics",
+        "textbook": "附录 D 配套扩展",
+        "objective": "使用宏计算一个整数的平方",
+        "explanation": [
+          "预处理先于 C 语法编译，#include 展开头文件，#define 做记号替换，#if、#ifdef 控制保留哪些内容。头文件保护宏用于避免同一头文件在一次编译中被重复处理；它不会替代多源文件正确组织定义的责任。",
+          "函数式宏不是普通函数，不会先把每个实参求值一次。表达式参数和整个展开体都应加括号，仍然不要把 n++ 等有副作用的表达式传给重复使用参数的宏。能用普通函数清晰表达时，优先使用函数获得类型检查。"
+        ],
+        "syntax": "#define SQUARE(x) ((x)*(x))\n/* 不要写 SQUARE(n++) */",
+        "syntaxNotes": "宏将无副作用的输入变量代入平方表达式；输入为 -1000..1000。",
+        "example": "#include <stdio.h>\n#define SQUARE(x) ((x)*(x))\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    printf(\"%d\\n\",SQUARE(n));\n    return 0;\n}\n",
+        "exampleInput": "3",
+        "exampleOutput": "9\n",
+        "walkthrough": "宏将无副作用的输入变量代入平方表达式；输入为 -1000..1000。",
+        "mistakes": [
+          "宏可能重复展开实参，重复副作用可导致未定义行为；不要这样调用。",
+          "宏是记号替换，缺少括号时如 SQUARE(a+b) 可能产生错误表达式。"
+        ],
+        "summary": "使用宏计算一个整数的平方",
+        "quizzes": [
+          {
+            "id": "c16-1-q1",
+            "type": "single",
+            "question": "为什么 SQUARE(x) 的参数和整体都要加括号？",
+            "options": [
+              "避免替换后运算符优先级改变含义",
+              "为了把宏变成递归函数",
+              "为了自动验证参数范围"
+            ],
+            "answer": [
+              "避免替换后运算符优先级改变含义"
+            ],
+            "explanation": "宏是记号替换，缺少括号时如 SQUARE(a+b) 可能产生错误表达式。"
+          },
+          {
+            "id": "c16-1-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "9"
+            ],
+            "explanation": "宏将无副作用的输入变量代入平方表达式；输入为 -1000..1000。"
+          },
+          {
+            "id": "c16-1-q3",
+            "type": "boolean",
+            "question": "即使宏参数出现两次，SQUARE(n++) 也只会递增一次。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "宏可能重复展开实参，重复副作用可导致未定义行为；不要这样调用。"
+          }
+        ],
+        "quiz": {
+          "id": "c16-1-q1",
+          "type": "single",
+          "question": "为什么 SQUARE(x) 的参数和整体都要加括号？",
+          "options": [
+            "避免替换后运算符优先级改变含义",
+            "为了把宏变成递归函数",
+            "为了自动验证参数范围"
+          ],
+          "answer": [
+            "避免替换后运算符优先级改变含义"
+          ],
+          "explanation": "宏是记号替换，缺少括号时如 SQUARE(a+b) 可能产生错误表达式。"
+        },
+        "challenge": {
+          "id": "c16-1-practice",
+          "title": "使用宏计算一个整数的平方",
+          "difficulty": "Medium",
+          "description": "使用宏计算一个整数的平方。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 -1000..1000 的整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "3",
+              "output": "9\n"
+            },
+            {
+              "input": "-4",
+              "output": "16\n"
+            },
+            {
+              "input": "0",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 使用宏计算一个整数的平方 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#define SQUARE(x) ((x)*(x))\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    printf(\"%d\\n\",SQUARE(n));\n    return 0;\n}\n",
+          "hints": [
+            "#define SQUARE(x) ((x)*(x))",
+            "宏将无副作用的输入变量代入平方表达式；输入为 -1000..1000。",
+            "宏可能重复展开实参，重复副作用可导致未定义行为；不要这样调用。"
+          ]
+        }
+      },
+      {
+        "id": "c16-2",
+        "chapter": 16,
+        "index": 1,
+        "title": "无符号位运算",
+        "en": "Unsigned Bit Operations",
+        "textbook": "附录 C 配套扩展",
+        "objective": "统计一个 0..65535 无符号整数中值为 1 的二进制位数",
+        "explanation": [
+          "位运算按整数的二进制位工作：& 与、| 或、^ 异或、~ 取反，<< 和 >> 移位。它们与逻辑运算符 &&、|| 的含义和优先级不同。处理位模式时优先选用无符号整数，减少符号位和负数右移带来的实现差异。",
+          "移位次数必须小于提升后左操作数的位宽，不能为负。对于无符号数，右移补零，左移按该类型范围取模；有符号负数和溢出的移位不能照搬这种规律。表达式加上括号能清楚区分位判断与关系比较。"
+        ],
+        "syntax": "while(n){count+=(int)(n&1u);n>>=1;}",
+        "syntaxNotes": "每次取最低位再右移一位；输入范围 0..65535，零的计数为 0。",
+        "example": "#include <stdio.h>\n\nint main(void) {\n    unsigned n;if(scanf(\"%u\",&n)!=1||n>65535u)return 1;\n    int count=0;while(n){count+=(int)(n&1u);n>>=1;}\n    printf(\"%d\\n\",count);\n    return 0;\n}\n",
+        "exampleInput": "13",
+        "exampleOutput": "3\n",
+        "walkthrough": "每次取最低位再右移一位；输入范围 0..65535，零的计数为 0。",
+        "mistakes": [
+          "移位次数必须小于类型位宽，等于位宽也是未定义行为。",
+          "与掩码 1 做按位与，只保留最低位。"
+        ],
+        "summary": "统计一个 0..65535 无符号整数中值为 1 的二进制位数",
+        "quizzes": [
+          {
+            "id": "c16-2-q1",
+            "type": "single",
+            "question": "无符号 n 的 n&1u 用来得到什么？",
+            "options": [
+              "n 的最高位",
+              "n 的十进制个位",
+              "n 的最低二进制位"
+            ],
+            "answer": [
+              "n 的最低二进制位"
+            ],
+            "explanation": "与掩码 1 做按位与，只保留最低位。"
+          },
+          {
+            "id": "c16-2-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "3"
+            ],
+            "explanation": "每次取最低位再右移一位；输入范围 0..65535，零的计数为 0。"
+          },
+          {
+            "id": "c16-2-q3",
+            "type": "boolean",
+            "question": "把一个 32 位无符号整数右移 32 位在 C99 中保证得到零。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "移位次数必须小于类型位宽，等于位宽也是未定义行为。"
+          }
+        ],
+        "quiz": {
+          "id": "c16-2-q1",
+          "type": "single",
+          "question": "无符号 n 的 n&1u 用来得到什么？",
+          "options": [
+            "n 的最高位",
+            "n 的十进制个位",
+            "n 的最低二进制位"
+          ],
+          "answer": [
+            "n 的最低二进制位"
+          ],
+          "explanation": "与掩码 1 做按位与，只保留最低位。"
+        },
+        "challenge": {
+          "id": "c16-2-practice",
+          "title": "统计一个 0..65535 无符号整数中值为 1 的二进制位数",
+          "difficulty": "Medium",
+          "description": "统计一个 0..65535 无符号整数中值为 1 的二进制位数。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "一个 0..65535 的无符号整数。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "13",
+              "output": "3\n"
+            },
+            {
+              "input": "0",
+              "output": "0\n"
+            },
+            {
+              "input": "65535",
+              "output": "16\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 统计一个 0..65535 无符号整数中值为 1 的二进制位数 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n\nint main(void) {\n    unsigned n;if(scanf(\"%u\",&n)!=1||n>65535u)return 1;\n    int count=0;while(n){count+=(int)(n&1u);n>>=1;}\n    printf(\"%d\\n\",count);\n    return 0;\n}\n",
+          "hints": [
+            "while(n){count+=(int)(n&1u);n>>=1;}",
+            "每次取最低位再右移一位；输入范围 0..65535，零的计数为 0。",
+            "移位次数必须小于类型位宽，等于位宽也是未定义行为。"
+          ]
+        }
+      },
+      {
+        "id": "c16-3",
+        "chapter": 16,
+        "index": 2,
+        "title": "字符分类与库函数接口",
+        "en": "Standard Library Practice",
+        "textbook": "附录 A—E",
+        "objective": "用 ctype.h 统计输入中的英文字母和数字",
+        "explanation": [
+          "查库函数时先确定头文件、原型、参数约束、返回值和失败条件，再决定如何使用。stdio.h 管理流，stdlib.h 管理分配与转换，string.h 处理字节和字符串，math.h 提供数学运算，ctype.h 提供字符分类；标准库不是 C 关键字的一部分。",
+          "isalpha、isdigit 等函数的参数必须是 EOF 或可表示为 unsigned char 的值。getchar 直接返回的有效字符值满足要求；若从可能带符号的 char 数组读取，应先转为 unsigned char。本题限定 ASCII 文本，不把 UTF-8 字节分类当成汉字分类。"
+        ],
+        "syntax": "int ch;\nwhile((ch=getchar())!=EOF){\n    if(isalpha(ch))letters++;\n    if(isdigit(ch))digits++;\n}",
+        "syntaxNotes": "遍历标准输入到 EOF，输出字母数和数字数；两个独立计数均从零开始。",
+        "example": "#include <stdio.h>\n#include <ctype.h>\n\nint main(void) {\n    int ch,letters=0,digits=0;\n    while((ch=getchar())!=EOF){if(isalpha(ch))letters++;if(isdigit(ch))digits++;}\n    printf(\"%d %d\\n\",letters,digits);\n    return 0;\n}\n",
+        "exampleInput": "Ab 123!",
+        "exampleOutput": "2 3\n",
+        "walkthrough": "遍历标准输入到 EOF，输出字母数和数字数；两个独立计数均从零开始。",
+        "mistakes": [
+          "它们是标准库函数名称，原型来自相应头文件；关键字如 int、return 属于语言语法。",
+          "ctype 函数只接受 EOF 或 unsigned char 可表示的值，负的 char 值必须先转换。"
+        ],
+        "summary": "用 ctype.h 统计输入中的英文字母和数字",
+        "quizzes": [
+          {
+            "id": "c16-3-q1",
+            "type": "single",
+            "question": "把 char 数组中的字节传给 isalpha 时，稳妥的写法是什么？",
+            "options": [
+              "isalpha(&c)",
+              "isalpha((unsigned char)c)",
+              "isalpha((signed char)c)"
+            ],
+            "answer": [
+              "isalpha((unsigned char)c)"
+            ],
+            "explanation": "ctype 函数只接受 EOF 或 unsigned char 可表示的值，负的 char 值必须先转换。"
+          },
+          {
+            "id": "c16-3-q2",
+            "type": "predict",
+            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "answer": [
+              "2 3"
+            ],
+            "explanation": "遍历标准输入到 EOF，输出字母数和数字数；两个独立计数均从零开始。"
+          },
+          {
+            "id": "c16-3-q3",
+            "type": "boolean",
+            "question": "strlen、malloc、printf 都是 C99 关键字。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "它们是标准库函数名称，原型来自相应头文件；关键字如 int、return 属于语言语法。"
+          }
+        ],
+        "quiz": {
+          "id": "c16-3-q1",
+          "type": "single",
+          "question": "把 char 数组中的字节传给 isalpha 时，稳妥的写法是什么？",
+          "options": [
+            "isalpha(&c)",
+            "isalpha((unsigned char)c)",
+            "isalpha((signed char)c)"
+          ],
+          "answer": [
+            "isalpha((unsigned char)c)"
+          ],
+          "explanation": "ctype 函数只接受 EOF 或 unsigned char 可表示的值，负的 char 值必须先转换。"
+        },
+        "challenge": {
+          "id": "c16-3-practice",
+          "title": "用 ctype.h 统计输入中的英文字母和数字",
+          "difficulty": "Medium",
+          "description": "用 ctype.h 统计输入中的英文字母和数字。请实现对所有规定输入都适用的程序，输出格式以样例为准。",
+          "input": "最多 10000 字节的 ASCII 文本，读到输入结束。",
+          "output": "按样例输出结果，不添加提示文字。",
+          "tests": [
+            {
+              "input": "Ab 123!",
+              "output": "2 3\n"
+            },
+            {
+              "input": "",
+              "output": "0 0\n"
+            },
+            {
+              "input": "C99\nlab",
+              "output": "4 2\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* TODO: 用 ctype.h 统计输入中的英文字母和数字 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <ctype.h>\n\nint main(void) {\n    int ch,letters=0,digits=0;\n    while((ch=getchar())!=EOF){if(isalpha(ch))letters++;if(isdigit(ch))digits++;}\n    printf(\"%d %d\\n\",letters,digits);\n    return 0;\n}\n",
+          "hints": [
+            "int ch;",
+            "遍历标准输入到 EOF，输出字母数和数字数；两个独立计数均从零开始。",
+            "它们是标准库函数名称，原型来自相应头文件；关键字如 int、return 属于语言语法。"
+          ]
+        }
+      }
+    ]
+  }
+]

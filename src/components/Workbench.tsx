@@ -1,3 +1,4 @@
+import { VirtualFiles, RunFiles } from "./VirtualFiles";
 import { diagnose } from "../engine/diagnostics";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -33,12 +34,16 @@ const titles = {
   "runtime-error": "运行错误",
   timeout: "运行超时",
   cancelled: "已停止",
-  "system-error": "编译器加载失败",
+  "system-error": "运行环境错误",
 };
 const strip = (s: string) => s.replace(/\x1b\[[0-9;]*m/g, "");
 export function Workbench({
   lesson,
   record,
+  files,
+  args,
+  onFiles,
+  onArgs,
   onDraft,
   onPassed,
   onFailed,
@@ -47,6 +52,10 @@ export function Workbench({
   onInput,
   notify,
 }: {
+  files: Record<string, string>;
+  args: string[];
+  onFiles: (f: Record<string, string>) => void;
+  onArgs: (a: string[]) => void;
   lesson: Lesson;
   record: RecordState;
   onDraft: (s: string) => void;
@@ -66,6 +75,14 @@ export function Workbench({
     [fullscreen, setFullscreen] = useState(false),
     [confirm, setConfirm] = useState<"reset" | "clear" | "answer" | null>(null);
   const mounted = useRef(true);
+  const terminal = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (runs)
+      terminal.current?.scrollIntoView({
+        block: "nearest",
+        behavior: "instant",
+      });
+  }, [runs]);
   useEffect(() => {
     mounted.current = true;
     return () => {
@@ -92,6 +109,12 @@ export function Workbench({
         code,
         submit ? lesson.challenge.tests.map((t) => t.input) : [input],
         setStage,
+        submit
+          ? lesson.challenge.tests.map((t) => ({
+              files: { ...files, ...t.files },
+              args: t.args ?? args,
+            }))
+          : [{ files, args }],
       );
       if (!mounted.current) return;
       setRuns(result);
@@ -127,7 +150,7 @@ export function Workbench({
     };
     window.addEventListener("keydown", key);
     return () => window.removeEventListener("keydown", key);
-  }, [code, input, busy]);
+  }, [code, input, busy, files, args]);
   const verdict =
     runs && submitted ? judge(lesson.challenge.tests, runs) : null;
   const errorLine =
@@ -143,7 +166,7 @@ export function Workbench({
         </div>
         <span>
           <i />
-          Clang · C11
+          Clang · C99
         </span>
         <button
           className="icon-button"
@@ -220,7 +243,7 @@ export function Workbench({
       </div>
       <div className="editor-status">
         <span>
-          C11<span>UTF-8</span>
+          C99<span>UTF-8</span>
         </span>
         <span>{code.split("\n").length} 行 · Tab 缩进</span>
       </div>
@@ -245,6 +268,13 @@ export function Workbench({
           />
         )}
       </div>
+      <VirtualFiles
+        files={files}
+        args={args}
+        onFiles={onFiles}
+        onArgs={onArgs}
+        disabled={busy}
+      />
       <div className="run-actions">
         <button
           className="run-button"
@@ -266,7 +296,7 @@ export function Workbench({
           </button>
         )}
       </div>
-      <div className="terminal-panel">
+      <div className="terminal-panel" ref={terminal}>
         <div className="terminal-heading">
           <div>
             <Terminal size={15} />
@@ -370,6 +400,14 @@ export function Workbench({
                         <p>
                           实际：<code>{v.run?.stdout || "（无输出）"}</code>
                         </p>
+                        {Object.entries(v.test.expectedFiles || {}).map(
+                          ([name, expected]) => (
+                            <p key={name}>
+                              文件 {name}：<code>{expected}</code>（逐字节检查）
+                            </p>
+                          ),
+                        )}
+                        <RunFiles files={v.run?.files} />
                         {v.run?.stderr && (
                           <pre className="error-output">
                             {strip(v.run.stderr)}
@@ -405,6 +443,7 @@ export function Workbench({
                       {strip(runs[0].stderr)}
                     </pre>
                   )}
+                  <RunFiles files={runs[0].files} />
                   <p className="finish-note">
                     Program finished successfully. Exit code: 0
                   </p>
@@ -483,7 +522,13 @@ export function Workbench({
             className="primary"
             onClick={() => {
               if (confirm === "answer") setAnswerVisible(true);
-              else onDraft(confirm === "clear" ? "" : lesson.challenge.starter);
+              else {
+                onDraft(confirm === "clear" ? "" : lesson.challenge.starter);
+                if (confirm === "reset") {
+                  onFiles(lesson.challenge.files || {});
+                  onArgs(lesson.challenge.args || []);
+                }
+              }
               setConfirm(null);
             }}
           >

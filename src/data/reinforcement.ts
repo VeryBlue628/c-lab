@@ -24,7 +24,7 @@ export const reinforcement: Record<number, Quiz> = {
     question: '预测输出：\nprintf("%d", -9 % 4);',
     answer: ["-1"],
     explanation:
-      "C11 的整数商向零截断：-9/4 为 -2，因此 -9=(-2)*4+(-1)，余数为 -1。",
+      "C99 的整数商向零截断：-9/4 为 -2，因此 -9=(-2)*4+(-1)，余数为 -1。",
   },
   4: {
     type: "single",
@@ -56,7 +56,7 @@ export const reinforcement: Record<number, Quiz> = {
   },
   7: {
     type: "boolean",
-    question: "C11 中，修改函数的 int 形参会直接修改调用者的 int 实参。",
+    question: "C99 中，修改函数的 int 形参会直接修改调用者的 int 实参。",
     options: ["正确", "错误"],
     answer: ["错误"],
     explanation:
