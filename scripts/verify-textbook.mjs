@@ -9,12 +9,13 @@ const read = async (n) =>
   );
 const added = await read("textbook-lessons.json"),
   guide = await read("textbook-guide.json");
-assert.equal(added.flatMap((c) => c.lessons).length, 48);
+assert.equal(added.flatMap((c) => c.lessons).length, 84);
 const audit = await read("page-review.json");
-assert.equal(audit.status, "partial");
+assert.equal(audit.status, "complete");
+assert.equal(audit.sourcePages, 395);
 assert.deepEqual(
   audit.pages.map((p) => p.page),
-  Array.from({ length: 20 }, (_, i) => 37 + i),
+  Array.from({ length: 371 }, (_, i) => 1 + i),
 );
 const work = path.resolve(process.argv[2] || ".qa");
 await fs.mkdir(work, { recursive: true });
@@ -40,12 +41,16 @@ const { validate, completed } = await import(
 const { judge } = await import(
   pathToFileURL(path.join(work, "textbook/engine/judge.mjs"))
 );
-assert.equal(lessons.length, 111);
-assert.equal(chapters.length, 16);
-assert.equal(curriculumStats.questions, 555);
-assert.equal(curriculumStats.challenges, 132);
+assert.equal(lessons.length, 147);
+assert.equal(chapters.length, 20);
+assert.equal(curriculumStats.questions, 663);
+assert.equal(curriculumStats.challenges, 168);
 const ids = new Set(),
   qs = new Set();
+assert.deepEqual(
+  chapters.map((c) => c.id),
+  Array.from({ length: 20 }, (_, i) => i + 1),
+);
 for (const l of lessons) {
   assert(!ids.has(l.id));
   ids.add(l.id);
@@ -123,6 +128,31 @@ assert(
     ],
   )[0].passed,
 );
+const formatting = {
+  input: "",
+  output: "|     7|7     |\n|hel|\n",
+  exact: true,
+};
+assert(judge([formatting], [{ ...run, stdout: formatting.output }])[0].passed);
+assert(
+  judge(
+    [formatting],
+    [{ ...run, stdout: formatting.output.replaceAll("\n", "\r\n") }],
+  )[0].passed,
+);
+assert(
+  !judge([formatting], [{ ...run, stdout: "| 7|7 |\n|hel|\n" }])[0].passed,
+);
+assert(
+  !judge([formatting], [{ ...run, stdout: formatting.output.trimEnd() }])[0]
+    .passed,
+);
+assert(
+  judge(
+    [{ ...formatting, exact: false }],
+    [{ ...run, stdout: "| 7|7 |\n|hel|" }],
+  )[0].passed,
+);
 assert(
   !judge(
     [test],
@@ -130,5 +160,5 @@ assert(
   )[0].passed,
 );
 console.log(
-  "Textbook mapping, 111 lessons / 555 questions / 132 challenges, file judging and progress migration passed.",
+  "Textbook mapping, 147 lessons / 663 questions / 168 challenges, 371 page records, exact/file judging and progress migration passed.",
 );

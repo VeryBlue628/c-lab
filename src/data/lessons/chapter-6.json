@@ -105,7 +105,8 @@
       "objective": "跳过本轮剩余工作，继续下一轮。",
       "explanation": [
         "continue 像分拣时把不需要的物品放到一边：本轮的后续处理不做，但分拣流程继续。for 中会执行更新表达式，然后再次检查条件。",
-        "while 中没有独立的更新区。如果 continue 之前没有更新控制变量，就可能反复停在同一个值。先确定更新必然发生，再使用 continue。"
+        "while 中没有独立的更新区。如果 continue 之前没有更新控制变量，就可能反复停在同一个值。先确定更新必然发生，再使用 continue。",
+        "for 循环的 continue 会先执行更新表达式，再检查条件；简单改写成 while 并把更新放在循环体末尾时，continue 会跳过更新，二者不再等价。转换循环形式时要逐条检查 continue 路径。"
       ],
       "syntax": "if (n % 2 != 0) {\n    continue;\n}",
       "syntaxNotes": "跳过当前循环体剩余语句；for 仍会执行 i++ 等更新操作。",

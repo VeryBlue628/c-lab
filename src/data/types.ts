@@ -10,6 +10,7 @@ export type RunOptions = { files?: Record<string, string>; args?: string[] };
 export type TestCase = RunOptions & {
   input: string;
   output: string;
+  exact?: boolean;
   expectedFiles?: Record<string, string>;
 };
 export type Lesson = {

@@ -1,8 +1,8 @@
 {
-  "lessons": 111,
-  "examples": 111,
-  "solutions": 111,
-  "testCases": 341,
+  "lessons": 147,
+  "examples": 147,
+  "solutions": 147,
+  "testCases": 458,
   "errors": [],
   "mastery": 21,
   "standard": "C99 (199901L), C11 extensions rejected",

@@ -1,4 +1,16 @@
 import fs from "node:fs/promises";
+export async function chapterIds() {
+  const added = JSON.parse(
+    await fs.readFile(
+      new URL("../src/data/textbook-lessons.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  return [
+    ...Array.from({ length: 9 }, (_, i) => i + 1),
+    ...added.map((c) => c.id),
+  ];
+}
 export async function readChapter(i) {
   if (i > 9) {
     const added = JSON.parse(

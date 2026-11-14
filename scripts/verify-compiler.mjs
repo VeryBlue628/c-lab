@@ -1,4 +1,4 @@
-import { readChapter } from "./read-curriculum.mjs";
+import { readChapter, chapterIds } from "./read-curriculum.mjs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { Worker } from "node:worker_threads";
@@ -56,7 +56,7 @@ const report = {
   testCases: 0,
   errors: [],
 };
-for (let i = 1; i <= 16; i++) {
+for (const i of await chapterIds()) {
   const c = await readChapter(i);
   for (const l of c.lessons) {
     for (const kind of ["example", "solution"]) {
@@ -88,7 +88,10 @@ for (let i = 1; i <= 16; i++) {
         const r = runs[t];
         if (
           r?.status !== "success" ||
-          normalize(r.stdout) !== normalize(cases[t].output) ||
+          (cases[t].exact
+            ? r.stdout.replace(/\r\n?/g, "\n") !==
+              cases[t].output.replace(/\r\n?/g, "\n")
+            : normalize(r.stdout) !== normalize(cases[t].output)) ||
           !Object.entries(cases[t].expectedFiles || {}).every(
             ([n, c]) =>
               JSON.stringify(r?.files?.[n]) ===
@@ -155,10 +158,22 @@ for (const extension of [
   assert.equal(check[0].status, "compile-error");
 }
 report.standard = "C99 (199901L), C11 extensions rejected";
-const fileIsolation=await job('#include <stdio.h>\nint main(void){FILE*f=fopen("fresh.txt","r");if(f){fclose(f);puts("stale");return 0;}f=fopen("/fresh.txt","w");if(!f)return 1;fputs("ok",f);if(fclose(f)!=0)return 1;puts("fresh");return 0;}',["",""]);
-assert(fileIsolation.every(r=>r.status==="success"&&r.stdout.trim()==="fresh"));
-assert(fileIsolation.every(r=>JSON.stringify(r.files["fresh.txt"])==="[111,107]"));
-report.fileIsolation="fresh virtual FS per test; absolute and relative paths supported";
+const fileIsolation = await job(
+  '#include <stdio.h>\nint main(void){FILE*f=fopen("fresh.txt","r");if(f){fclose(f);puts("stale");return 0;}f=fopen("/fresh.txt","w");if(!f)return 1;fputs("ok",f);if(fclose(f)!=0)return 1;puts("fresh");return 0;}',
+  ["", ""],
+);
+assert(
+  fileIsolation.every(
+    (r) => r.status === "success" && r.stdout.trim() === "fresh",
+  ),
+);
+assert(
+  fileIsolation.every(
+    (r) => JSON.stringify(r.files["fresh.txt"]) === "[111,107]",
+  ),
+);
+report.fileIsolation =
+  "fresh virtual FS per test; absolute and relative paths supported";
 const bad = await job("int main(void) { missing syntax }", [""]);
 assert.equal(bad[0].status, "compile-error");
 const trap = await job("int main(void) { __builtin_trap(); }", [""]);

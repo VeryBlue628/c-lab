@@ -15,7 +15,8 @@
         "objective": "比较两个整数并输出较大值",
         "explanation": [
           "算法描述的是解决一类问题的有限步骤；程序还要选择数据的表示方式。一个算法允许零个或多个输入，必须产生输出；每一步应明确、可执行，并在有限步骤后结束。先写步骤再写代码，能把思路错误和语法错误分开。",
-          "同一个判断可用自然语言、流程图、N-S 图、伪代码和 C 表达。流程图用菱形表示条件，用箭头连接路径；N-S 图把选择和循环放进嵌套矩形，不依赖随意跳转。顺序、选择、循环组合出结构化程序，再把复杂任务逐层分解。"
+          "同一个判断可用自然语言、流程图、N-S 图、伪代码和 C 表达。流程图用菱形表示条件，用箭头连接路径；N-S 图把选择和循环放进嵌套矩形，不依赖随意跳转。顺序、选择、循环组合出结构化程序，再把复杂任务逐层分解。",
+          "循环也可以画成流程图与 N-S 框：先测试型 while 对应“条件真时重复”；直到型 repeat-until(P) 则在 P 成立时停止，翻译成 C 是 do {...} while(!P)。为每个循环写清状态变量、初值、更新和终止依据，再用一张逐轮状态表检查。"
         ],
         "syntax": "伪代码：读入 a,b → 若 a>b 则输出 a，否则输出 b\n流程图：开始 → 输入 → [a>b?] ┬是→输出 a→结束\n                                  └否→输出 b→结束\nN-S 图：┌ 读入 a,b ──────────┐\n         ├ a>b：是 │ 否      ┤\n         │ 输出 a  │ 输出 b  │\n         └─────────┴─────────┘",
         "syntaxNotes": "先定义输入与输出，再让两个分支各产生一个结果；相等时输出任意一个即可。",
@@ -25,7 +26,8 @@
         "walkthrough": "先定义输入与输出，再让两个分支各产生一个结果；相等时输出任意一个即可。",
         "mistakes": [
           "循环没有终止条件时不满足有穷性，不能只看某一步能执行。",
-          "有穷性要求算法结束，循环可以存在，但必须有终止依据。"
+          "有穷性要求算法结束，循环可以存在，但必须有终止依据。",
+          "until 的停止条件与 C do-while 的继续条件相反，不能原样照搬。"
         ],
         "summary": "比较两个整数并输出较大值",
         "quizzes": [
@@ -225,7 +227,8 @@
         "objective": "输出当前 C 标准版本宏",
         "explanation": [
           "C 语言把源代码交给编译系统处理。通常先预处理头文件与宏，再编译、汇编得到目标文件，最后链接库和其他目标文件成为可执行程序。编译通过只说明语言和链接检查通过，算法是否正确还要用测试验证。",
-          "本网站使用 C99 模式。C99 支持 // 注释、块内混合声明、for 初始化声明、long long、_Bool 和标准头文件 stdbool.h；_Generic 和 _Static_assert 是后来的 C99 特性。本机的 ABI、终端和系统库可能与浏览器 WASI 环境不同。"
+          "本网站使用 C99 模式。C99 支持 // 注释、块内混合声明、for 初始化声明、long long、_Bool 和标准头文件 stdbool.h；_Generic 和 _Static_assert 是后来的 C99 特性。本机的 ABI、终端和系统库可能与浏览器 WASI 环境不同。",
+          "在有宿主环境的 C99 程序中，main 执行到末尾等价于返回0，显式 return 0; 更便于初学阅读。程序设计还包括需求分析、算法、编码、调试、测试与文档；“编译通过”只验证了其中一部分。表达式语句和空语句有分号，复合语句及 if/while 的结构不能笼统地每行补分号。"
         ],
         "syntax": "printf(\"%ld\\n\", (long)__STDC_VERSION__);",
         "syntaxNotes": "C99 的 __STDC_VERSION__ 是 199901L；用 long 和 %ld 正确输出该宏。",
@@ -532,7 +535,7 @@
         "objective": "把两个实数的平均值保留两位小数输出",
         "explanation": [
           "格式字符串是函数与实参之间的约定。printf 中 %f 接收经过提升的 double，scanf 中 %f 需要 float*、%lf 需要 double*；混用会以错误的方式访问内存。输入成功与否要看 scanf 返回的成功转换项数。",
-          "输出宽度是最小字段宽度，精度控制小数位或有效数字；%8.2f 表示至少八列、保留两位小数，%e 是科学计数法，%g 选择紧凑形式。计算中使用浮点值，最后输出时再做显示舍入。"
+          "输出宽度是最小字段宽度，精度控制小数位、有效数字或字符串最大字节数；%8.2f 至少八列、两位小数，%-8s 左对齐，%.3s 最多输出三个字节。%g 根据指数与给定有效位数选择定点或指数格式，并按规则去掉尾零，不是任意意义的最短表示。long double 使用 %Lf。"
         ],
         "syntax": "double x;\nif(scanf(\"%lf\",&x)==1) printf(\"%.2f\\n\",x);",
         "syntaxNotes": "输入两个 double，scanf 返回 2 后才计算；用 %.2f 控制最终显示的小数位数。",
@@ -637,7 +640,8 @@
         "objective": "使用逗号表达式更新后输出两个整数",
         "explanation": [
           "小整数参与算术运算前会发生整数提升，不同算术类型通常还要做通常算术转换。转换后再计算，最终赋值才转换为目标类型；把除法结果转成 double 不能补回整数除法已经丢失的小数。",
-          "逗号运算符先求左表达式，再求右表达式，整个表达式的值为右侧结果。函数实参之间的逗号只是分隔符，不提供同样的先后保证。C99 中同一变量在没有适当顺序保证的表达式里多次修改，可能导致未定义行为。"
+          "逗号运算符先求左表达式，再求右表达式，整个表达式的值为右侧结果。函数实参之间的逗号只是分隔符，不提供同样的先后保证。C99 中同一变量在没有适当顺序保证的表达式里多次修改，可能导致未定义行为。",
+          "不能把超范围的有符号整数窄化说成可移植的“保留低位”。目标有符号类型无法表示时，C99 结果由实现定义，或产生实现定义的信号；无符号转换则按目标范围取模。float 扩成 double 不会恢复已经损失的有效位，较大整数转 float 也可能发生舍入。"
         ],
         "syntax": "a+=1, b+=a; /* 此处逗号是运算符 */",
         "syntaxNotes": "a 先加一，再把更新后的 a 加到 b；输入绝对值均不超过 1000，不会溢出。",
@@ -1065,7 +1069,8 @@
         "objective": "读入一行并去掉行末换行后输出长度",
         "explanation": [
           "%s 遇到空白就停止，所以不能读取姓名或句子中的空格。fgets 指定缓冲区容量，最多存入容量减一的字符，再补上终止符；如果读到了换行，这个换行会保留在数组中。返回 NULL 时不能把缓冲区当成新读到的字符串使用。",
-          "可以用 strcspn 找到第一个换行并替换成终止符。puts 输出字符串后另加一个换行。gets 无法知道目标容量，不能用于安全程序；不要把它作为 fgets 的替代方法。长于缓冲区的行需要分段读取或明确拒绝。"
+          "可以用 strcspn 找到第一个换行并替换成终止符。puts 输出字符串后另加一个换行。gets 无法知道目标容量，不能用于安全程序；不要把它作为 fgets 的替代方法。长于缓冲区的行需要分段读取或明确拒绝。",
+          "scanf(\"%Ns\",buf) 只写入本次读到的字符与结束零，不清空 buf 剩余部分。fgets 则至多读取容量减一个字节，保留读到的换行；若一行长于容量，要检查并处理余下字符，不能把下一次读取误认为新的一整行。gets 在 C99 中仍存在但无法限制长度，本课程使用有界接口。"
         ],
         "syntax": "if(fgets(s,sizeof s,stdin))\n    s[strcspn(s,\"\\n\")]='\\0';",
         "syntaxNotes": "本题一行最多 80 字节，用容量 82 读取整行，然后删除末尾换行。",
@@ -1170,7 +1175,8 @@
         "objective": "用连字符连接两个短单词",
         "explanation": [
           "数组不能像普通变量一样用 = 在定义后整体复制。strcpy 把源字符串连同终止符复制到目标，strcat 找到目标末尾再追加源字符串。目标容量必须事先足够，两块参与复制的区域也不能重叠。",
-          "strncpy 不保证源长度达到限制时补上终止符，不能盲目把它当作安全版 strcpy。本题每个单词最多 30 字节，连接一个连字符再加终止符，容量 62 足够；实际项目应先根据长度验证目标容量。"
+          "strncpy 不保证源长度达到限制时补上终止符，不能盲目把它当作安全版 strcpy。本题每个单词最多 30 字节，连接一个连字符再加终止符，容量 62 足够；实际项目应先根据长度验证目标容量。",
+          "strncpy 的第三参数是复制上界，并非“源有多长就总能安全复制”；源较短时补零到 n，源长度≥n时没有结束零保证。strcpy/strcat 的目标都要有足够容量，且源与目标不能重叠；memmove 才适合重叠字节移动。"
         ],
         "syntax": "strcpy(out,a);\nstrcat(out,\"-\");\nstrcat(out,b);",
         "syntaxNotes": "两段文本最长各 30 字节，最大结果长度 61，再留 1 字节给终止符。",
@@ -1703,7 +1709,8 @@
         "objective": "通过头文件调用另一个源文件中的函数",
         "explanation": [
           "声明说明名称及其类型，定义还负责建立对象或给出函数体。头文件通常放函数原型和 extern 变量声明，每个需要使用接口的源文件包含它；变量定义通常只放在一个源文件，避免重复定义。头文件保护宏防止同一翻译单元重复展开。",
-          "文件作用域 static 函数或变量具有内部链接，只能被当前翻译单元按该链接名称引用；普通函数定义通常具有外部链接。网站会分别编译 main.c 和附加的 .c 文件，再链接。编辑下方 calc.h、calc.c，能实际观察接口不匹配和链接错误。"
+          "文件作用域 static 函数或变量具有内部链接，只能被当前翻译单元按该链接名称引用；普通函数定义通常具有外部链接。网站会分别编译 main.c 和附加的 .c 文件，再链接。编辑下方 calc.h、calc.c，能实际观察接口不匹配和链接错误。",
+          "C99 不允许省略类型的 extern A; 或隐式函数声明。int f(void); 是无参数原型；int f(); 在 C99 声明中不说明参数类型，不能提供同样的调用检查。头文件提供接口声明，链接阶段才解析跨翻译单元定义，不能把链接说成自动扩大同一个词法作用域。"
         ],
         "syntax": "/* calc.h */\n#ifndef CALC_H\n#define CALC_H\nint twice(int n);\nextern int bias;\n#endif",
         "syntaxNotes": "main.c 包含 calc.h；calc.c 定义 bias 和 twice，内部 helper 用 static 隐藏；计算 2*n+1。",
@@ -1921,7 +1928,8 @@
         "objective": "通过递归计算一个非负整数的十进制各位之和",
         "explanation": [
           "嵌套调用是一个函数调用另一个函数；递归是函数直接或间接再次调用自身。C99 不允许在一个函数体内定义另一个普通函数。调用之前需要可见且匹配的声明，函数原型能让编译器检查参数和返回类型。",
-          "递归必须定义终止情况，并确保每次调用向它靠近。本题 sum(n)=n%10+sum(n/10)，当 n<10 时直接返回 n；每一层的参数 n 是各自独立的对象，不能把不同层的局部变量当成同一个变量。"
+          "递归必须定义终止情况，并确保每次调用向它靠近。本题 sum(n)=n%10+sum(n/10)，当 n<10 时直接返回 n；每一层的参数 n 是各自独立的对象，不能把不同层的局部变量当成同一个变量。",
+          "void 函数允许使用不带值的 return; 提前结束；普通非 void 函数若执行到末尾且调用者使用其值会产生未定义行为。main 有特殊的返回0规则。ISO C 允许调用 main（这点与 C++ 不同），不过课程用普通函数表达递归，保持入口职责清楚。"
         ],
         "syntax": "int digits(int n){\n    return n<10?n:n%10+digits(n/10);\n}",
         "syntaxNotes": "输入 0..1000000000，整数除以 10 逐步缩短位数；零也满足终止情况。",
@@ -2034,7 +2042,8 @@
         "objective": "通过指针把一个整数增加 5",
         "explanation": [
           "变量对象占据存储空间，取地址运算符 & 得到它的地址。int* 保存指向 int 的指针值，*p 则访问所指对象。声明中的 * 表示指针类型，表达式中的 * 表示间接访问，要根据上下文区分。",
-          "指针只能在指向有效且类型合适的对象时解引用。NULL 表示空指针，初始化为空能够表达尚未指向对象，但不能因此访问 *p。指针不是普通整数；输出地址应使用 %p 并转换为 void*，不依赖某个固定地址值。"
+          "指针只能在指向有效且类型合适的对象时解引用。NULL 表示空指针，初始化为空能够表达尚未指向对象，但不能因此访问 *p。指针不是普通整数；输出地址应使用 %p 并转换为 void*，不依赖某个固定地址值。",
+          "NULL 表示“不指向对象或函数”的空指针值，不意味着存在可访问的“地址零单元”，其机器表示也不要求全零位。未初始化指针不是空指针：它的值不确定，读取或解引用都不能依赖某次运行看似正常的结果。"
         ],
         "syntax": "int *p=&n;\n*p+=5;",
         "syntaxNotes": "p 保存 n 的地址，对 *p 赋值会修改 n 本身；n 取 -1000..1000。",
@@ -2244,7 +2253,8 @@
         "objective": "使用指针遍历并累加数组",
         "explanation": [
           "数组表达式通常转换为首元素地址，p+1 移动到下一个同类型元素，而不是简单移动一个字节。a[i] 等价于 *(a+i)。数组名并非可以任意赋值的指针变量，sizeof 数组与 sizeof 指针也有不同含义。",
-          "合法的指针算术限定在同一个数组内部及其尾后位置。尾后指针可以构造和比较，不能解引用；两个指针相减也应来自同一个数组。函数接收数组时通常还需另传长度，不能从指针的 sizeof 推断元素个数。"
+          "合法的指针算术限定在同一个数组内部及其尾后位置。尾后指针可以构造和比较，不能解引用；两个指针相减也应来自同一个数组。函数接收数组时通常还需另传长度，不能从指针的 sizeof 推断元素个数。",
+          "数组本身是对象，数组表达式在多数场景转换为首元素指针；sizeof、& 等场景保留数组类型，字符数组用字面量初始化也有专门规则。指针差的类型是 ptrdiff_t，用 %td 输出。后缀 ++ 比一元 * 优先，所以 *p++ 是 *(p++)；++*p 则增加对象值。"
         ],
         "syntax": "for(int *p=a;p<a+n;++p) sum+=*p;",
         "syntaxNotes": "n 为 1..20，数组元素为 -100..100；p 逐元素移动，到尾后位置立即停止。",
@@ -2254,7 +2264,8 @@
         "walkthrough": "n 为 1..20，数组元素为 -100..100；p 逐元素移动，到尾后位置立即停止。",
         "mistakes": [
           "尾后位置只可用于合法的比较和运算，不能解引用。",
-          "步长由所指类型大小决定，访问前仍须检查是否到达尾后位置。"
+          "步长由所指类型大小决定，访问前仍须检查是否到达尾后位置。",
+          "下标与指针写法的性能取决于编译器和目标，不能仅凭语法保证某一种更快。"
         ],
         "summary": "使用指针遍历并累加数组",
         "quizzes": [
@@ -2349,7 +2360,8 @@
         "objective": "用行指针输出 2×3 矩阵的第 k 列之和",
         "explanation": [
           "int (*p)[3] 声明的是指向含三个 int 的数组的指针，括号确保 *p 先结合。int *p[3] 则是三个 int 指针组成的数组。两种写法只差括号，但存储对象和指针运算的步长都不同。",
-          "二维数组 a[2][3] 转换为指向第一行的指针，所以 p=a 合法，p+1 跨过一整行。通过 (*p)[j] 或 p[i][j] 访问元素。连续二维数组不应强制转换为 int**，后者要求指向指针对象的结构。"
+          "二维数组 a[2][3] 转换为指向第一行的指针，所以 p=a 合法，p+1 跨过一整行。通过 (*p)[j] 或 p[i][j] 访问元素。连续二维数组不应强制转换为 int**，后者要求指向指针对象的结构。",
+          "虽然各行存储相邻，严格 C99 的标量指针算术仍受所处行数组边界约束。不要让 int *p=&a[0][0] 跨越所有行反复解引用；使用行指针 p[i][j] 或嵌套下标保留行边界。a[i] 是一个实际的行数组对象，&a[i] 指向这整行；并非“行没有存储对象”。"
         ],
         "syntax": "int (*p)[3]=a;\nint value=p[1][2];",
         "syntaxNotes": "输入 k 为 0..2，随后按行输入六个元素，计算 p[0][k]+p[1][k]。",
@@ -2454,7 +2466,8 @@
         "objective": "通过字符指针把小写英文变成大写",
         "explanation": [
           "char a[]=\"cat\" 建立可写的字符数组；const char* p=\"cat\" 让指针指向字符串字面量。字面量的内容不能修改，即使把它赋给 char*，尝试写入仍是未定义行为；const 让接口更清楚地表达只读用途。",
-          "字符指针传参仍需明确容量、终止符和是否可修改。本题先把输入读进可写数组，再用指针逐字节遍历。不要仅凭指针非空就断定整段字符串可访问；必须保证最终遇到终止符且没有越界。"
+          "字符指针传参仍需明确容量、终止符和是否可修改。本题先把输入读进可写数组，再用指针逐字节遍历。不要仅凭指针非空就断定整段字符串可访问；必须保证最终遇到终止符且没有越界。",
+          "printf(\"%s\",p) 接收指针值的副本并读取字符串，不会使调用者的 p 自动自增。用 %d 输出数组或指针属于格式与实参类型不匹配，结果不能当作标准保证的地址显示；地址输出应使用 %p 与 (void*)。"
         ],
         "syntax": "for(char*p=s;*p;p++)\n    if(*p>='a'&&*p<='z') *p=(char)(*p-'a'+'A');",
         "syntaxNotes": "只转换 ASCII 小写字母，其余字节保持不变；容量为 81，输入最多 80 字节。",
@@ -2995,7 +3008,8 @@
         "objective": "动态分配 n 个整数并计算总和",
         "explanation": [
           "动态分配在运行时申请存储空间。malloc 返回 void*，在 C 中可以隐式转换为对象指针；使用 sizeof *p 按元素类型计算容量，可以降低类型修改后遗漏尺寸的风险。分配可能失败，必须先检查 NULL 再访问。",
-          "malloc 不初始化空间，calloc 把分配区域的所有字节置零；对整数数组可得到零值。内存不再使用时用 free 释放一次，之后原指针及别名不可继续访问。void* 本身没有可解引用的对象类型，需转换为合适的对象指针；不能对它做标准 C 的元素运算。"
+          "malloc 不初始化空间，calloc 把分配区域的所有字节置零；对整数数组可得到零值。内存不再使用时用 free 释放一次，之后原指针及别名不可继续访问。void* 本身没有可解引用的对象类型，需转换为合适的对象指针；不能对它做标准 C 的元素运算。",
+          "void* 在 C89 已经是标准对象指针类型，并非 C99 才引入。malloc/calloc/realloc 的尺寸参数使用 size_t；calloc 的全字节零不保证任意指针或浮点对象都具有语义零值。大规模分配还需在 n*sizeof *p 之前检查乘法是否超出 SIZE_MAX。"
         ],
         "syntax": "int *p=calloc((size_t)n,sizeof *p);\nif(!p) return 1;\n/* 使用 */ free(p);",
         "syntaxNotes": "输入 n 为 1..100，元素为 -1000..1000；读入失败和正常结束两条路径都释放内存。",
@@ -3213,7 +3227,8 @@
         "objective": "用结构体保存坐标并输出坐标和",
         "explanation": [
           "结构体把不同成员组成一个新的对象类型，每个成员有自己的存储。struct Point {int x,y;}; 定义类型，struct Point p={1,2}; 定义对象；类型定义和变量定义并不相同。使用点运算符访问对象成员。",
-          "C99 支持指定成员初始化，例如 {.y=2,.x=1}。结构体对象可以整体赋值，但一般不能使用 == 比较整个结构体；成员间还可能有填充字节，所以不要把内存布局等同于成员大小的简单相加。"
+          "C99 支持指定成员初始化，例如 {.y=2,.x=1}。结构体对象可以整体赋值，但一般不能使用 == 比较整个结构体；成员间还可能有填充字节，所以不要把内存布局等同于成员大小的简单相加。",
+          "嵌套结构体成员本身也是对象，可以整体赋值，例如 student.birthday=other.birthday，不必每次逐个复制年月日。sizeof 包含内部和尾部填充，不能凭固定“机器字”假设布局。成员地址不能任意强转成整个结构体指针再跨记录访问。"
         ],
         "syntax": "struct Point { int x,y; };\nstruct Point p={.x=1,.y=2};",
         "syntaxNotes": "把输入存入 p.x、p.y，再输出两者之和；每个坐标绝对值不超过 1000。",
@@ -3843,7 +3858,8 @@
         "objective": "用标签区分整数值与实数值并输出",
         "explanation": [
           "共用体的成员共享存储，同一时刻通常用其中一个成员表达当前值。它与结构体不同，不能把成员当成彼此独立的数据。给一个成员赋值会影响同一区域内其他成员的表示，因此接口必须知道当前有效的成员。",
-          "实践中把共用体与标签配对：标签表示当前保存的是整数还是浮点数，读取时只选择对应成员。读取非当前成员涉及对象表示、实现差异及潜在陷阱，初学阶段不应把它当作可靠的数值转换方式。"
+          "实践中把共用体与标签配对：标签表示当前保存的是整数还是浮点数，读取时只选择对应成员。读取非当前成员涉及对象表示、实现差异及潜在陷阱，初学阶段不应把它当作可靠的数值转换方式。",
+          "C99 对非最近写入成员的读取是对对象表示的重解释，可能涉及陷阱表示，不能保证把整数97写入后按浮点读一定是0。可移植业务模型使用标签选择当前有效含义；不要依赖字节序或浮点布局猜结果。"
         ],
         "syntax": "union Value{int i;double d;};\n/* tag=0 使用 i，tag=1 使用 d */",
         "syntaxNotes": "模式为 0 时输入 int 并原样输出；模式为 1 时输入 double 并保留两位小数输出。",
@@ -3948,7 +3964,8 @@
         "objective": "使用枚举状态输出对应名称",
         "explanation": [
           "enum 为一组整数常量命名，未指定的首项默认为零，后续项在前项值上加一。枚举让状态判断比直接写魔法数字更清楚，但 C 不会自动把外部输入限制为列举的那些值，仍需验证范围。",
-          "typedef 为已有类型建立别名，不建立新的存储对象，也不会自动创建与原类型不兼容的新类型。可以用 typedef struct {...} Record 简化类型名称；给指针取别名时尤其要留意 const 修饰的是别名代表的整体类型。"
+          "typedef 为已有类型建立别名，不建立新的存储对象，也不会自动创建与原类型不兼容的新类型。可以用 typedef struct {...} Record 简化类型名称；给指针取别名时尤其要留意 const 修饰的是别名代表的整体类型。",
+          "enum 类型在 C99 已属整数类型，这并非 C99 首次引入；枚举变量不会自动限制为列出的几项。typedef int *IP; 后 const IP p 表示指针本身不可修改，相当于 int *const p，所指 int 并不因此变成 const。"
         ],
         "syntax": "typedef enum { READY=0,RUNNING=1,DONE=2 } State;",
         "syntaxNotes": "输入 0..2，通过 switch 输出 READY、RUNNING 或 DONE；超出范围报告输入失败。",
@@ -4061,7 +4078,8 @@
         "objective": "把输入单词写入 note.txt 并输出写入长度",
         "explanation": [
           "C 使用 FILE* 管理流状态，包括缓冲区、文件位置和错误标志。文件可用于保存文本或二进制数据；文件名和目录规则由运行环境决定。本网站的文件位于每次运行独立的虚拟文件系统，运行后可查看和下载，不会写入电脑磁盘。",
-          "fopen 的 r 要求文件已存在，w 创建或截断，a 创建或追加；带 + 可读写，b 表示二进制模式。打开失败返回 NULL，不能继续读写。fclose 刷新并关闭流，也应检查结果；更新流切换读写方向还需要按规则刷新或定位。"
+          "fopen 的 r 要求文件已存在，w 创建或截断，a 创建或追加；带 + 可读写，b 表示二进制模式。打开失败返回 NULL，不能继续读写。fclose 刷新并关闭流，也应检查结果；更新流切换读写方向还需要按规则刷新或定位。",
+          "r/r+ 要求存在；w/w+ 创建并截断；a/a+ 可创建且每次写都在末尾。b 控制二进制模式，并不把 fprintf 的十进制文本自动变成整数内存表示。正常从 main 返回或调用 exit 会刷新关闭流；显式检查 fclose 仍能发现延迟写入错误。"
         ],
         "syntax": "FILE*f=fopen(\"note.txt\",\"w\");\nif(!f) return 1;\n/* 写入 */ if(fclose(f)!=0) return 1;",
         "syntaxNotes": "读取最多 40 字节的单词，写入文件并加换行；输出单词字节数，文件内容也会参加判题。",
@@ -4304,7 +4322,8 @@
         "objective": "统计 lines.txt 读到的行数",
         "explanation": [
           "fgets 可以从任意 FILE* 读取文本，fputs 把字符串写到流中且不自动添加换行。与 puts 不同，fputs 是否输出换行取决于字符串本身。按行处理时必须考虑缓冲区大小和文件最后一行是否带换行。",
-          "一条长行可能被 fgets 拆成多次返回，因此“调用成功次数”等于行数只在行长有界且缓冲区足够时成立。本题明确每行最多 80 个字节，用 82 字节缓冲区读取；末尾没有换行的非空行也算一行。"
+          "一条长行可能被 fgets 拆成多次返回，因此“调用成功次数”等于行数只在行长有界且缓冲区足够时成立。本题明确每行最多 80 个字节，用 82 字节缓冲区读取；末尾没有换行的非空行也算一行。",
+          "fputs 成功返回非负值，失败返回 EOF；puts 同样不保证返回换行符的数值。fgets 不是“总读 n−1 字符”，换行或 EOF 会提前结束。逐行读取要以实际返回值控制，长行可能被分成多次读取。"
         ],
         "syntax": "while(fgets(line,sizeof line,f)) ++count;",
         "syntaxNotes": "文件每行最多 80 字节；空文件为 0 行，只有换行的文件包含一条空行。",
@@ -4553,7 +4572,8 @@
         "objective": "把三个整数写入二进制文件再读回求和",
         "explanation": [
           "fwrite 和 fread 按对象大小与数量搬运字节，返回成功处理的完整对象个数，而不是总字节数。二进制模式用 wb、rb 表达意图；文本与二进制在某些系统存在换行转换差异，浏览器环境中不应据此推断所有系统都相同。",
-          "直接保存 int 或结构体的原始表示，只适合相同实现之间的实验。字节序、类型宽度和结构体填充都可能不同，不能把本例的二进制文件当成可移植交换格式。跨平台文件应自行约定字节格式，再逐字段编码。"
+          "直接保存 int 或结构体的原始表示，只适合相同实现之间的实验。字节序、类型宽度和结构体填充都可能不同，不能把本例的二进制文件当成可移植交换格式。跨平台文件应自行约定字节格式，再逐字段编码。",
+          "fread/fwrite 返回 size_t，含义是完成的数据项个数，可能少于请求项数；fread 短读后检查 feof/ferror。文本文件不只包含 ASCII，二进制模式也可读写文本字节；选择表示、打开模式和读写接口是相关但不同的三件事。"
         ],
         "syntax": "fwrite(a,sizeof a[0],3,f);\nfread(b,sizeof b[0],3,f);",
         "syntaxNotes": "先用 wb 保存，关闭后再用 rb 打开读取；必须确认写入、读取都完成三个对象。",
@@ -4658,7 +4678,8 @@
         "objective": "定位到 data.txt 的第 k 个字节并读取",
         "explanation": [
           "每个流维护当前位置。ftell 查询位置，fseek 按起点和偏移调整位置，rewind 回到起点并清除错误标志。读取某条固定宽度二进制记录时可以根据记录序号计算偏移，但必须检查乘法范围和定位操作是否成功。",
-          "文本流的位置值不一定等于简单字节计数，标准对文本流的 fseek 用法有额外限制。本节使用 rb 二进制模式和 ASCII 测试数据，从 SEEK_SET 定位到给定字节；如果位置到达文件末尾，读取将返回 EOF。"
+          "文本流的位置值不一定等于简单字节计数，标准对文本流的 fseek 用法有额外限制。本节使用 rb 二进制模式和 ASCII 测试数据，从 SEEK_SET 定位到给定字节；如果位置到达文件末尾，读取将返回 EOF。",
+          "标准只规定 SEEK_SET/SEEK_CUR/SEEK_END 的含义，不保证数值是0/1/2。fseek 成功返回0而非新位置，ftell 失败返回−1L。对文本流，可移植的非零定位偏移应取自同一流先前 ftell 的结果并配合 SEEK_SET。"
         ],
         "syntax": "if(fseek(f,k,SEEK_SET)!=0) return 1;\nint ch=fgetc(f);",
         "syntaxNotes": "输入 k 为 0..4，在五字节文件 ABCDE 中读取一个字符，rewind 后再读取首字符。",
@@ -4769,7 +4790,8 @@
         "objective": "读到文件末尾后观察并清除 EOF 标志",
         "explanation": [
           "feof 查询流的结束标志，ferror 查询错误标志，它们不会主动读取文件。一次读取返回 EOF 时，必须查看相应状态，才能区分正常末尾和错误。clearerr 清除两个标志，但不会移动文件位置，也不会修复导致错误的外部原因。",
-          "rewind 既回到起点，也清除流错误标志；fseek 成功会清除 EOF 标志。关闭错误同样可能表示缓冲数据没有完整写出。可靠的文件程序要检查打开、读取、写入、定位和关闭这些步骤，而不只检查 fopen 一次。"
+          "rewind 既回到起点，也清除流错误标志；fseek 成功会清除 EOF 标志。关闭错误同样可能表示缓冲数据没有完整写出。可靠的文件程序要检查打开、读取、写入、定位和关闭这些步骤，而不只检查 fopen 一次。",
+          "错误指示器具有粘滞性：一次错误后，后续成功读取不会自动把它清零。clearerr 和 rewind 清除错误与 EOF；成功 fseek 清 EOF，但不清错误。feof/ferror 的真值只保证非零，不保证数值1；EOF 是负 int 常量，不保证就是−1。"
         ],
         "syntax": "while(fgetc(f)!=EOF){}\nint before=feof(f)!=0;clearerr(f);int after=feof(f)!=0;",
         "syntaxNotes": "把文件读取到正常末尾，输出清除前和清除后的 EOF 标志；本例应为 1 0。",
@@ -5107,7 +5129,8 @@
         "objective": "用 ctype.h 统计输入中的英文字母和数字",
         "explanation": [
           "查库函数时先确定头文件、原型、参数约束、返回值和失败条件，再决定如何使用。stdio.h 管理流，stdlib.h 管理分配与转换，string.h 处理字节和字符串，math.h 提供数学运算，ctype.h 提供字符分类；标准库不是 C 关键字的一部分。",
-          "isalpha、isdigit 等函数的参数必须是 EOF 或可表示为 unsigned char 的值。getchar 直接返回的有效字符值满足要求；若从可能带符号的 char 数组读取，应先转为 unsigned char。本题限定 ASCII 文本，不把 UTF-8 字节分类当成汉字分类。"
+          "isalpha、isdigit 等函数的参数必须是 EOF 或可表示为 unsigned char 的值。getchar 直接返回的有效字符值满足要求；若从可能带符号的 char 数组读取，应先转为 unsigned char。本题限定 ASCII 文本，不把 UTF-8 字节分类当成汉字分类。",
+          "C99 标准库属于标准规定的库接口，和语言关键字是两个层次；有宿主与独立环境支持要求不同。ctype 的真值只保证非零，不能拿 isalpha(ch)==1 判断字母。strlwr/strupr、getw/putw、open/read/write 不属于 ISO C99，大小写转换用 toupper/tolower 配合有效字节遍历。"
         ],
         "syntax": "int ch;\nwhile((ch=getchar())!=EOF){\n    if(isalpha(ch))letters++;\n    if(isdigit(ch))digits++;\n}",
         "syntaxNotes": "遍历标准输入到 EOF，输出字母数和数字数；两个独立计数均从零开始。",
@@ -5200,6 +5223,3878 @@
             "遍历标准输入到 EOF，输出字母数和数字数；两个独立计数均从零开始。",
             "它们是标准库函数名称，原型来自相应头文件；关键字如 int、return 属于语言语法。"
           ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "title": "教材算法与数值计算",
+    "en": "Algorithms and Numerical Methods",
+    "description": "从状态跟踪到枚举、递推和求根，先分析终止条件，再运行程序。",
+    "lessons": [
+      {
+        "id": "c17-1",
+        "chapter": 17,
+        "index": 0,
+        "title": "用状态表统计单词",
+        "en": "State Machines",
+        "textbook": "2.5、6.3.7（162—164页）",
+        "objective": "统计输入中的单词数",
+        "explanation": [
+          "把单词定义为连续的非空白字符。只在“空白 → 非空白”时计数，连续空格不会制造新单词。一个 in_word 标志就能记住前一字符所在的状态，不必保存整篇文章。空输入的答案为零。",
+          "先列状态表：空白把状态置零；非空白且原状态为零则计数并置一；其余情况保持。流程图的判断对应 if，N-S 图的循环框对应 while。由顶层“读取—分类—更新”逐步细化，比在循环里同时猜测多个条件更容易检查。"
+        ],
+        "syntax": "流程：读字符 → 空白？置0 : 若原状态0则 count++、置1 → 再读\nN-S：┌ 当读取成功 ─────────┐\n     │ 空白 │ 非空白且状态0 │\n     │ 置0  │ 计数+1，置1   │\n     └───────────────────┘",
+        "syntaxNotes": "循环直到 EOF；用 isspace 识别空格、制表和换行。abc 后连续两个空格仍只结束一个单词。",
+        "example": "#include <stdio.h>\n#include <ctype.h>\nint main(void) {\n    int ch, in_word = 0, count = 0;\n    while ((ch = getchar()) != EOF) {\n        if (isspace(ch)) in_word = 0;\n        else if (!in_word) { ++count; in_word = 1; }\n    }\n    printf(\"%d\\n\", count);\n    return 0;\n}\n",
+        "exampleInput": "  C  is\nfun\ttoo\n",
+        "exampleOutput": "4\n",
+        "walkthrough": "循环直到 EOF；用 isspace 识别空格、制表和换行。abc 后连续两个空格仍只结束一个单词。",
+        "mistakes": [
+          "只在状态从零变为一时计数；不要每读到一个字母就加一。",
+          "getchar 返回值保存在 int 中，不能先缩窄为 char 再判断 EOF。"
+        ],
+        "summary": "统计输入中的单词数",
+        "quizzes": [
+          {
+            "id": "c17-1-q1",
+            "type": "single",
+            "question": "什么时候计入一个新单词？",
+            "options": [
+              "每次遇到空格",
+              "从空白状态进入非空白状态",
+              "每次遇到字母"
+            ],
+            "answer": [
+              "从空白状态进入非空白状态"
+            ],
+            "explanation": "状态记录能避免重复计数，也能自然处理开头空格。"
+          },
+          {
+            "id": "c17-1-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "4"
+            ],
+            "explanation": "循环直到 EOF；用 isspace 识别空格、制表和换行。abc 后连续两个空格仍只结束一个单词。"
+          },
+          {
+            "id": "c17-1-q3",
+            "type": "boolean",
+            "question": "连续三个空格会增加三个单词。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "空白只重置状态，不增加计数。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-1-q1",
+          "type": "single",
+          "question": "什么时候计入一个新单词？",
+          "options": [
+            "每次遇到空格",
+            "从空白状态进入非空白状态",
+            "每次遇到字母"
+          ],
+          "answer": [
+            "从空白状态进入非空白状态"
+          ],
+          "explanation": "状态记录能避免重复计数，也能自然处理开头空格。"
+        },
+        "challenge": {
+          "id": "c17-1-practice",
+          "title": "统计输入中的单词数",
+          "difficulty": "Medium",
+          "description": "统计输入中的单词数。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "  C  is\nfun\ttoo\n",
+              "output": "4\n"
+            },
+            {
+              "input": "",
+              "output": "0\n"
+            },
+            {
+              "input": "one",
+              "output": "1\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <ctype.h>\nint main(void) {\n    int ch, in_word = 0, count = 0;\n    while ((ch = getchar()) != EOF) {\n        if (isspace(ch)) in_word = 0;\n        else if (!in_word) { ++count; in_word = 1; }\n    }\n    printf(\"%d\\n\", count);\n    return 0;\n}\n",
+          "hints": [
+            "流程：读字符 → 空白？置0 : 若原状态0则 count++、置1 → 再读\nN-S：┌ 当读取成功 ─────────┐\n     │ 空白 │ 非空白且状态0 │\n     │ 置0  │ 计数+1，置1   │\n     └───────────────────┘",
+            "循环直到 EOF；用 isspace 识别空格、制表和换行。abc 后连续两个空格仍只结束一个单词。",
+            "只在状态从零变为一时计数；不要每读到一个字母就加一。"
+          ]
+        }
+      },
+      {
+        "id": "c17-2",
+        "chapter": 17,
+        "index": 1,
+        "title": "递推求交错级数",
+        "en": "Alternating Series",
+        "textbook": "2章习题、5.7（129—138页）",
+        "objective": "计算交错调和和与阶乘倒数和",
+        "explanation": [
+          "求前 n 项的 1−1/2+1/3−…，需要分母、符号和累加器三个状态。用 sign 每轮乘 −1，能把交替规律直接写进更新步骤。初值 sum=0 与 sign=1 分别对应“还没加任何项”和“第一项为正”。",
+          "同时求 1/1!+1/2!+…+1/n! 时，不必每次重新算阶乘。保留 term=1，依次除以 k 得到下一项。这个递推避免整数阶乘快速溢出；浮点计算仍有舍入，固定 n 上界并在输出时指定小数位。"
+        ],
+        "syntax": "输入 n：1..20。循环 k=1..n：s += sign/(double)k；sign=-sign；term/=k；t+=term。",
+        "syntaxNotes": "n=3 时交错和为 5/6，阶乘倒数和为 5/3；每项先做浮点除法，再更新累加器。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n, sign = 1;\n    double s = 0.0, t = 0.0, term = 1.0;\n    if (scanf(\"%d\", &n) != 1 || n < 1 || n > 20) return 1;\n    for (int k = 1; k <= n; ++k) {\n        s += sign / (double)k;\n        sign = -sign;\n        term /= k;\n        t += term;\n    }\n    printf(\"%.6f %.6f\\n\", s, t);\n    return 0;\n}\n",
+        "exampleInput": "3",
+        "exampleOutput": "0.833333 1.666667\n",
+        "walkthrough": "n=3 时交错和为 5/6，阶乘倒数和为 5/3；每项先做浮点除法，再更新累加器。",
+        "mistakes": [
+          "1/k 若两个操作数都是整数，会先发生整数除法。",
+          "输出六位小数是显示舍入，不等于中间运算只有六位精度。"
+        ],
+        "summary": "计算交错调和和与阶乘倒数和",
+        "quizzes": [
+          {
+            "id": "c17-2-q1",
+            "type": "single",
+            "question": "阶乘倒数项如何由上项得到？",
+            "options": [
+              "term /= k",
+              "term += k",
+              "term *= k"
+            ],
+            "answer": [
+              "term /= k"
+            ],
+            "explanation": "1/(k−1)! 再除以 k 得到 1/k!。"
+          },
+          {
+            "id": "c17-2-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "0.833333 1.666667"
+            ],
+            "explanation": "n=3 时交错和为 5/6，阶乘倒数和为 5/3；每项先做浮点除法，再更新累加器。"
+          },
+          {
+            "id": "c17-2-q3",
+            "type": "boolean",
+            "question": "把 term 定义为 int 也能正确表示这些分数。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "整数无法保存分数，除法结果会被截断。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-2-q1",
+          "type": "single",
+          "question": "阶乘倒数项如何由上项得到？",
+          "options": [
+            "term /= k",
+            "term += k",
+            "term *= k"
+          ],
+          "answer": [
+            "term /= k"
+          ],
+          "explanation": "1/(k−1)! 再除以 k 得到 1/k!。"
+        },
+        "challenge": {
+          "id": "c17-2-practice",
+          "title": "计算交错调和和与阶乘倒数和",
+          "difficulty": "Medium",
+          "description": "计算交错调和和与阶乘倒数和。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3",
+              "output": "0.833333 1.666667\n"
+            },
+            {
+              "input": "1",
+              "output": "1.000000 1.000000\n"
+            },
+            {
+              "input": "2",
+              "output": "0.500000 1.500000\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n, sign = 1;\n    double s = 0.0, t = 0.0, term = 1.0;\n    if (scanf(\"%d\", &n) != 1 || n < 1 || n > 20) return 1;\n    for (int k = 1; k <= n; ++k) {\n        s += sign / (double)k;\n        sign = -sign;\n        term /= k;\n        t += term;\n    }\n    printf(\"%.6f %.6f\\n\", s, t);\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：1..20。循环 k=1..n：s += sign/(double)k；sign=-sign；term/=k；t+=term。",
+            "n=3 时交错和为 5/6，阶乘倒数和为 5/3；每项先做浮点除法，再更新累加器。",
+            "1/k 若两个操作数都是整数，会先发生整数除法。"
+          ]
+        }
+      },
+      {
+        "id": "c17-3",
+        "chapter": 17,
+        "index": 2,
+        "title": "二次方程与退化分支",
+        "en": "Quadratic Cases",
+        "textbook": "4.8、7章习题（102—109、215页）",
+        "objective": "分类输出方程的实根、复根或退化结果",
+        "explanation": [
+          "求 ax²+bx+c=0 前先判断 a 是否为零。a=0 时它退化成一次方程；若 b 也为零，还要区分无解与恒成立。只有确认 a 非零后，才能计算判别式并除以 2a。分类顺序本身就是算法的一部分。",
+          "本题系数限定为小整数，判别式用 double 计算。正判别式输出升序两个实根，零判别式输出重根，负判别式输出实部与正的虚部幅值。一般科学计算要考虑尺度、误差和消去问题，不能把这里精确比较零的前提搬到任意测量数据中。"
+        ],
+        "syntax": "输入整数 a,b,c（−100..100）。输出 TWO x1 x2 / ONE x / COMPLEX real imag / NONE / ALL；实数保留三位。",
+        "syntaxNotes": "a=1,b=−3,c=2 得到 1 和 2；复根输出 real±imag*i 的两个组成量，而不向 sqrt 传负数。",
+        "example": "#include <stdio.h>\n#include <math.h>\nint main(void) {\n    int ai, bi, ci;\n    if (scanf(\"%d%d%d\", &ai, &bi, &ci) != 3) return 1;\n    double a=ai, b=bi, c=ci;\n    if (a == 0) {\n        if (b != 0) printf(\"ONE %.3f\\n\", c==0 ? 0.0 : -c/b);\n        else puts(c==0 ? \"ALL\" : \"NONE\");\n    } else {\n        double d=b*b-4*a*c, real=-b/(2*a);\n        if (d > 0) {\n            double u=real-sqrt(d)/(2*a), v=real+sqrt(d)/(2*a);\n            if (u>v) { double t=u; u=v; v=t; }\n            printf(\"TWO %.3f %.3f\\n\", u==0?0.0:u, v==0?0.0:v);\n        } else if (d == 0) printf(\"ONE %.3f\\n\", real==0?0.0:real);\n        else printf(\"COMPLEX %.3f %.3f\\n\", real==0?0.0:real, sqrt(-d)/(2*fabs(a)));\n    }\n    return 0;\n}\n",
+        "exampleInput": "1 -3 2",
+        "exampleOutput": "TWO 1.000 2.000\n",
+        "walkthrough": "a=1,b=−3,c=2 得到 1 和 2；复根输出 real±imag*i 的两个组成量，而不向 sqrt 传负数。",
+        "mistakes": [
+          "先处理 a=0，避免把退化方程放进二次公式造成除零。",
+          "复根的虚部幅值须除以 2*|a|，输出幅值保持非负。"
+        ],
+        "summary": "分类输出方程的实根、复根或退化结果",
+        "quizzes": [
+          {
+            "id": "c17-3-q1",
+            "type": "single",
+            "question": "什么时候可以使用二次求根公式？",
+            "options": [
+              "确认 a 不为零之后",
+              "对所有 a,b,c 都可以",
+              "只需 c 不为零"
+            ],
+            "answer": [
+              "确认 a 不为零之后"
+            ],
+            "explanation": "公式的分母含 2a，必须先处理退化情况。"
+          },
+          {
+            "id": "c17-3-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "TWO 1.000 2.000"
+            ],
+            "explanation": "a=1,b=−3,c=2 得到 1 和 2；复根输出 real±imag*i 的两个组成量，而不向 sqrt 传负数。"
+          },
+          {
+            "id": "c17-3-q3",
+            "type": "boolean",
+            "question": "负判别式可以直接传给实数 sqrt 来得到虚部。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "应对 −d 开平方并单独组织复根信息。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-3-q1",
+          "type": "single",
+          "question": "什么时候可以使用二次求根公式？",
+          "options": [
+            "确认 a 不为零之后",
+            "对所有 a,b,c 都可以",
+            "只需 c 不为零"
+          ],
+          "answer": [
+            "确认 a 不为零之后"
+          ],
+          "explanation": "公式的分母含 2a，必须先处理退化情况。"
+        },
+        "challenge": {
+          "id": "c17-3-practice",
+          "title": "分类输出方程的实根、复根或退化结果",
+          "difficulty": "Medium",
+          "description": "分类输出方程的实根、复根或退化结果。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "1 -3 2",
+              "output": "TWO 1.000 2.000\n"
+            },
+            {
+              "input": "1 0 1",
+              "output": "COMPLEX 0.000 1.000\n"
+            },
+            {
+              "input": "0 2 -6",
+              "output": "ONE 3.000\n"
+            },
+            {
+              "input": "0 0 1",
+              "output": "NONE\n"
+            },
+            {
+              "input": "0 0 0",
+              "output": "ALL\n"
+            },
+            {
+              "input": "1 2 1",
+              "output": "ONE -1.000\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <math.h>\nint main(void) {\n    int ai, bi, ci;\n    if (scanf(\"%d%d%d\", &ai, &bi, &ci) != 3) return 1;\n    double a=ai, b=bi, c=ci;\n    if (a == 0) {\n        if (b != 0) printf(\"ONE %.3f\\n\", c==0 ? 0.0 : -c/b);\n        else puts(c==0 ? \"ALL\" : \"NONE\");\n    } else {\n        double d=b*b-4*a*c, real=-b/(2*a);\n        if (d > 0) {\n            double u=real-sqrt(d)/(2*a), v=real+sqrt(d)/(2*a);\n            if (u>v) { double t=u; u=v; v=t; }\n            printf(\"TWO %.3f %.3f\\n\", u==0?0.0:u, v==0?0.0:v);\n        } else if (d == 0) printf(\"ONE %.3f\\n\", real==0?0.0:real);\n        else printf(\"COMPLEX %.3f %.3f\\n\", real==0?0.0:real, sqrt(-d)/(2*fabs(a)));\n    }\n    return 0;\n}\n",
+          "hints": [
+            "输入整数 a,b,c（−100..100）。输出 TWO x1 x2 / ONE x / COMPLEX real imag / NONE / ALL；实数保留三位。",
+            "a=1,b=−3,c=2 得到 1 和 2；复根输出 real±imag*i 的两个组成量，而不向 sqrt 传负数。",
+            "先处理 a=0，避免把退化方程放进二次公式造成除零。"
+          ]
+        }
+      },
+      {
+        "id": "c17-4",
+        "chapter": 17,
+        "index": 3,
+        "title": "分段函数与累进模型",
+        "en": "Piecewise Models",
+        "textbook": "4章综合例题（102—109页）",
+        "objective": "按分段单价计算总额",
+        "explanation": [
+          "分段模型要先区分“整段统一单价”和“各段累加”两种含义。本题前 10 单位每单位 2，接下来的 10 单位每单位 3，超过 20 的部分每单位 5。这是数学练习，不代表实际收费政策。",
+          "把边界值 0、10、20 单独代入，是检查 if/else 是否重叠或遗漏的有效方法。累进计算可以先写前段固定总额，再计算当前段增量；输入范围限制还保证整型乘法不会溢出。"
+        ],
+        "syntax": "输入整数用量 n：0..1000。n≤10：2n；10<n≤20：20+3(n−10)；n>20：50+5(n−20)。",
+        "syntaxNotes": "n=25 时，前两段合计 50，再加 5*5，共 75；不能直接用 25*5。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n, total;\n    if (scanf(\"%d\", &n)!=1 || n<0 || n>1000) return 1;\n    if (n<=10) total=2*n;\n    else if (n<=20) total=20+3*(n-10);\n    else total=50+5*(n-20);\n    printf(\"%d\\n\", total);\n    return 0;\n}\n",
+        "exampleInput": "25",
+        "exampleOutput": "75\n",
+        "walkthrough": "n=25 时，前两段合计 50，再加 5*5，共 75；不能直接用 25*5。",
+        "mistakes": [
+          "进入较高档只给超出部分用新单价。",
+          "边界 10 和 20 应各落入唯一分支，并使两段公式连续。"
+        ],
+        "summary": "按分段单价计算总额",
+        "quizzes": [
+          {
+            "id": "c17-4-q1",
+            "type": "single",
+            "question": "用量为 12 时总额是多少？",
+            "options": [
+              "36",
+              "26",
+              "24"
+            ],
+            "answer": [
+              "26"
+            ],
+            "explanation": "前 10 单位为 20，剩余 2 单位为 6。"
+          },
+          {
+            "id": "c17-4-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "75"
+            ],
+            "explanation": "n=25 时，前两段合计 50，再加 5*5，共 75；不能直接用 25*5。"
+          },
+          {
+            "id": "c17-4-q3",
+            "type": "boolean",
+            "question": "累进模型中，达到第三档就把全部用量乘第三档单价。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "每段只对本段覆盖的增量计费。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-4-q1",
+          "type": "single",
+          "question": "用量为 12 时总额是多少？",
+          "options": [
+            "36",
+            "26",
+            "24"
+          ],
+          "answer": [
+            "26"
+          ],
+          "explanation": "前 10 单位为 20，剩余 2 单位为 6。"
+        },
+        "challenge": {
+          "id": "c17-4-practice",
+          "title": "按分段单价计算总额",
+          "difficulty": "Medium",
+          "description": "按分段单价计算总额。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "25",
+              "output": "75\n"
+            },
+            {
+              "input": "0",
+              "output": "0\n"
+            },
+            {
+              "input": "10",
+              "output": "20\n"
+            },
+            {
+              "input": "20",
+              "output": "50\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n, total;\n    if (scanf(\"%d\", &n)!=1 || n<0 || n>1000) return 1;\n    if (n<=10) total=2*n;\n    else if (n<=20) total=20+3*(n-10);\n    else total=50+5*(n-20);\n    printf(\"%d\\n\", total);\n    return 0;\n}\n",
+          "hints": [
+            "输入整数用量 n：0..1000。n≤10：2n；10<n≤20：20+3(n−10)；n>20：50+5(n−20)。",
+            "n=25 时，前两段合计 50，再加 5*5，共 75；不能直接用 25*5。",
+            "进入较高档只给超出部分用新单价。"
+          ]
+        }
+      },
+      {
+        "id": "c17-5",
+        "chapter": 17,
+        "index": 4,
+        "title": "滚动递推与倒推",
+        "en": "Recurrences",
+        "textbook": "5.7、6.1.4（129—143页）",
+        "objective": "计算 Fibonacci 项和反向递推的初值",
+        "explanation": [
+          "Fibonacci 的下一项只依赖前两项，用两个滚动变量就能计算，不一定保存整个数组。先算 next=a+b，再同时推进 a,b；若先覆盖 a，后面的计算就可能错误地使用新值。需要随机访问所有项时再选择数组。",
+          "倒推则从已知末状态反向恢复前状态。本题每天把数量变成 x/2−1，最后一天剩 1，前一天就是 2*(x+1)。循环次数是天数减一。unsigned long long 配合小范围输入保证结果可表示，不能让递推无限增长。"
+        ],
+        "syntax": "输入 n：1..20。F1=F2=1；末日剩1，共n天，每日前半减1，则倒推 n−1 次 x=2*(x+1)。输出 Fn 与初始量。",
+        "syntaxNotes": "n=3：F3=2；倒推 1→4→10，所以输出 2 10。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>20) return 1;\n    unsigned long long a=1, b=1, amount=1;\n    for (int i=2; i<n; ++i) { unsigned long long t=a+b; a=b; b=t; }\n    for (int i=1; i<n; ++i) amount=2*(amount+1);\n    printf(\"%llu %llu\\n\", n==1?a:b, amount);\n    return 0;\n}\n",
+        "exampleInput": "3",
+        "exampleOutput": "2 10\n",
+        "walkthrough": "n=3：F3=2；倒推 1→4→10，所以输出 2 10。",
+        "mistakes": [
+          "计算 Fibonacci 前保存两个旧状态，避免更新顺序改变递推式。",
+          "n 天只发生 n−1 次从前一天到后一天的变化。"
+        ],
+        "summary": "计算 Fibonacci 项和反向递推的初值",
+        "quizzes": [
+          {
+            "id": "c17-5-q1",
+            "type": "single",
+            "question": "倒推前一天数量的公式是什么？",
+            "options": [
+              "2*(x+1)",
+              "x/2-1",
+              "2*x+1"
+            ],
+            "answer": [
+              "2*(x+1)"
+            ],
+            "explanation": "由 y=x/2−1 解出 x=2(y+1)。"
+          },
+          {
+            "id": "c17-5-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "2 10"
+            ],
+            "explanation": "n=3：F3=2；倒推 1→4→10，所以输出 2 10。"
+          },
+          {
+            "id": "c17-5-q3",
+            "type": "boolean",
+            "question": "滚动递推会自动保存所有历史项供随机查询。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "它只保留计算下一项需要的有限状态。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-5-q1",
+          "type": "single",
+          "question": "倒推前一天数量的公式是什么？",
+          "options": [
+            "2*(x+1)",
+            "x/2-1",
+            "2*x+1"
+          ],
+          "answer": [
+            "2*(x+1)"
+          ],
+          "explanation": "由 y=x/2−1 解出 x=2(y+1)。"
+        },
+        "challenge": {
+          "id": "c17-5-practice",
+          "title": "计算 Fibonacci 项和反向递推的初值",
+          "difficulty": "Medium",
+          "description": "计算 Fibonacci 项和反向递推的初值。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3",
+              "output": "2 10\n"
+            },
+            {
+              "input": "1",
+              "output": "1 1\n"
+            },
+            {
+              "input": "5",
+              "output": "5 46\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>20) return 1;\n    unsigned long long a=1, b=1, amount=1;\n    for (int i=2; i<n; ++i) { unsigned long long t=a+b; a=b; b=t; }\n    for (int i=1; i<n; ++i) amount=2*(amount+1);\n    printf(\"%llu %llu\\n\", n==1?a:b, amount);\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：1..20。F1=F2=1；末日剩1，共n天，每日前半减1，则倒推 n−1 次 x=2*(x+1)。输出 Fn 与初始量。",
+            "n=3：F3=2；倒推 1→4→10，所以输出 2 10。",
+            "计算 Fibonacci 前保存两个旧状态，避免更新顺序改变递推式。"
+          ]
+        }
+      },
+      {
+        "id": "c17-6",
+        "chapter": 17,
+        "index": 5,
+        "title": "枚举因子与完数",
+        "en": "Divisor Enumeration",
+        "textbook": "5章习题（137—138页）",
+        "objective": "列出上界内的完数",
+        "explanation": [
+          "完数等于它的所有正真因子之和，真因子不含它自己。对每个候选数 x，从 1 到 x/2 枚举可整除的 d，累计因子和，再与 x 比较。外层选择候选，内层验证条件，这体现了把“大问题”拆成判定函数。",
+          "1 没有正真因子，因此不是完数。本节上界 2..1000，朴素枚举足以完成；若上界很大，可成对枚举到平方根，并避免重复计算平方根因子。先用清晰版本验证，再根据规模优化。"
+        ],
+        "syntax": "输入上界 n：2..1000。候选 x=2..n；sum=0；枚举 d=1..x/2，若 x%d==0 则累加。没有结果输出 NONE。",
+        "syntaxNotes": "上界 30 得到 6 和 28；每个候选数开始时都要重新把 sum 清零。",
+        "example": "#include <stdio.h>\nstatic int perfect(int x) {\n    int sum=0;\n    for (int d=1; d<=x/2; ++d) if (x%d==0) sum+=d;\n    return sum==x;\n}\nint main(void) {\n    int n, found=0;\n    if (scanf(\"%d\", &n)!=1 || n<2 || n>1000) return 1;\n    for (int x=2; x<=n; ++x) if (perfect(x)) {\n        printf(\"%s%d\", found?\" \":\"\", x); found=1;\n    }\n    if (!found) printf(\"NONE\");\n    putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "30",
+        "exampleOutput": "6 28\n",
+        "walkthrough": "上界 30 得到 6 和 28；每个候选数开始时都要重新把 sum 清零。",
+        "mistakes": [
+          "不要把 x 自身加进真因子和。",
+          "内层累加器要在每个候选数开始时重置。"
+        ],
+        "summary": "列出上界内的完数",
+        "quizzes": [
+          {
+            "id": "c17-6-q1",
+            "type": "single",
+            "question": "6 的正真因子是什么？",
+            "options": [
+              "1,2,3",
+              "1,2,3,6",
+              "2,3,6"
+            ],
+            "answer": [
+              "1,2,3"
+            ],
+            "explanation": "真因子排除数自身，其和为 6。"
+          },
+          {
+            "id": "c17-6-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "6 28"
+            ],
+            "explanation": "上界 30 得到 6 和 28；每个候选数开始时都要重新把 sum 清零。"
+          },
+          {
+            "id": "c17-6-q3",
+            "type": "boolean",
+            "question": "判断下一个候选数时可以沿用上一个数的 sum。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "不同候选数的因子和必须独立计算。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-6-q1",
+          "type": "single",
+          "question": "6 的正真因子是什么？",
+          "options": [
+            "1,2,3",
+            "1,2,3,6",
+            "2,3,6"
+          ],
+          "answer": [
+            "1,2,3"
+          ],
+          "explanation": "真因子排除数自身，其和为 6。"
+        },
+        "challenge": {
+          "id": "c17-6-practice",
+          "title": "列出上界内的完数",
+          "difficulty": "Medium",
+          "description": "列出上界内的完数。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "30",
+              "output": "6 28\n"
+            },
+            {
+              "input": "5",
+              "output": "NONE\n"
+            },
+            {
+              "input": "6",
+              "output": "6\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic int perfect(int x) {\n    int sum=0;\n    for (int d=1; d<=x/2; ++d) if (x%d==0) sum+=d;\n    return sum==x;\n}\nint main(void) {\n    int n, found=0;\n    if (scanf(\"%d\", &n)!=1 || n<2 || n>1000) return 1;\n    for (int x=2; x<=n; ++x) if (perfect(x)) {\n        printf(\"%s%d\", found?\" \":\"\", x); found=1;\n    }\n    if (!found) printf(\"NONE\");\n    putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "输入上界 n：2..1000。候选 x=2..n；sum=0；枚举 d=1..x/2，若 x%d==0 则累加。没有结果输出 NONE。",
+            "上界 30 得到 6 和 28；每个候选数开始时都要重新把 sum 清零。",
+            "不要把 x 自身加进真因子和。"
+          ]
+        }
+      },
+      {
+        "id": "c17-7",
+        "chapter": 17,
+        "index": 6,
+        "title": "按位拆数与枚举验证",
+        "en": "Digit Enumeration",
+        "textbook": "5章习题（137—138页）",
+        "objective": "列出区间内的三位水仙花数",
+        "explanation": [
+          "十进制整数的个位是 x%10，去掉个位是 x/10。三位数可用 x/100、x/10%10、x%10 拆成百、十、个位。所谓三位水仙花数，是本数等于三个数字立方之和，本题只在 100..999 内使用这个定义。",
+          "枚举区间内每个数，再检验数字条件，能保证不漏解且终止。立方用 d*d*d 做整数运算，不需要调用浮点 pow 再比较。将这一模式改成数字和、回文或数字互异检验，就能解决一类拆位问题。"
+        ],
+        "syntax": "输入 lo hi：100≤lo≤hi≤999。对 x∈[lo,hi] 检查百位³+十位³+个位³==x；无结果输出 NONE。",
+        "syntaxNotes": "在 100..400 中满足条件的有 153 和 370、371；逐个验证条件后按升序输出。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int lo, hi, found=0;\n    if (scanf(\"%d%d\", &lo, &hi)!=2 || lo<100 || hi>999 || lo>hi) return 1;\n    for (int x=lo; x<=hi; ++x) {\n        int a=x/100, b=x/10%10, c=x%10;\n        if (a*a*a+b*b*b+c*c*c==x) { printf(\"%s%d\", found?\" \":\"\", x); found=1; }\n    }\n    if (!found) printf(\"NONE\");\n    putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "100 400",
+        "exampleOutput": "153 370 371\n",
+        "walkthrough": "在 100..400 中满足条件的有 153 和 370、371；逐个验证条件后按升序输出。",
+        "mistakes": [
+          "十位必须取 x/10%10，单用 x/10 得到的是前两位。",
+          "区间两端均包含在枚举中，循环条件使用 <=。"
+        ],
+        "summary": "列出区间内的三位水仙花数",
+        "quizzes": [
+          {
+            "id": "c17-7-q1",
+            "type": "single",
+            "question": "三位数 x 的十位如何取得？",
+            "options": [
+              "x/10%10",
+              "x/10",
+              "x%100"
+            ],
+            "answer": [
+              "x/10%10"
+            ],
+            "explanation": "先去掉个位，再保留新的个位。"
+          },
+          {
+            "id": "c17-7-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "153 370 371"
+            ],
+            "explanation": "在 100..400 中满足条件的有 153 和 370、371；逐个验证条件后按升序输出。"
+          },
+          {
+            "id": "c17-7-q3",
+            "type": "boolean",
+            "question": "整数 d 的三次方必须使用 pow 才能计算。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "小范围整数用 d*d*d 可直接精确计算。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-7-q1",
+          "type": "single",
+          "question": "三位数 x 的十位如何取得？",
+          "options": [
+            "x/10%10",
+            "x/10",
+            "x%100"
+          ],
+          "answer": [
+            "x/10%10"
+          ],
+          "explanation": "先去掉个位，再保留新的个位。"
+        },
+        "challenge": {
+          "id": "c17-7-practice",
+          "title": "列出区间内的三位水仙花数",
+          "difficulty": "Medium",
+          "description": "列出区间内的三位水仙花数。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "100 400",
+              "output": "153 370 371\n"
+            },
+            {
+              "input": "200 300",
+              "output": "NONE\n"
+            },
+            {
+              "input": "407 407",
+              "output": "407\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int lo, hi, found=0;\n    if (scanf(\"%d%d\", &lo, &hi)!=2 || lo<100 || hi>999 || lo>hi) return 1;\n    for (int x=lo; x<=hi; ++x) {\n        int a=x/100, b=x/10%10, c=x%10;\n        if (a*a*a+b*b*b+c*c*c==x) { printf(\"%s%d\", found?\" \":\"\", x); found=1; }\n    }\n    if (!found) printf(\"NONE\");\n    putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "输入 lo hi：100≤lo≤hi≤999。对 x∈[lo,hi] 检查百位³+十位³+个位³==x；无结果输出 NONE。",
+            "在 100..400 中满足条件的有 153 和 370、371；逐个验证条件后按升序输出。",
+            "十位必须取 x/10%10，单用 x/10 得到的是前两位。"
+          ]
+        }
+      },
+      {
+        "id": "c17-8",
+        "chapter": 17,
+        "index": 7,
+        "title": "二分法求方程根",
+        "en": "Bisection",
+        "textbook": "5章习题（138页）",
+        "objective": "用二分法求 x³−x−t=0 的非负根",
+        "explanation": [
+          "连续函数在区间两端异号时，区间内至少有一个根。二分法取中点，保留仍夹住根的一半。每轮区间缩小一半，因此可以用区间宽度或固定轮数作为结束依据；先判断端点已经是根的情况。",
+          "本题 t 为 0..100 的整数。在 [1,6] 上 x³−x 单调递增，t>0 时根唯一且被区间夹住；t=0 单独输出零这个非负根。这个题目的定义和区间选择保证可解，不能对任意同号端点机械执行二分。"
+        ],
+        "syntax": "输入 t：0..100。t=0 输出0；否则令 lo=1,hi=6，取 mid；mid³−mid<t 时移动 lo，否则移动 hi，重复80次。",
+        "syntaxNotes": "t=6 时根为2；只修改一个端点，让目标根始终留在闭区间里。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int t;\n    if (scanf(\"%d\", &t)!=1 || t<0 || t>100) return 1;\n    if (t==0) { puts(\"0.000000\"); return 0; }\n    double lo=1.0, hi=6.0;\n    for (int i=0; i<80; ++i) {\n        double m=lo+(hi-lo)/2;\n        if (m*m*m-m<t) lo=m; else hi=m;\n    }\n    printf(\"%.6f\\n\", (lo+hi)/2);\n    return 0;\n}\n",
+        "exampleInput": "6",
+        "exampleOutput": "2.000000\n",
+        "walkthrough": "t=6 时根为2；只修改一个端点，让目标根始终留在闭区间里。",
+        "mistakes": [
+          "二分前需要证明或检查夹根条件。",
+          "不要以两个 double 完全相等作为一般迭代停止条件。"
+        ],
+        "summary": "用二分法求 x³−x−t=0 的非负根",
+        "quizzes": [
+          {
+            "id": "c17-8-q1",
+            "type": "single",
+            "question": "二分法每轮应保留什么？",
+            "options": [
+              "仍然包含目标根的半个区间",
+              "总是左半边",
+              "任选一半"
+            ],
+            "answer": [
+              "仍然包含目标根的半个区间"
+            ],
+            "explanation": "利用单调性或符号变化维护夹根条件。"
+          },
+          {
+            "id": "c17-8-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "2.000000"
+            ],
+            "explanation": "t=6 时根为2；只修改一个端点，让目标根始终留在闭区间里。"
+          },
+          {
+            "id": "c17-8-q3",
+            "type": "boolean",
+            "question": "任意连续函数在任意给定区间都能直接用二分法保证找到根。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "需要先确定根存在并满足所用的夹根条件。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-8-q1",
+          "type": "single",
+          "question": "二分法每轮应保留什么？",
+          "options": [
+            "仍然包含目标根的半个区间",
+            "总是左半边",
+            "任选一半"
+          ],
+          "answer": [
+            "仍然包含目标根的半个区间"
+          ],
+          "explanation": "利用单调性或符号变化维护夹根条件。"
+        },
+        "challenge": {
+          "id": "c17-8-practice",
+          "title": "用二分法求 x³−x−t=0 的非负根",
+          "difficulty": "Medium",
+          "description": "用二分法求 x³−x−t=0 的非负根。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "6",
+              "output": "2.000000\n"
+            },
+            {
+              "input": "0",
+              "output": "0.000000\n"
+            },
+            {
+              "input": "24",
+              "output": "3.000000\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int t;\n    if (scanf(\"%d\", &t)!=1 || t<0 || t>100) return 1;\n    if (t==0) { puts(\"0.000000\"); return 0; }\n    double lo=1.0, hi=6.0;\n    for (int i=0; i<80; ++i) {\n        double m=lo+(hi-lo)/2;\n        if (m*m*m-m<t) lo=m; else hi=m;\n    }\n    printf(\"%.6f\\n\", (lo+hi)/2);\n    return 0;\n}\n",
+          "hints": [
+            "输入 t：0..100。t=0 输出0；否则令 lo=1,hi=6，取 mid；mid³−mid<t 时移动 lo，否则移动 hi，重复80次。",
+            "t=6 时根为2；只修改一个端点，让目标根始终留在闭区间里。",
+            "二分前需要证明或检查夹根条件。"
+          ]
+        }
+      },
+      {
+        "id": "c17-9",
+        "chapter": 17,
+        "index": 8,
+        "title": "Newton 迭代与失败保护",
+        "en": "Newton Iteration",
+        "textbook": "5.7、7章习题（129—138、216页）",
+        "objective": "迭代求 x³−t=0 的正根",
+        "explanation": [
+          "Newton 方法从当前 x 的切线与横轴交点得到下一次近似：next=x−f(x)/f′(x)。对于 f=x³−t，导数为 3x²。它常比二分收敛快，但导数为零、初值不合适或步长发散时可能失败，所以不能只写无限循环。",
+          "本题把 t 限定为 1..1000，初值 x=t，正迭代保持导数非零。仍设置导数下限、有限迭代次数和步长误差，形成明确的失败路径。推广到一般三次多项式时可用 Horner 形式计算 f=((a*x+b)*x+c)*x+d，导数为 (3*a*x+2*b)*x+c。"
+        ],
+        "syntax": "输入整数 t：1..1000。x=t；next=x−(x*x*x−t)/(3*x*x)；步长<1e−10 时停止，最多100次。",
+        "syntaxNotes": "t=27 收敛到3。先保存 next 与误差再覆盖 x，避免把新旧状态相减写成零。",
+        "example": "#include <stdio.h>\n#include <math.h>\nint main(void) {\n    int t;\n    if (scanf(\"%d\", &t)!=1 || t<1 || t>1000) return 1;\n    double x=t;\n    int ok=0;\n    for (int i=0; i<100; ++i) {\n        double d=3*x*x;\n        if (fabs(d)<1e-14) break;\n        double next=x-(x*x*x-t)/d;\n        if (fabs(next-x)<1e-10) { x=next; ok=1; break; }\n        x=next;\n    }\n    if (!ok) return 1;\n    printf(\"%.6f\\n\", x);\n    return 0;\n}\n",
+        "exampleInput": "27",
+        "exampleOutput": "3.000000\n",
+        "walkthrough": "t=27 收敛到3。先保存 next 与误差再覆盖 x，避免把新旧状态相减写成零。",
+        "mistakes": [
+          "分母是导数，不是函数值；必须考虑导数过小。",
+          "Newton 的快速收敛有条件，不能声称所有初值都成功。"
+        ],
+        "summary": "迭代求 x³−t=0 的正根",
+        "quizzes": [
+          {
+            "id": "c17-9-q1",
+            "type": "single",
+            "question": "Newton 更新用到哪个分母？",
+            "options": [
+              "f 的导数 f′(x)",
+              "f(x) 本身",
+              "固定的 x"
+            ],
+            "answer": [
+              "f 的导数 f′(x)"
+            ],
+            "explanation": "切线法的更新式是 x−f(x)/f′(x)。"
+          },
+          {
+            "id": "c17-9-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "3.000000"
+            ],
+            "explanation": "t=27 收敛到3。先保存 next 与误差再覆盖 x，避免把新旧状态相减写成零。"
+          },
+          {
+            "id": "c17-9-q3",
+            "type": "boolean",
+            "question": "Newton 迭代不需要终止条件或次数上限。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "不收敛时需要明确退出，避免无限循环。"
+          }
+        ],
+        "quiz": {
+          "id": "c17-9-q1",
+          "type": "single",
+          "question": "Newton 更新用到哪个分母？",
+          "options": [
+            "f 的导数 f′(x)",
+            "f(x) 本身",
+            "固定的 x"
+          ],
+          "answer": [
+            "f 的导数 f′(x)"
+          ],
+          "explanation": "切线法的更新式是 x−f(x)/f′(x)。"
+        },
+        "challenge": {
+          "id": "c17-9-practice",
+          "title": "迭代求 x³−t=0 的正根",
+          "difficulty": "Medium",
+          "description": "迭代求 x³−t=0 的正根。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "27",
+              "output": "3.000000\n"
+            },
+            {
+              "input": "1",
+              "output": "1.000000\n"
+            },
+            {
+              "input": "1000",
+              "output": "10.000000\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <math.h>\nint main(void) {\n    int t;\n    if (scanf(\"%d\", &t)!=1 || t<1 || t>1000) return 1;\n    double x=t;\n    int ok=0;\n    for (int i=0; i<100; ++i) {\n        double d=3*x*x;\n        if (fabs(d)<1e-14) break;\n        double next=x-(x*x*x-t)/d;\n        if (fabs(next-x)<1e-10) { x=next; ok=1; break; }\n        x=next;\n    }\n    if (!ok) return 1;\n    printf(\"%.6f\\n\", x);\n    return 0;\n}\n",
+          "hints": [
+            "输入整数 t：1..1000。x=t；next=x−(x*x*x−t)/(3*x*x)；步长<1e−10 时停止，最多100次。",
+            "t=27 收敛到3。先保存 next 与误差再覆盖 x，避免把新旧状态相减写成零。",
+            "分母是导数，不是函数值；必须考虑导数过小。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "教材数组算法实战",
+    "en": "Array Algorithms",
+    "description": "变长数组、筛法、查找、矩阵和排列的逐步实现。",
+    "lessons": [
+      {
+        "id": "c18-1",
+        "chapter": 18,
+        "index": 0,
+        "title": "C99 变长数组与初始化",
+        "en": "Variable Length Arrays",
+        "textbook": "6.1—6.2（140—149页）",
+        "objective": "验证长度后建立变长数组并求和",
+        "explanation": [
+          "C99 支持块作用域的变长数组，例如先读取 n，再写 int a[n]。这修正了教材“数组长度不能依赖运行时变量”的笼统说法。求值后的长度必须大于零；数组创建后不会随 n 的后续变化自动改变容量。过大的自动数组也可能耗尽空间。",
+          "本题限制 n≤100 后才建立数组。变长数组不能带初始化列表，要在循环中赋值；固定数组 int a[5]={1,2} 的剩余元素补零是另一条规则。文件作用域不能定义这种变长对象，长寿命或大规模数据可选择动态分配。"
+        ],
+        "syntax": "先读 n 并验证 1..100，再声明 int a[n]。后续输入 n 个 −1000..1000 的整数，输出总和。",
+        "syntaxNotes": "数组声明必须位于验证之后；循环写满所有元素后，再读取已初始化的元素。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n, sum=0;\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>100) return 1;\n    int a[n];\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    for (int i=0; i<n; ++i) sum+=a[i];\n    printf(\"%d\\n\", sum);\n    return 0;\n}\n",
+        "exampleInput": "3 2 -5 9",
+        "exampleOutput": "6\n",
+        "walkthrough": "数组声明必须位于验证之后；循环写满所有元素后，再读取已初始化的元素。",
+        "mistakes": [
+          "n≤0 时不能先声明 VLA 再检查。",
+          "int a[n]={0}; 不是 C99 允许的变长数组初始化。"
+        ],
+        "summary": "验证长度后建立变长数组并求和",
+        "quizzes": [
+          {
+            "id": "c18-1-q1",
+            "type": "single",
+            "question": "哪一项是正确的 C99 用法？",
+            "options": [
+              "验证 n>0 后在块中声明 int a[n];",
+              "在文件作用域声明 int a[n];",
+              "int a[n]={0};"
+            ],
+            "answer": [
+              "验证 n>0 后在块中声明 int a[n];"
+            ],
+            "explanation": "VLA 有作用域和初始化限制，长度还要满足运行时约束。"
+          },
+          {
+            "id": "c18-1-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "6"
+            ],
+            "explanation": "数组声明必须位于验证之后；循环写满所有元素后，再读取已初始化的元素。"
+          },
+          {
+            "id": "c18-1-q3",
+            "type": "boolean",
+            "question": "改变 n 会自动让已经创建的 a[n] 扩容。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "一次创建的数组容量固定，后续赋值不会重新分配它。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-1-q1",
+          "type": "single",
+          "question": "哪一项是正确的 C99 用法？",
+          "options": [
+            "验证 n>0 后在块中声明 int a[n];",
+            "在文件作用域声明 int a[n];",
+            "int a[n]={0};"
+          ],
+          "answer": [
+            "验证 n>0 后在块中声明 int a[n];"
+          ],
+          "explanation": "VLA 有作用域和初始化限制，长度还要满足运行时约束。"
+        },
+        "challenge": {
+          "id": "c18-1-practice",
+          "title": "验证长度后建立变长数组并求和",
+          "difficulty": "Practice",
+          "description": "验证长度后建立变长数组并求和。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3 2 -5 9",
+              "output": "6\n"
+            },
+            {
+              "input": "1 7",
+              "output": "7\n"
+            },
+            {
+              "input": "4 0 0 0 0",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n, sum=0;\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>100) return 1;\n    int a[n];\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    for (int i=0; i<n; ++i) sum+=a[i];\n    printf(\"%d\\n\", sum);\n    return 0;\n}\n",
+          "hints": [
+            "先读 n 并验证 1..100，再声明 int a[n]。后续输入 n 个 −1000..1000 的整数，输出总和。",
+            "数组声明必须位于验证之后；循环写满所有元素后，再读取已初始化的元素。",
+            "n≤0 时不能先声明 VLA 再检查。"
+          ]
+        }
+      },
+      {
+        "id": "c18-2",
+        "chapter": 18,
+        "index": 1,
+        "title": "用筛法批量求素数",
+        "en": "Sieve of Eratosthenes",
+        "textbook": "6章习题1（165页）",
+        "objective": "列出上界内的全部素数",
+        "explanation": [
+          "逐个试除适合判断单个数，筛法则适合一次求一段范围的素数。先把候选标为未排除；遇到尚未排除的 p，就标记 p 的倍数为合数。0 和1都不属于素数，要单独排除。",
+          "从 p*p 开始标记，因为更小的倍数已经被较小因子处理。外层用 p≤n/p 替代 p*p≤n，可在更大整数范围避免条件本身溢出。本题 n≤1000，固定数组有 n+1 可用下标，注意最大下标也要容纳。"
+        ],
+        "syntax": "输入 n：2..1000。mark[1001]={0}；p=2..sqrt(n)，未标记时标 p*p,p*p+p,…；输出未标记的2..n。",
+        "syntaxNotes": "n=10：2、3 标记各自倍数，最后保留2 3 5 7。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n, composite[1001]={0}, first=1;\n    if (scanf(\"%d\", &n)!=1 || n<2 || n>1000) return 1;\n    for (int p=2; p<=n/p; ++p) if (!composite[p])\n        for (int k=p*p; k<=n; k+=p) composite[k]=1;\n    for (int p=2; p<=n; ++p) if (!composite[p]) {\n        printf(\"%s%d\", first?\"\":\" \", p); first=0;\n    }\n    putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "10",
+        "exampleOutput": "2 3 5 7\n",
+        "walkthrough": "n=10：2、3 标记各自倍数，最后保留2 3 5 7。",
+        "mistakes": [
+          "数组需要包含下标 n，不能只分配 n 个元素却访问 a[n]。",
+          "0、1 不因“未被任何素数标记”就成为素数。"
+        ],
+        "summary": "列出上界内的全部素数",
+        "quizzes": [
+          {
+            "id": "c18-2-q1",
+            "type": "single",
+            "question": "为何从 p*p 开始筛倍数？",
+            "options": [
+              "更小倍数已有较小因子处理",
+              "p*p 总是素数",
+              "可以省略数组初始化"
+            ],
+            "answer": [
+              "更小倍数已有较小因子处理"
+            ],
+            "explanation": "例如 p=5 时10、15、20已经由2或3筛去。"
+          },
+          {
+            "id": "c18-2-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "2 3 5 7"
+            ],
+            "explanation": "n=10：2、3 标记各自倍数，最后保留2 3 5 7。"
+          },
+          {
+            "id": "c18-2-q3",
+            "type": "boolean",
+            "question": "筛法把1也作为素数输出。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "素数定义要求整数大于1，且只有1和自身两个正因子；1不符合。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-2-q1",
+          "type": "single",
+          "question": "为何从 p*p 开始筛倍数？",
+          "options": [
+            "更小倍数已有较小因子处理",
+            "p*p 总是素数",
+            "可以省略数组初始化"
+          ],
+          "answer": [
+            "更小倍数已有较小因子处理"
+          ],
+          "explanation": "例如 p=5 时10、15、20已经由2或3筛去。"
+        },
+        "challenge": {
+          "id": "c18-2-practice",
+          "title": "列出上界内的全部素数",
+          "difficulty": "Practice",
+          "description": "列出上界内的全部素数。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "10",
+              "output": "2 3 5 7\n"
+            },
+            {
+              "input": "2",
+              "output": "2\n"
+            },
+            {
+              "input": "20",
+              "output": "2 3 5 7 11 13 17 19\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n, composite[1001]={0}, first=1;\n    if (scanf(\"%d\", &n)!=1 || n<2 || n>1000) return 1;\n    for (int p=2; p<=n/p; ++p) if (!composite[p])\n        for (int k=p*p; k<=n; k+=p) composite[k]=1;\n    for (int p=2; p<=n; ++p) if (!composite[p]) {\n        printf(\"%s%d\", first?\"\":\" \", p); first=0;\n    }\n    putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：2..1000。mark[1001]={0}；p=2..sqrt(n)，未标记时标 p*p,p*p+p,…；输出未标记的2..n。",
+            "n=10：2、3 标记各自倍数，最后保留2 3 5 7。",
+            "数组需要包含下标 n，不能只分配 n 个元素却访问 a[n]。"
+          ]
+        }
+      },
+      {
+        "id": "c18-3",
+        "chapter": 18,
+        "index": 2,
+        "title": "选择排序与循环不变式",
+        "en": "Selection Sort",
+        "textbook": "6章习题2、7.7.2（165、193—194页）",
+        "objective": "使用选择排序排列整数",
+        "explanation": [
+          "第 i 趟在尚未排序的 a[i..n) 中找最小值的位置 k，再把它与 a[i] 交换。每趟结束，前 i+1 个元素已经排好且不大于剩余元素。这个保持成立的描述称为循环不变式，可以帮助判断内外循环边界。",
+          "选择排序每趟最多交换一次，和比较相邻元素的冒泡法不同。重复值不会破坏非降序结果，但普通交换版本不保证稳定性。这里输入最多20个数，平方级比较可以接受，学习重点是“找位置—整体交换”两个阶段。"
+        ],
+        "syntax": "输入 n：1..20，随后 n 个整数（−1000..1000）。i=0..n−2；k=i；j=i+1..n−1，选更小的下标；最后交换 a[i],a[k]。",
+        "syntaxNotes": "输入 4 3 1 3 −2：首趟把−2换到最前，后续只处理剩余区间。",
+        "example": "#include <stdio.h>\nstatic void sort(int a[], int n) {\n    for (int i=0; i<n-1; ++i) {\n        int k=i;\n        for (int j=i+1; j<n; ++j) if (a[j]<a[k]) k=j;\n        int t=a[i]; a[i]=a[k]; a[k]=t;\n    }\n}\nint main(void) {\n    int n, a[20];\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>20) return 1;\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    sort(a,n);\n    for (int i=0; i<n; ++i) printf(\"%s%d\", i?\" \":\"\", a[i]);\n    putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "4 3 1 3 -2",
+        "exampleOutput": "-2 1 3 3\n",
+        "walkthrough": "输入 4 3 1 3 −2：首趟把−2换到最前，后续只处理剩余区间。",
+        "mistakes": [
+          "k 必须在每一趟初始化为 i。",
+          "不要在还没完成本趟查找时就不加区分地交换所有元素。"
+        ],
+        "summary": "使用选择排序排列整数",
+        "quizzes": [
+          {
+            "id": "c18-3-q1",
+            "type": "single",
+            "question": "选择排序第 i 趟结束后哪个区域已确定？",
+            "options": [
+              "a[0..i]",
+              "只有最后一项",
+              "整个数组"
+            ],
+            "answer": [
+              "a[0..i]"
+            ],
+            "explanation": "已选择的最小元素逐个放到前缀中。"
+          },
+          {
+            "id": "c18-3-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "-2 1 3 3"
+            ],
+            "explanation": "输入 4 3 1 3 −2：首趟把−2换到最前，后续只处理剩余区间。"
+          },
+          {
+            "id": "c18-3-q3",
+            "type": "boolean",
+            "question": "普通选择排序交换版本保证相同键的原次序。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "跨位置交换可能改变相同键之间的次序。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-3-q1",
+          "type": "single",
+          "question": "选择排序第 i 趟结束后哪个区域已确定？",
+          "options": [
+            "a[0..i]",
+            "只有最后一项",
+            "整个数组"
+          ],
+          "answer": [
+            "a[0..i]"
+          ],
+          "explanation": "已选择的最小元素逐个放到前缀中。"
+        },
+        "challenge": {
+          "id": "c18-3-practice",
+          "title": "使用选择排序排列整数",
+          "difficulty": "Practice",
+          "description": "使用选择排序排列整数。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "4 3 1 3 -2",
+              "output": "-2 1 3 3\n"
+            },
+            {
+              "input": "1 5",
+              "output": "5\n"
+            },
+            {
+              "input": "3 7 7 7",
+              "output": "7 7 7\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic void sort(int a[], int n) {\n    for (int i=0; i<n-1; ++i) {\n        int k=i;\n        for (int j=i+1; j<n; ++j) if (a[j]<a[k]) k=j;\n        int t=a[i]; a[i]=a[k]; a[k]=t;\n    }\n}\nint main(void) {\n    int n, a[20];\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>20) return 1;\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    sort(a,n);\n    for (int i=0; i<n; ++i) printf(\"%s%d\", i?\" \":\"\", a[i]);\n    putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：1..20，随后 n 个整数（−1000..1000）。i=0..n−2；k=i；j=i+1..n−1，选更小的下标；最后交换 a[i],a[k]。",
+            "输入 4 3 1 3 −2：首趟把−2换到最前，后续只处理剩余区间。",
+            "k 必须在每一趟初始化为 i。"
+          ]
+        }
+      },
+      {
+        "id": "c18-4",
+        "chapter": 18,
+        "index": 3,
+        "title": "有序插入与二分查找",
+        "en": "Insertion and Binary Search",
+        "textbook": "6章习题4、9（165—166页）",
+        "objective": "插入一个整数并查找其首次位置",
+        "explanation": [
+          "有序插入先用二分找到第一个不小于目标的下标，再把该位置及之后的元素从后向前搬移。倒着移动能保住尚未复制的数据。数组要预留一个额外元素，否则“插入”会越界。",
+          "这里使用半开区间 [lo,hi)，不变量是目标插入点始终在候选区间中。a[mid]<x 时丢弃左侧和 mid，否则保留 mid。循环结束 lo=hi，可同时作为目标的首次位置和插入位置，重复值也有确定结果。"
+        ],
+        "syntax": "输入 n（0..20），n 个非降序整数及 x（均−1000..1000）。插入到相等元素之前；输出新数组，下一行输出0起算的位置。",
+        "syntaxNotes": "在1 3 3中插入3，二分得到位置1，从数组末端向后移动后得到1 3 3 3。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n, a[21], x;\n    if (scanf(\"%d\", &n)!=1 || n<0 || n>20) return 1;\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    if (scanf(\"%d\", &x)!=1) return 1;\n    int lo=0, hi=n;\n    while (lo<hi) {\n        int m=lo+(hi-lo)/2;\n        if (a[m]<x) lo=m+1; else hi=m;\n    }\n    for (int i=n; i>lo; --i) a[i]=a[i-1];\n    a[lo]=x;\n    for (int i=0; i<=n; ++i) printf(\"%s%d\", i?\" \":\"\", a[i]);\n    printf(\"\\n%d\\n\", lo);\n    return 0;\n}\n",
+        "exampleInput": "3 1 3 3 3",
+        "exampleOutput": "1 3 3 3\n1\n",
+        "walkthrough": "在1 3 3中插入3，二分得到位置1，从数组末端向后移动后得到1 3 3 3。",
+        "mistakes": [
+          "必须从后向前搬移，顺着搬会覆盖源数据。",
+          "n=0 也是合法输入；半开区间无需访问任何旧元素即可找到位置0。"
+        ],
+        "summary": "插入一个整数并查找其首次位置",
+        "quizzes": [
+          {
+            "id": "c18-4-q1",
+            "type": "single",
+            "question": "插入前搬移的正确方向是什么？",
+            "options": [
+              "从末尾向插入点",
+              "从插入点向末尾",
+              "任意方向都相同"
+            ],
+            "answer": [
+              "从末尾向插入点"
+            ],
+            "explanation": "先保存靠后的旧值，才能避免覆盖尚未移动的数据。"
+          },
+          {
+            "id": "c18-4-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "1 3 3 3\n1"
+            ],
+            "explanation": "在1 3 3中插入3，二分得到位置1，从数组末端向后移动后得到1 3 3 3。"
+          },
+          {
+            "id": "c18-4-q3",
+            "type": "boolean",
+            "question": "二分查找可以直接用于任意未排序数组。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "这个二分判断依赖元素有序。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-4-q1",
+          "type": "single",
+          "question": "插入前搬移的正确方向是什么？",
+          "options": [
+            "从末尾向插入点",
+            "从插入点向末尾",
+            "任意方向都相同"
+          ],
+          "answer": [
+            "从末尾向插入点"
+          ],
+          "explanation": "先保存靠后的旧值，才能避免覆盖尚未移动的数据。"
+        },
+        "challenge": {
+          "id": "c18-4-practice",
+          "title": "插入一个整数并查找其首次位置",
+          "difficulty": "Practice",
+          "description": "插入一个整数并查找其首次位置。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3 1 3 3 3",
+              "output": "1 3 3 3\n1\n"
+            },
+            {
+              "input": "0 8",
+              "output": "8\n0\n"
+            },
+            {
+              "input": "3 1 2 3 9",
+              "output": "1 2 3 9\n3\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n, a[21], x;\n    if (scanf(\"%d\", &n)!=1 || n<0 || n>20) return 1;\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    if (scanf(\"%d\", &x)!=1) return 1;\n    int lo=0, hi=n;\n    while (lo<hi) {\n        int m=lo+(hi-lo)/2;\n        if (a[m]<x) lo=m+1; else hi=m;\n    }\n    for (int i=n; i>lo; --i) a[i]=a[i-1];\n    a[lo]=x;\n    for (int i=0; i<=n; ++i) printf(\"%s%d\", i?\" \":\"\", a[i]);\n    printf(\"\\n%d\\n\", lo);\n    return 0;\n}\n",
+          "hints": [
+            "输入 n（0..20），n 个非降序整数及 x（均−1000..1000）。插入到相等元素之前；输出新数组，下一行输出0起算的位置。",
+            "在1 3 3中插入3，二分得到位置1，从数组末端向后移动后得到1 3 3 3。",
+            "必须从后向前搬移，顺着搬会覆盖源数据。"
+          ]
+        }
+      },
+      {
+        "id": "c18-5",
+        "chapter": 18,
+        "index": 4,
+        "title": "矩阵转置、极值和对角线",
+        "en": "Matrix Operations",
+        "textbook": "6.2.4、7章习题4（149—151、216页）",
+        "objective": "转置矩阵并报告最大值坐标与对角线和",
+        "explanation": [
+          "二维数组是数组的数组，a[i][j] 表示第 i 行第 j 列。转置把它放到 b[j][i]，行数和列数随之互换。非方阵应使用不同形状的目标数组；方阵原地转置只交换主对角线一侧即可，避免交换两次还原。",
+          "找极值时让第一个实际元素作为初值，能覆盖全负矩阵。相等时保留首次出现的坐标，需要使用 > 而不是 >=。本题还计算 min(rows,cols) 个主对角线位置之和；不要把行下标和列下标相同误当成整个矩阵。"
+        ],
+        "syntax": "输入 r,c：1..5，再按行输入 r*c 个−100..100整数。输出转置，每行空格分隔；再输出 max row col diag，坐标从0开始。",
+        "syntaxNotes": "2×3矩阵1..6转成3×2；最大值6在(1,2)，主对角线1+5=6。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int r,c,a[5][5],b[5][5],mr=0,mc=0,diag=0;\n    if (scanf(\"%d%d\", &r,&c)!=2 || r<1 || r>5 || c<1 || c>5) return 1;\n    for (int i=0;i<r;++i) for (int j=0;j<c;++j) {\n        if (scanf(\"%d\", &a[i][j])!=1) return 1;\n        b[j][i]=a[i][j];\n    }\n    int max=a[0][0];\n    for(int i=0;i<r;++i) for(int j=0;j<c;++j) {\n        if(a[i][j]>max) {max=a[i][j];mr=i;mc=j;}\n        if(i==j) diag+=a[i][j];\n    }\n    for(int i=0;i<c;++i) {for(int j=0;j<r;++j) printf(\"%s%d\",j?\" \":\"\",b[i][j]);putchar('\\n');}\n    printf(\"%d %d %d %d\\n\",max,mr,mc,diag);\n    return 0;\n}\n",
+        "exampleInput": "2 3 1 2 3 4 5 6",
+        "exampleOutput": "1 4\n2 5\n3 6\n6 1 2 6\n",
+        "walkthrough": "2×3矩阵1..6转成3×2；最大值6在(1,2)，主对角线1+5=6。",
+        "mistakes": [
+          "转置的目标形状是 c×r；b[j][i] 的下标顺序与源相反。",
+          "用0初始化最大值会使全负矩阵找不到正确结果。"
+        ],
+        "summary": "转置矩阵并报告最大值坐标与对角线和",
+        "quizzes": [
+          {
+            "id": "c18-5-q1",
+            "type": "single",
+            "question": "a[i][j] 转置后应放在哪里？",
+            "options": [
+              "b[j][i]",
+              "b[i][j]",
+              "b[i+1][j]"
+            ],
+            "answer": [
+              "b[j][i]"
+            ],
+            "explanation": "转置互换行和列的位置。"
+          },
+          {
+            "id": "c18-5-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "1 4\n2 5\n3 6\n6 1 2 6"
+            ],
+            "explanation": "2×3矩阵1..6转成3×2；最大值6在(1,2)，主对角线1+5=6。"
+          },
+          {
+            "id": "c18-5-q3",
+            "type": "boolean",
+            "question": "最大值从0开始比较可以处理所有负数矩阵。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "全负输入时0并非矩阵中的元素，应以实际首元素初始化。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-5-q1",
+          "type": "single",
+          "question": "a[i][j] 转置后应放在哪里？",
+          "options": [
+            "b[j][i]",
+            "b[i][j]",
+            "b[i+1][j]"
+          ],
+          "answer": [
+            "b[j][i]"
+          ],
+          "explanation": "转置互换行和列的位置。"
+        },
+        "challenge": {
+          "id": "c18-5-practice",
+          "title": "转置矩阵并报告最大值坐标与对角线和",
+          "difficulty": "Practice",
+          "description": "转置矩阵并报告最大值坐标与对角线和。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "2 3 1 2 3 4 5 6",
+              "output": "1 4\n2 5\n3 6\n6 1 2 6\n"
+            },
+            {
+              "input": "1 1 -7",
+              "output": "-7\n-7 0 0 -7\n"
+            },
+            {
+              "input": "2 2 5 5 2 1",
+              "output": "5 2\n5 1\n5 0 0 6\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int r,c,a[5][5],b[5][5],mr=0,mc=0,diag=0;\n    if (scanf(\"%d%d\", &r,&c)!=2 || r<1 || r>5 || c<1 || c>5) return 1;\n    for (int i=0;i<r;++i) for (int j=0;j<c;++j) {\n        if (scanf(\"%d\", &a[i][j])!=1) return 1;\n        b[j][i]=a[i][j];\n    }\n    int max=a[0][0];\n    for(int i=0;i<r;++i) for(int j=0;j<c;++j) {\n        if(a[i][j]>max) {max=a[i][j];mr=i;mc=j;}\n        if(i==j) diag+=a[i][j];\n    }\n    for(int i=0;i<c;++i) {for(int j=0;j<r;++j) printf(\"%s%d\",j?\" \":\"\",b[i][j]);putchar('\\n');}\n    printf(\"%d %d %d %d\\n\",max,mr,mc,diag);\n    return 0;\n}\n",
+          "hints": [
+            "输入 r,c：1..5，再按行输入 r*c 个−100..100整数。输出转置，每行空格分隔；再输出 max row col diag，坐标从0开始。",
+            "2×3矩阵1..6转成3×2；最大值6在(1,2)，主对角线1+5=6。",
+            "转置的目标形状是 c×r；b[j][i] 的下标顺序与源相反。"
+          ]
+        }
+      },
+      {
+        "id": "c18-6",
+        "chapter": 18,
+        "index": 5,
+        "title": "杨辉三角与逐行依赖",
+        "en": "Pascal Triangle",
+        "textbook": "6章习题6（165页）",
+        "objective": "输出前 n 行杨辉三角",
+        "explanation": [
+          "杨辉三角每行两端为1，内部位置等于上一行相邻两项之和。先画出依赖关系，再按行从上到下计算，能保证被引用的上一行已经存在。第 r 行有 r+1 个元素，不能用固定列数输出未初始化部分。",
+          "本题最多10行，unsigned long long 足够容纳结果。二维数组版本直观；若改成单行数组省空间，必须从右向左更新，防止当前行的新值污染下一项所需的旧值。这与有序插入的倒序搬移有相同的数据依赖原因。"
+        ],
+        "syntax": "输入 n：1..10。a[r][0]=a[r][r]=1；1≤j<r 时 a[r][j]=a[r−1][j−1]+a[r−1][j]；逐行输出。",
+        "syntaxNotes": "n=4时第三行内部由上一行1和1相加得到2，下一行内部得到3和3。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n; unsigned long long a[10][10]={0};\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>10) return 1;\n    for(int r=0;r<n;++r) {\n        a[r][0]=a[r][r]=1;\n        for(int j=1;j<r;++j) a[r][j]=a[r-1][j-1]+a[r-1][j];\n        for(int j=0;j<=r;++j) printf(\"%s%llu\",j?\" \":\"\",a[r][j]);\n        putchar('\\n');\n    }\n    return 0;\n}\n",
+        "exampleInput": "4",
+        "exampleOutput": "1\n1 1\n1 2 1\n1 3 3 1\n",
+        "walkthrough": "n=4时第三行内部由上一行1和1相加得到2，下一行内部得到3和3。",
+        "mistakes": [
+          "不要读取上一行范围以外的元素。",
+          "单行优化若从左到右更新，会混用新旧两行状态。"
+        ],
+        "summary": "输出前 n 行杨辉三角",
+        "quizzes": [
+          {
+            "id": "c18-6-q1",
+            "type": "single",
+            "question": "三角内部值依赖哪两个位置？",
+            "options": [
+              "上一行的左上和右上",
+              "本行任意两项",
+              "下一行两项"
+            ],
+            "answer": [
+              "上一行的左上和右上"
+            ],
+            "explanation": "依赖关系决定按行向下计算的顺序。"
+          },
+          {
+            "id": "c18-6-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "1\n1 1\n1 2 1\n1 3 3 1"
+            ],
+            "explanation": "n=4时第三行内部由上一行1和1相加得到2，下一行内部得到3和3。"
+          },
+          {
+            "id": "c18-6-q3",
+            "type": "boolean",
+            "question": "第 r 行（从0起）始终有 n 个有效元素。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "该行只有 r+1 个有效元素。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-6-q1",
+          "type": "single",
+          "question": "三角内部值依赖哪两个位置？",
+          "options": [
+            "上一行的左上和右上",
+            "本行任意两项",
+            "下一行两项"
+          ],
+          "answer": [
+            "上一行的左上和右上"
+          ],
+          "explanation": "依赖关系决定按行向下计算的顺序。"
+        },
+        "challenge": {
+          "id": "c18-6-practice",
+          "title": "输出前 n 行杨辉三角",
+          "difficulty": "Practice",
+          "description": "输出前 n 行杨辉三角。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "4",
+              "output": "1\n1 1\n1 2 1\n1 3 3 1\n"
+            },
+            {
+              "input": "1",
+              "output": "1\n"
+            },
+            {
+              "input": "3",
+              "output": "1\n1 1\n1 2 1\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n; unsigned long long a[10][10]={0};\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>10) return 1;\n    for(int r=0;r<n;++r) {\n        a[r][0]=a[r][r]=1;\n        for(int j=1;j<r;++j) a[r][j]=a[r-1][j-1]+a[r-1][j];\n        for(int j=0;j<=r;++j) printf(\"%s%llu\",j?\" \":\"\",a[r][j]);\n        putchar('\\n');\n    }\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：1..10。a[r][0]=a[r][r]=1；1≤j<r 时 a[r][j]=a[r−1][j−1]+a[r−1][j]；逐行输出。",
+            "n=4时第三行内部由上一行1和1相加得到2，下一行内部得到3和3。",
+            "不要读取上一行范围以外的元素。"
+          ]
+        }
+      },
+      {
+        "id": "c18-7",
+        "chapter": 18,
+        "index": 6,
+        "title": "奇阶魔方阵的边界规则",
+        "en": "Odd Magic Squares",
+        "textbook": "6章习题7（165页）",
+        "objective": "构造奇阶魔方阵",
+        "explanation": [
+          "奇阶魔方阵使用1..n²，每行、每列和两条主对角线的和相等。把1放在首行中间，下一数尝试向右上移动，跨边界时回绕；若目标已被占用，则从原位置向下移动一格。n 必须为奇数，不能把规则原封不动用于偶数阶。",
+          "用零初始化数组作为“未占用”标记，既清晰也方便检查。每次只写入一个新格，循环 n² 次便结束。完成后可独立计算各行列和来验证算法，而不只看输出图案是否像一个方阵。"
+        ],
+        "syntax": "输入奇数 n：1,3,5,7,9。起点(0,n/2)；候选((r+n−1)%n,(c+1)%n)；占用则r=(r+1)%n，否则移到候选。",
+        "syntaxNotes": "n=3 时结果为8 1 6 / 3 5 7 / 4 9 2，各行列与主对角线和均为15。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int n,a[9][9]={0};\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>9 || n%2==0) return 1;\n    int r=0,c=n/2;\n    for(int x=1;x<=n*n;++x) {\n        a[r][c]=x;\n        int nr=(r+n-1)%n,nc=(c+1)%n;\n        if(a[nr][nc]) r=(r+1)%n;\n        else {r=nr;c=nc;}\n    }\n    for(int i=0;i<n;++i) {for(int j=0;j<n;++j) printf(\"%s%d\",j?\" \":\"\",a[i][j]);putchar('\\n');}\n    return 0;\n}\n",
+        "exampleInput": "3",
+        "exampleOutput": "8 1 6\n3 5 7\n4 9 2\n",
+        "walkthrough": "n=3 时结果为8 1 6 / 3 5 7 / 4 9 2，各行列与主对角线和均为15。",
+        "mistakes": [
+          "撞格时应从原位置向下，不能从候选位置向下。",
+          "右上回绕公式需先加 n，避免 C 的负余数产生负下标。"
+        ],
+        "summary": "构造奇阶魔方阵",
+        "quizzes": [
+          {
+            "id": "c18-7-q1",
+            "type": "single",
+            "question": "右上候选格已经有数时怎么办？",
+            "options": [
+              "从原位置向下移动一格",
+              "仍覆盖候选格",
+              "从候选格再向右上移动"
+            ],
+            "answer": [
+              "从原位置向下移动一格"
+            ],
+            "explanation": "占用标志避免覆盖已有数，保持每个数字只写入一个新格。"
+          },
+          {
+            "id": "c18-7-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "8 1 6\n3 5 7\n4 9 2"
+            ],
+            "explanation": "n=3 时结果为8 1 6 / 3 5 7 / 4 9 2，各行列与主对角线和均为15。"
+          },
+          {
+            "id": "c18-7-q3",
+            "type": "boolean",
+            "question": "该构造步骤不加修改也适用于所有偶数阶。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "这里的算法只保证奇数阶成立。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-7-q1",
+          "type": "single",
+          "question": "右上候选格已经有数时怎么办？",
+          "options": [
+            "从原位置向下移动一格",
+            "仍覆盖候选格",
+            "从候选格再向右上移动"
+          ],
+          "answer": [
+            "从原位置向下移动一格"
+          ],
+          "explanation": "占用标志避免覆盖已有数，保持每个数字只写入一个新格。"
+        },
+        "challenge": {
+          "id": "c18-7-practice",
+          "title": "构造奇阶魔方阵",
+          "difficulty": "Practice",
+          "description": "构造奇阶魔方阵。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3",
+              "output": "8 1 6\n3 5 7\n4 9 2\n"
+            },
+            {
+              "input": "1",
+              "output": "1\n"
+            },
+            {
+              "input": "5",
+              "output": "17 24 1 8 15\n23 5 7 14 16\n4 6 13 20 22\n10 12 19 21 3\n11 18 25 2 9\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int n,a[9][9]={0};\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>9 || n%2==0) return 1;\n    int r=0,c=n/2;\n    for(int x=1;x<=n*n;++x) {\n        a[r][c]=x;\n        int nr=(r+n-1)%n,nc=(c+1)%n;\n        if(a[nr][nc]) r=(r+1)%n;\n        else {r=nr;c=nc;}\n    }\n    for(int i=0;i<n;++i) {for(int j=0;j<n;++j) printf(\"%s%d\",j?\" \":\"\",a[i][j]);putchar('\\n');}\n    return 0;\n}\n",
+          "hints": [
+            "输入奇数 n：1,3,5,7,9。起点(0,n/2)；候选((r+n−1)%n,(c+1)%n)；占用则r=(r+1)%n，否则移到候选。",
+            "n=3 时结果为8 1 6 / 3 5 7 / 4 9 2，各行列与主对角线和均为15。",
+            "撞格时应从原位置向下，不能从候选位置向下。"
+          ]
+        }
+      },
+      {
+        "id": "c18-8",
+        "chapter": 18,
+        "index": 7,
+        "title": "矩阵鞍点与全量验证",
+        "en": "Saddle Points",
+        "textbook": "6章习题8（166页）",
+        "objective": "输出行最大且列最小的全部鞍点",
+        "explanation": [
+          "本题鞍点定义为所在行最大、所在列最小的元素。先找某一行的最大值，再检查每个等于最大值的位置是否也不大于同列所有元素。存在相等值时可能有多个鞍点，因此不能只记第一个最大下标就停止。",
+          "把候选生成与条件验证分成两步，能减少混乱：行最大是第一道条件，列最小是第二道条件。用独立标志 ok 记录列验证，发现一个更小值就否决。没有任何候选通过时输出 NONE。"
+        ],
+        "syntax": "输入 r,c：1..4，随后 r*c 个−100..100整数。按行列顺序输出 row col value（0起算）；行最大、列最小均允许并列。",
+        "syntaxNotes": "矩阵1 2 / 3 4的鞍点是(0,1)=2：它在首行最大，并在第二列最小。",
+        "example": "#include <stdio.h>\nint main(void) {\n    int r,c,a[4][4],found=0;\n    if(scanf(\"%d%d\",&r,&c)!=2 || r<1 || r>4 || c<1 || c>4) return 1;\n    for(int i=0;i<r;++i) for(int j=0;j<c;++j) if(scanf(\"%d\",&a[i][j])!=1) return 1;\n    for(int i=0;i<r;++i) {\n        int max=a[i][0];\n        for(int j=1;j<c;++j) if(a[i][j]>max) max=a[i][j];\n        for(int j=0;j<c;++j) if(a[i][j]==max) {\n            int ok=1;\n            for(int k=0;k<r;++k) if(a[k][j]<max) ok=0;\n            if(ok) {printf(\"%d %d %d\\n\",i,j,max);found=1;}\n        }\n    }\n    if(!found) puts(\"NONE\");\n    return 0;\n}\n",
+        "exampleInput": "2 2 1 2 3 4",
+        "exampleOutput": "0 1 2\n",
+        "walkthrough": "矩阵1 2 / 3 4的鞍点是(0,1)=2：它在首行最大，并在第二列最小。",
+        "mistakes": [
+          "并列行最大值都要检查，不能遗漏其他列的候选。",
+          "ok 必须为每个候选重新置1，不能沿用上个候选的验证结果。"
+        ],
+        "summary": "输出行最大且列最小的全部鞍点",
+        "quizzes": [
+          {
+            "id": "c18-8-q1",
+            "type": "single",
+            "question": "有并列的行最大值时怎样处理？",
+            "options": [
+              "逐个检验其所在列",
+              "只检查第一列",
+              "直接判定不存在鞍点"
+            ],
+            "answer": [
+              "逐个检验其所在列"
+            ],
+            "explanation": "不同列的最小条件可能不同，需要分别验证。"
+          },
+          {
+            "id": "c18-8-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "0 1 2"
+            ],
+            "explanation": "矩阵1 2 / 3 4的鞍点是(0,1)=2：它在首行最大，并在第二列最小。"
+          },
+          {
+            "id": "c18-8-q3",
+            "type": "boolean",
+            "question": "一个矩阵最多只能有一个鞍点。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "允许相等时可能有多个，题目必须明确如何输出。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-8-q1",
+          "type": "single",
+          "question": "有并列的行最大值时怎样处理？",
+          "options": [
+            "逐个检验其所在列",
+            "只检查第一列",
+            "直接判定不存在鞍点"
+          ],
+          "answer": [
+            "逐个检验其所在列"
+          ],
+          "explanation": "不同列的最小条件可能不同，需要分别验证。"
+        },
+        "challenge": {
+          "id": "c18-8-practice",
+          "title": "输出行最大且列最小的全部鞍点",
+          "difficulty": "Practice",
+          "description": "输出行最大且列最小的全部鞍点。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "2 2 1 2 3 4",
+              "output": "0 1 2\n"
+            },
+            {
+              "input": "2 2 1 2 2 1",
+              "output": "NONE\n"
+            },
+            {
+              "input": "1 2 7 7",
+              "output": "0 0 7\n0 1 7\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void) {\n    int r,c,a[4][4],found=0;\n    if(scanf(\"%d%d\",&r,&c)!=2 || r<1 || r>4 || c<1 || c>4) return 1;\n    for(int i=0;i<r;++i) for(int j=0;j<c;++j) if(scanf(\"%d\",&a[i][j])!=1) return 1;\n    for(int i=0;i<r;++i) {\n        int max=a[i][0];\n        for(int j=1;j<c;++j) if(a[i][j]>max) max=a[i][j];\n        for(int j=0;j<c;++j) if(a[i][j]==max) {\n            int ok=1;\n            for(int k=0;k<r;++k) if(a[k][j]<max) ok=0;\n            if(ok) {printf(\"%d %d %d\\n\",i,j,max);found=1;}\n        }\n    }\n    if(!found) puts(\"NONE\");\n    return 0;\n}\n",
+          "hints": [
+            "输入 r,c：1..4，随后 r*c 个−100..100整数。按行列顺序输出 row col value（0起算）；行最大、列最小均允许并列。",
+            "矩阵1 2 / 3 4的鞍点是(0,1)=2：它在首行最大，并在第二列最小。",
+            "并列行最大值都要检查，不能遗漏其他列的候选。"
+          ]
+        }
+      },
+      {
+        "id": "c18-9",
+        "chapter": 18,
+        "index": 8,
+        "title": "数组循环右移",
+        "en": "Array Rotation",
+        "textbook": "8章习题4（291页）",
+        "objective": "使用三次反转将数组循环右移",
+        "explanation": [
+          "循环右移 m 位，把末尾 m 个元素放到最前，其余相对顺序保持。先用 m%=n 归一化移动量，避免多转整圈。必须先验证 n>0，才能计算余数；空数组需要另作约定。",
+          "原数组分成 A、B 两段，右移结果是 BA。先反转全部得到 reverse(B)reverse(A)，再各自反转两段，恢复为 BA。反转函数使用半开区间 [lo,hi)，先减 hi 再交换，能自然处理空段和单元素段。"
+        ],
+        "syntax": "输入 n：1..20、m：0..1000，再输入 n 个−1000..1000整数。依次 reverse(0,n)、reverse(0,m)、reverse(m,n)。",
+        "syntaxNotes": "1 2 3 4 5右移2位：全反转5 4 3 2 1，再分段反转得到4 5 1 2 3。",
+        "example": "#include <stdio.h>\nstatic void reverse(int a[],int lo,int hi) {\n    while(lo<hi) {--hi; if(lo>=hi) break; int t=a[lo];a[lo]=a[hi];a[hi]=t;++lo;}\n}\nint main(void) {\n    int n,m,a[20];\n    if(scanf(\"%d%d\",&n,&m)!=2 || n<1 || n>20 || m<0 || m>1000) return 1;\n    for(int i=0;i<n;++i) if(scanf(\"%d\",&a[i])!=1) return 1;\n    m%=n;\n    reverse(a,0,n);reverse(a,0,m);reverse(a,m,n);\n    for(int i=0;i<n;++i) printf(\"%s%d\",i?\" \":\"\",a[i]);\n    putchar('\\n');\n    return 0;\n}\n",
+        "exampleInput": "5 2 1 2 3 4 5",
+        "exampleOutput": "4 5 1 2 3\n",
+        "walkthrough": "1 2 3 4 5右移2位：全反转5 4 3 2 1，再分段反转得到4 5 1 2 3。",
+        "mistakes": [
+          "移动量先对 n 取余，m=0 时保持原数组。",
+          "反转时不要在数组首元素之前构造无效指针。"
+        ],
+        "summary": "使用三次反转将数组循环右移",
+        "quizzes": [
+          {
+            "id": "c18-9-q1",
+            "type": "single",
+            "question": "右移 m 位前为什么计算 m%=n？",
+            "options": [
+              "去掉完整圈数，保留实际位移",
+              "把数组排序",
+              "确保每项加上m"
+            ],
+            "answer": [
+              "去掉完整圈数，保留实际位移"
+            ],
+            "explanation": "右移 n 位与原序列相同。"
+          },
+          {
+            "id": "c18-9-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "4 5 1 2 3"
+            ],
+            "explanation": "1 2 3 4 5右移2位：全反转5 4 3 2 1，再分段反转得到4 5 1 2 3。"
+          },
+          {
+            "id": "c18-9-q3",
+            "type": "boolean",
+            "question": "循环移动会改变各元素的数值。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "它只改变位置，元素值保持不变。"
+          }
+        ],
+        "quiz": {
+          "id": "c18-9-q1",
+          "type": "single",
+          "question": "右移 m 位前为什么计算 m%=n？",
+          "options": [
+            "去掉完整圈数，保留实际位移",
+            "把数组排序",
+            "确保每项加上m"
+          ],
+          "answer": [
+            "去掉完整圈数，保留实际位移"
+          ],
+          "explanation": "右移 n 位与原序列相同。"
+        },
+        "challenge": {
+          "id": "c18-9-practice",
+          "title": "使用三次反转将数组循环右移",
+          "difficulty": "Practice",
+          "description": "使用三次反转将数组循环右移。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "5 2 1 2 3 4 5",
+              "output": "4 5 1 2 3\n"
+            },
+            {
+              "input": "3 0 1 2 3",
+              "output": "1 2 3\n"
+            },
+            {
+              "input": "3 4 1 2 3",
+              "output": "3 1 2\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic void reverse(int a[],int lo,int hi) {\n    while(lo<hi) {--hi; if(lo>=hi) break; int t=a[lo];a[lo]=a[hi];a[hi]=t;++lo;}\n}\nint main(void) {\n    int n,m,a[20];\n    if(scanf(\"%d%d\",&n,&m)!=2 || n<1 || n>20 || m<0 || m>1000) return 1;\n    for(int i=0;i<n;++i) if(scanf(\"%d\",&a[i])!=1) return 1;\n    m%=n;\n    reverse(a,0,n);reverse(a,0,m);reverse(a,m,n);\n    for(int i=0;i<n;++i) printf(\"%s%d\",i?\" \":\"\",a[i]);\n    putchar('\\n');\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：1..20、m：0..1000，再输入 n 个−1000..1000整数。依次 reverse(0,n)、reverse(0,m)、reverse(m,n)。",
+            "1 2 3 4 5右移2位：全反转5 4 3 2 1，再分段反转得到4 5 1 2 3。",
+            "移动量先对 n 取余，m=0 时保持原数组。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "教材函数与综合应用",
+    "en": "Functions in Practice",
+    "description": "递归、回调、日期、统计和字符串处理的完整练习。",
+    "lessons": [
+      {
+        "id": "c19-1",
+        "chapter": 19,
+        "index": 0,
+        "title": "汉诺塔与递归展开",
+        "en": "Tower of Hanoi",
+        "textbook": "7.6（185—189页）",
+        "objective": "输出汉诺塔移动步骤",
+        "explanation": [
+          "把 n 个盘从 A 移到 C，可以分成三个任务：把上面 n−1 个盘借助 C 移到 B；把最大盘移到 C；把 B 上的 n−1 个盘借助 A 移到 C。递归函数的参数要明确表示“来源、借助、目标”，每层只是交换这些角色。",
+          "n=1 时只输出一次移动，这是递归终点。移动数满足 T(n)=2T(n−1)+1，得到2^n−1。这里限定最多8个盘，输出规模可控；递归层数是 n，打印步数却按指数增长，不能把两者混为一谈。"
+        ],
+        "syntax": "输入 n：1..8。hanoi(n,from,via,to)：递归前 n−1 盘→输出 from->to→递归后 n−1 盘。",
+        "syntaxNotes": "n=2 时先 A->B，再 A->C，最后 B->C；每个子任务返回后，父任务从调用处继续执行。",
+        "example": "#include <stdio.h>\nstatic void hanoi(int n,char from,char via,char to) {\n    if(n==1) {printf(\"%c->%c\\n\",from,to);return;}\n    hanoi(n-1,from,to,via);\n    printf(\"%c->%c\\n\",from,to);\n    hanoi(n-1,via,from,to);\n}\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>8) return 1;\n    hanoi(n,'A','B','C');\n    return 0;\n}\n",
+        "exampleInput": "2",
+        "exampleOutput": "A->B\nA->C\nB->C\n",
+        "walkthrough": "n=2 时先 A->B，再 A->C，最后 B->C；每个子任务返回后，父任务从调用处继续执行。",
+        "mistakes": [
+          "递归调用里的三根柱角色要对应，不能只改变盘数。",
+          "递归规模必须减小且到达明确终点，不能对 n≤0 无限递归。"
+        ],
+        "summary": "输出汉诺塔移动步骤",
+        "quizzes": [
+          {
+            "id": "c19-1-q1",
+            "type": "single",
+            "question": "n 个盘所需移动数是多少？",
+            "options": [
+              "2^n−1",
+              "n²",
+              "2n"
+            ],
+            "answer": [
+              "2^n−1"
+            ],
+            "explanation": "每个 n−1 子问题各执行一次，中间再移动最大盘一次。"
+          },
+          {
+            "id": "c19-1-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "A->B\nA->C\nB->C"
+            ],
+            "explanation": "n=2 时先 A->B，再 A->C，最后 B->C；每个子任务返回后，父任务从调用处继续执行。"
+          },
+          {
+            "id": "c19-1-q3",
+            "type": "boolean",
+            "question": "汉诺塔打印步数与递归最大深度总是相同。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "最大深度为n，移动次数为2^n−1。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-1-q1",
+          "type": "single",
+          "question": "n 个盘所需移动数是多少？",
+          "options": [
+            "2^n−1",
+            "n²",
+            "2n"
+          ],
+          "answer": [
+            "2^n−1"
+          ],
+          "explanation": "每个 n−1 子问题各执行一次，中间再移动最大盘一次。"
+        },
+        "challenge": {
+          "id": "c19-1-practice",
+          "title": "输出汉诺塔移动步骤",
+          "difficulty": "Practice",
+          "description": "输出汉诺塔移动步骤。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "2",
+              "output": "A->B\nA->C\nB->C\n"
+            },
+            {
+              "input": "1",
+              "output": "A->C\n"
+            },
+            {
+              "input": "3",
+              "output": "A->C\nA->B\nC->B\nA->C\nB->A\nB->C\nA->C\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic void hanoi(int n,char from,char via,char to) {\n    if(n==1) {printf(\"%c->%c\\n\",from,to);return;}\n    hanoi(n-1,from,to,via);\n    printf(\"%c->%c\\n\",from,to);\n    hanoi(n-1,via,from,to);\n}\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>8) return 1;\n    hanoi(n,'A','B','C');\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：1..8。hanoi(n,from,via,to)：递归前 n−1 盘→输出 from->to→递归后 n−1 盘。",
+            "n=2 时先 A->B，再 A->C，最后 B->C；每个子任务返回后，父任务从调用处继续执行。",
+            "递归调用里的三根柱角色要对应，不能只改变盘数。"
+          ]
+        }
+      },
+      {
+        "id": "c19-2",
+        "chapter": 19,
+        "index": 1,
+        "title": "勒让德多项式与递归代价",
+        "en": "Legendre Polynomials",
+        "textbook": "7章习题13（216页）",
+        "objective": "递归计算勒让德多项式",
+        "explanation": [
+          "递归不只适合整数阶乘。本题 P0(x)=1，P1(x)=x；n>1 时 Pn(x)=((2n−1)xP(n−1)(x)−(n−1)P(n−2)(x))/n。把数学的两个初始条件分别写成返回语句，其他情况直接对应递推式。",
+          "朴素递归会反复计算相同的低阶结果，例如 P4 会多次调用 P2。这里把 n 限为12来观察递归；需要更高阶时，应记忆结果或只保留前两项迭代。分母除法必须在浮点类型中完成，不能先做整数除法再赋给 double。"
+        ],
+        "syntax": "输入 n：0..12，x：−1..1。输出 Pn(x)，保留六位小数。P0=1，P1=x，按递推式计算其余。",
+        "syntaxNotes": "n=2,x=0.5：P2=(3x²−1)/2=−0.125。零阶必须在任何递归分支之前返回。",
+        "example": "#include <stdio.h>\nstatic double legendre(int n,double x) {\n    if(n==0) return 1.0;\n    if(n==1) return x;\n    return ((2*n-1)*x*legendre(n-1,x)-(n-1)*legendre(n-2,x))/n;\n}\nint main(void) {\n    int n;double x;\n    if(scanf(\"%d%lf\",&n,&x)!=2 || n<0 || n>12 || x< -1 || x>1) return 1;\n    printf(\"%.6f\\n\",legendre(n,x));\n    return 0;\n}\n",
+        "exampleInput": "2 0.5",
+        "exampleOutput": "-0.125000\n",
+        "walkthrough": "n=2,x=0.5：P2=(3x²−1)/2=−0.125。零阶必须在任何递归分支之前返回。",
+        "mistakes": [
+          "两个基本情形都需要覆盖，n=1 不能继续递归到负阶。",
+          "直接递归重复计算，不能据此推断适合任意大 n。"
+        ],
+        "summary": "递归计算勒让德多项式",
+        "quizzes": [
+          {
+            "id": "c19-2-q1",
+            "type": "single",
+            "question": "P0(x) 的值是什么？",
+            "options": [
+              "1",
+              "x",
+              "0"
+            ],
+            "answer": [
+              "1"
+            ],
+            "explanation": "零阶多项式恒等于1，不依赖x。"
+          },
+          {
+            "id": "c19-2-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "-0.125000"
+            ],
+            "explanation": "n=2,x=0.5：P2=(3x²−1)/2=−0.125。零阶必须在任何递归分支之前返回。"
+          },
+          {
+            "id": "c19-2-q3",
+            "type": "boolean",
+            "question": "朴素递归只计算每个低阶 Pk 一次。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "两个递归分支会多次访问同样的子问题。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-2-q1",
+          "type": "single",
+          "question": "P0(x) 的值是什么？",
+          "options": [
+            "1",
+            "x",
+            "0"
+          ],
+          "answer": [
+            "1"
+          ],
+          "explanation": "零阶多项式恒等于1，不依赖x。"
+        },
+        "challenge": {
+          "id": "c19-2-practice",
+          "title": "递归计算勒让德多项式",
+          "difficulty": "Practice",
+          "description": "递归计算勒让德多项式。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "2 0.5",
+              "output": "-0.125000\n"
+            },
+            {
+              "input": "0 0.3",
+              "output": "1.000000\n"
+            },
+            {
+              "input": "3 1",
+              "output": "1.000000\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic double legendre(int n,double x) {\n    if(n==0) return 1.0;\n    if(n==1) return x;\n    return ((2*n-1)*x*legendre(n-1,x)-(n-1)*legendre(n-2,x))/n;\n}\nint main(void) {\n    int n;double x;\n    if(scanf(\"%d%lf\",&n,&x)!=2 || n<0 || n>12 || x< -1 || x>1) return 1;\n    printf(\"%.6f\\n\",legendre(n,x));\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：0..12，x：−1..1。输出 Pn(x)，保留六位小数。P0=1，P1=x，按递推式计算其余。",
+            "n=2,x=0.5：P2=(3x²−1)/2=−0.125。零阶必须在任何递归分支之前返回。",
+            "两个基本情形都需要覆盖，n=1 不能继续递归到负阶。"
+          ]
+        }
+      },
+      {
+        "id": "c19-3",
+        "chapter": 19,
+        "index": 2,
+        "title": "二维成绩统计与方差",
+        "en": "Grade Statistics",
+        "textbook": "7章习题14、8章习题15（216、292页）",
+        "objective": "计算学生与课程平均分、最高分位置和均分方差",
+        "explanation": [
+          "把行定义为学生、列定义为课程后，学生均分沿一行累加，课程均分沿一列累加。给每个函数清楚的输入、输出职责，就能把统计任务分成可单独检查的模块。最高分若并列，本题保留按行扫描首次出现的位置。",
+          "总体方差可按“每个均分减总均分，再平方求平均”计算，能避免两个大近似量相减造成的部分消去。这里统计的是学生均分之间的方差，不是所有单科分数的方差；题意中的统计对象决定了先后计算步骤。"
+        ],
+        "syntax": "输入 r,c：1..4，再输入 r*c 个0..100分数。四行依次为学生均分、课程均分、max row col、学生均分总体方差；小数两位。",
+        "syntaxNotes": "2×2成绩80 100 / 60 80：学生均分90、70，课程均分70、90；最高100在(0,1)，均分方差100。",
+        "example": "#include <stdio.h>\nstatic double mean(const double a[],int n) {\n    double s=0;for(int i=0;i<n;++i)s+=a[i];return s/n;\n}\nint main(void) {\n    int r,c,mr=0,mc=0;double a[4][4],row[4],col[4]={0};\n    if(scanf(\"%d%d\",&r,&c)!=2 || r<1 || r>4 || c<1 || c>4)return 1;\n    for(int i=0;i<r;++i)for(int j=0;j<c;++j)if(scanf(\"%lf\",&a[i][j])!=1)return 1;\n    double max=a[0][0];\n    for(int i=0;i<r;++i){\n        row[i]=mean(a[i],c);\n        for(int j=0;j<c;++j){col[j]+=a[i][j];if(a[i][j]>max){max=a[i][j];mr=i;mc=j;}}\n    }\n    for(int i=0;i<r;++i)printf(\"%s%.2f\",i?\" \":\"\",row[i]);putchar('\\n');\n    for(int j=0;j<c;++j)printf(\"%s%.2f\",j?\" \":\"\",col[j]/r);putchar('\\n');\n    double avg=mean(row,r),variance=0;\n    for(int i=0;i<r;++i){double d=row[i]-avg;variance+=d*d;}\n    printf(\"%.2f %d %d\\n%.2f\\n\",max,mr,mc,variance/r);\n    return 0;\n}\n",
+        "exampleInput": "2 2 80 100 60 80",
+        "exampleOutput": "90.00 70.00\n70.00 90.00\n100.00 0 1\n100.00\n",
+        "walkthrough": "2×2成绩80 100 / 60 80：学生均分90、70，课程均分70、90；最高100在(0,1)，均分方差100。",
+        "mistakes": [
+          "方差先明确样本是学生均分；本题分母为 r 的总体方差。",
+          "最高分和坐标必须同时更新，不能只保存分数。"
+        ],
+        "summary": "计算学生与课程平均分、最高分位置和均分方差",
+        "quizzes": [
+          {
+            "id": "c19-3-q1",
+            "type": "single",
+            "question": "本题方差的统计对象是什么？",
+            "options": [
+              "每个学生的平均分",
+              "课程编号",
+              "所有原始分数直接混合"
+            ],
+            "answer": [
+              "每个学生的平均分"
+            ],
+            "explanation": "先计算学生均分，再求这些均分的总体方差。"
+          },
+          {
+            "id": "c19-3-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "90.00 70.00\n70.00 90.00\n100.00 0 1\n100.00"
+            ],
+            "explanation": "2×2成绩80 100 / 60 80：学生均分90、70，课程均分70、90；最高100在(0,1)，均分方差100。"
+          },
+          {
+            "id": "c19-3-q3",
+            "type": "boolean",
+            "question": "单个学生均分构成的总体方差为零。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "正确"
+            ],
+            "explanation": "唯一值与它自身的均值之差为零。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-3-q1",
+          "type": "single",
+          "question": "本题方差的统计对象是什么？",
+          "options": [
+            "每个学生的平均分",
+            "课程编号",
+            "所有原始分数直接混合"
+          ],
+          "answer": [
+            "每个学生的平均分"
+          ],
+          "explanation": "先计算学生均分，再求这些均分的总体方差。"
+        },
+        "challenge": {
+          "id": "c19-3-practice",
+          "title": "计算学生与课程平均分、最高分位置和均分方差",
+          "difficulty": "Practice",
+          "description": "计算学生与课程平均分、最高分位置和均分方差。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "2 2 80 100 60 80",
+              "output": "90.00 70.00\n70.00 90.00\n100.00 0 1\n100.00\n"
+            },
+            {
+              "input": "1 1 50",
+              "output": "50.00\n50.00\n50.00 0 0\n0.00\n"
+            },
+            {
+              "input": "2 1 0 100",
+              "output": "0.00 100.00\n50.00\n100.00 1 0\n2500.00\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nstatic double mean(const double a[],int n) {\n    double s=0;for(int i=0;i<n;++i)s+=a[i];return s/n;\n}\nint main(void) {\n    int r,c,mr=0,mc=0;double a[4][4],row[4],col[4]={0};\n    if(scanf(\"%d%d\",&r,&c)!=2 || r<1 || r>4 || c<1 || c>4)return 1;\n    for(int i=0;i<r;++i)for(int j=0;j<c;++j)if(scanf(\"%lf\",&a[i][j])!=1)return 1;\n    double max=a[0][0];\n    for(int i=0;i<r;++i){\n        row[i]=mean(a[i],c);\n        for(int j=0;j<c;++j){col[j]+=a[i][j];if(a[i][j]>max){max=a[i][j];mr=i;mc=j;}}\n    }\n    for(int i=0;i<r;++i)printf(\"%s%.2f\",i?\" \":\"\",row[i]);putchar('\\n');\n    for(int j=0;j<c;++j)printf(\"%s%.2f\",j?\" \":\"\",col[j]/r);putchar('\\n');\n    double avg=mean(row,r),variance=0;\n    for(int i=0;i<r;++i){double d=row[i]-avg;variance+=d*d;}\n    printf(\"%.2f %d %d\\n%.2f\\n\",max,mr,mc,variance/r);\n    return 0;\n}\n",
+          "hints": [
+            "输入 r,c：1..4，再输入 r*c 个0..100分数。四行依次为学生均分、课程均分、max row col、学生均分总体方差；小数两位。",
+            "2×2成绩80 100 / 60 80：学生均分90、70，课程均分70、90；最高100在(0,1)，均分方差100。",
+            "方差先明确样本是学生均分；本题分母为 r 的总体方差。"
+          ]
+        }
+      },
+      {
+        "id": "c19-4",
+        "chapter": 19,
+        "index": 3,
+        "title": "日期、闰年与结构体参数",
+        "en": "Dates and Leap Years",
+        "textbook": "7章习题18、9章习题1—2（216、330页）",
+        "objective": "验证日期并计算年内序号",
+        "explanation": [
+          "Gregorian 闰年规则是能被4整除但不能被100整除，或者能被400整除。因此2000年为闰年而1900年不是。月份表保存各月天数，闰年只把二月天数改为29，再把本月之前的月份天数累加。",
+          "用结构体 Date 把年、月、日绑定，函数按值接收一份日期，返回年内序号或−1表示无效。先验证月份再访问 month−1；先验证日期有效再累加，能防止“2月30日”得到看似正常的序号。"
+        ],
+        "syntax": "输入 year month day，年1600..2400。有效日期输出1起算的年内序号，无效输出 INVALID。",
+        "syntaxNotes": "2000-03-01：31+29+1=61。1900-03-01只有60，因为世纪年不一定是闰年。",
+        "example": "#include <stdio.h>\ntypedef struct {int year,month,day;} Date;\nstatic int ordinal(Date d){\n    int days[12]={31,28,31,30,31,30,31,31,30,31,30,31};\n    if(d.year<1600||d.year>2400||d.month<1||d.month>12)return -1;\n    if((d.year%4==0&&d.year%100!=0)||d.year%400==0)days[1]=29;\n    if(d.day<1||d.day>days[d.month-1])return -1;\n    int result=d.day;for(int m=0;m<d.month-1;++m)result+=days[m];return result;\n}\nint main(void){\n    Date d;if(scanf(\"%d%d%d\",&d.year,&d.month,&d.day)!=3)return 1;\n    int n=ordinal(d);if(n<0)puts(\"INVALID\");else printf(\"%d\\n\",n);\n    return 0;\n}\n",
+        "exampleInput": "2000 3 1",
+        "exampleOutput": "61\n",
+        "walkthrough": "2000-03-01：31+29+1=61。1900-03-01只有60，因为世纪年不一定是闰年。",
+        "mistakes": [
+          "能被100整除但不能被400整除的年份不是闰年。",
+          "月份范围检查应先于数组下标访问。"
+        ],
+        "summary": "验证日期并计算年内序号",
+        "quizzes": [
+          {
+            "id": "c19-4-q1",
+            "type": "single",
+            "question": "下列哪一年是闰年？",
+            "options": [
+              "1900",
+              "2000",
+              "2100"
+            ],
+            "answer": [
+              "2000"
+            ],
+            "explanation": "整百年份必须还能被400整除。"
+          },
+          {
+            "id": "c19-4-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "61"
+            ],
+            "explanation": "2000-03-01：31+29+1=61。1900-03-01只有60，因为世纪年不一定是闰年。"
+          },
+          {
+            "id": "c19-4-q3",
+            "type": "boolean",
+            "question": "按值传入 Date 后修改形参就会自动修改调用者的日期。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "结构体参数按值复制，局部修改不会传回实参对象。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-4-q1",
+          "type": "single",
+          "question": "下列哪一年是闰年？",
+          "options": [
+            "1900",
+            "2000",
+            "2100"
+          ],
+          "answer": [
+            "2000"
+          ],
+          "explanation": "整百年份必须还能被400整除。"
+        },
+        "challenge": {
+          "id": "c19-4-practice",
+          "title": "验证日期并计算年内序号",
+          "difficulty": "Practice",
+          "description": "验证日期并计算年内序号。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "2000 3 1",
+              "output": "61\n"
+            },
+            {
+              "input": "1900 3 1",
+              "output": "60\n"
+            },
+            {
+              "input": "2023 2 29",
+              "output": "INVALID\n"
+            },
+            {
+              "input": "2024 12 31",
+              "output": "366\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\ntypedef struct {int year,month,day;} Date;\nstatic int ordinal(Date d){\n    int days[12]={31,28,31,30,31,30,31,31,30,31,30,31};\n    if(d.year<1600||d.year>2400||d.month<1||d.month>12)return -1;\n    if((d.year%4==0&&d.year%100!=0)||d.year%400==0)days[1]=29;\n    if(d.day<1||d.day>days[d.month-1])return -1;\n    int result=d.day;for(int m=0;m<d.month-1;++m)result+=days[m];return result;\n}\nint main(void){\n    Date d;if(scanf(\"%d%d%d\",&d.year,&d.month,&d.day)!=3)return 1;\n    int n=ordinal(d);if(n<0)puts(\"INVALID\");else printf(\"%d\\n\",n);\n    return 0;\n}\n",
+          "hints": [
+            "输入 year month day，年1600..2400。有效日期输出1起算的年内序号，无效输出 INVALID。",
+            "2000-03-01：31+29+1=61。1900-03-01只有60，因为世纪年不一定是闰年。",
+            "能被100整除但不能被400整除的年份不是闰年。"
+          ]
+        }
+      },
+      {
+        "id": "c19-5",
+        "chapter": 19,
+        "index": 4,
+        "title": "循环链表与约瑟夫问题",
+        "en": "Circular Lists",
+        "textbook": "8章习题5、9章习题6（291—292、330页）",
+        "objective": "按报数规则删除节点并输出幸存者",
+        "explanation": [
+          "让最后一个节点的 next 指回 head，就形成循环单链表。报数到 k 的人退出，删除时需要其前驱：先把前驱 next 接到被删者的后继，再释放被删节点。下轮从它的后继重新从1报数。",
+          "建立链表期间先保持线性，全部成功后再闭环，失败时就能用普通线性清理释放已分配节点。最后只剩一个节点时，它的 next 指向自己，输出后仍要释放。本节把 n≤50、k≤20，保证时间和内存规模可控。"
+        ],
+        "syntax": "输入 n：1..50、k：1..20。编号1..n围成圈，从1开始报数，到k删除，输出最后的原始编号。",
+        "syntaxNotes": "n=5,k=3 时依次删除3、1、5、2，最后剩4。保存后继后再 free，不能释放后读取 next。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node {int value;struct Node *next;} Node;\nstatic void clear(Node *p){while(p){Node *next=p->next;free(p);p=next;}}\nint main(void){\n    int n,k;if(scanf(\"%d%d\",&n,&k)!=2||n<1||n>50||k<1||k>20)return 1;\n    Node *head=NULL,*tail=NULL;\n    for(int i=1;i<=n;++i){\n        Node *p=malloc(sizeof *p);if(!p){clear(head);return 1;}\n        p->value=i;p->next=NULL;\n        if(tail)tail->next=p;else head=p;tail=p;\n    }\n    tail->next=head;Node *prev=tail,*cur=head;\n    while(cur->next!=cur){\n        for(int count=1;count<k;++count){prev=cur;cur=cur->next;}\n        Node *next=cur->next;prev->next=next;free(cur);cur=next;\n    }\n    printf(\"%d\\n\",cur->value);free(cur);\n    return 0;\n}\n",
+        "exampleInput": "5 3",
+        "exampleOutput": "4\n",
+        "walkthrough": "n=5,k=3 时依次删除3、1、5、2，最后剩4。保存后继后再 free，不能释放后读取 next。",
+        "mistakes": [
+          "释放节点之前先保存其后继并修改连接。",
+          "环形链表的遍历不能只等 NULL；最后一个节点必须单独判断。"
+        ],
+        "summary": "按报数规则删除节点并输出幸存者",
+        "quizzes": [
+          {
+            "id": "c19-5-q1",
+            "type": "single",
+            "question": "删除 cur 后从哪里重新报1？",
+            "options": [
+              "被删者的后继",
+              "永远从head",
+              "被删者的前驱"
+            ],
+            "answer": [
+              "被删者的后继"
+            ],
+            "explanation": "当前报数位置随删除过程前进。"
+          },
+          {
+            "id": "c19-5-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "4"
+            ],
+            "explanation": "n=5,k=3 时依次删除3、1、5、2，最后剩4。保存后继后再 free，不能释放后读取 next。"
+          },
+          {
+            "id": "c19-5-q3",
+            "type": "boolean",
+            "question": "循环链表一定能用 while(p!=NULL) 遍历到结束。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "正确闭环的 next 不会指向 NULL。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-5-q1",
+          "type": "single",
+          "question": "删除 cur 后从哪里重新报1？",
+          "options": [
+            "被删者的后继",
+            "永远从head",
+            "被删者的前驱"
+          ],
+          "answer": [
+            "被删者的后继"
+          ],
+          "explanation": "当前报数位置随删除过程前进。"
+        },
+        "challenge": {
+          "id": "c19-5-practice",
+          "title": "按报数规则删除节点并输出幸存者",
+          "difficulty": "Practice",
+          "description": "按报数规则删除节点并输出幸存者。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "5 3",
+              "output": "4\n"
+            },
+            {
+              "input": "1 3",
+              "output": "1\n"
+            },
+            {
+              "input": "5 1",
+              "output": "5\n"
+            },
+            {
+              "input": "13 3",
+              "output": "13\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node {int value;struct Node *next;} Node;\nstatic void clear(Node *p){while(p){Node *next=p->next;free(p);p=next;}}\nint main(void){\n    int n,k;if(scanf(\"%d%d\",&n,&k)!=2||n<1||n>50||k<1||k>20)return 1;\n    Node *head=NULL,*tail=NULL;\n    for(int i=1;i<=n;++i){\n        Node *p=malloc(sizeof *p);if(!p){clear(head);return 1;}\n        p->value=i;p->next=NULL;\n        if(tail)tail->next=p;else head=p;tail=p;\n    }\n    tail->next=head;Node *prev=tail,*cur=head;\n    while(cur->next!=cur){\n        for(int count=1;count<k;++count){prev=cur;cur=cur->next;}\n        Node *next=cur->next;prev->next=next;free(cur);cur=next;\n    }\n    printf(\"%d\\n\",cur->value);free(cur);\n    return 0;\n}\n",
+          "hints": [
+            "输入 n：1..50、k：1..20。编号1..n围成圈，从1开始报数，到k删除，输出最后的原始编号。",
+            "n=5,k=3 时依次删除3、1、5、2，最后剩4。保存后继后再 free，不能释放后读取 next。",
+            "释放节点之前先保存其后继并修改连接。"
+          ]
+        }
+      },
+      {
+        "id": "c19-6",
+        "chapter": 19,
+        "index": 5,
+        "title": "从文本提取连续整数",
+        "en": "Extracting Numbers",
+        "textbook": "8章习题16（292页）",
+        "objective": "提取每段连续十进制数字",
+        "explanation": [
+          "文本中的连续数字构成一个数，非数字则作为分隔符。用 active 标志区分“还没开始一个数”和“正在累积”，每读到数字 d 执行 value=value*10+d。遇到分隔符时才输出当前数，前导零自然折叠。",
+          "乘十再加一位前必须检查上界：value>(MAX−d)/10 时下一步会溢出。检查发生在运算之前，不能等无符号结果绕回后再判断。EOF 也可能结束最后一个数，因此循环结束后还要处理 active 状态。"
+        ],
+        "syntax": "输入最多160个ASCII字符，各数字段表示0..10^9。依次输出数，以空格分隔；无数字输出 NONE；超界输出 OVERFLOW 并停止。",
+        "syntaxNotes": "A123x045z0 提取为123 45 0。零本身也是一个数字段，不能以 value!=0 判断是否有数。",
+        "example": "#include <stdio.h>\n#include <ctype.h>\nint main(void){\n    unsigned long value=0,values[161];int ch,active=0,count=0;\n    while((ch=getchar())!=EOF){\n        if(isdigit(ch)){\n            unsigned long d=(unsigned long)(ch-'0');\n            if(value>(1000000000UL-d)/10){puts(\"OVERFLOW\");return 0;}\n            value=value*10+d;active=1;\n        }else if(active){values[count++]=value;active=0;value=0;}\n    }\n    if(active)values[count++]=value;\n    for(int i=0;i<count;++i)printf(\"%s%lu\",i?\" \":\"\",values[i]);\n    if(!count)printf(\"NONE\");putchar('\\n');return 0;\n}\n",
+        "exampleInput": "A123x045z0",
+        "exampleOutput": "123 45 0\n",
+        "walkthrough": "A123x045z0 提取为123 45 0。零本身也是一个数字段，不能以 value!=0 判断是否有数。",
+        "mistakes": [
+          "是否有一个数字段由标志记录，不能靠数值是否为零判断。",
+          "乘法前检查溢出，EOF 后还要提交最后一段。"
+        ],
+        "summary": "提取每段连续十进制数字",
+        "quizzes": [
+          {
+            "id": "c19-6-q1",
+            "type": "single",
+            "question": "读到数字 d 后，新的数值如何计算？",
+            "options": [
+              "value*10+d",
+              "value+d",
+              "value/10+d"
+            ],
+            "answer": [
+              "value*10+d"
+            ],
+            "explanation": "十进制向左移动一位就是乘10，再填入个位。"
+          },
+          {
+            "id": "c19-6-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "123 45 0"
+            ],
+            "explanation": "A123x045z0 提取为123 45 0。零本身也是一个数字段，不能以 value!=0 判断是否有数。"
+          },
+          {
+            "id": "c19-6-q3",
+            "type": "boolean",
+            "question": "输入以数字结束时，循环外不必处理尚未输出的数字段。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "没有分隔符触发输出，EOF 之后必须补一次提交。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-6-q1",
+          "type": "single",
+          "question": "读到数字 d 后，新的数值如何计算？",
+          "options": [
+            "value*10+d",
+            "value+d",
+            "value/10+d"
+          ],
+          "answer": [
+            "value*10+d"
+          ],
+          "explanation": "十进制向左移动一位就是乘10，再填入个位。"
+        },
+        "challenge": {
+          "id": "c19-6-practice",
+          "title": "提取每段连续十进制数字",
+          "difficulty": "Practice",
+          "description": "提取每段连续十进制数字。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "A123x045z0",
+              "output": "123 45 0\n"
+            },
+            {
+              "input": "abc?!",
+              "output": "NONE\n"
+            },
+            {
+              "input": "000 1000000000",
+              "output": "0 1000000000\n"
+            },
+            {
+              "input": "1000000001",
+              "output": "OVERFLOW\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <ctype.h>\nint main(void){\n    unsigned long value=0,values[161];int ch,active=0,count=0;\n    while((ch=getchar())!=EOF){\n        if(isdigit(ch)){\n            unsigned long d=(unsigned long)(ch-'0');\n            if(value>(1000000000UL-d)/10){puts(\"OVERFLOW\");return 0;}\n            value=value*10+d;active=1;\n        }else if(active){values[count++]=value;active=0;value=0;}\n    }\n    if(active)values[count++]=value;\n    for(int i=0;i<count;++i)printf(\"%s%lu\",i?\" \":\"\",values[i]);\n    if(!count)printf(\"NONE\");putchar('\\n');return 0;\n}\n",
+          "hints": [
+            "输入最多160个ASCII字符，各数字段表示0..10^9。依次输出数，以空格分隔；无数字输出 NONE；超界输出 OVERFLOW 并停止。",
+            "A123x045z0 提取为123 45 0。零本身也是一个数字段，不能以 value!=0 判断是否有数。",
+            "是否有一个数字段由标志记录，不能靠数值是否为零判断。"
+          ]
+        }
+      },
+      {
+        "id": "c19-7",
+        "chapter": 19,
+        "index": 6,
+        "title": "回调函数与矩形积分",
+        "en": "Callbacks and Integration",
+        "textbook": "8.5.4及习题13（269—273、292页）",
+        "objective": "用同一个积分函数计算不同被积函数",
+        "explanation": [
+          "通用积分程序只负责分割区间和累加矩形面积，不需要写死具体函数。把 double (*f)(double) 作为参数，调用者可以传平方、sin 或 exp 的函数指针。每种函数都遵循相同的输入、返回类型，才能通过这个接口调用。",
+          "本题采用中点矩形法：把[0,b]分成 n 段，每段在中点求函数值再乘宽度。它得到近似值而非符号精确值；增加分段通常减小离散误差，但仍受浮点舍入影响。教材的回调结构还可复用于梯形法，只需修改积分器内部的权重。"
+        ],
+        "syntax": "输入 mode（0平方、1正弦、2指数）、b（0..3）。中点矩形法固定100000段，输出近似积分六位小数。",
+        "syntaxNotes": "mode=0,b=1 时近似∫x²dx=1/3；传入哪个回调决定计算对象，积分循环本身不变。",
+        "example": "#include <stdio.h>\n#include <math.h>\nstatic double square(double x){return x*x;}\nstatic double integrate(double b,double (*f)(double)){\n    const int n=100000;double h=b/n,sum=0;\n    for(int i=0;i<n;++i)sum+=f((i+0.5)*h);\n    return sum*h;\n}\nint main(void){\n    int mode;double b;\n    if(scanf(\"%d%lf\",&mode,&b)!=2||mode<0||mode>2||b<0||b>3)return 1;\n    double (*f)(double)=mode==0?square:mode==1?sin:exp;\n    printf(\"%.6f\\n\",integrate(b,f));return 0;\n}\n",
+        "exampleInput": "0 1",
+        "exampleOutput": "0.333333\n",
+        "walkthrough": "mode=0,b=1 时近似∫x²dx=1/3；传入哪个回调决定计算对象，积分循环本身不变。",
+        "mistakes": [
+          "函数指针参数及返回值类型必须兼容，不能随意强制转换后调用。",
+          "分段数必须正数；这里固定非零上界避免除零和无穷循环。"
+        ],
+        "summary": "用同一个积分函数计算不同被积函数",
+        "quizzes": [
+          {
+            "id": "c19-7-q1",
+            "type": "single",
+            "question": "回调在积分器中承担什么职责？",
+            "options": [
+              "给出某个 x 上的函数值",
+              "改变循环变量类型",
+              "管理文件位置"
+            ],
+            "answer": [
+              "给出某个 x 上的函数值"
+            ],
+            "explanation": "积分器决定采样位置，回调提供具体函数值。"
+          },
+          {
+            "id": "c19-7-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "0.333333"
+            ],
+            "explanation": "mode=0,b=1 时近似∫x²dx=1/3；传入哪个回调决定计算对象，积分循环本身不变。"
+          },
+          {
+            "id": "c19-7-q3",
+            "type": "boolean",
+            "question": "中点矩形法对所有函数都给出符号精确积分。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "数值积分是离散近似，必须考虑误差。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-7-q1",
+          "type": "single",
+          "question": "回调在积分器中承担什么职责？",
+          "options": [
+            "给出某个 x 上的函数值",
+            "改变循环变量类型",
+            "管理文件位置"
+          ],
+          "answer": [
+            "给出某个 x 上的函数值"
+          ],
+          "explanation": "积分器决定采样位置，回调提供具体函数值。"
+        },
+        "challenge": {
+          "id": "c19-7-practice",
+          "title": "用同一个积分函数计算不同被积函数",
+          "difficulty": "Practice",
+          "description": "用同一个积分函数计算不同被积函数。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "0 1",
+              "output": "0.333333\n"
+            },
+            {
+              "input": "1 0",
+              "output": "0.000000\n"
+            },
+            {
+              "input": "2 1",
+              "output": "1.718282\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <math.h>\nstatic double square(double x){return x*x;}\nstatic double integrate(double b,double (*f)(double)){\n    const int n=100000;double h=b/n,sum=0;\n    for(int i=0;i<n;++i)sum+=f((i+0.5)*h);\n    return sum*h;\n}\nint main(void){\n    int mode;double b;\n    if(scanf(\"%d%lf\",&mode,&b)!=2||mode<0||mode>2||b<0||b>3)return 1;\n    double (*f)(double)=mode==0?square:mode==1?sin:exp;\n    printf(\"%.6f\\n\",integrate(b,f));return 0;\n}\n",
+          "hints": [
+            "输入 mode（0平方、1正弦、2指数）、b（0..3）。中点矩形法固定100000段，输出近似积分六位小数。",
+            "mode=0,b=1 时近似∫x²dx=1/3；传入哪个回调决定计算对象，积分循环本身不变。",
+            "函数指针参数及返回值类型必须兼容，不能随意强制转换后调用。"
+          ]
+        }
+      },
+      {
+        "id": "c19-8",
+        "chapter": 19,
+        "index": 7,
+        "title": "指针数组排序字符串",
+        "en": "Sorting String Pointers",
+        "textbook": "8.7（276—281页）",
+        "objective": "交换指针排列字符串",
+        "explanation": [
+          "把各行字符串的首地址存入指针数组，排序时只交换地址，不移动完整字符内容。比较必须使用 strcmp 的符号；直接比较指针大小判断的是地址关系，不能得到字典序。对不同数组对象做关系比较也不能当作通用排序规则。",
+          "本题字符缓冲区在 main 整个执行期间存在，各指针都指向有效行。形参 char *words[] 调整为 char **，它接收指针数组的首元素地址；这和二维连续字符数组 char data[][21] 的类型不同，不能互相强转充当同样布局。"
+        ],
+        "syntax": "输入 n：1..5，再输入 n 个不含空白的ASCII单词，每个最多20字节。按 strcmp 非降序输出，每行一个。",
+        "syntaxNotes": "pear apple pear 经选择排序交换指针后，依次输出apple、pear、pear。",
+        "example": "#include <stdio.h>\n#include <string.h>\nstatic void sort(char *words[],int n){\n    for(int i=0;i<n-1;++i){\n        int k=i;for(int j=i+1;j<n;++j)if(strcmp(words[j],words[k])<0)k=j;\n        char *t=words[i];words[i]=words[k];words[k]=t;\n    }\n}\nint main(void){\n    int n;char data[5][21],*words[5];\n    if(scanf(\"%d\",&n)!=1||n<1||n>5)return 1;\n    for(int i=0;i<n;++i){if(scanf(\"%20s\",data[i])!=1)return 1;words[i]=data[i];}\n    sort(words,n);for(int i=0;i<n;++i)puts(words[i]);return 0;\n}\n",
+        "exampleInput": "3 pear apple pear",
+        "exampleOutput": "apple\npear\npear\n",
+        "walkthrough": "pear apple pear 经选择排序交换指针后，依次输出apple、pear、pear。",
+        "mistakes": [
+          "strcmp 只保证负、零、正，不保证返回值为−1、0、1。",
+          "被指向的字符数组必须继续存在，不能返回局部行缓冲区地址。"
+        ],
+        "summary": "交换指针排列字符串",
+        "quizzes": [
+          {
+            "id": "c19-8-q1",
+            "type": "single",
+            "question": "交换字符串排序位置需要交换什么？",
+            "options": [
+              "指针数组中两个地址值",
+              "字符串常量的内容",
+              "两个指针的机器字节表示任意一部分"
+            ],
+            "answer": [
+              "指针数组中两个地址值"
+            ],
+            "explanation": "地址指向有效字符串，交换地址即可改变访问次序。"
+          },
+          {
+            "id": "c19-8-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "apple\npear\npear"
+            ],
+            "explanation": "pear apple pear 经选择排序交换指针后，依次输出apple、pear、pear。"
+          },
+          {
+            "id": "c19-8-q3",
+            "type": "boolean",
+            "question": "char ** 与连续二维字符数组转换后的指针类型相同。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "前者指向指针对象，后者指向一行字符数组。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-8-q1",
+          "type": "single",
+          "question": "交换字符串排序位置需要交换什么？",
+          "options": [
+            "指针数组中两个地址值",
+            "字符串常量的内容",
+            "两个指针的机器字节表示任意一部分"
+          ],
+          "answer": [
+            "指针数组中两个地址值"
+          ],
+          "explanation": "地址指向有效字符串，交换地址即可改变访问次序。"
+        },
+        "challenge": {
+          "id": "c19-8-practice",
+          "title": "交换指针排列字符串",
+          "difficulty": "Practice",
+          "description": "交换指针排列字符串。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3 pear apple pear",
+              "output": "apple\npear\npear\n"
+            },
+            {
+              "input": "1 C99",
+              "output": "C99\n"
+            },
+            {
+              "input": "3 Zoo ant Bee",
+              "output": "Bee\nZoo\nant\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\nstatic void sort(char *words[],int n){\n    for(int i=0;i<n-1;++i){\n        int k=i;for(int j=i+1;j<n;++j)if(strcmp(words[j],words[k])<0)k=j;\n        char *t=words[i];words[i]=words[k];words[k]=t;\n    }\n}\nint main(void){\n    int n;char data[5][21],*words[5];\n    if(scanf(\"%d\",&n)!=1||n<1||n>5)return 1;\n    for(int i=0;i<n;++i){if(scanf(\"%20s\",data[i])!=1)return 1;words[i]=data[i];}\n    sort(words,n);for(int i=0;i<n;++i)puts(words[i]);return 0;\n}\n",
+          "hints": [
+            "输入 n：1..5，再输入 n 个不含空白的ASCII单词，每个最多20字节。按 strcmp 非降序输出，每行一个。",
+            "pear apple pear 经选择排序交换指针后，依次输出apple、pear、pear。",
+            "strcmp 只保证负、零、正，不保证返回值为−1、0、1。"
+          ]
+        }
+      },
+      {
+        "id": "c19-9",
+        "chapter": 19,
+        "index": 8,
+        "title": "最长单词与筛选字符",
+        "en": "Longest Words and Filtering",
+        "textbook": "7章习题7、10（216页）",
+        "objective": "找出最长单词并收集元音字母",
+        "explanation": [
+          "最长单词问题需要同时记录当前词的起点、长度和最佳词的位置。用空白作为分隔，词结束时比较一次，若严格更长才替换，就能在并列时保留第一次出现的词。用下标区间表示词，避免一边扫描一边反复复制。",
+          "另一个函数可筛选所有元音：读指针检查每个字符，写指针只保留 a/e/i/o/u（大小写均可），结束后补零。写位置永远不超过读位置，这也是原地删除指定字符的基本思路。本题为了展示两个结果使用独立输出缓冲区。"
+        ],
+        "syntax": "输入一行最多160个ASCII字符。第一行输出最长空白分隔词，无词为NONE；第二行按原顺序输出元音，无元音输出空行。",
+        "syntaxNotes": "C makes code fun 的最长词为makes；元音依次为a,e,o,e,u，输出aeoeu。",
+        "example": "#include <stdio.h>\n#include <ctype.h>\n#include <string.h>\nint main(void){\n    char s[162],vowels[162];if(!fgets(s,sizeof s,stdin))s[0]='\\0';\n    size_t best=0,bestlen=0,i=0,v=0;\n    while(s[i]){\n        if(strchr(\"aeiouAEIOU\",s[i]))vowels[v++]=s[i];\n        if(isspace((unsigned char)s[i])){++i;continue;}\n        size_t start=i;\n        while(s[i]&&!isspace((unsigned char)s[i])){\n            if(i!=start&&strchr(\"aeiouAEIOU\",s[i]))vowels[v++]=s[i];++i;\n        }\n        if(i-start>bestlen){best=start;bestlen=i-start;}\n    }\n    vowels[v]='\\0';\n    if(!bestlen)puts(\"NONE\");else printf(\"%.*s\\n\",(int)bestlen,s+best);\n    puts(vowels);return 0;\n}\n",
+        "exampleInput": "C makes code fun\n",
+        "exampleOutput": "makes\naeoeu\n",
+        "walkthrough": "C makes code fun 的最长词为makes；元音依次为a,e,o,e,u，输出aeoeu。",
+        "mistakes": [
+          "句末没有空格时也要完成最后一个词的比较。",
+          "输出字符串要补零，不能把有效字符数等同于整个数组容量。"
+        ],
+        "summary": "找出最长单词并收集元音字母",
+        "quizzes": [
+          {
+            "id": "c19-9-q1",
+            "type": "single",
+            "question": "若并列最长时保留第一次，更新条件应是什么？",
+            "options": [
+              "当前长度 > 最佳长度",
+              "当前长度 >= 最佳长度",
+              "每结束一个词都更新"
+            ],
+            "answer": [
+              "当前长度 > 最佳长度"
+            ],
+            "explanation": "严格更长才替换，后出现的同长度词不会覆盖首个结果。"
+          },
+          {
+            "id": "c19-9-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "makes\naeoeu"
+            ],
+            "explanation": "C makes code fun 的最长词为makes；元音依次为a,e,o,e,u，输出aeoeu。"
+          },
+          {
+            "id": "c19-9-q3",
+            "type": "boolean",
+            "question": "按字符筛选生成字符串后还需要写入末尾零。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "正确"
+            ],
+            "explanation": "printf %s 等接口靠末尾零确定终点。"
+          }
+        ],
+        "quiz": {
+          "id": "c19-9-q1",
+          "type": "single",
+          "question": "若并列最长时保留第一次，更新条件应是什么？",
+          "options": [
+            "当前长度 > 最佳长度",
+            "当前长度 >= 最佳长度",
+            "每结束一个词都更新"
+          ],
+          "answer": [
+            "当前长度 > 最佳长度"
+          ],
+          "explanation": "严格更长才替换，后出现的同长度词不会覆盖首个结果。"
+        },
+        "challenge": {
+          "id": "c19-9-practice",
+          "title": "找出最长单词并收集元音字母",
+          "difficulty": "Practice",
+          "description": "找出最长单词并收集元音字母。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "C makes code fun\n",
+              "output": "makes\naeoeu\n"
+            },
+            {
+              "input": "\t \n",
+              "output": "NONE\n\n"
+            },
+            {
+              "input": "red blue\n",
+              "output": "blue\neue\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <ctype.h>\n#include <string.h>\nint main(void){\n    char s[162],vowels[162];if(!fgets(s,sizeof s,stdin))s[0]='\\0';\n    size_t best=0,bestlen=0,i=0,v=0;\n    while(s[i]){\n        if(strchr(\"aeiouAEIOU\",s[i]))vowels[v++]=s[i];\n        if(isspace((unsigned char)s[i])){++i;continue;}\n        size_t start=i;\n        while(s[i]&&!isspace((unsigned char)s[i])){\n            if(i!=start&&strchr(\"aeiouAEIOU\",s[i]))vowels[v++]=s[i];++i;\n        }\n        if(i-start>bestlen){best=start;bestlen=i-start;}\n    }\n    vowels[v]='\\0';\n    if(!bestlen)puts(\"NONE\");else printf(\"%.*s\\n\",(int)bestlen,s+best);\n    puts(vowels);return 0;\n}\n",
+          "hints": [
+            "输入一行最多160个ASCII字符。第一行输出最长空白分隔词，无词为NONE；第二行按原顺序输出元音，无元音输出空行。",
+            "C makes code fun 的最长词为makes；元音依次为a,e,o,e,u，输出aeoeu。",
+            "句末没有空格时也要完成最后一个词的比较。"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "教材系统与标准库实战",
+    "en": "Standard Library in Practice",
+    "description": "精确格式、输入解析、标准库、记录、链表与文件更新。",
+    "lessons": [
+      {
+        "id": "c20-1",
+        "chapter": 20,
+        "index": 0,
+        "title": "宽度、对齐与精确输出",
+        "en": "Exact Formatted Output",
+        "textbook": "3.5.3（67—74页）",
+        "objective": "按指定字段宽度输出数值和文本",
+        "explanation": [
+          "printf 的宽度是最小占位数，数字过长不会截断；减号表示左对齐，默认右对齐。字符串精度 %.3s 限制最多输出三个字节，和整数宽度的含义不同。把字段放进竖线中，能直接看见前导与尾随空格。",
+          "本课使用精确输出判题：空格、换行必须符合要求，仅统一系统换行形式。其他普通算法题仍采用原有空白归一化。练习只有在判题也检查这些字符时，才能检验字段宽度。C99 的 long double 使用 %Lf；%g 按指数和有效位数选择形式，并非任意意义的“最短字符串”。"
+        ],
+        "syntax": "输入 n（−999..999）和最多10字节的ASCII单词。两行分别为 |%6d|%-6d| 与 |%.3s|；保留末尾换行。",
+        "syntaxNotes": "n=7 时第一字段左侧5个空格，第二字段右侧5个空格；hello 的 %.3s 只输出hel。",
+        "example": "#include <stdio.h>\nint main(void){\n    int n;char s[11];if(scanf(\"%d%10s\",&n,s)!=2)return 1;\n    printf(\"|%6d|%-6d|\\n|%.3s|\\n\",n,n,s);return 0;\n}\n",
+        "exampleInput": "7 hello",
+        "exampleOutput": "|     7|7     |\n|hel|\n",
+        "walkthrough": "n=7 时第一字段左侧5个空格，第二字段右侧5个空格；hello 的 %.3s 只输出hel。",
+        "mistakes": [
+          "不要在字符串外用额外空格凑样例，字段宽度应由格式指定。",
+          "宽度不足不会截断整数，字符串精度才可限制字节数。"
+        ],
+        "summary": "按指定字段宽度输出数值和文本",
+        "quizzes": [
+          {
+            "id": "c20-1-q1",
+            "type": "single",
+            "question": "%-6d 中的减号表示什么？",
+            "options": [
+              "字段内左对齐",
+              "把数字取负",
+              "输出六位小数"
+            ],
+            "answer": [
+              "字段内左对齐"
+            ],
+            "explanation": "负号是标志，控制不足宽度时空格出现在右侧。"
+          },
+          {
+            "id": "c20-1-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "|     7|7     |\n|hel|"
+            ],
+            "explanation": "n=7 时第一字段左侧5个空格，第二字段右侧5个空格；hello 的 %.3s 只输出hel。"
+          },
+          {
+            "id": "c20-1-q3",
+            "type": "boolean",
+            "question": "%2d 会把123截断成12。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "整数宽度是最小宽度，不是最大位数。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-1-q1",
+          "type": "single",
+          "question": "%-6d 中的减号表示什么？",
+          "options": [
+            "字段内左对齐",
+            "把数字取负",
+            "输出六位小数"
+          ],
+          "answer": [
+            "字段内左对齐"
+          ],
+          "explanation": "负号是标志，控制不足宽度时空格出现在右侧。"
+        },
+        "challenge": {
+          "id": "c20-1-practice",
+          "title": "按指定字段宽度输出数值和文本",
+          "difficulty": "Practice",
+          "description": "按指定字段宽度输出数值和文本。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "整数 n（−999..999）以及一个1..10字节、不含空白的ASCII单词。",
+          "output": "严格输出两行，包括竖线、字段内空格和末尾换行。",
+          "tests": [
+            {
+              "input": "7 hello",
+              "output": "|     7|7     |\n|hel|\n",
+              "exact": true
+            },
+            {
+              "input": "-12 C",
+              "output": "|   -12|-12   |\n|C|\n",
+              "exact": true
+            },
+            {
+              "input": "999 abcdef",
+              "output": "|   999|999   |\n|abc|\n",
+              "exact": true
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void){\n    int n;char s[11];if(scanf(\"%d%10s\",&n,s)!=2)return 1;\n    printf(\"|%6d|%-6d|\\n|%.3s|\\n\",n,n,s);return 0;\n}\n",
+          "hints": [
+            "输入 n（−999..999）和最多10字节的ASCII单词。两行分别为 |%6d|%-6d| 与 |%.3s|；保留末尾换行。",
+            "n=7 时第一字段左侧5个空格，第二字段右侧5个空格；hello 的 %.3s 只输出hel。",
+            "不要在字符串外用额外空格凑样例，字段宽度应由格式指定。"
+          ]
+        }
+      },
+      {
+        "id": "c20-2",
+        "chapter": 20,
+        "index": 1,
+        "title": "scanf 的字面量与抑制赋值",
+        "en": "Parsing with scanf",
+        "textbook": "3.5.4（74—79页）",
+        "objective": "按固定文本格式解析记录",
+        "explanation": [
+          "scanf 格式中的普通字符要求与输入匹配，格式中的空白则可匹配任意数量的输入空白。%c 不自动跳过空白，写成 \" %c\" 才会先跳过。%*d 读取一个整数但不赋值，也不计入返回的成功赋值项数。",
+          "本题解析“编号:忽略字段:字符”，先用三个独立转换理解读入过程，再用抑制赋值跳过不用的数据。scanf 遇到匹配失败会停下，不能继续使用未成功赋值的对象；用返回值验证所需字段都已读到。对更复杂的整行输入，可用 fgets 加 sscanf 或 strtol，方便拒绝剩余非法字符。"
+        ],
+        "syntax": "输入形如 12:999: Z；格式 %d:%*d: %c。成功时输出编号和字符，失败输出 INVALID。两个整数范围−1000..1000。",
+        "syntaxNotes": "12:999: Z 中999被消耗但不赋值，返回值为2；Z前空白由格式里的空格跳过。",
+        "example": "#include <stdio.h>\nint main(void){\n    int id;char mark;\n    if(scanf(\"%d:%*d: %c\",&id,&mark)!=2)puts(\"INVALID\");\n    else printf(\"%d %c\\n\",id,mark);\n    return 0;\n}\n",
+        "exampleInput": "12:999: Z",
+        "exampleOutput": "12 Z\n",
+        "walkthrough": "12:999: Z 中999被消耗但不赋值，返回值为2；Z前空白由格式里的空格跳过。",
+        "mistakes": [
+          "抑制赋值的转换不会增加返回值，也不对应一个指针参数。",
+          "scanf 格式尾部空白可能继续等待非空白输入，不应随手附加。"
+        ],
+        "summary": "按固定文本格式解析记录",
+        "quizzes": [
+          {
+            "id": "c20-2-q1",
+            "type": "single",
+            "question": "%d:%*d: %c 成功读取上述格式时返回几？",
+            "options": [
+              "2",
+              "3",
+              "1"
+            ],
+            "answer": [
+              "2"
+            ],
+            "explanation": "只有编号与字符被赋值，抑制项不计数。"
+          },
+          {
+            "id": "c20-2-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "12 Z"
+            ],
+            "explanation": "12:999: Z 中999被消耗但不赋值，返回值为2；Z前空白由格式里的空格跳过。"
+          },
+          {
+            "id": "c20-2-q3",
+            "type": "boolean",
+            "question": "%c 总会自动跳过输入中的空格。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "只有在格式中显式加入前导空白，才会跳过它。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-2-q1",
+          "type": "single",
+          "question": "%d:%*d: %c 成功读取上述格式时返回几？",
+          "options": [
+            "2",
+            "3",
+            "1"
+          ],
+          "answer": [
+            "2"
+          ],
+          "explanation": "只有编号与字符被赋值，抑制项不计数。"
+        },
+        "challenge": {
+          "id": "c20-2-practice",
+          "title": "按固定文本格式解析记录",
+          "difficulty": "Practice",
+          "description": "按固定文本格式解析记录。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "12:999: Z",
+              "output": "12 Z\n"
+            },
+            {
+              "input": "-3:0:A",
+              "output": "-3 A\n"
+            },
+            {
+              "input": "12,999,Z",
+              "output": "INVALID\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void){\n    int id;char mark;\n    if(scanf(\"%d:%*d: %c\",&id,&mark)!=2)puts(\"INVALID\");\n    else printf(\"%d %c\\n\",id,mark);\n    return 0;\n}\n",
+          "hints": [
+            "输入形如 12:999: Z；格式 %d:%*d: %c。成功时输出编号和字符，失败输出 INVALID。两个整数范围−1000..1000。",
+            "12:999: Z 中999被消耗但不赋值，返回值为2；Z前空白由格式里的空格跳过。",
+            "抑制赋值的转换不会增加返回值，也不对应一个指针参数。"
+          ]
+        }
+      },
+      {
+        "id": "c20-3",
+        "chapter": 20,
+        "index": 2,
+        "title": "有界复制与 snprintf",
+        "en": "Bounded String Operations",
+        "textbook": "6.3.6、附录E（159—161、367页）",
+        "objective": "生成有限容量内的文本并报告所需长度",
+        "explanation": [
+          "strncpy(dst,src,n) 最多复制 n 个源字节，源太短时会继续填零；源长不小于 n 时则不保证结束零。它不是通用的“安全 strcpy”。如果容量允许，可复制容量−1字节再显式补零，但仍需决定截断是否符合业务要求。",
+          "snprintf 把格式输出写入有限容量的字符数组。容量非零时成功写入的文本带结束零；返回值表示原本需要的字符数，不包括零。返回值≥容量表示截断，负值表示编码错误。这里故意使用6字节数组观察最多5字符的输出，并用返回值展示被截断的信息。"
+        ],
+        "syntax": "输入一个最多20字节的ASCII单词。写入 char dst[6]，输出截断文本，再输出 snprintf 返回的原需长度。",
+        "syntaxNotes": "alphabet 原需8字节，dst 只保存alpha及末尾零，输出alpha和8。",
+        "example": "#include <stdio.h>\nint main(void){\n    char src[21],dst[6];if(scanf(\"%20s\",src)!=1)return 1;\n    int needed=snprintf(dst,sizeof dst,\"%s\",src);\n    if(needed<0)return 1;printf(\"%s\\n%d\\n\",dst,needed);return 0;\n}\n",
+        "exampleInput": "alphabet",
+        "exampleOutput": "alpha\n8\n",
+        "walkthrough": "alphabet 原需8字节，dst 只保存alpha及末尾零，输出alpha和8。",
+        "mistakes": [
+          "snprintf 返回值不是总等于实际保存的字节数，截断时仍报告原需长度。",
+          "容量包含末尾零；不要把6字节数组当作能保存6个有效字符。"
+        ],
+        "summary": "生成有限容量内的文本并报告所需长度",
+        "quizzes": [
+          {
+            "id": "c20-3-q1",
+            "type": "single",
+            "question": "snprintf 返回8而容量为6说明什么？",
+            "options": [
+              "输出发生截断，完整文本需8个有效字符",
+              "数组已自动扩容",
+              "只写入8字节一定安全"
+            ],
+            "answer": [
+              "输出发生截断，完整文本需8个有效字符"
+            ],
+            "explanation": "返回所需字符数可用于判断容量是否足够。"
+          },
+          {
+            "id": "c20-3-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "alpha\n8"
+            ],
+            "explanation": "alphabet 原需8字节，dst 只保存alpha及末尾零，输出alpha和8。"
+          },
+          {
+            "id": "c20-3-q3",
+            "type": "boolean",
+            "question": "strncpy 总会在目标末尾自动补一个零。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "源长度不小于n时不会补终止零。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-3-q1",
+          "type": "single",
+          "question": "snprintf 返回8而容量为6说明什么？",
+          "options": [
+            "输出发生截断，完整文本需8个有效字符",
+            "数组已自动扩容",
+            "只写入8字节一定安全"
+          ],
+          "answer": [
+            "输出发生截断，完整文本需8个有效字符"
+          ],
+          "explanation": "返回所需字符数可用于判断容量是否足够。"
+        },
+        "challenge": {
+          "id": "c20-3-practice",
+          "title": "生成有限容量内的文本并报告所需长度",
+          "difficulty": "Practice",
+          "description": "生成有限容量内的文本并报告所需长度。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "alphabet",
+              "output": "alpha\n8\n"
+            },
+            {
+              "input": "C99",
+              "output": "C99\n3\n"
+            },
+            {
+              "input": "12345",
+              "output": "12345\n5\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\nint main(void){\n    char src[21],dst[6];if(scanf(\"%20s\",src)!=1)return 1;\n    int needed=snprintf(dst,sizeof dst,\"%s\",src);\n    if(needed<0)return 1;printf(\"%s\\n%d\\n\",dst,needed);return 0;\n}\n",
+          "hints": [
+            "输入一个最多20字节的ASCII单词。写入 char dst[6]，输出截断文本，再输出 snprintf 返回的原需长度。",
+            "alphabet 原需8字节，dst 只保存alpha及末尾零，输出alpha和8。",
+            "snprintf 返回值不是总等于实际保存的字节数，截断时仍报告原需长度。"
+          ]
+        }
+      },
+      {
+        "id": "c20-4",
+        "chapter": 20,
+        "index": 3,
+        "title": "用 strtol 检查进制转换",
+        "en": "Checked Numeric Conversion",
+        "textbook": "7章习题16、附录E（216、365—370页）",
+        "objective": "严格转换一个十六进制整数字符串",
+        "explanation": [
+          "strtol 不仅返回数值，还通过 end 指针告诉你解析停在哪里。若 end==起点，没有任何数字被读入；若 *end 非零，说明有未消费字符。本题使用基数16，允许可选正负号与0x前缀，但要求整个单词都是合法十六进制数。",
+          "转换前把 errno 清零，之后检查 ERANGE，再检查本题自己的数值范围。这样可以区分合法的0和失败返回的0。相比 atoi，strtol 提供了检查无效输入、尾随垃圾和超范围的办法，适合处理来自文本或命令行的数字。"
+        ],
+        "syntax": "输入一个最多63字节、不含空白的文本单词。按16进制转换，值须在−1000000..1000000；失败输出 INVALID，否则输出十进制整数。",
+        "syntaxNotes": "0x2A 得到42；2G读到G停止，因剩余非零字符而被拒绝。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\n#include <errno.h>\nint main(void){\n    char s[64],*end;if(scanf(\"%63s\",s)!=1)return 1;\n    errno=0;long value=strtol(s,&end,16);\n    if(end==s||*end!='\\0'||errno==ERANGE||value< -1000000||value>1000000)puts(\"INVALID\");\n    else printf(\"%ld\\n\",value);return 0;\n}\n",
+        "exampleInput": "0x2A",
+        "exampleOutput": "42\n",
+        "walkthrough": "0x2A 得到42；2G读到G停止，因剩余非零字符而被拒绝。",
+        "mistakes": [
+          "返回0不能单独证明输入合法，还要检查 end 与 errno。",
+          "先使用库的范围检查，再应用题目自己的范围约束。"
+        ],
+        "summary": "严格转换一个十六进制整数字符串",
+        "quizzes": [
+          {
+            "id": "c20-4-q1",
+            "type": "single",
+            "question": "怎样发现 2G 不是完整合法的十六进制整数？",
+            "options": [
+              "检查 *end 不为零",
+              "只看结果是否为2",
+              "只看结果是否非零"
+            ],
+            "answer": [
+              "检查 *end 不为零"
+            ],
+            "explanation": "end指向首次不能转换的字符，G证明输入尚未全部解析。"
+          },
+          {
+            "id": "c20-4-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "42"
+            ],
+            "explanation": "0x2A 得到42；2G读到G停止，因剩余非零字符而被拒绝。"
+          },
+          {
+            "id": "c20-4-q3",
+            "type": "boolean",
+            "question": "strtol 返回0就意味着转换失败。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "字符串0也是合法输入，必须结合 end 和 errno 判断。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-4-q1",
+          "type": "single",
+          "question": "怎样发现 2G 不是完整合法的十六进制整数？",
+          "options": [
+            "检查 *end 不为零",
+            "只看结果是否为2",
+            "只看结果是否非零"
+          ],
+          "answer": [
+            "检查 *end 不为零"
+          ],
+          "explanation": "end指向首次不能转换的字符，G证明输入尚未全部解析。"
+        },
+        "challenge": {
+          "id": "c20-4-practice",
+          "title": "严格转换一个十六进制整数字符串",
+          "difficulty": "Practice",
+          "description": "严格转换一个十六进制整数字符串。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "0x2A",
+              "output": "42\n"
+            },
+            {
+              "input": "-ff",
+              "output": "-255\n"
+            },
+            {
+              "input": "2G",
+              "output": "INVALID\n"
+            },
+            {
+              "input": "0",
+              "output": "0\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\n#include <errno.h>\nint main(void){\n    char s[64],*end;if(scanf(\"%63s\",s)!=1)return 1;\n    errno=0;long value=strtol(s,&end,16);\n    if(end==s||*end!='\\0'||errno==ERANGE||value< -1000000||value>1000000)puts(\"INVALID\");\n    else printf(\"%ld\\n\",value);return 0;\n}\n",
+          "hints": [
+            "输入一个最多63字节、不含空白的文本单词。按16进制转换，值须在−1000000..1000000；失败输出 INVALID，否则输出十进制整数。",
+            "0x2A 得到42；2G读到G停止，因剩余非零字符而被拒绝。",
+            "返回0不能单独证明输入合法，还要检查 end 与 errno。"
+          ]
+        }
+      },
+      {
+        "id": "c20-5",
+        "chapter": 20,
+        "index": 4,
+        "title": "字符和子串查找",
+        "en": "Searching Strings",
+        "textbook": "附录E（367页）",
+        "objective": "输出字符和子串首次出现的位置",
+        "explanation": [
+          "strchr 查找一个字符，strstr 查找一个子串，找到时返回原字符串内部的指针，未找到返回 NULL。先检查指针非空，再与起点相减得到下标。差值类型是 ptrdiff_t，应使用 %td 输出，不假定它一定是 int。",
+          "这些接口不复制字符串，也不让结果成为独立的长寿命对象。源缓冲区结束生存期后，结果指针也不能继续访问。strchr 还能查找结束零；strstr 查找空子串时返回起点，但本题输入使用非空单词，先练习常见情形。"
+        ],
+        "syntax": "输入三个单词：主串（≤80字节）、一个字符、子串（≤20字节），均ASCII。输出两个0起算位置；找不到用−1。",
+        "syntaxNotes": "banana a ana 的两个首次位置均为1；找到的指针与主串属于同一个数组，才能合法做差。",
+        "example": "#include <stdio.h>\n#include <string.h>\n#include <stddef.h>\nint main(void){\n    char s[81],part[21],ch;\n    if(scanf(\"%80s %c%20s\",s,&ch,part)!=3)return 1;\n    const char *p=strchr(s,ch),*q=strstr(s,part);\n    ptrdiff_t a=p?p-s:-1,b=q?q-s:-1;\n    printf(\"%td %td\\n\",a,b);return 0;\n}\n",
+        "exampleInput": "banana a ana",
+        "exampleOutput": "1 1\n",
+        "walkthrough": "banana a ana 的两个首次位置均为1；找到的指针与主串属于同一个数组，才能合法做差。",
+        "mistakes": [
+          "检查 NULL 之前不能做指针相减或解引用。",
+          "strchr 找一个字符，strstr 找字符序列，参数含义不同。"
+        ],
+        "summary": "输出字符和子串首次出现的位置",
+        "quizzes": [
+          {
+            "id": "c20-5-q1",
+            "type": "single",
+            "question": "找不到字符时 strchr 返回什么？",
+            "options": [
+              "NULL",
+              "字符串长度",
+              "指向新建空字符串"
+            ],
+            "answer": [
+              "NULL"
+            ],
+            "explanation": "必须先检查返回指针，再访问或计算下标。"
+          },
+          {
+            "id": "c20-5-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "1 1"
+            ],
+            "explanation": "banana a ana 的两个首次位置均为1；找到的指针与主串属于同一个数组，才能合法做差。"
+          },
+          {
+            "id": "c20-5-q3",
+            "type": "boolean",
+            "question": "strstr 会新建并返回一份子串拷贝。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "它返回原字符串内部的位置指针。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-5-q1",
+          "type": "single",
+          "question": "找不到字符时 strchr 返回什么？",
+          "options": [
+            "NULL",
+            "字符串长度",
+            "指向新建空字符串"
+          ],
+          "answer": [
+            "NULL"
+          ],
+          "explanation": "必须先检查返回指针，再访问或计算下标。"
+        },
+        "challenge": {
+          "id": "c20-5-practice",
+          "title": "输出字符和子串首次出现的位置",
+          "difficulty": "Practice",
+          "description": "输出字符和子串首次出现的位置。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "banana a ana",
+              "output": "1 1\n"
+            },
+            {
+              "input": "abc z zz",
+              "output": "-1 -1\n"
+            },
+            {
+              "input": "abc a bc",
+              "output": "0 1\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <string.h>\n#include <stddef.h>\nint main(void){\n    char s[81],part[21],ch;\n    if(scanf(\"%80s %c%20s\",s,&ch,part)!=3)return 1;\n    const char *p=strchr(s,ch),*q=strstr(s,part);\n    ptrdiff_t a=p?p-s:-1,b=q?q-s:-1;\n    printf(\"%td %td\\n\",a,b);return 0;\n}\n",
+          "hints": [
+            "输入三个单词：主串（≤80字节）、一个字符、子串（≤20字节），均ASCII。输出两个0起算位置；找不到用−1。",
+            "banana a ana 的两个首次位置均为1；找到的指针与主串属于同一个数组，才能合法做差。",
+            "检查 NULL 之前不能做指针相减或解引用。"
+          ]
+        }
+      },
+      {
+        "id": "c20-6",
+        "chapter": 20,
+        "index": 5,
+        "title": "数学定义域与伪随机数",
+        "en": "Math and Random Numbers",
+        "textbook": "附录E（365—366页）",
+        "objective": "检查平方根定义域并验证随机数范围",
+        "explanation": [
+          "查数学库时要同时看参数定义域和返回类型。sqrt 的实数输入应非负，log 要求正数，三角函数使用弧度；atan2 的标准参数顺序是 y,x。abs 是 stdlib.h 的整型函数，fabs 是 math.h 的浮点函数，abs(INT_MIN) 还可能无法表示。",
+          "rand 属于 stdlib.h，返回0..RAND_MAX，不是负数到32767。srand 给定种子后生成可复现的实现内序列，但不同实现不保证相同数列，所以判题只验证范围而不硬编码随机序列。rand()%m 可能存在模偏差，也不适合安全令牌。"
+        ],
+        "syntax": "输入整数 x：−100..100。x<0 输出 DOMAIN，否则输出sqrt(x)三位小数；再输出连续20次 rand 均满足标准范围的布尔值。",
+        "syntaxNotes": "输入9先得到3.000，再输出1表示范围检查通过；不对具体随机值作跨平台假设。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\nint main(void){\n    int x;if(scanf(\"%d\",&x)!=1||x< -100||x>100)return 1;\n    if(x<0)puts(\"DOMAIN\");else printf(\"%.3f\\n\",sqrt((double)x));\n    srand(1);int ok=1;\n    for(int i=0;i<20;++i){int v=rand();if(v<0||v>RAND_MAX)ok=0;}\n    printf(\"%d\\n\",ok);return 0;\n}\n",
+        "exampleInput": "9",
+        "exampleOutput": "3.000\n1\n",
+        "walkthrough": "输入9先得到3.000，再输出1表示范围检查通过；不对具体随机值作跨平台假设。",
+        "mistakes": [
+          "rand 不保证密码安全或跨实现固定序列。",
+          "浮点绝对值用 fabs，不能让 abs 的 int 参数隐式截掉小数。"
+        ],
+        "summary": "检查平方根定义域并验证随机数范围",
+        "quizzes": [
+          {
+            "id": "c20-6-q1",
+            "type": "single",
+            "question": "rand 的标准返回范围是什么？",
+            "options": [
+              "0..RAND_MAX",
+              "−90..32767",
+              "任意负整数"
+            ],
+            "answer": [
+              "0..RAND_MAX"
+            ],
+            "explanation": "上界由实现的 RAND_MAX 宏给出。"
+          },
+          {
+            "id": "c20-6-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "3.000\n1"
+            ],
+            "explanation": "输入9先得到3.000，再输出1表示范围检查通过；不对具体随机值作跨平台假设。"
+          },
+          {
+            "id": "c20-6-q3",
+            "type": "boolean",
+            "question": "atan2 的标准参数顺序是 x,y。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "标准原型的参数顺序是 y,x，表示对应象限的角度。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-6-q1",
+          "type": "single",
+          "question": "rand 的标准返回范围是什么？",
+          "options": [
+            "0..RAND_MAX",
+            "−90..32767",
+            "任意负整数"
+          ],
+          "answer": [
+            "0..RAND_MAX"
+          ],
+          "explanation": "上界由实现的 RAND_MAX 宏给出。"
+        },
+        "challenge": {
+          "id": "c20-6-practice",
+          "title": "检查平方根定义域并验证随机数范围",
+          "difficulty": "Practice",
+          "description": "检查平方根定义域并验证随机数范围。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "9",
+              "output": "3.000\n1\n"
+            },
+            {
+              "input": "-1",
+              "output": "DOMAIN\n1\n"
+            },
+            {
+              "input": "0",
+              "output": "0.000\n1\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\nint main(void){\n    int x;if(scanf(\"%d\",&x)!=1||x< -100||x>100)return 1;\n    if(x<0)puts(\"DOMAIN\");else printf(\"%.3f\\n\",sqrt((double)x));\n    srand(1);int ok=1;\n    for(int i=0;i<20;++i){int v=rand();if(v<0||v>RAND_MAX)ok=0;}\n    printf(\"%d\\n\",ok);return 0;\n}\n",
+          "hints": [
+            "输入整数 x：−100..100。x<0 输出 DOMAIN，否则输出sqrt(x)三位小数；再输出连续20次 rand 均满足标准范围的布尔值。",
+            "输入9先得到3.000，再输出1表示范围检查通过；不对具体随机值作跨平台假设。",
+            "rand 不保证密码安全或跨实现固定序列。"
+          ]
+        }
+      },
+      {
+        "id": "c20-7",
+        "chapter": 20,
+        "index": 6,
+        "title": "记录排序与次关键字",
+        "en": "Sorting Records",
+        "textbook": "9.2及习题5（301—303、330页）",
+        "objective": "按成绩降序和编号升序排列完整记录",
+        "explanation": [
+          "记录包含编号、姓名和成绩，排序时比较成绩，却必须交换整条结构体记录。只交换分数会让姓名与成绩错配。定义次关键字能让同分结果确定：本题先按成绩降序，同分再按编号升序。",
+          "比较规则可写成“更高分，或同分且编号更小”。输入范围小，选择排序便于检查；若使用 qsort，比较函数也必须遵守一致的次序关系，不能用可能溢出的整数相减冒充比较。结构体整体赋值会复制其中的字符数组成员。"
+        ],
+        "syntax": "输入 n：1..10，再输入每条 id（1..10000且唯一）、name（≤20字节单词）、score（0..100整数）。按分数降序、同分id升序，每行输出完整记录。",
+        "syntaxNotes": "2 Bob 90、1 Ann 90、3 Cat 80排序后为Ann、Bob、Cat，姓名与分数始终绑定。",
+        "example": "#include <stdio.h>\ntypedef struct {int id;char name[21];int score;} Record;\nstatic int before(Record a,Record b){return a.score>b.score||(a.score==b.score&&a.id<b.id);}\nint main(void){\n    int n;Record a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;++i)if(scanf(\"%d%20s%d\",&a[i].id,a[i].name,&a[i].score)!=3)return 1;\n    for(int i=0;i<n-1;++i){int k=i;for(int j=i+1;j<n;++j)if(before(a[j],a[k]))k=j;Record t=a[i];a[i]=a[k];a[k]=t;}\n    for(int i=0;i<n;++i)printf(\"%d %s %d\\n\",a[i].id,a[i].name,a[i].score);return 0;\n}\n",
+        "exampleInput": "3 2 Bob 90 1 Ann 90 3 Cat 80",
+        "exampleOutput": "1 Ann 90\n2 Bob 90\n3 Cat 80\n",
+        "walkthrough": "2 Bob 90、1 Ann 90、3 Cat 80排序后为Ann、Bob、Cat，姓名与分数始终绑定。",
+        "mistakes": [
+          "交换完整结构体，不能只移动排序键。",
+          "并列规则应写进比较条件，不能依赖偶然的输入次序。"
+        ],
+        "summary": "按成绩降序和编号升序排列完整记录",
+        "quizzes": [
+          {
+            "id": "c20-7-q1",
+            "type": "single",
+            "question": "按成绩排序时应交换什么？",
+            "options": [
+              "整条记录",
+              "只有成绩成员",
+              "只有姓名成员"
+            ],
+            "answer": [
+              "整条记录"
+            ],
+            "explanation": "排序改变记录位置，不能破坏成员之间的对应关系。"
+          },
+          {
+            "id": "c20-7-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "1 Ann 90\n2 Bob 90\n3 Cat 80"
+            ],
+            "explanation": "2 Bob 90、1 Ann 90、3 Cat 80排序后为Ann、Bob、Cat，姓名与分数始终绑定。"
+          },
+          {
+            "id": "c20-7-q3",
+            "type": "boolean",
+            "question": "结构体整体赋值不会复制其中的数组成员。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "整体赋值会复制结构体成员，包括字符数组内容。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-7-q1",
+          "type": "single",
+          "question": "按成绩排序时应交换什么？",
+          "options": [
+            "整条记录",
+            "只有成绩成员",
+            "只有姓名成员"
+          ],
+          "answer": [
+            "整条记录"
+          ],
+          "explanation": "排序改变记录位置，不能破坏成员之间的对应关系。"
+        },
+        "challenge": {
+          "id": "c20-7-practice",
+          "title": "按成绩降序和编号升序排列完整记录",
+          "difficulty": "Practice",
+          "description": "按成绩降序和编号升序排列完整记录。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3 2 Bob 90 1 Ann 90 3 Cat 80",
+              "output": "1 Ann 90\n2 Bob 90\n3 Cat 80\n"
+            },
+            {
+              "input": "1 9 Dee 0",
+              "output": "9 Dee 0\n"
+            },
+            {
+              "input": "2 1 Low 50 2 High 99",
+              "output": "2 High 99\n1 Low 50\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\ntypedef struct {int id;char name[21];int score;} Record;\nstatic int before(Record a,Record b){return a.score>b.score||(a.score==b.score&&a.id<b.id);}\nint main(void){\n    int n;Record a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;++i)if(scanf(\"%d%20s%d\",&a[i].id,a[i].name,&a[i].score)!=3)return 1;\n    for(int i=0;i<n-1;++i){int k=i;for(int j=i+1;j<n;++j)if(before(a[j],a[k]))k=j;Record t=a[i];a[i]=a[k];a[k]=t;}\n    for(int i=0;i<n;++i)printf(\"%d %s %d\\n\",a[i].id,a[i].name,a[i].score);return 0;\n}\n",
+          "hints": [
+            "输入 n：1..10，再输入每条 id（1..10000且唯一）、name（≤20字节单词）、score（0..100整数）。按分数降序、同分id升序，每行输出完整记录。",
+            "2 Bob 90、1 Ann 90、3 Cat 80排序后为Ann、Bob、Cat，姓名与分数始终绑定。",
+            "交换完整结构体，不能只移动排序键。"
+          ]
+        }
+      },
+      {
+        "id": "c20-8",
+        "chapter": 20,
+        "index": 7,
+        "title": "有序链表归并与所有权",
+        "en": "Merging Linked Lists",
+        "textbook": "9章习题10—12（330页）",
+        "objective": "合并两个有序链表并释放全部节点",
+        "explanation": [
+          "两个有序链表可像两排队伍一样归并：比较当前头节点，摘下较小者接到结果尾部，然后推进对应输入头。某一队列为空时接上剩余部分。使用一个局部哑头节点，可以把“第一次接入”与后续接入统一处理。",
+          "归并复用原节点，没有复制数据或重新分配每个元素。原先两个头指针不再各自拥有独立链表，最后只沿合并结果释放一次。输入或分配失败时仍要释放已建立的两条线性链，不能为了算法简洁忽略失败路径。"
+        ],
+        "syntax": "输入 n,m：0..10；接着 n 个非降序整数、m个非降序整数（−1000..1000）。输出合并序列，两个都为空输出 EMPTY。",
+        "syntaxNotes": "1 3 5与2 3归并得到1 2 3 3 5；相等时先取左表，保证确定的顺序。",
+        "example": "#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node {int value;struct Node *next;} Node;\nstatic void clear(Node *p){while(p){Node *next=p->next;free(p);p=next;}}\nstatic int read_list(int n,Node **head){\n    Node **tail=head;*head=NULL;\n    for(int i=0;i<n;++i){int x;if(scanf(\"%d\",&x)!=1)return 0;Node *p=malloc(sizeof *p);if(!p)return 0;p->value=x;p->next=NULL;*tail=p;tail=&p->next;}\n    return 1;\n}\nstatic Node *merge(Node *a,Node *b){\n    Node dummy={0,NULL},*tail=&dummy;\n    while(a&&b){if(a->value<=b->value){tail->next=a;a=a->next;}else{tail->next=b;b=b->next;}tail=tail->next;}\n    tail->next=a?a:b;return dummy.next;\n}\nint main(void){\n    int n,m;Node *a=NULL,*b=NULL;\n    if(scanf(\"%d%d\",&n,&m)!=2||n<0||n>10||m<0||m>10)return 1;\n    if(!read_list(n,&a)||!read_list(m,&b)){clear(a);clear(b);return 1;}\n    Node *head=merge(a,b);int first=1;\n    for(Node *p=head;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}\n    if(first)printf(\"EMPTY\");putchar('\\n');clear(head);return 0;\n}\n",
+        "exampleInput": "3 2 1 3 5 2 3",
+        "exampleOutput": "1 2 3 3 5\n",
+        "walkthrough": "1 3 5与2 3归并得到1 2 3 3 5；相等时先取左表，保证确定的顺序。",
+        "mistakes": [
+          "归并后不可分别再次释放原来的两个头，否则可能重复释放。",
+          "摘节点后必须先推进其原队列，再连接尾部，避免丢失后继。"
+        ],
+        "summary": "合并两个有序链表并释放全部节点",
+        "quizzes": [
+          {
+            "id": "c20-8-q1",
+            "type": "single",
+            "question": "本节归并会为结果重新分配所有节点吗？",
+            "options": [
+              "不会，复用两条链表的节点",
+              "会，每比较一次都复制一条链",
+              "只复制奇数节点"
+            ],
+            "answer": [
+              "不会，复用两条链表的节点"
+            ],
+            "explanation": "修改 next 连接就能构成合并结果，释放责任也随之合并。"
+          },
+          {
+            "id": "c20-8-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "1 2 3 3 5"
+            ],
+            "explanation": "1 3 5与2 3归并得到1 2 3 3 5；相等时先取左表，保证确定的顺序。"
+          },
+          {
+            "id": "c20-8-q3",
+            "type": "boolean",
+            "question": "归并后可以再把原来两个头和结果头分别释放一遍。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "节点已共享同一结果链，重复释放会产生未定义行为。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-8-q1",
+          "type": "single",
+          "question": "本节归并会为结果重新分配所有节点吗？",
+          "options": [
+            "不会，复用两条链表的节点",
+            "会，每比较一次都复制一条链",
+            "只复制奇数节点"
+          ],
+          "answer": [
+            "不会，复用两条链表的节点"
+          ],
+          "explanation": "修改 next 连接就能构成合并结果，释放责任也随之合并。"
+        },
+        "challenge": {
+          "id": "c20-8-practice",
+          "title": "合并两个有序链表并释放全部节点",
+          "difficulty": "Practice",
+          "description": "合并两个有序链表并释放全部节点。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "output": "输出规定结果，以样例的顺序和换行为准。",
+          "tests": [
+            {
+              "input": "3 2 1 3 5 2 3",
+              "output": "1 2 3 3 5\n"
+            },
+            {
+              "input": "0 0",
+              "output": "EMPTY\n"
+            },
+            {
+              "input": "0 2 -1 4",
+              "output": "-1 4\n"
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node {int value;struct Node *next;} Node;\nstatic void clear(Node *p){while(p){Node *next=p->next;free(p);p=next;}}\nstatic int read_list(int n,Node **head){\n    Node **tail=head;*head=NULL;\n    for(int i=0;i<n;++i){int x;if(scanf(\"%d\",&x)!=1)return 0;Node *p=malloc(sizeof *p);if(!p)return 0;p->value=x;p->next=NULL;*tail=p;tail=&p->next;}\n    return 1;\n}\nstatic Node *merge(Node *a,Node *b){\n    Node dummy={0,NULL},*tail=&dummy;\n    while(a&&b){if(a->value<=b->value){tail->next=a;a=a->next;}else{tail->next=b;b=b->next;}tail=tail->next;}\n    tail->next=a?a:b;return dummy.next;\n}\nint main(void){\n    int n,m;Node *a=NULL,*b=NULL;\n    if(scanf(\"%d%d\",&n,&m)!=2||n<0||n>10||m<0||m>10)return 1;\n    if(!read_list(n,&a)||!read_list(m,&b)){clear(a);clear(b);return 1;}\n    Node *head=merge(a,b);int first=1;\n    for(Node *p=head;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}\n    if(first)printf(\"EMPTY\");putchar('\\n');clear(head);return 0;\n}\n",
+          "hints": [
+            "输入 n,m：0..10；接着 n 个非降序整数、m个非降序整数（−1000..1000）。输出合并序列，两个都为空输出 EMPTY。",
+            "1 3 5与2 3归并得到1 2 3 3 5；相等时先取左表，保证确定的顺序。",
+            "归并后不可分别再次释放原来的两个头，否则可能重复释放。"
+          ]
+        }
+      },
+      {
+        "id": "c20-9",
+        "chapter": 20,
+        "index": 8,
+        "title": "追加、更新与文件记录插入",
+        "en": "Updating File Records",
+        "textbook": "10.2与习题5—10（335—337、356页）",
+        "objective": "向记录文件插入新记录并排序写回",
+        "explanation": [
+          "追加模式 a/a+ 在文件不存在时会创建它；a+ 的所有写入都发生在末尾。更新流从写切换到读，须先 fflush 或执行定位操作；从读切换到写，一般须先定位，除非读取已遇到 EOF。不能因为同一个 FILE* 就假定两个方向可随意交替。",
+          "本题先用 a+ 加入一条记录，检查刷新并回到开头，再解析全部记录并排序。最后关闭流，重新以 w 打开并重写，保证旧文件较长时也不会遗留尾部内容。这是教学规模的小文件更新；需要抗中途失败的持久化应用可采用临时文件并核验后替换。文件内容也参与判题。"
+        ],
+        "syntax": "虚拟文件 records.txt 预置若干 id score 行（最多9行）。输入一条唯一id（1..1000）与score（0..100）。按score降序、同分id升序写回；终端输出记录数。",
+        "syntaxNotes": "预置1 80、3 70，加入2 90后，文件依次为2 90、1 80、3 70。写后刷新再定位才能稳定读回。",
+        "example": "#include <stdio.h>\ntypedef struct {int id,score;} Record;\nint main(void){\n    Record add,a[10];int n=0;\n    if(scanf(\"%d%d\",&add.id,&add.score)!=2)return 1;\n    FILE *f=fopen(\"records.txt\",\"a+\");if(!f)return 1;\n    int ok=fprintf(f,\"%d %d\\n\",add.id,add.score)>=0;\n    if(fflush(f)!=0)ok=0;\n    if(fseek(f,0L,SEEK_SET)!=0)ok=0;\n    if(!ok){fclose(f);return 1;}\n    while(n<10){int got=fscanf(f,\"%d%d\",&a[n].id,&a[n].score);if(got==EOF)break;if(got!=2){fclose(f);return 1;}++n;}\n    ok=!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    for(int i=0;i<n-1;++i)for(int j=i+1;j<n;++j)\n        if(a[j].score>a[i].score||(a[j].score==a[i].score&&a[j].id<a[i].id)){Record t=a[i];a[i]=a[j];a[j]=t;}\n    f=fopen(\"records.txt\",\"w\");if(!f)return 1;\n    for(int i=0;i<n;++i)if(fprintf(f,\"%d %d\\n\",a[i].id,a[i].score)<0)ok=0;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",n);return 0;\n}\n",
+        "exampleInput": "2 90",
+        "exampleOutput": "3\n",
+        "walkthrough": "预置1 80、3 70，加入2 90后，文件依次为2 90、1 80、3 70。写后刷新再定位才能稳定读回。",
+        "mistakes": [
+          "fseek 成功返回0，不返回新位置；需要位置时调用 ftell。",
+          "对文本可变长记录，不要仅覆盖中间几个字节后期待后续记录自动移动。"
+        ],
+        "summary": "向记录文件插入新记录并排序写回",
+        "quizzes": [
+          {
+            "id": "c20-9-q1",
+            "type": "single",
+            "question": "从更新流写入后准备读回，应先做什么？",
+            "options": [
+              "刷新或定位，并检查结果",
+              "直接 fscanf 总合法",
+              "把FILE*转换成int*"
+            ],
+            "answer": [
+              "刷新或定位，并检查结果"
+            ],
+            "explanation": "更新流切换方向有标准约束，本例 fflush 后再 fseek 到开头。"
+          },
+          {
+            "id": "c20-9-q2",
+            "type": "predict",
+            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "answer": [
+              "3"
+            ],
+            "explanation": "预置1 80、3 70，加入2 90后，文件依次为2 90、1 80、3 70。写后刷新再定位才能稳定读回。"
+          },
+          {
+            "id": "c20-9-q3",
+            "type": "boolean",
+            "question": "用 a 模式打开不存在的文件一定失败。",
+            "options": [
+              "正确",
+              "错误"
+            ],
+            "answer": [
+              "错误"
+            ],
+            "explanation": "追加模式允许创建不存在的文件。"
+          }
+        ],
+        "quiz": {
+          "id": "c20-9-q1",
+          "type": "single",
+          "question": "从更新流写入后准备读回，应先做什么？",
+          "options": [
+            "刷新或定位，并检查结果",
+            "直接 fscanf 总合法",
+            "把FILE*转换成int*"
+          ],
+          "answer": [
+            "刷新或定位，并检查结果"
+          ],
+          "explanation": "更新流切换方向有标准约束，本例 fflush 后再 fseek 到开头。"
+        },
+        "challenge": {
+          "id": "c20-9-practice",
+          "title": "向记录文件插入新记录并排序写回",
+          "difficulty": "Practice",
+          "description": "向记录文件插入新记录并排序写回。使用本节方法完成程序，注意边界与输入约束。",
+          "input": "新记录 id score；id唯一，最多插入到总计10条记录。",
+          "output": "终端输出总记录数；records.txt 必须包含排序后的全部记录。",
+          "tests": [
+            {
+              "input": "2 90",
+              "output": "3\n",
+              "expectedFiles": {
+                "records.txt": "2 90\n1 80\n3 70\n"
+              }
+            },
+            {
+              "input": "4 80",
+              "output": "3\n",
+              "expectedFiles": {
+                "records.txt": "1 80\n4 80\n3 70\n"
+              }
+            },
+            {
+              "input": "5 10",
+              "output": "3\n",
+              "expectedFiles": {
+                "records.txt": "1 80\n3 70\n5 10\n"
+              }
+            },
+            {
+              "input": "9 99",
+              "output": "1\n",
+              "files": {
+                "records.txt": ""
+              },
+              "expectedFiles": {
+                "records.txt": "9 99\n"
+              }
+            }
+          ],
+          "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
+          "solution": "#include <stdio.h>\ntypedef struct {int id,score;} Record;\nint main(void){\n    Record add,a[10];int n=0;\n    if(scanf(\"%d%d\",&add.id,&add.score)!=2)return 1;\n    FILE *f=fopen(\"records.txt\",\"a+\");if(!f)return 1;\n    int ok=fprintf(f,\"%d %d\\n\",add.id,add.score)>=0;\n    if(fflush(f)!=0)ok=0;\n    if(fseek(f,0L,SEEK_SET)!=0)ok=0;\n    if(!ok){fclose(f);return 1;}\n    while(n<10){int got=fscanf(f,\"%d%d\",&a[n].id,&a[n].score);if(got==EOF)break;if(got!=2){fclose(f);return 1;}++n;}\n    ok=!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    for(int i=0;i<n-1;++i)for(int j=i+1;j<n;++j)\n        if(a[j].score>a[i].score||(a[j].score==a[i].score&&a[j].id<a[i].id)){Record t=a[i];a[i]=a[j];a[j]=t;}\n    f=fopen(\"records.txt\",\"w\");if(!f)return 1;\n    for(int i=0;i<n;++i)if(fprintf(f,\"%d %d\\n\",a[i].id,a[i].score)<0)ok=0;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",n);return 0;\n}\n",
+          "hints": [
+            "虚拟文件 records.txt 预置若干 id score 行（最多9行）。输入一条唯一id（1..1000）与score（0..100）。按score降序、同分id升序写回；终端输出记录数。",
+            "预置1 80、3 70，加入2 90后，文件依次为2 90、1 80、3 70。写后刷新再定位才能稳定读回。",
+            "fseek 成功返回0，不返回新位置；需要位置时调用 ftell。"
+          ],
+          "files": {
+            "records.txt": "1 80\n3 70\n"
+          }
+        },
+        "exampleFiles": {
+          "records.txt": "1 80\n3 70\n"
         }
       }
     ]
