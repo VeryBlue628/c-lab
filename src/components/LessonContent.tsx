@@ -16,7 +16,8 @@ import {
 } from "lucide-react";
 import type { Lesson } from "../data/types";
 import type { RecordState } from "../services/progress";
-import { Quiz } from "./Quiz";
+import { QuizSequence } from "./QuizSequence";
+import { ReadAloud } from "./ReadAloud";
 function emphasize(text: string) {
   const terms =
     /(?:C11|未定义行为|短路|值传递|基本情况|数组越界|整数除法|向零截断|原型)/;
@@ -34,6 +35,9 @@ export function LessonContent({
   record,
   tab,
   onTab,
+  onQuestionMove,
+  onChallenge,
+  activeChallenge,
   onQuiz,
   onLoadExample,
   onSkip,
@@ -43,7 +47,10 @@ export function LessonContent({
   record: RecordState;
   tab: Tab;
   onTab: (t: Tab) => void;
-  onQuiz: (c: boolean, a: string[]) => void;
+  onQuiz: (c: boolean, a: string[], id: string) => void;
+  onQuestionMove: (n: number) => void;
+  onChallenge: (mode: "practice" | "mastery") => void;
+  activeChallenge: "practice" | "mastery";
   onLoadExample: () => void;
   onSkip: () => void;
   onNext: () => void;
@@ -65,6 +72,22 @@ export function LessonContent({
           <button
             role="tab"
             aria-selected={tab === id}
+            tabIndex={tab === id ? 0 : -1}
+            onKeyDown={(e) => {
+              if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key))
+                return;
+              e.preventDefault();
+              const next =
+                e.key === "Home"
+                  ? 0
+                  : e.key === "End"
+                    ? 2
+                    : (i + (e.key === "ArrowRight" ? 1 : 2)) % 3;
+              onTab((["lesson", "quiz", "practice"] as Tab[])[next]);
+              e.currentTarget.parentElement
+                ?.querySelectorAll<HTMLButtonElement>("button[role=tab]")
+                [next]?.focus();
+            }}
             key={id}
             className={tab === id ? "selected" : ""}
             onClick={() => onTab(id)}
@@ -93,6 +116,7 @@ export function LessonContent({
           <p className="english-title">{lesson.en}</p>
           {tab === "lesson" ? (
             <>
+              <ReadAloud key={lesson.id} lesson={lesson} />
               <div className="objective">
                 <span className="objective-icon">
                   <Target size={18} />
@@ -165,7 +189,7 @@ export function LessonContent({
                 </div>
               </div>
               <div className="lesson-cta">
-                <span>读懂了？用一道小题确认一下。</span>
+                <span>读懂了？用一组题确认每个细节。</span>
                 <button className="primary" onClick={() => onTab("quiz")}>
                   开始知识检测
                   <ArrowRight size={16} />
@@ -183,12 +207,11 @@ export function LessonContent({
                   <p>答题后查看解析，再把知识写进代码。</p>
                 </div>
               </div>
-              <Quiz
-                key={lesson.id}
-                quiz={lesson.quiz}
-                initial={record.answer}
+              <QuizSequence
+                lesson={lesson}
+                record={record}
                 onSubmit={onQuiz}
-                failures={record.failures}
+                onMove={onQuestionMove}
                 onReview={() => onTab("lesson")}
               />
               {record.quizPassed && (
@@ -206,6 +229,22 @@ export function LessonContent({
             </>
           ) : (
             <>
+              <div className="challenge-switch">
+                <button
+                  className={activeChallenge === "practice" ? "selected" : ""}
+                  onClick={() => onChallenge("practice")}
+                >
+                  基础挑战
+                </button>
+                {lesson.mastery && (
+                  <button
+                    className={activeChallenge === "mastery" ? "selected" : ""}
+                    onClick={() => onChallenge("mastery")}
+                  >
+                    Mastery 强化
+                  </button>
+                )}
+              </div>
               <div className="challenge-heading">
                 <span className="tiny-badge">
                   {lesson.challenge.difficulty}
@@ -253,7 +292,9 @@ export function LessonContent({
                   </strong>
                   <p>
                     {record.quizPassed
-                      ? "本节学习已完成，可以继续下一课。"
+                      ? activeChallenge === "mastery"
+                        ? "强化挑战通过。它单独记录，不替代基础挑战。"
+                        : "本节学习已完成，可以继续下一课。"
                       : "再通过知识检测，即可完成本节课程。"}
                   </p>
                   {record.quizPassed ? (

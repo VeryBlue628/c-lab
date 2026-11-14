@@ -24,10 +24,13 @@ import {
   unlocked,
   type Progress,
   type RecordState,
+  type TaskState,
 } from "./services/progress";
 import { Sidebar } from "./components/Sidebar";
 import { LessonContent, type Tab } from "./components/LessonContent";
 import { Workbench } from "./components/Workbench";
+import { Journey } from "./components/Journey";
+import { Completion } from "./components/Completion";
 import { StudyDialog } from "./components/StudyDialog";
 export default function App() {
   const [progress, setProgress] = useState<Progress>(() => {
@@ -41,6 +44,8 @@ export default function App() {
     [panel, setPanel] = useState<"records" | "diagnostic" | "review" | null>(
       null,
     ),
+    [journey, setJourney] = useState(false),
+    [completion, setCompletion] = useState<string | null>(null),
     [input, setInput] = useState(""),
     [toast, setToast] = useState(""),
     [saved, setSaved] = useState(true),
@@ -53,11 +58,49 @@ export default function App() {
     timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined),
     latest = useRef(progress);
   latest.current = progress;
-  const lesson = lessonById[progress.current],
+  const baseLesson = lessonById[progress.current],
+    rootRecord = progress.records[baseLesson.id] || {},
+    activeChallenge =
+      rootRecord.activeChallenge === "mastery" && baseLesson.mastery
+        ? "mastery"
+        : "practice",
+    lesson =
+      activeChallenge === "mastery"
+        ? { ...baseLesson, challenge: baseLesson.mastery! }
+        : baseLesson,
     chapter = chapters[lesson.chapter - 1],
     record = progress.records[lesson.id] || {},
-    index = lessons.indexOf(lesson);
+    index = lessons.indexOf(baseLesson);
+  const task = record.tasks?.[activeChallenge] || {};
+  const displayRecord = {
+    ...record,
+    draft:
+      task.draft ?? (activeChallenge === "practice" ? record.draft : undefined),
+    hint: task.hint ?? (activeChallenge === "practice" ? record.hint : 0),
+    practicePassed:
+      task.passed ??
+      (activeChallenge === "practice" ? record.practicePassed : false),
+  };
+  const announced = useRef(
+    new Set(
+      lessons.filter((l) => completed(progress.records[l.id])).map((l) => l.id),
+    ),
+  );
+  useEffect(() => {
+    if (completed(record) && !announced.current.has(lesson.id)) {
+      announced.current.add(lesson.id);
+      setCompletion(lesson.id);
+    }
+  }, [record, lesson.id]);
+  useEffect(() => {
+    setInput(task.input || "");
+    setTab(record.lastTab || "lesson");
+  }, [lesson.id, activeChallenge]);
   const done = completed(record);
+  useEffect(() => {
+    if (location.hash.slice(1) !== progress.current)
+      history.replaceState(null, "", "#" + progress.current);
+  }, [progress.current]);
   const notify = useCallback((message: string) => {
     clearTimeout(timer.current);
     setToast(message);
@@ -82,7 +125,11 @@ export default function App() {
       } catch {}
     };
     window.addEventListener("beforeunload", handler);
-    return () => window.removeEventListener("beforeunload", handler);
+    window.addEventListener("pagehide", handler);
+    return () => {
+      window.removeEventListener("beforeunload", handler);
+      window.removeEventListener("pagehide", handler);
+    };
   }, []);
   const navigate = (id: string) => {
     if (!lessonById[id]) return;
@@ -116,7 +163,7 @@ export default function App() {
         [lesson.id]: { ...p.records[lesson.id], ...patch },
       },
     }));
-  const quiz = (correct: boolean, answer: string[]) => {
+  const updateTask = (patch: Partial<TaskState>) =>
     setProgress((p) => {
       const r = p.records[lesson.id] || {};
       return {
@@ -125,18 +172,59 @@ export default function App() {
           ...p.records,
           [lesson.id]: {
             ...r,
-            answer,
-            quizPassed: r.quizPassed || correct,
-            quizAttempts: (r.quizAttempts || 0) + 1,
-            quizCorrect: (r.quizCorrect || 0) + (correct ? 1 : 0),
-            failures: (r.failures || 0) + (correct ? 0 : 1),
+            tasks: {
+              ...r.tasks,
+              [activeChallenge]: { ...r.tasks?.[activeChallenge], ...patch },
+            },
           },
         },
       };
     });
-    if (correct && record.practicePassed)
-      notify("本节课程已完成，继续下一课吧！");
+  const changeTab = (value: Tab) => {
+    setTab(value);
+    update({ lastTab: value });
   };
+  const quizFor = (
+    id: string,
+    questionId: string,
+    correct: boolean,
+    answer: string[],
+  ) => {
+    setProgress((p) => {
+      const r = p.records[id] || {};
+      const previous = r.questions?.[questionId];
+      const questions = {
+        ...r.questions,
+        [questionId]: {
+          passed: previous?.passed || correct,
+          lastCorrect: correct,
+          answer,
+          attempts: (previous?.attempts || 0) + 1,
+          correct: (previous?.correct || 0) + (correct ? 1 : 0),
+        },
+      };
+      return {
+        ...p,
+        records: {
+          ...p.records,
+          [id]: {
+            ...r,
+            questions,
+            legacyCompleted: r.legacyCompleted || completed(r),
+            quizPassed: lessonById[id].quizzes.every(
+              (q) => questions[q.id!]?.passed,
+            ),
+            quizAttempts: (r.quizAttempts || 0) + 1,
+            quizCorrect: (r.quizCorrect || 0) + (correct ? 1 : 0),
+            failures: (r.failures || 0) + (correct ? 0 : 1),
+            streak: correct ? 0 : (r.streak || 0) + 1,
+          },
+        },
+      };
+    });
+  };
+  const quiz = (correct: boolean, answer: string[], id: string) =>
+    quizFor(lesson.id, id, correct, answer);
   const next = () => {
     if (index === lessons.length - 1) {
       setPanel("records");
@@ -147,11 +235,33 @@ export default function App() {
     else notify("通过知识检测和编程挑战，或选择已掌握跳过后，继续下一课。");
   };
   const passed = () => {
-    update({ practicePassed: true, skipped: false });
+    setProgress((p) => {
+      const r = p.records[lesson.id] || {};
+      return {
+        ...p,
+        records: {
+          ...p.records,
+          [lesson.id]: {
+            ...r,
+            streak: 0,
+            ...(activeChallenge === "practice"
+              ? { practicePassed: true, skipped: false }
+              : {}),
+            tasks: {
+              ...r.tasks,
+              [activeChallenge]: {
+                ...r.tasks?.[activeChallenge],
+                passed: true,
+              },
+            },
+          },
+        },
+      };
+    });
     notify(
-      record.quizPassed
-        ? "课程已完成！下一课已解锁。"
-        : "挑战已通过！再完成知识检测即可完成课程。",
+      activeChallenge === "mastery"
+        ? "Mastery 强化挑战通过！"
+        : "基础挑战通过，继续完成知识检测。",
     );
   };
   const mastered = (id: number) => {
@@ -230,6 +340,9 @@ export default function App() {
               <span>YOUR C LEARNING JOURNEY</span>
             </div>
           </div>
+          <button className="review-button" onClick={() => setJourney(true)}>
+            学习路径
+          </button>
           <button className="review-button" onClick={() => setPanel("review")}>
             <BookOpen size={14} />
             错题与巩固
@@ -240,12 +353,24 @@ export default function App() {
           <div className="lesson-pane">
             <LessonContent
               lesson={lesson}
-              record={record}
+              record={{
+                ...record,
+                practicePassed: displayRecord.practicePassed,
+              }}
               tab={tab}
-              onTab={setTab}
+              onTab={changeTab}
+              onQuestionMove={(n) => update({ currentQuestion: n })}
+              onChallenge={(mode) => {
+                update({ activeChallenge: mode, lastTab: "practice" });
+                setTab("practice");
+              }}
+              activeChallenge={activeChallenge}
               onQuiz={quiz}
               onLoadExample={() => {
-                update({ draft: lesson.example });
+                updateTask({
+                  draft: lesson.example,
+                  input: lesson.exampleInput || "",
+                });
                 setInput(lesson.exampleInput || "");
                 notify("示例已载入右侧编辑器，可点击运行代码");
               }}
@@ -289,12 +414,15 @@ export default function App() {
             </footer>
           </div>
           <Workbench
-            key={lesson.id}
+            key={lesson.id + activeChallenge}
             lesson={lesson}
-            record={record}
-            onDraft={(s) => update({ draft: s })}
+            record={displayRecord}
+            onDraft={(s) => updateTask({ draft: s })}
             input={input}
-            onInput={setInput}
+            onInput={(s) => {
+              setInput(s);
+              updateTask({ input: s });
+            }}
             onPassed={passed}
             onFailed={() =>
               setProgress((p) => ({
@@ -304,11 +432,12 @@ export default function App() {
                   [lesson.id]: {
                     ...p.records[lesson.id],
                     failures: (p.records[lesson.id]?.failures || 0) + 1,
+                    streak: (p.records[lesson.id]?.streak || 0) + 1,
                   },
                 },
               }))
             }
-            onHint={(n) => update({ hint: n })}
+            onHint={(n) => updateTask({ hint: n })}
             notify={notify}
           />
         </main>
@@ -320,6 +449,33 @@ export default function App() {
           <span>C11 · WebAssembly · 本地进度</span>
         </div>
       </div>
+      {journey && (
+        <Journey
+          progress={progress}
+          onClose={() => setJourney(false)}
+          onSelect={(id) => {
+            setJourney(false);
+            unlocked(id, progress)
+              ? navigate(id)
+              : setGate({ kind: "locked", id });
+          }}
+          onDiagnostic={() => {
+            setJourney(false);
+            setPanel("diagnostic");
+          }}
+        />
+      )}
+      {completion && (
+        <Completion
+          lesson={lessonById[completion]}
+          progress={progress}
+          onClose={() => setCompletion(null)}
+          onNext={() => {
+            setCompletion(null);
+            next();
+          }}
+        />
+      )}
       {panel && (
         <StudyDialog
           panel={panel}
@@ -338,6 +494,7 @@ export default function App() {
           onMastered={mastered}
           onSelect={navigate}
           notify={notify}
+          onReviewAnswer={quizFor}
         />
       )}
       <dialog

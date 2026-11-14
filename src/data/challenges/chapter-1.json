@@ -11,7 +11,7 @@
         "output": "C is powerful!"
       }
     ],
-    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 向屏幕输出 C is powerful!，末尾换行\n    \n    return 0;\n}\n",
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    printf(\"C is powerful!\\n\");\n    return 0;\n}\n",
     "solution": "#include <stdio.h>\n\nint main(void) {\n    printf(\"C is powerful!\\n\");\n    return 0;\n}\n",
     "hints": [
       "理解源代码、编译器和程序之间的关系。",

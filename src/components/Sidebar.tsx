@@ -92,6 +92,17 @@ export function Sidebar({
           章节自测
         </button>
       </div>
+      <div className="sidebar-expand">
+        <button
+          className="text-button"
+          onClick={() => setExpanded(chapters.map((c) => c.id))}
+        >
+          展开全部
+        </button>
+        <button className="text-button" onClick={() => setExpanded([])}>
+          收起全部
+        </button>
+      </div>
       <label className="search">
         <Search size={16} />
         <input

@@ -42,7 +42,13 @@ function job(code, inputs, timeout = 20000) {
     worker.postMessage({ code, inputs });
   });
 }
-const normalize = (s) => s.trim().replace(/\s+/g, " ");
+const normalize = (s) =>
+  s
+    .replace(/\r\n?/g, "\n")
+    .trim()
+    .split("\n")
+    .map((line) => line.trim().replace(/[ \t]+/g, " "))
+    .join("\n");
 const report = {
   lessons: 0,
   examples: 0,
@@ -83,6 +89,34 @@ for (let i = 1; i <= 9; i++) {
     report.lessons++;
   }
   console.log("Chapter", i, "checked. Errors:", report.errors.length);
+}
+const mastery = JSON.parse(
+  await fs.readFile(
+    new URL("../src/data/mastery-challenges.json", import.meta.url),
+    "utf8",
+  ),
+);
+report.mastery = 0;
+for (const [id, m] of Object.entries(mastery)) {
+  const runs = await job(
+    m.solution,
+    m.tests.map((t) => t.input),
+  );
+  for (let i = 0; i < m.tests.length; i++) {
+    if (
+      runs[i]?.status !== "success" ||
+      normalize(runs[i].stdout) !== normalize(m.tests[i].output)
+    )
+      report.errors.push({
+        lesson: id,
+        kind: "mastery",
+        test: i + 1,
+        expected: m.tests[i].output,
+        result: runs[i],
+      });
+  }
+  report.mastery++;
+  report.testCases += m.tests.length;
 }
 const bad = await job("int main(void) { missing syntax }", [""]);
 assert.equal(bad[0].status, "compile-error");

@@ -1,4 +1,5 @@
 export type Quiz = {
+  id?: string;
   type: "single" | "multi" | "boolean" | "fill" | "predict" | "debug";
   question: string;
   options?: string[];
@@ -22,8 +23,11 @@ export type Lesson = {
   walkthrough: string;
   mistakes: string[];
   summary: string;
+  quizzes: Quiz[];
+  mastery?: Lesson["challenge"];
   quiz: Quiz;
   challenge: {
+    id?: string;
     title: string;
     difficulty: string;
     description: string;

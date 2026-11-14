@@ -1,0 +1,507 @@
+{
+  "c2-3": {
+    "id": "c2-3-mastery",
+    "title": "温度换算",
+    "difficulty": "Mastery",
+    "description": "读入摄氏温度 c（-100～100），按 c*1.8+32 转换成华氏温度，输出一位小数。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "0",
+        "output": "32.0"
+      },
+      {
+        "input": "25",
+        "output": "77.0"
+      },
+      {
+        "input": "-40",
+        "output": "-40.0"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    double c;\n    if(scanf(\"%lf\",&c)!=1)return 1;\n    // TODO: 浮点换算并输出一位小数\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    double c;\n    if(scanf(\"%lf\",&c)!=1)return 1;\n    printf(\"%.1f\\n\",c*1.8+32);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "读入摄氏温度 c（-100～100），按 c*1.8+32 转换成华氏温度，输出一位小数。"
+    ]
+  },
+  "c2-5": {
+    "id": "c2-5-mastery",
+    "title": "同时满足两个状态",
+    "difficulty": "Mastery",
+    "description": "输入整数 ready 和 online（各为 0 或 1），将它们保存为布尔状态，只有两者同时为真才输出 1，否则输出 0。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "1 1",
+        "output": "1"
+      },
+      {
+        "input": "1 0",
+        "output": "0"
+      },
+      {
+        "input": "0 1",
+        "output": "0"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int r,o;\n    if(scanf(\"%d%d\",&r,&o)!=2)return 1;\n    // TODO: 转成布尔状态并组合\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int r,o;\n    if(scanf(\"%d%d\",&r,&o)!=2)return 1;\n    bool ready=r,online=o;\n    printf(\"%d\\n\",ready&&online);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入整数 ready 和 online（各为 0 或 1），将它们保存为布尔状态，只有两者同时为真才输出 1，否则输出 0。"
+    ]
+  },
+  "c2-9": {
+    "id": "c2-9-mastery",
+    "title": "避免平均数截断",
+    "difficulty": "Mastery",
+    "description": "输入两个整数 a,b（-100～100），输出它们的平均数，保留两位小数。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "2 3",
+        "output": "2.50"
+      },
+      {
+        "input": "-5 2",
+        "output": "-1.50"
+      },
+      {
+        "input": "0 0",
+        "output": "0.00"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    // TODO: 在除法前转换类型\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    printf(\"%.2f\\n\",(double)(a+b)/2);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入两个整数 a,b（-100～100），输出它们的平均数，保留两位小数。"
+    ]
+  },
+  "c3-2": {
+    "id": "c3-2-mastery",
+    "title": "环形时钟",
+    "difficulty": "Mastery",
+    "description": "输入小时 h（0～23）和前进小时数 step（0～100），输出 24 小时制的新小时数。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "23 2",
+        "output": "1"
+      },
+      {
+        "input": "0 24",
+        "output": "0"
+      },
+      {
+        "input": "5 50",
+        "output": "7"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int h,step;\n    if(scanf(\"%d%d\",&h,&step)!=2)return 1;\n    // TODO: 用取余完成回绕\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int h,step;\n    if(scanf(\"%d%d\",&h,&step)!=2)return 1;\n    printf(\"%d\\n\",(h+step)%24);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入小时 h（0～23）和前进小时数 step（0～100），输出 24 小时制的新小时数。"
+    ]
+  },
+  "c3-8": {
+    "id": "c3-8-mastery",
+    "title": "区间外判断",
+    "difficulty": "Mastery",
+    "description": "输入整数 x（-100～100），若它不在闭区间 10～20 内输出 1，否则输出 0。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "10",
+        "output": "0"
+      },
+      {
+        "input": "21",
+        "output": "1"
+      },
+      {
+        "input": "-1",
+        "output": "1"
+      },
+      {
+        "input": "20",
+        "output": "0"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int x;\n    if(scanf(\"%d\",&x)!=1)return 1;\n    // TODO: 给完整区间条件取反\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int x;\n    if(scanf(\"%d\",&x)!=1)return 1;\n    printf(\"%d\\n\",!(x>=10&&x<=20));\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入整数 x（-100～100），若它不在闭区间 10～20 内输出 1，否则输出 0。"
+    ]
+  },
+  "c4-3": {
+    "id": "c4-3-mastery",
+    "title": "包裹计费",
+    "difficulty": "Mastery",
+    "description": "输入重量 w（1～20 的整数千克）：不超过 2 千克收费 8；3～5 千克收费 15；其余收费 25。输出费用。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "2",
+        "output": "8"
+      },
+      {
+        "input": "3",
+        "output": "15"
+      },
+      {
+        "input": "5",
+        "output": "15"
+      },
+      {
+        "input": "6",
+        "output": "25"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int w;\n    if(scanf(\"%d\",&w)!=1)return 1;\n    // TODO: 按范围依次判断\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int w;\n    if(scanf(\"%d\",&w)!=1)return 1;\n    if(w<=2)puts(\"8\");else if(w<=5)puts(\"15\");else puts(\"25\");\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入重量 w（1～20 的整数千克）：不超过 2 千克收费 8；3～5 千克收费 15；其余收费 25。输出费用。"
+    ]
+  },
+  "c4-4": {
+    "id": "c4-4-mastery",
+    "title": "菜单命令分派",
+    "difficulty": "Mastery",
+    "description": "输入命令 1、2、3 或其他整数。分别输出 New、Open、Save；其余输出 Invalid。用 switch 实现。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "1",
+        "output": "New"
+      },
+      {
+        "input": "2",
+        "output": "Open"
+      },
+      {
+        "input": "3",
+        "output": "Save"
+      },
+      {
+        "input": "9",
+        "output": "Invalid"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1)return 1;\n    // TODO: switch 与 break\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1)return 1;\n    switch(n){case 1:puts(\"New\");break;case 2:puts(\"Open\");break;case 3:puts(\"Save\");break;default:puts(\"Invalid\");break;}\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入命令 1、2、3 或其他整数。分别输出 New、Open、Save；其余输出 Invalid。用 switch 实现。"
+    ]
+  },
+  "c5-2": {
+    "id": "c5-2-mastery",
+    "title": "读取三项数据",
+    "difficulty": "Mastery",
+    "description": "读入两个整数 a,b（-100～100）和一个 double x（-100～100），输出 a+b，下一行输出 x 的两倍，保留两位小数。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "3 4 1.25",
+        "output": "7\n2.50"
+      },
+      {
+        "input": "-3\n2\n-0.5",
+        "output": "-1\n-1.00"
+      },
+      {
+        "input": "0 0 0",
+        "output": "0\n0.00"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 读取三项数据\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int a,b;double x;\n    if(scanf(\"%d%d%lf\",&a,&b,&x)!=3)return 1;\n    printf(\"%d\\n%.2f\\n\",a+b,x*2);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "读入两个整数 a,b（-100～100）和一个 double x（-100～100），输出 a+b，下一行输出 x 的两倍，保留两位小数。"
+    ]
+  },
+  "c6-1": {
+    "id": "c6-1-mastery",
+    "title": "奇数累加",
+    "difficulty": "Mastery",
+    "description": "输入 n（0～100），用 for 累加 1 到 n 之间的所有奇数，输出和。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "5",
+        "output": "9"
+      },
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "6",
+        "output": "9"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 奇数累加\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int n,sum=0;\n    if(scanf(\"%d\",&n)!=1)return 1;\n    for(int i=1;i<=n;i+=2)sum+=i;\n    printf(\"%d\\n\",sum);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入 n（0～100），用 for 累加 1 到 n 之间的所有奇数，输出和。"
+    ]
+  },
+  "c6-7": {
+    "id": "c6-7-mastery",
+    "title": "绘制三角形",
+    "difficulty": "Mastery",
+    "description": "输入 n（1～6），输出 n 行：第 r 行输出 r 个 *（r 从 1 开始），每行后换行。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "1",
+        "output": "*"
+      },
+      {
+        "input": "3",
+        "output": "*\n**\n***"
+      },
+      {
+        "input": "4",
+        "output": "*\n**\n***\n****"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 绘制三角形\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1)return 1;\n    for(int r=1;r<=n;r++){for(int c=0;c<r;c++)printf(\"*\");printf(\"\\n\");}\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入 n（1～6），输出 n 行：第 r 行输出 r 个 *（r 从 1 开始），每行后换行。"
+    ]
+  },
+  "c7-2": {
+    "id": "c7-2-mastery",
+    "title": "返回较大数",
+    "difficulty": "Mastery",
+    "description": "定义 int larger(int a,int b) 返回较大值；输入 a,b（-100～100），调用并输出结果。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "3 7",
+        "output": "7"
+      },
+      {
+        "input": "-4 -9",
+        "output": "-4"
+      },
+      {
+        "input": "5 5",
+        "output": "5"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 在 main 上方定义 larger\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    // TODO: 调用函数并输出\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint larger(int a,int b){return a>b?a:b;}\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    printf(\"%d\\n\",larger(a,b));\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "定义 int larger(int a,int b) 返回较大值；输入 a,b（-100～100），调用并输出结果。"
+    ]
+  },
+  "c7-3": {
+    "id": "c7-3-mastery",
+    "title": "计算差值的副本",
+    "difficulty": "Mastery",
+    "description": "定义 int add_bonus(int score,int bonus) 返回两项之和；输入 score,bonus（各 0～100），先输出返回值，再输出原 score（同一行）。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "10 3",
+        "output": "13 10"
+      },
+      {
+        "input": "0 7",
+        "output": "7 0"
+      },
+      {
+        "input": "100 0",
+        "output": "100 100"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 在 main 上方定义 add_bonus\n    int score,bonus;\n    if(scanf(\"%d%d\",&score,&bonus)!=2)return 1;\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint add_bonus(int score,int bonus){score+=bonus;return score;}\n\nint main(void) {\n    int score,bonus;\n    if(scanf(\"%d%d\",&score,&bonus)!=2)return 1;\n    printf(\"%d %d\\n\",add_bonus(score,bonus),score);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "定义 int add_bonus(int score,int bonus) 返回两项之和；输入 score,bonus（各 0～100），先输出返回值，再输出原 score（同一行）。"
+    ]
+  },
+  "c7-5": {
+    "id": "c7-5-mastery",
+    "title": "递归计算幂",
+    "difficulty": "Mastery",
+    "description": "定义递归函数 power2(n) 返回 2 的 n 次幂。输入 n（0～15），输出函数结果。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "0",
+        "output": "1"
+      },
+      {
+        "input": "3",
+        "output": "8"
+      },
+      {
+        "input": "10",
+        "output": "1024"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 在 main 上方定义带 n==0 出口的递归函数\n    int n;\n    if(scanf(\"%d\",&n)!=1)return 1;\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint power2(int n){if(n==0)return 1;return 2*power2(n-1);}\n\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1)return 1;\n    printf(\"%d\\n\",power2(n));\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "定义递归函数 power2(n) 返回 2 的 n 次幂。输入 n（0～15），输出函数结果。"
+    ]
+  },
+  "c8-3": {
+    "id": "c8-3-mastery",
+    "title": "循环左移一位",
+    "difficulty": "Mastery",
+    "description": "输入 n（1～20）及 n 个整数。将数组循环左移一位，首元素移到末尾，输出结果。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "3 1 2 3",
+        "output": "2 3 1"
+      },
+      {
+        "input": "1 9",
+        "output": "9"
+      },
+      {
+        "input": "4 4 -1 0 7",
+        "output": "-1 0 7 4"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 循环左移一位\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int n,a[20];\n    if(scanf(\"%d\",&n)!=1)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    int first=a[0];\n    for(int i=0;i<n-1;i++)a[i]=a[i+1];\n    a[n-1]=first;\n    for(int i=0;i<n;i++)printf(\"%d \",a[i]);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入 n（1～20）及 n 个整数。将数组循环左移一位，首元素移到末尾，输出结果。"
+    ]
+  },
+  "c8-4": {
+    "id": "c8-4-mastery",
+    "title": "矩阵对角线和",
+    "difficulty": "Mastery",
+    "description": "按行输入 3×3 整数矩阵，元素 -100～100，输出主对角线上三项的和。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "1 2 3 4 5 6 7 8 9",
+        "output": "15"
+      },
+      {
+        "input": "0 1 1 1 0 1 1 1 0",
+        "output": "0"
+      },
+      {
+        "input": "-2 0 0 0 4 0 0 0 -1",
+        "output": "1"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 矩阵对角线和\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int a[3][3],sum=0;\n    for(int r=0;r<3;r++)for(int c=0;c<3;c++)if(scanf(\"%d\",&a[r][c])!=1)return 1;\n    for(int i=0;i<3;i++)sum+=a[i][i];\n    printf(\"%d\\n\",sum);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "按行输入 3×3 整数矩阵，元素 -100～100，输出主对角线上三项的和。"
+    ]
+  },
+  "c8-6": {
+    "id": "c8-6-mastery",
+    "title": "数组求和函数",
+    "difficulty": "Mastery",
+    "description": "定义 int array_sum(const int a[],int n)，输入 n（1～20）及 n 个整数（-100～100），调用函数求和并输出。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "3 2 4 6",
+        "output": "12"
+      },
+      {
+        "input": "1 -5",
+        "output": "-5"
+      },
+      {
+        "input": "4 -2 0 2 3",
+        "output": "3"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 在 main 上方定义 array_sum\n    int n,a[20];\n    if(scanf(\"%d\",&n)!=1)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint array_sum(const int a[],int n){int sum=0;for(int i=0;i<n;i++)sum+=a[i];return sum;}\n\nint main(void) {\n    int n,a[20];\n    if(scanf(\"%d\",&n)!=1)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    printf(\"%d\\n\",array_sum(a,n));\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "定义 int array_sum(const int a[],int n)，输入 n（1～20）及 n 个整数（-100～100），调用函数求和并输出。"
+    ]
+  },
+  "c8-7": {
+    "id": "c8-7-mastery",
+    "title": "定位首次出现",
+    "difficulty": "Mastery",
+    "description": "输入 n（1～20）、n 个整数和 target。输出 target 首次出现的下标；没有找到输出 -1。 输入语句可参考模板；重点练习本节概念。",
+    "input": "按示例输入，数值以空白分隔；全部输入保证符合题目给定范围。",
+    "output": "按题目要求输出，保留换行和小数位；行末空白不影响判定。",
+    "tests": [
+      {
+        "input": "4 7 2 7 9 7",
+        "output": "0"
+      },
+      {
+        "input": "3 1 2 3 8",
+        "output": "-1"
+      },
+      {
+        "input": "1 -5 -5",
+        "output": "0"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 定位首次出现\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int n,a[20],target,pos=-1;\n    if(scanf(\"%d\",&n)!=1)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    if(scanf(\"%d\",&target)!=1)return 1;\n    for(int i=0;i<n;i++)if(a[i]==target){pos=i;break;}\n    printf(\"%d\\n\",pos);\n    return 0;\n}\n",
+    "hints": [
+      "把题目拆成输入、当前知识点的计算或判断、输出。",
+      "手算示例并检查边界；分支、循环和索引的范围都要逐项确认。",
+      "输入 n（1～20）、n 个整数和 target。输出 target 首次出现的下标；没有找到输出 -1。"
+    ]
+  }
+}

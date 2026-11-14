@@ -102,6 +102,10 @@ export async function runCode(
         true,
       );
     deadline(120000);
-    worker!.postMessage({ code, inputs, toolchainBase: new URL("toolchain/", document.baseURI).href });
+    worker!.postMessage({
+      code,
+      inputs,
+      toolchainBase: new URL("toolchain/", document.baseURI).href,
+    });
   });
 }

@@ -1,3 +1,5 @@
+import questionBank from "./question-bank.json";
+import masteryBank from "./mastery-challenges.json";
 import type { Chapter } from "./types";
 import c1 from "./lessons/chapter-1.json";
 import q1 from "./quizzes/chapter-1.json";
@@ -56,6 +58,8 @@ export const chapters: Chapter[] = [c1, c2, c3, c4, c5, c6, c7, c8, c9].map(
     lessons: c.lessons.map((l) => ({
       ...l,
       quiz: quizzes[l.id],
+      quizzes: (questionBank as Record<string, unknown>)[l.id],
+      mastery: (masteryBank as Record<string, unknown>)[l.id],
       challenge: practices[l.id],
     })),
   }),

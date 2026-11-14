@@ -2558,3 +2558,277 @@ dialog::backdrop {
     font-size: 11px;
   }
 }
+
+/* Learning parity additions */
+.sidebar-expand {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 22px 8px;
+}
+.sidebar-expand .text-button {
+  font-size: 10px;
+}
+.question-dots {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 17px 0 24px;
+}
+.question-dots button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #526347;
+  border-radius: 7px;
+  font-size: 12px;
+  color: #bcccb0;
+  background: #202e22;
+}
+.question-dots .solved {
+  background: #314b2c;
+  color: #cdeab7;
+  border-color: #769665;
+}
+.question-dots .current {
+  outline: 2px solid #c3e9aa;
+  outline-offset: 2px;
+}
+.sequence-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  color: #cfe3bc;
+}
+.sequence-head span {
+  font-size: 10px;
+  color: #98b189;
+}
+.sequence-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 23px 0;
+}
+.sequence-actions .primary,
+.sequence-actions .secondary {
+  font-size: 11px;
+}
+.read-aloud {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 0 23px;
+}
+.read-aloud .secondary {
+  min-height: 36px;
+  font-size: 11px;
+  padding: 8px 10px;
+}
+.read-aloud label {
+  font-size: 10px;
+  color: #a1b58f;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.read-aloud select {
+  background: #263a25;
+  border: 1px solid #4d6742;
+  color: #d0e4bd;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+}
+.read-aloud small {
+  font-size: 9px;
+  color: #94ac83;
+}
+.read-aloud p {
+  font-size: 11px;
+  color: #edc4a1;
+}
+.challenge-switch {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #3b4d32;
+  padding-bottom: 15px;
+  margin: 25px 0 16px;
+}
+.challenge-switch button {
+  font-size: 11px;
+  border: 1px solid #4d6340;
+  border-radius: 6px;
+  padding: 9px 13px;
+  color: #b6cc9f;
+  min-height: 38px;
+}
+.challenge-switch .selected {
+  background: #c3e9aa;
+  color: #253b1e;
+  border-color: #c3e9aa;
+}
+.journey-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.journey-summary > span {
+  font-size: 12px;
+  color: #b4cda1;
+}
+.journey-chapter {
+  border: 1px solid #445c39;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 13px;
+  background: #1e2d1e;
+}
+.journey-chapter > button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+  padding: 17px;
+  background: #2a3d25;
+  gap: 10px;
+}
+.journey-chapter > button strong {
+  font-size: 13px;
+}
+.journey-chapter > button > span {
+  font-size: 10px;
+  color: #a7bd94;
+}
+.journey-lesson {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 12px;
+  padding: 13px 16px;
+  border-top: 1px solid #354b2d;
+}
+.journey-lesson:hover {
+  background: #30472a;
+}
+.journey-lesson.current {
+  box-shadow: inset 3px 0 #c3e9aa;
+  background: #2c4127;
+}
+.journey-lesson > span {
+  width: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  color: #afd093;
+}
+.journey-lesson > div {
+  flex: 1;
+}
+.journey-lesson strong {
+  font-size: 12px;
+  display: block;
+}
+.journey-lesson small {
+  font-size: 10px;
+  color: #a0b58d;
+  display: block;
+  margin-top: 5px;
+}
+.journey-lesson > svg {
+  color: #a8c18e;
+}
+.completion-dialog {
+  text-align: center;
+}
+.completion-dialog > svg {
+  color: #c3e9aa;
+  margin: 13px 0;
+}
+.completion-close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.completion-checks {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+  background: #263c21;
+  border-radius: 7px;
+  padding: 16px;
+  margin: 20px 0;
+  color: #c6dfaf;
+  font-size: 12px;
+}
+.completion-dialog .progress-track {
+  margin-top: 12px;
+}
+.completion-dialog .dialog-actions {
+  justify-content: center;
+}
+.quiz h2 {
+  font-size: 15px;
+  white-space: pre-wrap;
+}
+.workspace-heading {
+  justify-content: flex-start;
+}
+.workspace-heading > div {
+  margin-right: auto;
+}
+.hints-area .solution pre {
+  max-height: 300px;
+  overflow: auto;
+}
+.terminal-content .test-case pre {
+  max-height: 200px;
+  overflow: auto;
+}
+@media (max-width: 760px) {
+  .workspace-heading {
+    gap: 8px;
+  }
+  .workspace-heading .review-button {
+    font-size: 9px;
+    padding: 7px;
+  }
+  .workspace-heading > div > div > span {
+    display: none;
+  }
+  .workspace-heading > div {
+    gap: 5px;
+  }
+  .workspace-heading strong {
+    font-size: 10px;
+  }
+  .journey-symbol {
+    display: none;
+  }
+  .read-aloud small {
+    width: 100%;
+  }
+  .dialog-actions .primary {
+    white-space: normal;
+  }
+  .journey-summary .primary {
+    font-size: 11px;
+  }
+  .question-dots button {
+    width: 36px;
+    height: 36px;
+  }
+  .lesson-pane {
+    min-height: 550px;
+  }
+  .lesson-tabs button {
+    min-height: 44px;
+  }
+}

@@ -26,6 +26,7 @@ export function StudyDialog({
   onMastered,
   onSelect,
   notify,
+  onReviewAnswer,
 }: {
   panel: Panel;
   onClose: () => void;
@@ -35,6 +36,12 @@ export function StudyDialog({
   onMastered: (chapter: number) => void;
   onSelect: (id: string) => void;
   notify: (s: string) => void;
+  onReviewAnswer: (
+    lessonId: string,
+    questionId: string,
+    ok: boolean,
+    answer: string[],
+  ) => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null),
     file = useRef<HTMLInputElement>(null);
@@ -43,7 +50,12 @@ export function StudyDialog({
     [index, setIndex] = useState(0),
     [answers, setAnswers] = useState<Record<number, boolean>>({}),
     [finished, setFinished] = useState(false),
-    [extra, setExtra] = useState<number | null>(null);
+    [extra, setExtra] = useState<number | null>(null),
+    [reviewItem, setReviewItem] = useState<{
+      lessonId: string;
+      questionId: string;
+    } | null>(null),
+    [round, setRound] = useState(0);
   useEffect(() => {
     dialog.current?.showModal();
     return () => dialog.current?.close();
@@ -72,6 +84,7 @@ export function StudyDialog({
   };
   const start = (id: number) => {
     setChapterId(id);
+    setRound((n) => n + 1);
     setIndex(0);
     setAnswers({});
     setFinished(false);
@@ -134,6 +147,20 @@ export function StudyDialog({
                 <span>知识检测正确率</span>
               </div>
             </div>
+            <p className="subtext">
+              基础挑战已通过{" "}
+              {
+                lessons.filter((l) => progress.records[l.id]?.practicePassed)
+                  .length
+              }
+              /63 · Mastery 已通过{" "}
+              {
+                lessons.filter(
+                  (l) => progress.records[l.id]?.tasks?.mastery?.passed,
+                ).length
+              }
+              /17
+            </p>
             <div className="chapter-progress-list">
               {chapters.map((c) => {
                 const n = c.lessons.filter((l) =>
@@ -219,8 +246,8 @@ export function StudyDialog({
                   <div>
                     <strong>已经学过？先测试，再决定从哪里开始。</strong>
                     <p>
-                      每章选取全部知识检测，按首次作答计分，达到 80%
-                      后可将这一章标为已掌握并跳过。
+                      每章从每节题组抽取一道题，重测时轮换，按首次作答计分，达到
+                      80% 后可将这一章标为已掌握并跳过。
                     </p>
                   </div>
                 </div>
@@ -319,7 +346,11 @@ export function StudyDialog({
                 <Quiz
                   key={chapter.id + "-" + index}
                   compact
-                  quiz={chapter.lessons[index].quiz}
+                  quiz={
+                    chapter.lessons[index].quizzes[
+                      (round + index) % chapter.lessons[index].quizzes.length
+                    ]
+                  }
                   onSubmit={(correct) =>
                     setAnswers((prev) =>
                       index in prev ? prev : { ...prev, [index]: correct },
@@ -384,6 +415,57 @@ export function StudyDialog({
                 <p>暂时没有错题记录。试试下面的变式练习。</p>
               </div>
             )}
+            <div className="review-title">
+              <h3>按具体错题重新练习</h3>
+            </div>
+            {lessons.flatMap((l) =>
+              l.quizzes
+                .filter((q) => {
+                  const s = progress.records[l.id]?.questions?.[q.id!];
+                  return s && s.attempts > s.correct;
+                })
+                .map((q) => (
+                  <button
+                    className="review-row"
+                    key={q.id}
+                    onClick={() =>
+                      setReviewItem({ lessonId: l.id, questionId: q.id! })
+                    }
+                  >
+                    <Target size={15} />
+                    <span>
+                      {l.title} · 第 {l.quizzes.indexOf(q) + 1} 题
+                      <small>
+                        {(progress.records[l.id]?.questions?.[q.id!]
+                          ?.lastCorrect ??
+                        progress.records[l.id]?.questions?.[q.id!]?.passed)
+                          ? "已纠正，可再次巩固"
+                          : "待纠正"}{" "}
+                        · {q.question.slice(0, 50)}
+                      </small>
+                    </span>
+                    <ArrowRight size={14} />
+                  </button>
+                )),
+            )}
+            {reviewItem &&
+              (() => {
+                const l = lessons.find((l) => l.id === reviewItem.lessonId)!;
+                const q = l.quizzes.find(
+                  (q) => q.id === reviewItem.questionId,
+                )!;
+                return (
+                  <Quiz
+                    key={"review-" + q.id}
+                    quiz={q}
+                    onSubmit={(ok, a) => onReviewAnswer(l.id, q.id!, ok, a)}
+                    onReview={() => {
+                      onSelect(l.id);
+                      onClose();
+                    }}
+                  />
+                );
+              })()}
             <div className="review-title">
               <h3>换个问法，确认真的会了</h3>
               <Lightbulb size={17} />

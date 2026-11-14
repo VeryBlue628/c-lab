@@ -1,14 +1,35 @@
 import { lessons, lessonById } from "../data/curriculum";
+export type QuestionState = {
+  passed: boolean;
+  lastCorrect?: boolean;
+  answer: string[];
+  attempts: number;
+  correct: number;
+};
+export type TaskState = {
+  draft?: string;
+  input?: string;
+  hint?: number;
+  passed?: boolean;
+  failures?: number;
+};
 export type RecordState = {
   quizPassed?: boolean;
   practicePassed?: boolean;
   quizAttempts?: number;
   quizCorrect?: number;
   failures?: number;
+  streak?: number;
   skipped?: boolean;
   draft?: string;
   answer?: string[];
   hint?: number;
+  legacyCompleted?: boolean;
+  questions?: Record<string, QuestionState>;
+  tasks?: Record<string, TaskState>;
+  currentQuestion?: number;
+  activeChallenge?: "practice" | "mastery";
+  lastTab?: "lesson" | "quiz" | "practice";
 };
 export type Progress = {
   version: 1;
@@ -25,6 +46,22 @@ export const fresh = (): Progress => ({
   freeMode: false,
   updatedAt: new Date().toISOString(),
 });
+export const completed = (r: RecordState | undefined) =>
+  !!(r?.legacyCompleted || (r?.quizPassed && r?.practicePassed));
+function number(n: unknown, max = 1000000) {
+  if (!Number.isSafeInteger(n) || (n as number) < 0 || (n as number) > max)
+    throw Error("计数或提示层级不正确");
+  return n as number;
+}
+function text(s: unknown, max = 100000) {
+  if (typeof s !== "string" || s.length > max)
+    throw Error("文本或代码草稿不正确");
+  return s;
+}
+function answers(a: unknown) {
+  if (!Array.isArray(a) || a.length > 20) throw Error("答案不正确");
+  return a.map((x) => text(x, 1000));
+}
 export function validate(value: unknown): Progress {
   if (!value || typeof value !== "object") throw Error("备份格式不正确");
   const p = value as Progress;
@@ -32,49 +69,99 @@ export function validate(value: unknown): Progress {
     p.version !== 1 ||
     typeof p.current !== "string" ||
     !lessonById[p.current] ||
-    typeof p.records !== "object" ||
     !p.records ||
+    typeof p.records !== "object" ||
     Array.isArray(p.records)
   )
     throw Error("备份版本或课程标识不正确");
   const records: Progress["records"] = {};
   for (const [id, r] of Object.entries(p.records)) {
-    if (!lessonById[id] || !r || typeof r !== "object") continue;
-    const clean: RecordState = {};
-    for (const k of ["quizPassed", "practicePassed", "skipped"] as const) {
+    const lesson = lessonById[id];
+    if (!lesson || !r || typeof r !== "object") continue;
+    const c: RecordState = {};
+    for (const k of [
+      "quizPassed",
+      "practicePassed",
+      "skipped",
+      "legacyCompleted",
+    ] as const) {
       if (r[k] !== undefined) {
-        if (typeof r[k] !== "boolean") throw Error("进度状态不正确");
-        clean[k] = r[k];
+        if (typeof r[k] !== "boolean") throw Error("状态不正确");
+        c[k] = r[k];
       }
     }
     for (const k of [
       "quizAttempts",
       "quizCorrect",
       "failures",
-      "hint",
-    ] as const) {
-      if (r[k] !== undefined) {
-        if (!Number.isSafeInteger(r[k]) || r[k]! < 0 || r[k]! > 1000000)
-          throw Error("计数数据不正确");
-        clean[k] = r[k];
+      "streak",
+    ] as const)
+      if (r[k] !== undefined) c[k] = number(r[k]);
+    if (r.hint !== undefined) c.hint = number(r.hint, 3);
+    if ((c.quizCorrect || 0) > (c.quizAttempts || 0))
+      throw Error("答题计数不正确");
+    if (r.draft !== undefined) c.draft = text(r.draft);
+    if (r.answer !== undefined) c.answer = answers(r.answer);
+    if (r.currentQuestion !== undefined)
+      c.currentQuestion = number(r.currentQuestion, lesson.quizzes.length - 1);
+    if (["practice", "mastery"].includes(r.activeChallenge || ""))
+      c.activeChallenge = r.activeChallenge;
+    if (["lesson", "quiz", "practice"].includes(r.lastTab || ""))
+      c.lastTab = r.lastTab;
+    if (
+      r.questions &&
+      typeof r.questions === "object" &&
+      !Array.isArray(r.questions)
+    ) {
+      c.questions = {};
+      for (const q of lesson.quizzes) {
+        const s = r.questions[q.id!];
+        if (!s) continue;
+        const attempts = number(s.attempts),
+          correct = number(s.correct);
+        if (correct > attempts || typeof s.passed !== "boolean")
+          throw Error("逐题记录不正确");
+        c.questions[q.id!] = {
+          passed: s.passed,
+          lastCorrect:
+            typeof s.lastCorrect === "boolean" ? s.lastCorrect : s.passed,
+          answer: answers(s.answer),
+          attempts,
+          correct,
+        };
       }
     }
-    if (r.draft !== undefined) {
-      if (typeof r.draft !== "string" || r.draft.length > 100000)
-        throw Error("代码草稿过大");
-      clean.draft = r.draft;
+    if (!r.questions && r.quizPassed) {
+      c.questions = {
+        [lesson.quizzes[0].id!]: {
+          passed: true,
+          answer: r.answer || [],
+          attempts: 1,
+          correct: 1,
+        },
+      };
+      if (r.practicePassed) c.legacyCompleted = true;
+      else c.quizPassed = false;
     }
-    if (
-      Array.isArray(r.answer) &&
-      r.answer.every((a) => typeof a === "string" && a.length < 1000)
-    )
-      clean.answer = r.answer;
-    if (
-      (clean.quizCorrect || 0) > (clean.quizAttempts || 0) ||
-      (clean.hint || 0) > 3
-    )
-      throw Error("答题计数或提示层级不正确");
-    records[id] = clean;
+    if (r.tasks && typeof r.tasks === "object" && !Array.isArray(r.tasks)) {
+      c.tasks = {};
+      for (const taskId of ["practice", "mastery"] as const) {
+        if (taskId === "mastery" && !lesson.mastery) continue;
+        const t = r.tasks[taskId];
+        if (!t || typeof t !== "object") continue;
+        const task: TaskState = {};
+        if (t.draft !== undefined) task.draft = text(t.draft);
+        if (t.input !== undefined) task.input = text(t.input);
+        if (t.hint !== undefined) task.hint = number(t.hint, 3);
+        if (t.failures !== undefined) task.failures = number(t.failures);
+        if (t.passed !== undefined) {
+          if (typeof t.passed !== "boolean") throw Error("挑战状态不正确");
+          task.passed = t.passed;
+        }
+        c.tasks[taskId] = task;
+      }
+    }
+    records[id] = c;
   }
   return {
     version: 1,
@@ -98,8 +185,6 @@ export function save(p: Progress) {
     JSON.stringify({ ...p, updatedAt: new Date().toISOString() }),
   );
 }
-export const completed = (r: RecordState | undefined) =>
-  !!(r?.quizPassed && r?.practicePassed);
 export function unlocked(id: string, p: Progress) {
   if (!lessonById[id]) return false;
   if (p.freeMode) return true;
@@ -113,9 +198,9 @@ export function unlocked(id: string, p: Progress) {
   );
 }
 export const accuracy = (p: Progress) => {
-  const r = Object.values(p.records);
-  const n = r.reduce((s, x) => s + (x.quizAttempts || 0), 0);
+  const rs = Object.values(p.records);
+  const n = rs.reduce((a, r) => a + (r.quizAttempts || 0), 0);
   return n
-    ? Math.round((r.reduce((s, x) => s + (x.quizCorrect || 0), 0) / n) * 100)
+    ? Math.round((rs.reduce((a, r) => a + (r.quizCorrect || 0), 0) / n) * 100)
     : 0;
 };

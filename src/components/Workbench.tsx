@@ -1,3 +1,4 @@
+import { diagnose } from "../engine/diagnostics";
 import { useEffect, useRef, useState } from "react";
 import {
   Play,
@@ -301,13 +302,14 @@ export function Workbench({
             </div>
           ) : (
             <>
-              {runs[0] && runs[0].status !== "success" ? (
+              {runs[0] && runs[0].status !== "success" && !submitted ? (
                 <>
                   <div className="output-status error">
                     <XCircle size={15} />
                     {titles[runs[0].status]}
                   </div>
                   <pre className="error-output">{strip(runs[0].stderr)}</pre>
+                  <p className="error-advice">{diagnose(runs[0])}</p>
                   {runs[0].status === "compile-error" && (
                     <p className="error-advice">
                       {errorLine
@@ -335,6 +337,7 @@ export function Workbench({
                   </div>
                   {verdict.map((v, i) => (
                     <details
+                      open={!v.passed}
                       className={
                         "test-case " + (v.passed ? "passed" : "failed")
                       }
@@ -370,6 +373,7 @@ export function Workbench({
                         {v.run?.stderr && (
                           <pre className="error-output">
                             {strip(v.run.stderr)}
+                            {"\n" + diagnose(v.run)}
                           </pre>
                         )}
                       </div>
@@ -378,7 +382,7 @@ export function Workbench({
                   {verdict.every((t) => t.passed) ? (
                     <p className="success-note">
                       {record.quizPassed
-                        ? "知识检测与编程挑战均已通过，课程已完成。"
+                        ? "本挑战通过；基础挑战与本节全部检测通过后，课程才完成。"
                         : "挑战已通过，完成知识检测后即可完成本课。"}
                     </p>
                   ) : (

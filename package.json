@@ -10,7 +10,8 @@
     "check": "node scripts/check-content.mjs",
     "test:compiler": "node scripts/verify-compiler.mjs",
     "test:progress": "node scripts/verify-progress.mjs",
-    "build:github": "tsc -b && vite build --base=/c-lab/ --outDir=docs && node scripts/finalize-github-pages.mjs"
+    "build:github": "tsc -b && vite build --base=/c-lab/ --outDir=docs && node scripts/finalize-github-pages.mjs",
+    "test:expanded": "node scripts/verify-expanded.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",

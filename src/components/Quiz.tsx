@@ -27,10 +27,12 @@ export function Quiz({
   const [answer, setAnswer] = useState<string[]>(initial),
     [result, setResult] = useState<boolean | null>(null);
   const check = () => {
-    if (!answer.length || !answer[0].trim()) return;
+    if (result !== null || !answer.length || !answer[0].trim()) return;
     const clean = (a: string[]) =>
       a
-        .map((x) => x.trim())
+        .map((x) =>
+          quiz.type === "predict" ? x.trim().replace(/\s+/g, " ") : x.trim(),
+        )
         .sort()
         .join("\0");
     const correct = clean(answer) === clean(quiz.answer);
