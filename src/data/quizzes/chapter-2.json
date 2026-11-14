@@ -1,0 +1,122 @@
+{
+  "c2-1": {
+    "type": "single",
+    "question": "保存 36.5 摄氏度，最合适的类型是？",
+    "options": [
+      "double",
+      "int",
+      "char"
+    ],
+    "answer": [
+      "double"
+    ],
+    "explanation": "double 可以表示小数。int 转换后只留下整数部分；char 不是测量值的合适类型。"
+  },
+  "c2-2": {
+    "type": "predict",
+    "question": "预测：printf(\"%d\", 9 / 4); 输出什么？",
+    "answer": [
+      "2"
+    ],
+    "explanation": "两个操作数都是 int，9 / 4 的小数部分被截断，结果为 2。"
+  },
+  "c2-3": {
+    "type": "single",
+    "question": "下面哪个表达式得到 2.5？",
+    "options": [
+      "5.0 / 2",
+      "5 / 2",
+      "(double)(5 / 2)"
+    ],
+    "answer": [
+      "5.0 / 2"
+    ],
+    "explanation": "至少一个操作数在除法前是浮点数，才能进行浮点除法。除完再转换已经来不及恢复小数。"
+  },
+  "c2-4": {
+    "type": "debug",
+    "question": "分析错误：char ch = \"B\"; 应如何修改？",
+    "options": [
+      "改成 char ch = 'B';",
+      "改成 int ch = \"B\";",
+      "无需修改"
+    ],
+    "answer": [
+      "改成 char ch = 'B';"
+    ],
+    "explanation": "单个字符使用单引号。\"B\" 是包含 B 和结束零的字符数组，不能用来初始化一个 char。"
+  },
+  "c2-5": {
+    "type": "multi",
+    "question": "多选：在 C 条件中，哪些值为真？",
+    "options": [
+      "-3",
+      "0",
+      "2"
+    ],
+    "answer": [
+      "-3",
+      "2"
+    ],
+    "explanation": "C 的条件判断将 0 当作假；负数和大于 1 的非零值也是真。"
+  },
+  "c2-6": {
+    "type": "boolean",
+    "question": "判断：const int x = 3; x = 4; 能正常通过标准 C11 编译。",
+    "options": [
+      "正确",
+      "错误"
+    ],
+    "answer": [
+      "错误"
+    ],
+    "explanation": "x 是只读对象，直接对它赋值违反类型约束，编译器会诊断。"
+  },
+  "c2-7": {
+    "type": "fill",
+    "question": "填空：printf 中输出一个百分号应写什么？",
+    "answer": [
+      "%%"
+    ],
+    "explanation": "%% 表示字面百分号，它不会从参数列表中取值。"
+  },
+  "c2-8": {
+    "type": "multi",
+    "question": "多选：哪些是合法且非保留的变量名？",
+    "options": [
+      "total_score",
+      "score2",
+      "2score",
+      "return"
+    ],
+    "answer": [
+      "total_score",
+      "score2"
+    ],
+    "explanation": "标识符可包含数字但不能以数字开头，return 是 C 关键字。"
+  },
+  "c2-9": {
+    "type": "predict",
+    "question": "预测：(double)(7 / 2) 的值是多少？",
+    "answer": [
+      "3"
+    ],
+    "explanation": "7 / 2 先按整数除法得到 3，再变为 3.0；强制转换位置决定运算类型。"
+  },
+  "c2-10": {
+    "type": "predict",
+    "question": "预测：(int)-2.8 的值是多少？",
+    "answer": [
+      "-2"
+    ],
+    "explanation": "浮点到整数转换向零截断，所以 -2.8 得到 -2，不是向下取整的 -3。"
+  },
+  "c2-11": {
+    "type": "predict",
+    "question": "单价 2.5，数量 3，printf(\"%.2f\", price * count) 输出？",
+    "answer": [
+      "7.50"
+    ],
+    "explanation": "乘法得到 7.5，%.2f 用两位小数显示，因此输出 7.50。"
+  }
+}

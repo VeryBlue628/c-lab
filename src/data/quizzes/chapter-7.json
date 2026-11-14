@@ -1,0 +1,75 @@
+{
+  "c7-1": {
+    "type": "single",
+    "question": "函数定义后会自动执行吗？",
+    "options": [
+      "不会，需要调用",
+      "会，编译时执行"
+    ],
+    "answer": [
+      "不会，需要调用"
+    ],
+    "explanation": "函数体在被调用时才运行；定义提供实现，调用启动实现。"
+  },
+  "c7-2": {
+    "type": "single",
+    "question": "int f(void) { return 7; } 调用 f() 会自动输出 7 吗？",
+    "options": [
+      "不会",
+      "会"
+    ],
+    "answer": [
+      "不会"
+    ],
+    "explanation": "return 传递值，打印需要额外调用 printf 或其他输出函数。"
+  },
+  "c7-3": {
+    "type": "single",
+    "question": "int x=3; change(x); 中 change 将形参改为 99，x 会变吗？",
+    "options": [
+      "不会，仍为 3",
+      "会变为 99"
+    ],
+    "answer": [
+      "不会，仍为 3"
+    ],
+    "explanation": "C 采用值传递，修改形参只改变函数内的副本。"
+  },
+  "c7-4": {
+    "type": "predict",
+    "question": "预测：is_even(-4) 返回多少？",
+    "answer": [
+      "1"
+    ],
+    "explanation": "-4 除以 2 的余数为 0，因此比较结果为真，也就是 1。"
+  },
+  "c7-5": {
+    "type": "fill",
+    "question": "fact(0) 应该返回多少？",
+    "answer": [
+      "1"
+    ],
+    "explanation": "0! 定义为 1，它也构成阶乘递归的终止条件。"
+  },
+  "c7-6": {
+    "type": "single",
+    "question": "哪个是声明“无参数且返回 int”的规范 C11 原型？",
+    "options": [
+      "int f(void);",
+      "int f();",
+      "void f(int);"
+    ],
+    "answer": [
+      "int f(void);"
+    ],
+    "explanation": "void 参数列表明确说明没有参数；空括号在 C11 的声明中不提供这种类型约束。"
+  },
+  "c7-7": {
+    "type": "fill",
+    "question": "数字 507 的各位和是多少？",
+    "answer": [
+      "12"
+    ],
+    "explanation": "5 + 0 + 7 = 12；中间的 0 不增加和值，但仍然占一位。"
+  }
+}

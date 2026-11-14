@@ -1,0 +1,58 @@
+{
+  "c5-1": {
+    "type": "single",
+    "question": "读取 double x，哪种写法正确？",
+    "options": [
+      "scanf(\"%lf\", &x)",
+      "scanf(\"%f\", &x)",
+      "scanf(\"%d\", x)"
+    ],
+    "answer": [
+      "scanf(\"%lf\", &x)"
+    ],
+    "explanation": "scanf 需要 double 对象的地址以及 %lf。printf 中 double 的常用格式则是 %f。"
+  },
+  "c5-2": {
+    "type": "fill",
+    "question": "scanf(\"%d %d\", &a, &b) 成功读取两个整数时返回多少？",
+    "answer": [
+      "2"
+    ],
+    "explanation": "返回值统计成功转换并赋值的个数；遇到不匹配或输入结束时可能小于 2。"
+  },
+  "c5-3": {
+    "type": "predict",
+    "question": "输入 2.5 3，示例输出是什么？",
+    "answer": [
+      "7.50"
+    ],
+    "explanation": "两数相乘为 7.5，输出格式要求两位小数，因此为 7.50。"
+  },
+  "c5-4": {
+    "type": "single",
+    "question": "输入 abc 给 scanf(\"%d\", &n)，通常返回什么？",
+    "options": [
+      "0",
+      "1",
+      "abc"
+    ],
+    "answer": [
+      "0"
+    ],
+    "explanation": "没有成功的整数转换，所以返回 0；若输入结束且尚未转换，则可能返回 EOF。"
+  },
+  "c5-5": {
+    "type": "multi",
+    "question": "多选：哪些输入应输出 Invalid？",
+    "options": [
+      "5 0",
+      "abc",
+      "5 2"
+    ],
+    "answer": [
+      "5 0",
+      "abc"
+    ],
+    "explanation": "分母为 0 不应进行除法；读取失败同样无法得到可靠计算结果。"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "id": 4,
+  "en": "Control Flow",
+  "title": "流程控制",
+  "description": "让程序根据不同条件，选择不同的路径。",
+  "lessons": [
+    {
+      "id": "c4-1",
+      "chapter": 4,
+      "index": 0,
+      "en": "If Statement",
+      "title": "if 语句",
+      "objective": "在条件成立时执行一个代码块。",
+      "explanation": [
+        "顺序执行的程序总是走同一条路；if 像路口的开关，条件非零时才进入花括号中的代码。条件为零就跳过代码块，继续执行后续语句。",
+        "即使只有一条语句，也建议保留花括号。if 后误加分号会形成空语句，使后面的代码块变成无条件执行。"
+      ],
+      "syntax": "if (score >= 60) {\n    printf(\"Pass\");\n}",
+      "syntaxNotes": "括号中是条件；花括号中是满足条件时执行的语句。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int score = 75;\n    if (score >= 60) {\n        printf(\"Pass\\n\");\n    }\n    return 0;\n}\n",
+      "exampleOutput": "Pass",
+      "walkthrough": "按顺序执行上面的语句。括号中是条件；花括号中是满足条件时执行的语句。\n程序输出：Pass",
+      "mistakes": [
+        "在 if (...) 后误加分号。",
+        "条件中用 = 赋值，未表达真正的比较。"
+      ],
+      "summary": "括号中是条件；花括号中是满足条件时执行的语句。"
+    },
+    {
+      "id": "c4-2",
+      "chapter": 4,
+      "index": 1,
+      "en": "If - Else",
+      "title": "if-else 语句",
+      "objective": "让两条互斥路径恰好执行一条。",
+      "explanation": [
+        "if-else 像只有两种出口的分流门。条件为真执行 if 块，否则执行 else 块；两边不会同时执行，也不会都跳过。",
+        "把两种情况分开能避免遗漏。写第二个独立 if 与写 else 并不完全等价，尤其当前一个分支会修改后面条件所依赖的数据时。"
+      ],
+      "syntax": "if (n % 2 == 0) {\n    puts(\"even\");\n} else {\n    puts(\"odd\");\n}",
+      "syntaxNotes": "else 不带条件，它表示前面 if 条件不成立的所有情况。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int n = 7;\n    if (n % 2 == 0) { puts(\"even\"); }\n    else { puts(\"odd\"); }\n    return 0;\n}\n",
+      "exampleOutput": "odd",
+      "walkthrough": "按顺序执行上面的语句。else 不带条件，它表示前面 if 条件不成立的所有情况。\n程序输出：odd",
+      "mistakes": [
+        "只判断正奇数，忽略负数。",
+        "在 if 块和 else 之间插入无关语句，破坏语法配对。"
+      ],
+      "summary": "else 不带条件，它表示前面 if 条件不成立的所有情况。"
+    },
+    {
+      "id": "c4-3",
+      "chapter": 4,
+      "index": 2,
+      "en": "Else-If",
+      "title": "多重条件判断",
+      "objective": "按顺序检查条件，覆盖边界与剩余情况。",
+      "explanation": [
+        "else-if 链像依次检查的分诊台，从第一个条件开始，遇到第一项成立就执行对应分支，然后跳过剩下的分支。最后的 else 接住所有未命中的情况。",
+        "区间条件通常从大到小或从小到大排列。如果先写 score >= 60，就会把 90 分也提前归入及格分支，后面的优秀判断再也到不了。"
+      ],
+      "syntax": "if (s >= 90) { /* A */ }\nelse if (s >= 60) { /* B */ }\nelse { /* C */ }",
+      "syntaxNotes": "后续条件只在前面的条件都不成立时判断，因此 >=60 分支实际覆盖 60～89。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int s = 82;\n    if (s >= 90) { puts(\"A\"); }\n    else if (s >= 60) { puts(\"B\"); }\n    else { puts(\"C\"); }\n    return 0;\n}\n",
+      "exampleOutput": "B",
+      "walkthrough": "按顺序执行上面的语句。后续条件只在前面的条件都不成立时判断，因此 >=60 分支实际覆盖 60～89。\n程序输出：B",
+      "mistakes": [
+        "将较宽的条件放在前面，遮蔽后续条件。",
+        "对 60 和 90 的等号边界处理不一致。"
+      ],
+      "summary": "后续条件只在前面的条件都不成立时判断，因此 >=60 分支实际覆盖 60～89。"
+    },
+    {
+      "id": "c4-4",
+      "chapter": 4,
+      "index": 3,
+      "en": "Switch Case",
+      "title": "switch-case 语句",
+      "objective": "用 switch 分派离散整数或字符状态。",
+      "explanation": [
+        "switch 适合根据一个整数值从多个确定选项中选择，例如菜单编号。case 后必须是整型常量表达式，不能直接写运行时区间或字符串。",
+        "匹配到 case 后会继续顺序执行，直到 break 或 switch 结束。这叫贯穿；如果不是有意共享处理逻辑，通常应在每个分支结尾写 break。"
+      ],
+      "syntax": "switch (choice) {\ncase 1: puts(\"Tea\"); break;\ndefault: puts(\"Other\"); break;\n}",
+      "syntaxNotes": "switch 只计算一次控制表达式；default 处理没有匹配 case 的情况。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int choice = 2;\n    switch (choice) {\n    case 1: puts(\"Tea\"); break;\n    case 2: puts(\"Coffee\"); break;\n    default: puts(\"Water\"); break;\n    }\n    return 0;\n}\n",
+      "exampleOutput": "Coffee",
+      "walkthrough": "按顺序执行上面的语句。switch 只计算一次控制表达式；default 处理没有匹配 case 的情况。\n程序输出：Coffee",
+      "mistakes": [
+        "遗漏 break 造成意外贯穿。",
+        "用浮点数或字符串作为 switch 的控制值。"
+      ],
+      "summary": "switch 只计算一次控制表达式；default 处理没有匹配 case 的情况。"
+    },
+    {
+      "id": "c4-5",
+      "chapter": 4,
+      "index": 4,
+      "en": "Ternary Conditional Operator",
+      "title": "三目运算符",
+      "objective": "在两种值之间进行简短选择。",
+      "explanation": [
+        "条件运算符 ? : 适合“根据条件选一个值”，例如从两个价格中选较低者。它是一个表达式，可以出现在赋值右侧。",
+        "只会计算被选中的一侧，因此也具有短路性质。若逻辑包含多条语句或多层嵌套，用 if-else 会更容易阅读。注意两侧值的类型会共同影响结果类型。"
+      ],
+      "syntax": "int max = a > b ? a : b;",
+      "syntaxNotes": "问号前是条件；冒号前是真时的值；冒号后是假时的值。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int a = 7, b = 12;\n    int max = a > b ? a : b;\n    printf(\"%d\\n\", max);\n    return 0;\n}\n",
+      "exampleOutput": "12",
+      "walkthrough": "按顺序执行上面的语句。问号前是条件；冒号前是真时的值；冒号后是假时的值。\n程序输出：12",
+      "mistakes": [
+        "把 : 漏写成分号。",
+        "多层嵌套造成难以判断的分支顺序。"
+      ],
+      "summary": "问号前是条件；冒号前是真时的值；冒号后是假时的值。"
+    },
+    {
+      "id": "c4-6",
+      "chapter": 4,
+      "index": 5,
+      "en": "Recap Challenge",
+      "title": "流程控制综合练习",
+      "objective": "把条件顺序和边界检查组合为完整规则。",
+      "explanation": [
+        "综合条件题要先确认无效数据，再判断有效区间。比如先检查分数是否在 0～100，再决定是否及格，就不会把 120 分当成普通优秀成绩。",
+        "测试时应主动选每个分支的代表值，并增加边界值。只验证一个常见输入，无法发现条件方向写反或遗漏等号的问题。"
+      ],
+      "syntax": "if (s < 0 || s > 100) { /* invalid */ }\nelse if (s >= 60) { /* pass */ }\nelse { /* fail */ }",
+      "syntaxNotes": "无效输入优先拦截；合法范围内再作分级。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int s = 120;\n    if (s < 0 || s > 100) { puts(\"Invalid\"); }\n    else if (s >= 60) { puts(\"Pass\"); }\n    else { puts(\"Fail\"); }\n    return 0;\n}\n",
+      "exampleOutput": "Invalid",
+      "walkthrough": "按顺序执行上面的语句。无效输入优先拦截；合法范围内再作分级。\n程序输出：Invalid",
+      "mistakes": [
+        "只检查 s<0，忘记大于 100 也无效。",
+        "用 && 连接不可能同时成立的 s<0 与 s>100。"
+      ],
+      "summary": "无效输入优先拦截；合法范围内再作分级。"
+    },
+    {
+      "id": "c4-7",
+      "chapter": 4,
+      "index": 6,
+      "en": "Nested If - Else",
+      "title": "嵌套条件判断",
+      "objective": "按依赖关系嵌套判断，并明确 else 的归属。",
+      "explanation": [
+        "有些条件只有通过外层检查后才有意义。例如先确认门店营业，再判断是否有库存。嵌套 if 可以直接表达这种依赖关系。",
+        "没有花括号时，else 会匹配最近的尚未配对的 if，而不是按缩进匹配。始终使用花括号，并避免过深的嵌套，可以让代码更可靠。"
+      ],
+      "syntax": "if (open) {\n    if (stock > 0) { /* buy */ }\n    else { /* sold out */ }\n}",
+      "syntaxNotes": "外层控制是否营业；内层只在营业时判断库存。",
+      "example": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    bool open = true;\n    int stock = 0;\n    if (open) {\n        if (stock > 0) { puts(\"Buy\"); }\n        else { puts(\"Sold out\"); }\n    } else { puts(\"Closed\"); }\n    return 0;\n}\n",
+      "exampleOutput": "Sold out",
+      "walkthrough": "按顺序执行上面的语句。外层控制是否营业；内层只在营业时判断库存。\n程序输出：Sold out",
+      "mistakes": [
+        "按缩进猜测 else 的归属。",
+        "外层失败时仍执行依赖它的内层运算。"
+      ],
+      "summary": "外层控制是否营业；内层只在营业时判断库存。"
+    }
+  ]
+}

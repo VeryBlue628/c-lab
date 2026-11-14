@@ -1,0 +1,142 @@
+{
+  "c4-1": {
+    "title": "条件温度提醒",
+    "difficulty": "进阶",
+    "description": "令 temperature=38，温度大于等于 37 时输出 High，然后总是输出 Done。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "High\nDone"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 temperature=38，温度大于等于 37 时输出 High，然后总是输出 Done\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int temperature = 38;\n    if (temperature >= 37) {\n        printf(\"High\\n\");\n    }\n    printf(\"Done\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "在条件成立时执行一个代码块。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "括号中是条件；花括号中是满足条件时执行的语句。"
+    ]
+  },
+  "c4-2": {
+    "title": "决定是否购买",
+    "difficulty": "进阶",
+    "description": "令 balance=20、price=25，够钱输出 Buy，否则输出 Save。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Save"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 balance=20、price=25，够钱输出 Buy，否则输出 Save\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int balance = 20, price = 25;\n    if (balance >= price) { puts(\"Buy\"); }\n    else { puts(\"Save\"); }\n    return 0;\n}\n",
+    "hints": [
+      "让两条互斥路径恰好执行一条。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "else 不带条件，它表示前面 if 条件不成立的所有情况。"
+    ]
+  },
+  "c4-3": {
+    "title": "分级评定",
+    "difficulty": "进阶",
+    "description": "令 s=59，按 >=90 输出 A、>=60 输出 B、其余输出 C。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "C"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 s=59，按 >=90 输出 A、>=60 输出 B、其余输出 C\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int s = 59;\n    if (s >= 90) { puts(\"A\"); }\n    else if (s >= 60) { puts(\"B\"); }\n    else { puts(\"C\"); }\n    return 0;\n}\n",
+    "hints": [
+      "按顺序检查条件，覆盖边界与剩余情况。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "后续条件只在前面的条件都不成立时判断，因此 >=60 分支实际覆盖 60～89。"
+    ]
+  },
+  "c4-4": {
+    "title": "分派播放器命令",
+    "difficulty": "进阶",
+    "description": "令 command=3，1 输出 Play，2 输出 Pause，其他输出 Stop。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Stop"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 command=3，1 输出 Play，2 输出 Pause，其他输出 Stop\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int command = 3;\n    switch (command) {\n    case 1: puts(\"Play\"); break;\n    case 2: puts(\"Pause\"); break;\n    default: puts(\"Stop\"); break;\n    }\n    return 0;\n}\n",
+    "hints": [
+      "用 switch 分派离散整数或字符状态。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "switch 只计算一次控制表达式；default 处理没有匹配 case 的情况。"
+    ]
+  },
+  "c4-5": {
+    "title": "选择较小值",
+    "difficulty": "进阶",
+    "description": "令 a=14、b=9，使用三目运算符输出较小的值。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "9"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 a=14、b=9，使用三目运算符输出较小的值\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int a = 14, b = 9;\n    int min = a < b ? a : b;\n    printf(\"%d\\n\", min);\n    return 0;\n}\n",
+    "hints": [
+      "在两种值之间进行简短选择。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "问号前是条件；冒号前是真时的值；冒号后是假时的值。"
+    ]
+  },
+  "c4-6": {
+    "title": "带边界检查的评定",
+    "difficulty": "进阶",
+    "description": "令 s=60，先判断有效范围 0～100，再按及格线 60 输出 Invalid、Pass 或 Fail。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Pass"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 s=60，先判断有效范围 0～100，再按及格线 60 输出 Invalid、Pass 或 Fail\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int s = 60;\n    if (s < 0 || s > 100) { puts(\"Invalid\"); }\n    else if (s >= 60) { puts(\"Pass\"); }\n    else { puts(\"Fail\"); }\n    return 0;\n}\n",
+    "hints": [
+      "把条件顺序和边界检查组合为完整规则。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "无效输入优先拦截；合法范围内再作分级。"
+    ]
+  },
+  "c4-7": {
+    "title": "判断能否下单",
+    "difficulty": "进阶",
+    "description": "令 open=true、stock=5，营业且有货输出 Buy，营业无货输出 Sold out，不营业输出 Closed。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Buy"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 令 open=true、stock=5，营业且有货输出 Buy，营业无货输出 Sold out，不营业输出 Closed\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    bool open = true;\n    int stock = 5;\n    if (open) {\n        if (stock > 0) { puts(\"Buy\"); }\n        else { puts(\"Sold out\"); }\n    } else { puts(\"Closed\"); }\n    return 0;\n}\n",
+    "hints": [
+      "按依赖关系嵌套判断，并明确 else 的归属。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "外层控制是否营业；内层只在营业时判断库存。"
+    ]
+  }
+}

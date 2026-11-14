@@ -1,0 +1,98 @@
+{
+  "c6-1": {
+    "type": "fill",
+    "question": "for (int i=0; i<4; i++) 的循环体执行几次？",
+    "answer": [
+      "4"
+    ],
+    "explanation": "i 依次为 0、1、2、3，一共四个有效值。"
+  },
+  "c6-2": {
+    "type": "boolean",
+    "question": "判断：while 条件一开始为假，循环体不会执行。",
+    "options": [
+      "正确",
+      "错误"
+    ],
+    "answer": [
+      "正确"
+    ],
+    "explanation": "while 属于先判断循环；只有条件非零才进入循环体。"
+  },
+  "c6-3": {
+    "type": "fill",
+    "question": "do-while 的循环体最少执行几次？",
+    "answer": [
+      "1"
+    ],
+    "explanation": "条件判断位于循环体之后，因此至少执行一次。"
+  },
+  "c6-4": {
+    "type": "single",
+    "question": "示例遇到 i==3 后，下一个位置在哪里？",
+    "options": [
+      "循环之后",
+      "下一轮 i=4",
+      "main 外面"
+    ],
+    "answer": [
+      "循环之后"
+    ],
+    "explanation": "break 直接退出当前 for，循环更新表达式和下一轮都不会发生。"
+  },
+  "c6-5": {
+    "type": "single",
+    "question": "for 中执行 continue 后还会执行更新表达式吗？",
+    "options": [
+      "会",
+      "不会"
+    ],
+    "answer": [
+      "会"
+    ],
+    "explanation": "continue 转到 for 的更新步骤，然后才检查下一轮条件。"
+  },
+  "c6-6": {
+    "type": "single",
+    "question": "累加 1 到 n，sum 应在哪里初始化为 0？",
+    "options": [
+      "循环开始前",
+      "每轮循环体中",
+      "不需要初始化"
+    ],
+    "answer": [
+      "循环开始前"
+    ],
+    "explanation": "初值只能在累计之前设置一次；每轮归零会抹掉先前的累计结果。"
+  },
+  "c6-7": {
+    "type": "fill",
+    "question": "外层 3 次、每次内层 4 次，内层循环体共执行几次？",
+    "answer": [
+      "12"
+    ],
+    "explanation": "每行 4 个单元格，共 3 行，所以是 3 × 4 = 12。"
+  },
+  "c6-8": {
+    "type": "multi",
+    "question": "多选：哪些可以结束 while(1) 所在的循环执行？",
+    "options": [
+      "执行该循环中的 break",
+      "从函数 return",
+      "普通的 continue"
+    ],
+    "answer": [
+      "执行该循环中的 break",
+      "从函数 return"
+    ],
+    "explanation": "break 退出循环，return 退出函数；continue 只进入下一轮，不能结束循环。"
+  },
+  "c6-9": {
+    "type": "fill",
+    "question": "数据 -2 0 4 5 中，严格大于零的数有几个？",
+    "answer": [
+      "2"
+    ],
+    "explanation": "只有 4 和 5 严格大于 0，零不属于正数。"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "source": "https://runno.dev/langs/",
+  "files": [
+    {
+      "name": "clang.wasm",
+      "asset": "clang.wasm.gzip",
+      "sha256": "2a466f0e990329d3230b869d04fc20803eae96a7feb3a3f6c93e25a77b8aed1d",
+      "bytes": 31214472,
+      "downloadBytes": 10620308
+    },
+    {
+      "name": "wasm-ld.wasm",
+      "asset": "wasm-ld.wasm.gzip",
+      "sha256": "36419ed202011765222098d7701218378b67f634d50f0a4625059ae2c9860f48",
+      "bytes": 19490094,
+      "downloadBytes": 6769787
+    },
+    {
+      "name": "clang-fs.tar.gz",
+      "asset": "clang-fs.tar.gz",
+      "sha256": "7ed12063619882e4dfa710ab371fc91848b256f85a4075747e8bd5c167902b50",
+      "bytes": 1790862,
+      "downloadBytes": 1790862
+    }
+  ]
+}

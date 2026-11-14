@@ -1,0 +1,222 @@
+{
+  "c2-1": {
+    "title": "选对数据盒子",
+    "difficulty": "基础",
+    "description": "声明整数 books 为 4、小数 price 为 12.5，输出 4 12.5。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "4 12.5"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 声明整数 books 为 4、小数 price 为 12.5，输出 4 12.5\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int books = 4;\n    double price = 12.5;\n    printf(\"%d %.1f\\n\", books, price);\n    return 0;\n}\n",
+    "hints": [
+      "根据数据的性质选择 int、double 或 char。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "类型 + 变量名 + = 初始值。单字符用单引号；小数通常选 double。"
+    ]
+  },
+  "c2-2": {
+    "title": "库存计数",
+    "difficulty": "基础",
+    "description": "盒中原有 24 支笔，送出 7 支后输出剩余支数。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "17"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 盒中原有 24 支笔，送出 7 支后输出剩余支数\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int pens = 24;\n    pens = pens - 7;\n    printf(\"%d\\n\", pens);\n    return 0;\n}\n",
+    "hints": [
+      "声明和修改整数变量，理解整数除法。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "第二条语句读取旧值 7，加 2 后写回 9；= 表示赋值。"
+    ]
+  },
+  "c2-3": {
+    "title": "计算购物总价",
+    "difficulty": "基础",
+    "description": "计算 19.5 元商品购买 3 件的总价，保留两位小数输出。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "58.50"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 计算 19.5 元商品购买 3 件的总价，保留两位小数输出\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    double price = 19.5;\n    printf(\"%.2f\\n\", price * 3);\n    return 0;\n}\n",
+    "hints": [
+      "使用 double 处理小数，并控制输出精度。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "10.0 使除法在浮点数中进行；%.2f 控制显示两位小数。"
+    ]
+  },
+  "c2-4": {
+    "title": "输出字符徽记",
+    "difficulty": "基础",
+    "description": "声明字符等级 A 和字符标记 !，输出 A!。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "A!"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 声明字符等级 A 和字符标记 !，输出 A!\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    char grade = 'A';\n    char mark = '!';\n    printf(\"%c%c\\n\", grade, mark);\n    return 0;\n}\n",
+    "hints": [
+      "用 char 保存单个字符，并使用 %c 输出。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "%c 按字符输出；%d 会按整数显示经过提升的编码。"
+    ]
+  },
+  "c2-5": {
+    "title": "描述程序状态",
+    "difficulty": "基础",
+    "description": "声明布尔量 enabled 为 true，finished 为 false，输出 1 0。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "1 0"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 声明布尔量 enabled 为 true，finished 为 false，输出 1 0\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    bool enabled = true;\n    bool finished = false;\n    printf(\"%d %d\\n\", enabled, finished);\n    return 0;\n}\n",
+    "hints": [
+      "在 C11 中引入 stdbool.h 并使用 bool。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "stdbool.h 提供 bool、true 和 false；布尔量用于表达条件。"
+    ]
+  },
+  "c2-6": {
+    "title": "固定的包装数量",
+    "difficulty": "基础",
+    "description": "用 const int 保存每包 6 支笔，计算 5 包的数量并输出。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "30"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 用 const int 保存每包 6 支笔，计算 5 包的数量并输出\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    const int PACK = 6;\n    printf(\"%d\\n\", PACK * 5);\n    return 0;\n}\n",
+    "hints": [
+      "用 const 声明不应修改的值。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "const 限制通过该变量修改值；声明时就提供初值，名字大写只是约定。"
+    ]
+  },
+  "c2-7": {
+    "title": "格式化个人信息",
+    "difficulty": "基础",
+    "description": "用变量输出 Age: 21, score: 95.5，分数保留一位小数。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Age: 21, score: 95.5"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 用变量输出 Age: 21, score: 95.5，分数保留一位小数\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int age = 21;\n    double score = 95.5;\n    printf(\"Age: %d, score: %.1f\\n\", age, score);\n    return 0;\n}\n",
+    "hints": [
+      "让格式控制符与参数类型和顺序一致。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "%d 对应 int，%f 对应提升后的 double，%c 对应字符的整型提升，%% 不消费参数。"
+    ]
+  },
+  "c2-8": {
+    "title": "清晰的命名",
+    "difficulty": "基础",
+    "description": "声明 total_score 为 88，bonus 为 7，输出它们的和。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "95"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 声明 total_score 为 88，bonus 为 7，输出它们的和\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int total_score = 88;\n    int bonus = 7;\n    printf(\"%d\\n\", total_score + bonus);\n    return 0;\n}\n",
+    "hints": [
+      "辨认合法标识符并使用清晰的变量名。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "item_count 是完整标识符，中间不能有空格或连字符；连字符会被视为减号。"
+    ]
+  },
+  "c2-9": {
+    "title": "保留平均数的小数",
+    "difficulty": "基础",
+    "description": "有 17 个苹果分给 4 人，计算平均每人数量，保留两位小数。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "4.25"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 有 17 个苹果分给 4 人，计算平均每人数量，保留两位小数\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int apples = 17, people = 4;\n    printf(\"%.2f\\n\", (double)apples / people);\n    return 0;\n}\n",
+    "hints": [
+      "在运算前显式转换类型，保留小数。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "先把 total 转为 double；count 也会参与浮点运算；最终结果存入 average。"
+    ]
+  },
+  "c2-10": {
+    "title": "观察向零截断",
+    "difficulty": "基础",
+    "description": "把 12.8 和 -4.6 分别转换为整数，按顺序输出。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "12 -4"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 把 12.8 和 -4.6 分别转换为整数，按顺序输出\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    double x = 12.8, y = -4.6;\n    printf(\"%d %d\\n\", (int)x, (int)y);\n    return 0;\n}\n",
+    "hints": [
+      "识别浮点转整数的截断和范围风险。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "(int) 只在值处于可表示范围时有定义；它不会进行四舍五入。"
+    ]
+  },
+  "c2-11": {
+    "title": "完成一次购票计算",
+    "difficulty": "基础",
+    "description": "一张票价 18.5 元，买 4 张，再减去 5 元优惠，输出总价，保留两位小数。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "69.00"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 一张票价 18.5 元，买 4 张，再减去 5 元优惠，输出总价，保留两位小数\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    const double price = 18.5;\n    int count = 4;\n    double total = price * count - 5;\n    printf(\"%.2f\\n\", total);\n    return 0;\n}\n",
+    "hints": [
+      "组合变量、常量与格式化输出完成计算。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "整数 count 在与 double 相乘时转换为浮点数；总额用 %.2f 显示。"
+    ]
+  }
+}

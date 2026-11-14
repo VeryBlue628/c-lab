@@ -1,0 +1,182 @@
+{
+  "c3-1": {
+    "title": "控制计算顺序",
+    "difficulty": "基础",
+    "description": "计算 (12 + 8) * 3 - 10 / 2，输出整数结果。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "55"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 计算 (12 + 8) * 3 - 10 / 2，输出整数结果\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int result = (12 + 8) * 3 - 10 / 2;\n    printf(\"%d\\n\", result);\n    return 0;\n}\n",
+    "hints": [
+      "使用加减乘除，并根据优先级组织表达式。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "括号先算 2 + 3，再与 4 相乘；没有括号时先算 3 * 4。"
+    ]
+  },
+  "c3-2": {
+    "title": "用余数拆分时间",
+    "difficulty": "基础",
+    "description": "把 53 分钟拆成小时数和剩余分钟数，用两个整数输出。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "0 53"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 把 53 分钟拆成小时数和剩余分钟数，用两个整数输出\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int minutes = 53;\n    printf(\"%d %d\\n\", minutes / 60, minutes % 60);\n    return 0;\n}\n",
+    "hints": [
+      "用整数余数判断整除、奇偶和循环位置。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "满足 a == (a / b) * b + a % b（商可表示且 b 非零时）。"
+    ]
+  },
+  "c3-3": {
+    "title": "旧值与新值",
+    "difficulty": "基础",
+    "description": "令 n 为 8，分别用后置与前置自增存入 a、b，输出 a b n。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "8 10 10"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 n 为 8，分别用后置与前置自增存入 a、b，输出 a b n\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n = 8;\n    int a = n++;\n    int b = ++n;\n    printf(\"%d %d %d\\n\", a, b, n);\n    return 0;\n}\n",
+    "hints": [
+      "区分前置和后置自增的表达式值。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "后置表达式提供旧值；前置表达式提供更新后的值。"
+    ]
+  },
+  "c3-4": {
+    "title": "更新余额",
+    "difficulty": "基础",
+    "description": "余额为 100，先支出 30，再收入 15，使用复合赋值并输出余额。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "85"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 余额为 100，先支出 30，再收入 15，使用复合赋值并输出余额\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int balance = 100;\n    balance -= 30;\n    balance += 15;\n    printf(\"%d\\n\", balance);\n    return 0;\n}\n",
+    "hints": [
+      "用复合赋值更新累计值。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "先读取 total 的旧值，完成计算，再转换回左侧变量的类型并存储。"
+    ]
+  },
+  "c3-5": {
+    "title": "比较两个数",
+    "difficulty": "基础",
+    "description": "声明 a=8、b=12，依次输出 a<b、a==b、a!=b 的结果。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "1 0 1"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 声明 a=8、b=12，依次输出 a<b、a==b、a!=b 的结果\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int a = 8, b = 12;\n    printf(\"%d %d %d\\n\", a < b, a == b, a != b);\n    return 0;\n}\n",
+    "hints": [
+      "通过关系比较生成 0 或 1。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      ">= 包含等于边界；== 比较两个值；比较表达式返回 0 或 1。"
+    ]
+  },
+  "c3-6": {
+    "title": "检查年龄区间",
+    "difficulty": "基础",
+    "description": "判断 age=20 是否处于 18 到 30 的闭区间，输出 0 或 1。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 判断 age=20 是否处于 18 到 30 的闭区间，输出 0 或 1\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int age = 20;\n    printf(\"%d\\n\", age >= 18 && age <= 30);\n    return 0;\n}\n",
+    "hints": [
+      "用 && 表达必须同时满足的条件。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "两个比较各自形成真假值；&& 合并为 0 或 1。"
+    ]
+  },
+  "c3-7": {
+    "title": "异常温度提醒",
+    "difficulty": "基础",
+    "description": "判断温度 temp=-5 是否低于 0 或高于 35，输出 0 或 1。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "1"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 判断温度 temp=-5 是否低于 0 或高于 35，输出 0 或 1\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int temp = -5;\n    printf(\"%d\\n\", temp < 0 || temp > 35);\n    return 0;\n}\n",
+    "hints": [
+      "用 || 表达满足任一条件即可。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "每个比较都写完整，不能写 day == 6 || 7，因为字面值 7 永远为真。"
+    ]
+  },
+  "c3-8": {
+    "title": "组合访问条件",
+    "difficulty": "基础",
+    "description": "声明 logged_in=false、guest=true，判断是否可以访问（登录或访客），再输出 !logged_in。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "1 1"
+      }
+    ],
+    "starter": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    // TODO: 声明 logged_in=false、guest=true，判断是否可以访问（登录或访客），再输出 !logged_in\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    bool logged_in = false, guest = true;\n    printf(\"%d %d\\n\", logged_in || guest, !logged_in);\n    return 0;\n}\n",
+    "hints": [
+      "用 ! 取反，组合安全且易读的条件。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "! 作用于紧随其后的完整操作数；括号决定取反范围。"
+    ]
+  },
+  "c3-9": {
+    "title": "组合数字规则",
+    "difficulty": "基础",
+    "description": "令 n=27，判断是否为大于 10 且能被 3 整除的数，输出判断结果和 n%10。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "1 7"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 n=27，判断是否为大于 10 且能被 3 整除的数，输出判断结果和 n%10\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n = 27;\n    printf(\"%d %d\\n\", n > 10 && n % 3 == 0, n % 10);\n    return 0;\n}\n",
+    "hints": [
+      "结合取余、关系和逻辑运算表达业务规则。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "% 优先于 ==，比较优先于 &&；添加括号可以进一步强调语义。"
+    ]
+  }
+}

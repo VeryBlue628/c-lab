@@ -1,0 +1,206 @@
+{
+  "id": 3,
+  "en": "Operators",
+  "title": "运算符",
+  "description": "把数据组合成表达式，理解运算与逻辑。",
+  "lessons": [
+    {
+      "id": "c3-1",
+      "chapter": 3,
+      "index": 0,
+      "en": "Arithmetic Operators",
+      "title": "算术运算符",
+      "objective": "使用加减乘除，并根据优先级组织表达式。",
+      "explanation": [
+        "算术表达式像数学算式：* 和 / 先于 + 和 - 计算，括号可以明确改变顺序。整数除法会截断小数，除数为零则不允许。",
+        "即使记住了优先级，也应为复杂表达式加上有意义的括号。不要依赖同一表达式中带副作用的计算顺序；C 不保证所有操作数从左向右求值。"
+      ],
+      "syntax": "int result = (2 + 3) * 4;",
+      "syntaxNotes": "括号先算 2 + 3，再与 4 相乘；没有括号时先算 3 * 4。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    printf(\"%d %d\\n\", 2 + 3 * 4, (2 + 3) * 4);\n    return 0;\n}\n",
+      "exampleOutput": "14 20",
+      "walkthrough": "按顺序执行上面的语句。括号先算 2 + 3，再与 4 相乘；没有括号时先算 3 * 4。\n程序输出：14 20",
+      "mistakes": [
+        "将整数除法当成浮点除法。",
+        "用 0 作除数，程序行为未定义。"
+      ],
+      "summary": "括号先算 2 + 3，再与 4 相乘；没有括号时先算 3 * 4。"
+    },
+    {
+      "id": "c3-2",
+      "chapter": 3,
+      "index": 1,
+      "en": "Modulo Operator",
+      "title": "取模运算符",
+      "objective": "用整数余数判断整除、奇偶和循环位置。",
+      "explanation": [
+        "% 求整数除法后的余数。把 17 颗糖每 5 颗分一组，可以分 3 组，还剩 2 颗，所以 17 % 5 是 2。",
+        "在 C11 中，除法商向零截断，余数与被除数同号或为零。因此 -7 % 3 是 -1。% 仅接受整数操作数，且除数不能为零。"
+      ],
+      "syntax": "int remainder = 17 % 5;",
+      "syntaxNotes": "满足 a == (a / b) * b + a % b（商可表示且 b 非零时）。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    printf(\"%d %d\\n\", 17 % 5, -7 % 3);\n    return 0;\n}\n",
+      "exampleOutput": "2 -1",
+      "walkthrough": "按顺序执行上面的语句。满足 a == (a / b) * b + a % b（商可表示且 b 非零时）。\n程序输出：2 -1",
+      "mistakes": [
+        "用 % 处理 double。",
+        "判断负奇数时只用 n % 2 == 1，负奇数的余数可能是 -1。"
+      ],
+      "summary": "满足 a == (a / b) * b + a % b（商可表示且 b 非零时）。"
+    },
+    {
+      "id": "c3-3",
+      "chapter": 3,
+      "index": 2,
+      "en": "Increment/Decrement",
+      "title": "自增与自减",
+      "objective": "区分前置和后置自增的表达式值。",
+      "explanation": [
+        "++ 和 -- 分别把变量加一或减一。独立写成 i++; 和 ++i; 时，最终效果一样。放到赋值中时，前置先更新再取值，后置先取旧值再更新。",
+        "一条语句只修改一个变量一次，代码会更容易理解。像 printf(\"%d %d\", i++, i++); 这类未定序的修改有未定义行为，不能拿某次运行结果当规则。"
+      ],
+      "syntax": "int old = n++;\nint now = ++n;",
+      "syntaxNotes": "后置表达式提供旧值；前置表达式提供更新后的值。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int n = 5;\n    int old = n++;\n    int now = ++n;\n    printf(\"%d %d %d\\n\", old, now, n);\n    return 0;\n}\n",
+      "exampleOutput": "5 7 7",
+      "walkthrough": "按顺序执行上面的语句。后置表达式提供旧值；前置表达式提供更新后的值。\n程序输出：5 7 7",
+      "mistakes": [
+        "在一条表达式中无定序地多次修改同一变量。",
+        "误把后置自增理解成整个函数结束后才增加。"
+      ],
+      "summary": "后置表达式提供旧值；前置表达式提供更新后的值。"
+    },
+    {
+      "id": "c3-4",
+      "chapter": 3,
+      "index": 3,
+      "en": "Assignment Operators",
+      "title": "赋值运算符",
+      "objective": "用复合赋值更新累计值。",
+      "explanation": [
+        "赋值把右边结果存入左边。total += price 可以读作“把 price 累加到 total”。-=、*=、/=、%= 也有类似含义。",
+        "复合赋值对左操作数只求值一次，不应机械地将复杂表达式展开。本节仅对普通变量使用它；当变量是 int 时，/= 仍然是整数除法。"
+      ],
+      "syntax": "total += 5;\ntotal *= 2;",
+      "syntaxNotes": "先读取 total 的旧值，完成计算，再转换回左侧变量的类型并存储。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int total = 10;\n    total += 5;\n    total *= 2;\n    printf(\"%d\\n\", total);\n    return 0;\n}\n",
+      "exampleOutput": "30",
+      "walkthrough": "按顺序执行上面的语句。先读取 total 的旧值，完成计算，再转换回左侧变量的类型并存储。\n程序输出：30",
+      "mistakes": [
+        "把 = 当作等于比较。",
+        "先乘后加与先加后乘不同，语句执行顺序会影响结果。"
+      ],
+      "summary": "先读取 total 的旧值，完成计算，再转换回左侧变量的类型并存储。"
+    },
+    {
+      "id": "c3-5",
+      "chapter": 3,
+      "index": 4,
+      "en": "Relational Operators",
+      "title": "关系运算符",
+      "objective": "通过关系比较生成 0 或 1。",
+      "explanation": [
+        "关系运算符用于回答大小或相等问题，结果类型为 int，值为 0 或 1。== 判断相等，!= 判断不等，和给变量赋值的 = 不同。",
+        "数学中的 0 < x < 10 不能原样用于 C：它会先得到 0 或 1，再与 10 比较。检查区间需要把两个比较用逻辑与连接。"
+      ],
+      "syntax": "int passed = score >= 60;",
+      "syntaxNotes": ">= 包含等于边界；== 比较两个值；比较表达式返回 0 或 1。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int score = 60;\n    printf(\"%d %d\\n\", score >= 60, score == 100);\n    return 0;\n}\n",
+      "exampleOutput": "1 0",
+      "walkthrough": "按顺序执行上面的语句。>= 包含等于边界；== 比较两个值；比较表达式返回 0 或 1。\n程序输出：1 0",
+      "mistakes": [
+        "用 = 代替 ==，意外修改变量。",
+        "直接写数学式的连续比较，如 1 < x < 5。"
+      ],
+      "summary": ">= 包含等于边界；== 比较两个值；比较表达式返回 0 或 1。"
+    },
+    {
+      "id": "c3-6",
+      "chapter": 3,
+      "index": 5,
+      "en": "Logical Operators Part 1",
+      "title": "逻辑运算符（一）",
+      "objective": "用 && 表达必须同时满足的条件。",
+      "explanation": [
+        "逻辑与 && 类似进门时既要持有门票，又要处于开放时间：两项都成立才为真。只要一项为假，整个结果就是假。",
+        "&& 有短路特性：左侧为假时，不再计算右侧。这可以保护除法或数组访问，但必须把安全检查放在左边。它和按位与 & 不是同一种运算。"
+      ],
+      "syntax": "x >= 0 && x <= 100",
+      "syntaxNotes": "两个比较各自形成真假值；&& 合并为 0 或 1。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int score = 85;\n    printf(\"%d\\n\", score >= 0 && score <= 100);\n    return 0;\n}\n",
+      "exampleOutput": "1",
+      "walkthrough": "按顺序执行上面的语句。两个比较各自形成真假值；&& 合并为 0 或 1。\n程序输出：1",
+      "mistakes": [
+        "用 & 代替 &&，失去逻辑短路含义。",
+        "把危险运算放在范围或零值检查之前。"
+      ],
+      "summary": "两个比较各自形成真假值；&& 合并为 0 或 1。"
+    },
+    {
+      "id": "c3-7",
+      "chapter": 3,
+      "index": 6,
+      "en": "Logical Operators Part 2",
+      "title": "逻辑运算符（二）",
+      "objective": "用 || 表达满足任一条件即可。",
+      "explanation": [
+        "逻辑或 || 类似两张不同种类的通行证：持有任意一种即可通过。只有两项都为假时才为假，结果仍然是 0 或 1。",
+        "|| 也会短路：左侧已经为真时，右侧不再执行。&& 的优先级高于 ||，但把条件分组写清楚比依赖记忆更稳妥。"
+      ],
+      "syntax": "day == 6 || day == 7",
+      "syntaxNotes": "每个比较都写完整，不能写 day == 6 || 7，因为字面值 7 永远为真。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int day = 7;\n    printf(\"%d\\n\", day == 6 || day == 7);\n    return 0;\n}\n",
+      "exampleOutput": "1",
+      "walkthrough": "按顺序执行上面的语句。每个比较都写完整，不能写 day == 6 || 7，因为字面值 7 永远为真。\n程序输出：1",
+      "mistakes": [
+        "写 x == 1 || 2，第二项是恒真的整数 2。",
+        "把 || 和按位或 | 混淆。"
+      ],
+      "summary": "每个比较都写完整，不能写 day == 6 || 7，因为字面值 7 永远为真。"
+    },
+    {
+      "id": "c3-8",
+      "chapter": 3,
+      "index": 7,
+      "en": "Logical Operators Part 3",
+      "title": "逻辑运算符（三）",
+      "objective": "用 ! 取反，组合安全且易读的条件。",
+      "explanation": [
+        "逻辑非 ! 把真变假、假变真。!0 是 1，!任何非零数是 0；双重取反 !!x 可以把任意整数规范化为 0 或 1。",
+        "对复合条件取反时，德摩根律能帮助化简：!(A && B) 等价于 !A || !B。先用括号明确条件边界，再考虑是否需要化简。"
+      ],
+      "syntax": "!(score >= 0 && score <= 100)",
+      "syntaxNotes": "! 作用于紧随其后的完整操作数；括号决定取反范围。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int score = 120;\n    printf(\"%d %d\\n\", !(score >= 0 && score <= 100), !!score);\n    return 0;\n}\n",
+      "exampleOutput": "1 1",
+      "walkthrough": "按顺序执行上面的语句。! 作用于紧随其后的完整操作数；括号决定取反范围。\n程序输出：1 1",
+      "mistakes": [
+        "写 !x == y，却想表达 !(x == y)。",
+        "用 ~ 代替 !，前者是按位取反。"
+      ],
+      "summary": "! 作用于紧随其后的完整操作数；括号决定取反范围。"
+    },
+    {
+      "id": "c3-9",
+      "chapter": 3,
+      "index": 8,
+      "en": "Recap Challenge",
+      "title": "运算符综合练习",
+      "objective": "结合取余、关系和逻辑运算表达业务规则。",
+      "explanation": [
+        "复杂规则先拆成多个布尔问题，再把它们组合。比如判断一个数是否是非负偶数，需要分别检查是否非负、是否能被 2 整除，最后取逻辑与。",
+        "写出中间变量可以帮助调试。不要为了缩短代码把所有条件挤成一个难以读懂的表达式；尤其要覆盖 0、负数和边界值。"
+      ],
+      "syntax": "bool valid = n >= 0 && n % 2 == 0;",
+      "syntaxNotes": "% 优先于 ==，比较优先于 &&；添加括号可以进一步强调语义。",
+      "example": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int n = 8;\n    bool valid = n >= 0 && n % 2 == 0;\n    printf(\"%d\\n\", valid);\n    return 0;\n}\n",
+      "exampleOutput": "1",
+      "walkthrough": "按顺序执行上面的语句。% 优先于 ==，比较优先于 &&；添加括号可以进一步强调语义。\n程序输出：1",
+      "mistakes": [
+        "忽略 0 也是偶数。",
+        "用 n % 2 == 1 判断所有奇数，漏掉负奇数。"
+      ],
+      "summary": "% 优先于 ==，比较优先于 &&；添加括号可以进一步强调语义。"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "c4-1": {
+    "type": "debug",
+    "question": "分析：if (x > 0); { puts(\"yes\"); } 的问题是什么？",
+    "options": [
+      "分号让 if 控制空语句",
+      "缺少头文件 stdbool.h",
+      "puts 不能输出"
+    ],
+    "answer": [
+      "分号让 if 控制空语句"
+    ],
+    "explanation": "分号独立构成空语句，后面的花括号块无条件执行，因此需要删除多余分号。"
+  },
+  "c4-2": {
+    "type": "boolean",
+    "question": "判断：同一个 if-else 中两个分支可能同时执行。",
+    "options": [
+      "正确",
+      "错误"
+    ],
+    "answer": [
+      "错误"
+    ],
+    "explanation": "if 与 else 互斥，同一次判断只能选择一条路径。"
+  },
+  "c4-3": {
+    "type": "single",
+    "question": "s=90 时，示例的分支结果是？",
+    "options": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "第一个 >=90 已经成立，后面的 else-if 不再检查。"
+  },
+  "c4-4": {
+    "type": "fill",
+    "question": "填空：通常用于结束一个 case 分支、防止贯穿的关键字是什么？",
+    "answer": [
+      "break"
+    ],
+    "explanation": "break 退出最近一层 switch 或循环；它不等同于退出整个函数。"
+  },
+  "c4-5": {
+    "type": "predict",
+    "question": "预测：3 > 5 ? 10 : 20 的值是多少？",
+    "answer": [
+      "20"
+    ],
+    "explanation": "3 > 5 为假，因此选择冒号后面的 20。"
+  },
+  "c4-6": {
+    "type": "single",
+    "question": "哪个值应被示例判定为 Invalid？",
+    "options": [
+      "101",
+      "60",
+      "0"
+    ],
+    "answer": [
+      "101"
+    ],
+    "explanation": "合法范围是 0～100 的闭区间，101 超过上界。"
+  },
+  "c4-7": {
+    "type": "single",
+    "question": "没有花括号时，else 默认与哪个 if 配对？",
+    "options": [
+      "最近尚未配对的 if",
+      "最外层 if",
+      "按缩进判断"
+    ],
+    "answer": [
+      "最近尚未配对的 if"
+    ],
+    "explanation": "C 的语法配对由结构决定，空白缩进不决定 else 归属。"
+  }
+}

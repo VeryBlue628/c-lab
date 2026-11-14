@@ -1,0 +1,96 @@
+{
+  "id": 1,
+  "en": "Introduction",
+  "title": "C 语言入门",
+  "description": "从第一行代码开始，认识程序如何运行。",
+  "lessons": [
+    {
+      "id": "c1-1",
+      "chapter": 1,
+      "index": 0,
+      "en": "C Language",
+      "title": "认识 C 语言",
+      "objective": "理解源代码、编译器和程序之间的关系。",
+      "explanation": [
+        "把源代码想象成一份用文字写下的菜谱，CPU 需要的是可以直接执行的指令。C 编译器负责检查并翻译这份菜谱；有语法错误时，程序还没有开始运行。",
+        "C 常用于操作系统和嵌入式设备。这个工坊使用 C11 标准：右侧的 Clang 把 C 源代码编译为 WebAssembly，再在浏览器沙箱中执行。你写的仍然是真正的 C 程序。"
+      ],
+      "syntax": "源代码 → 编译 → 链接 → 执行",
+      "syntaxNotes": "编译检查语法和类型；链接找到 printf 等函数的实现；运行阶段才产生输出。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, C!\\n\");\n    return 0;\n}\n",
+      "exampleOutput": "Hello, C!",
+      "walkthrough": "按顺序执行上面的语句。编译检查语法和类型；链接找到 printf 等函数的实现；运行阶段才产生输出。\n程序输出：Hello, C!",
+      "mistakes": [
+        "把编译错误当成输出错误：编译失败时根本不会执行 main。",
+        "把 C 与 C++ 混用：本课程使用 printf，不使用 cout。"
+      ],
+      "summary": "编译检查语法和类型；链接找到 printf 等函数的实现；运行阶段才产生输出。"
+    },
+    {
+      "id": "c1-2",
+      "chapter": 1,
+      "index": 1,
+      "en": "Hello World!",
+      "title": "第一个 C 程序",
+      "objective": "使用 printf 输出文本，区分换行与普通字符。",
+      "explanation": [
+        "printf 是标准库提供的输出函数。你可以把它当作程序的扬声器：括号里的双引号字符串就是它要说的话。#include <stdio.h> 让编译器知道这个函数的声明。",
+        "转义序列 \\n 表示换行，而不是字母 n。C 语句通常以分号结束。运行时从 main 开始，执行 printf 后，return 0 表示正常退出。"
+      ],
+      "syntax": "printf(\"Hello, World!\\n\");",
+      "syntaxNotes": "printf 是函数名；圆括号包住参数；双引号包住文本；\\n 换行；分号结束语句。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n",
+      "exampleOutput": "Hello, World!",
+      "walkthrough": "按顺序执行上面的语句。printf 是函数名；圆括号包住参数；双引号包住文本；\\n 换行；分号结束语句。\n程序输出：Hello, World!",
+      "mistakes": [
+        "忘记分号会导致编译失败。",
+        "使用中文弯引号代替 ASCII 双引号，编译器无法识别字符串。"
+      ],
+      "summary": "printf 是函数名；圆括号包住参数；双引号包住文本；\\n 换行；分号结束语句。"
+    },
+    {
+      "id": "c1-3",
+      "chapter": 1,
+      "index": 2,
+      "en": "Comments",
+      "title": "注释",
+      "objective": "选择单行或多行注释，为代码说明意图。",
+      "explanation": [
+        "注释像书页旁的铅笔备注，帮助读代码的人理解意图。编译器会忽略注释，不会把它显示到屏幕上。",
+        "// 从当前位置一直注释到行末；/* 与 */ 之间可以跨多行。多行注释不能嵌套；字符串内部的 // 是普通字符，不会开始注释。"
+      ],
+      "syntax": "// 单行注释\n/* 多行\n   注释 */",
+      "syntaxNotes": "// 适合短说明；/* ... */ 必须成对闭合。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    // 这行只给人看\n    printf(\"Visible\\n\"); /* 真正的输出 */\n    return 0;\n}\n",
+      "exampleOutput": "Visible",
+      "walkthrough": "按顺序执行上面的语句。// 适合短说明；/* ... */ 必须成对闭合。\n程序输出：Visible",
+      "mistakes": [
+        "以为注释会被输出。",
+        "在 /* ... */ 内再嵌套同类注释，可能提前结束外层注释。"
+      ],
+      "summary": "// 适合短说明；/* ... */ 必须成对闭合。"
+    },
+    {
+      "id": "c1-4",
+      "chapter": 1,
+      "index": 3,
+      "en": "Basic Program Structure",
+      "title": "C 程序的基本结构",
+      "objective": "辨认头文件、main 函数、代码块和返回值。",
+      "explanation": [
+        "一个基础程序可以分成三部分：顶部引入需要的声明，main 提供入口，花括号包住要执行的语句。缩进帮助阅读，真正决定代码块范围的是花括号。",
+        "int main(void) 表示 main 返回整数且不接收参数。return 0 把成功状态交回运行环境；它并不会向屏幕打印数字 0。"
+      ],
+      "syntax": "int main(void) {\n    return 0;\n}",
+      "syntaxNotes": "int 是返回类型；main 是入口名；void 表示无参数；{ } 定义函数体。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Start\\n\");\n    return 0;\n    return 0;\n}\n",
+      "exampleOutput": "Start",
+      "walkthrough": "按顺序执行上面的语句。int 是返回类型；main 是入口名；void 表示无参数；{ } 定义函数体。\n程序输出：Start",
+      "mistakes": [
+        "把语句写在函数体外。",
+        "把 return 0 当作 printf(\"0\")，混淆退出状态和标准输出。"
+      ],
+      "summary": "int 是返回类型；main 是入口名；void 表示无参数；{ } 定义函数体。"
+    }
+  ]
+}

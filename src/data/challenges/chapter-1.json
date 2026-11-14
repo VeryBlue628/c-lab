@@ -1,0 +1,82 @@
+{
+  "c1-1": {
+    "title": "和 C 打个招呼",
+    "difficulty": "基础",
+    "description": "向屏幕输出 C is powerful!，末尾换行。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "C is powerful!"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 向屏幕输出 C is powerful!，末尾换行\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    printf(\"C is powerful!\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "理解源代码、编译器和程序之间的关系。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "在 main 中调用 printf(\"C is powerful!\\n\");，字符串放在双引号里。"
+    ]
+  },
+  "c1-2": {
+    "title": "两行问候",
+    "difficulty": "基础",
+    "description": "分两行输出 Hello 和 C Lab。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Hello\nC Lab"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 分两行输出 Hello 和 C Lab\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello\\nC Lab\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "使用 printf 输出文本，区分换行与普通字符。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "printf 是函数名；圆括号包住参数；双引号包住文本；\\n 换行；分号结束语句。"
+    ]
+  },
+  "c1-3": {
+    "title": "给代码留下说明",
+    "difficulty": "基础",
+    "description": "写一条注释解释输出，然后只输出 Keep learning。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Keep learning"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 写一条注释解释输出，然后只输出 Keep learning\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    // 提醒自己坚持练习\n    printf(\"Keep learning\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "选择单行或多行注释，为代码说明意图。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "// 适合短说明；/* ... */ 必须成对闭合。"
+    ]
+  },
+  "c1-4": {
+    "title": "搭好程序骨架",
+    "difficulty": "基础",
+    "description": "保留正确的 main 结构，先后输出 Start 和 Finish。",
+    "input": "本题不需要输入。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "",
+        "output": "Start\nFinish"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 保留正确的 main 结构，先后输出 Start 和 Finish\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Start\\nFinish\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "辨认头文件、main 函数、代码块和返回值。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "int 是返回类型；main 是入口名；void 表示无参数；{ } 定义函数体。"
+    ]
+  }
+}

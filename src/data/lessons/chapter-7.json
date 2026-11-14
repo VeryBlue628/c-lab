@@ -1,0 +1,162 @@
+{
+  "id": 7,
+  "en": "Functions",
+  "title": "函数",
+  "description": "把问题拆开，让每一段代码职责清晰。",
+  "lessons": [
+    {
+      "id": "c7-1",
+      "chapter": 7,
+      "index": 0,
+      "en": "Declare a Function",
+      "title": "函数声明与定义",
+      "objective": "定义一个无参数函数，并从 main 调用。",
+      "explanation": [
+        "函数像一台专门完成某个步骤的小机器。定义告诉编译器它的名字、参数、返回类型和内部做法；调用才会让这台机器实际执行。只写定义不会自动运行。",
+        "本节先把完整定义放在 main 前面，这样调用点已经知道函数的类型。void hello(void) 中，第一个 void 表示不返回值，括号里的 void 表示不接收参数。"
+      ],
+      "syntax": "void hello(void) {\n    puts(\"Hello\");\n}\n/* 调用：hello(); */",
+      "syntaxNotes": "函数定义不能嵌套在 main 内部；调用需要圆括号。",
+      "example": "#include <stdio.h>\n\nvoid hello(void) {\n    puts(\"Hello\");\n}\n\nint main(void) {\n    hello();\n    hello();\n    return 0;\n}\n",
+      "exampleOutput": "Hello\nHello",
+      "walkthrough": "按顺序执行上面的语句。函数定义不能嵌套在 main 内部；调用需要圆括号。\n程序输出：Hello\nHello",
+      "mistakes": [
+        "在 main 内定义另一个普通函数，不符合标准 C11。",
+        "写 hello 而不是 hello()，没有真正调用。"
+      ],
+      "summary": "函数定义不能嵌套在 main 内部；调用需要圆括号。"
+    },
+    {
+      "id": "c7-2",
+      "chapter": 7,
+      "index": 1,
+      "en": "Return Types",
+      "title": "函数返回值类型",
+      "objective": "用 return 把计算结果交回调用处。",
+      "explanation": [
+        "返回值像机器加工后的产品。一个 int 函数应返回整数，void 函数则不返回数据。return 表达式结束当前函数，并把结果交给调用者，而不是自动打印出来。",
+        "非 void 函数的所有正常返回路径都应提供正确类型的值。调用者可以把返回值保存到变量、放进表达式或传给 printf。main 在结尾的特殊返回规则不应套用到普通函数。"
+      ],
+      "syntax": "int square(int n) {\n    return n * n;\n}",
+      "syntaxNotes": "int 指定结果类型；return 把乘积交给调用者并立即结束函数。",
+      "example": "#include <stdio.h>\n\nint square(int n) {\n    return n * n;\n}\n\nint main(void) {\n    int result = square(4);\n    printf(\"%d\\n\", result);\n    return 0;\n}\n",
+      "exampleOutput": "16",
+      "walkthrough": "按顺序执行上面的语句。int 指定结果类型；return 把乘积交给调用者并立即结束函数。\n程序输出：16",
+      "mistakes": [
+        "只计算表达式却忘记 return。",
+        "误以为 return 会直接在屏幕上显示结果。"
+      ],
+      "summary": "int 指定结果类型；return 把乘积交给调用者并立即结束函数。"
+    },
+    {
+      "id": "c7-3",
+      "chapter": 7,
+      "index": 2,
+      "en": "Parameters",
+      "title": "函数参数",
+      "objective": "通过参数传入数据，理解 C 的值传递。",
+      "explanation": [
+        "参数是函数的输入接口。调用时，实参的值会复制给形参；在函数内修改一个普通整数形参，不会修改调用者的整数变量。",
+        "像把数字写在另一张纸上再交给函数，函数改的是副本。要让调用者获得新结果，可以返回一个值，并在调用处明确赋值，而不是依赖“自动同步”。"
+      ],
+      "syntax": "int add(int a, int b) { return a + b; }",
+      "syntaxNotes": "a、b 是独立的局部形参；调用 add(3,5) 时获得 3、5 的副本。",
+      "example": "#include <stdio.h>\n\nvoid change(int x) { x = 99; }\nint add(int a, int b) { return a + b; }\n\nint main(void) {\n    int x = 3;\n    change(x);\n    printf(\"%d %d\\n\", x, add(x, 4));\n    return 0;\n}\n",
+      "exampleOutput": "3 7",
+      "walkthrough": "按顺序执行上面的语句。a、b 是独立的局部形参；调用 add(3,5) 时获得 3、5 的副本。\n程序输出：3 7",
+      "mistakes": [
+        "以为修改 int 形参会自动更新调用者。",
+        "形参与实参顺序对应错误。"
+      ],
+      "summary": "a、b 是独立的局部形参；调用 add(3,5) 时获得 3、5 的副本。"
+    },
+    {
+      "id": "c7-4",
+      "chapter": 7,
+      "index": 3,
+      "en": "Recap Challenge #1",
+      "title": "函数综合练习一",
+      "objective": "把可重复的判断封装成有返回值的函数。",
+      "explanation": [
+        "设计函数时先问：输入是什么、输出是什么、是否有副作用。一个只返回判断结果的函数很容易测试，因为同样的输入应得到同样的结果。",
+        "主函数负责读写，辅助函数负责计算，可以减少混杂。这样以后更改输入方式时，判断规则仍能复用，不需要复制同一段条件。"
+      ],
+      "syntax": "int is_even(int n) { return n % 2 == 0; }",
+      "syntaxNotes": "返回比较结果 0 或 1，调用者决定如何使用或显示它。",
+      "example": "#include <stdio.h>\n\nint is_even(int n) { return n % 2 == 0; }\n\nint main(void) {\n    printf(\"%d %d\\n\", is_even(4), is_even(-3));\n    return 0;\n}\n",
+      "exampleOutput": "1 0",
+      "walkthrough": "按顺序执行上面的语句。返回比较结果 0 或 1，调用者决定如何使用或显示它。\n程序输出：1 0",
+      "mistakes": [
+        "将 printf 写进每个计算函数，使结果难以复用。",
+        "判断负奇数时错误依赖余数为 1。"
+      ],
+      "summary": "返回比较结果 0 或 1，调用者决定如何使用或显示它。"
+    },
+    {
+      "id": "c7-5",
+      "chapter": 7,
+      "index": 4,
+      "en": "Recursion Basics",
+      "title": "递归基础",
+      "objective": "为递归设计终止条件和逐步缩小的问题。",
+      "explanation": [
+        "递归就是函数调用自己。它像把大任务拆成“一个当前步骤 + 一个更小的同类任务”。例如 n! 可以写成 n × (n-1)!，但必须定义 0! 等于 1，才能让调用链停下来。",
+        "递归每深入一层通常都会占用栈空间。终止条件不仅要写出来，还必须能被递归步骤最终到达；对于大输入，循环往往更节省栈。"
+      ],
+      "syntax": "int fact(int n) {\n    if (n == 0) { return 1; }\n    return n * fact(n - 1);\n}",
+      "syntaxNotes": "n==0 是基本情况；n-1 缩小问题；结果在递归返回时逐层相乘。",
+      "example": "#include <stdio.h>\n\nint fact(int n) {\n    if (n == 0) { return 1; }\n    return n * fact(n - 1);\n}\n\nint main(void) {\n    printf(\"%d\\n\", fact(4));\n    return 0;\n}\n",
+      "exampleOutput": "24",
+      "walkthrough": "按顺序执行上面的语句。n==0 是基本情况；n-1 缩小问题；结果在递归返回时逐层相乘。\n程序输出：24",
+      "mistakes": [
+        "没有基本情况或递归参数没有缩小，导致栈耗尽。",
+        "计算阶乘时忽略整数范围，本题限制 n<=10。"
+      ],
+      "summary": "n==0 是基本情况；n-1 缩小问题；结果在递归返回时逐层相乘。"
+    },
+    {
+      "id": "c7-6",
+      "chapter": 7,
+      "index": 5,
+      "en": "Function Prototypes",
+      "title": "函数原型",
+      "objective": "在调用前声明函数接口，分离接口与定义。",
+      "explanation": [
+        "原型像设备说明书：先告诉编译器函数接受什么参数、返回什么类型，完整内部实现可以放在后面。这让 main 可以先展示程序的整体流程。",
+        "原型必须和定义保持类型一致。C11 中 int f(void) 明确表示无参数，而 int f() 的声明并不提供参数类型信息。不要依赖旧式隐式函数声明。"
+      ],
+      "syntax": "int twice(int n);\n/* 稍后提供完整定义 */",
+      "syntaxNotes": "原型末尾是分号，没有函数体；参数名可省略，但类型必须正确。",
+      "example": "#include <stdio.h>\n\nint twice(int n);\nint twice(int n) { return 2 * n; }\n\nint main(void) {\n    printf(\"%d\\n\", twice(6));\n    return 0;\n}\n",
+      "exampleOutput": "12",
+      "walkthrough": "按顺序执行上面的语句。原型末尾是分号，没有函数体；参数名可省略，但类型必须正确。\n程序输出：12",
+      "mistakes": [
+        "原型和定义的返回类型或参数类型不一致。",
+        "在函数尚未声明前调用，依赖旧式隐式声明。"
+      ],
+      "summary": "原型末尾是分号，没有函数体；参数名可省略，但类型必须正确。"
+    },
+    {
+      "id": "c7-7",
+      "chapter": 7,
+      "index": 6,
+      "en": "Recap Challenge #2",
+      "title": "函数综合练习二",
+      "objective": "组合辅助函数、循环和输入，解决数字问题。",
+      "explanation": [
+        "复合题可以拆成稳定的小步骤。处理数字时，经常用 %10 取出末位，再用 /10 去掉末位，把重复过程封装成一个函数。",
+        "先单独验证函数对 0、一位数、多位数的表现，再接入输入输出。明确输入范围能避免不必要的边界风险，例如本题只处理非负整数，不涉及 INT_MIN 的绝对值问题。"
+      ],
+      "syntax": "int digit = n % 10;\nn /= 10;",
+      "syntaxNotes": "每轮取末位，再把剩余数字缩短一位；n 降到 0 时结束。",
+      "example": "#include <stdio.h>\n\nint digit_sum(int n) {\n    int sum = 0;\n    while (n > 0) { sum += n % 10; n /= 10; }\n    return sum;\n}\n\nint main(void) {\n    printf(\"%d\\n\", digit_sum(204));\n    return 0;\n}\n",
+      "exampleOutput": "6",
+      "walkthrough": "按顺序执行上面的语句。每轮取末位，再把剩余数字缩短一位；n 降到 0 时结束。\n程序输出：6",
+      "mistakes": [
+        "用 n%10 后忘记 n/=10，循环不会结束。",
+        "没有考虑输入 0 时是否需要处理一位数字。"
+      ],
+      "summary": "每轮取末位，再把剩余数字缩短一位；n 降到 0 时结束。"
+    }
+  ]
+}

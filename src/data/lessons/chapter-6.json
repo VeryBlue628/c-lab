@@ -1,0 +1,207 @@
+{
+  "id": 6,
+  "en": "Loops",
+  "title": "循环",
+  "description": "重复执行，逐步建立解决问题的思路。",
+  "lessons": [
+    {
+      "id": "c6-1",
+      "chapter": 6,
+      "index": 0,
+      "en": "For Loop",
+      "title": "for 循环",
+      "objective": "使用初始化、继续条件和更新控制重复次数。",
+      "explanation": [
+        "for 像一个自动计数器，把循环需要的三件事集中写在一处：从哪里开始、什么时候继续、每次怎样更新。条件在每次执行循环体之前判断。",
+        "跟踪 i 的值比背语法更有帮助。for (int i=0; i<3; i++) 依次执行 i 为 0、1、2 的循环体，共三次。i 变为 3 后，条件为假而退出。"
+      ],
+      "syntax": "for (int i = 0; i < n; i++) {\n    /* 重复 n 次 */\n}",
+      "syntaxNotes": "初始化执行一次；条件每轮先检查；更新在每轮循环体后执行。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    for (int i = 1; i <= 3; i++) {\n        printf(\"%d\\n\", i);\n    }\n    return 0;\n}\n",
+      "exampleOutput": "1\n2\n3",
+      "walkthrough": "按顺序执行上面的语句。初始化执行一次；条件每轮先检查；更新在每轮循环体后执行。\n程序输出：1\n2\n3",
+      "mistakes": [
+        "把 < 写成 <=，比预期多执行一次。",
+        "在 for 头部后误加分号，循环体变成空语句。"
+      ],
+      "summary": "初始化执行一次；条件每轮先检查；更新在每轮循环体后执行。"
+    },
+    {
+      "id": "c6-2",
+      "chapter": 6,
+      "index": 1,
+      "en": "While Loop",
+      "title": "while 循环",
+      "objective": "在重复次数不确定时先检查条件再循环。",
+      "explanation": [
+        "while 适合重复次数由状态决定的任务，例如不断读入直到结束标记。它先检查条件，因此可能一次也不执行。",
+        "写循环前确认状态如何变化。若控制条件依赖 n，循环体内就要以某种方式更新 n，否则条件可能永远为真。可以写出“每轮后剩余工作减少多少”来检查终止性。"
+      ],
+      "syntax": "while (n > 0) {\n    n--;\n}",
+      "syntaxNotes": "每轮先判断 n>0；进入循环后更新 n；最终 n 降到 0。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int n = 3;\n    while (n > 0) {\n        printf(\"%d \", n);\n        n--;\n    }\n    printf(\"\\n\");\n    return 0;\n}\n",
+      "exampleOutput": "3 2 1",
+      "walkthrough": "按顺序执行上面的语句。每轮先判断 n>0；进入循环后更新 n；最终 n 降到 0。\n程序输出：3 2 1",
+      "mistakes": [
+        "忘记更新条件相关变量，造成无限循环。",
+        "以为 while 至少运行一次。"
+      ],
+      "summary": "每轮先判断 n>0；进入循环后更新 n；最终 n 降到 0。"
+    },
+    {
+      "id": "c6-3",
+      "chapter": 6,
+      "index": 2,
+      "en": "Do While Loop",
+      "title": "do-while 循环",
+      "objective": "理解先执行后判断的循环方式。",
+      "explanation": [
+        "do-while 像先展示一次菜单，再决定要不要重试。无论初始条件真假，循环体至少执行一遍。它适合必须先发生一次的交互或处理步骤。",
+        "与 while 的差别不只是代码位置：当初值不满足条件时，行为会不同。末尾 while (...) 后的分号属于语法的一部分，不能遗漏。"
+      ],
+      "syntax": "do {\n    /* 至少执行一次 */\n} while (condition);",
+      "syntaxNotes": "先执行花括号里的语句，再检查 condition；末尾必须有分号。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int n = 0;\n    do {\n        printf(\"%d\\n\", n);\n        n++;\n    } while (n < 0);\n    return 0;\n}\n",
+      "exampleOutput": "0",
+      "walkthrough": "按顺序执行上面的语句。先执行花括号里的语句，再检查 condition；末尾必须有分号。\n程序输出：0",
+      "mistakes": [
+        "忘记尾部的分号。",
+        "把先执行一次误写成普通 while，导致初始条件为假时完全跳过。"
+      ],
+      "summary": "先执行花括号里的语句，再检查 condition；末尾必须有分号。"
+    },
+    {
+      "id": "c6-4",
+      "chapter": 6,
+      "index": 3,
+      "en": "Break",
+      "title": "break 语句",
+      "objective": "满足停止条件时退出最近一层循环。",
+      "explanation": [
+        "break 表示“当前重复任务已经可以结束”。例如搜索目标时，一旦找到，就没有必要继续扫描。它只跳出最近一层循环或 switch，不会退出整个函数。",
+        "使用 break 后，控制流转到循环后的第一条语句。嵌套循环中若要退出外层，需要额外状态或函数返回，不能误以为一个 break 会结束全部层级。"
+      ],
+      "syntax": "if (value == 0) {\n    break;\n}",
+      "syntaxNotes": "break 结束所在的最近一层循环；后续循环体语句不会执行。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    for (int i = 1; i <= 5; i++) {\n        if (i == 3) { break; }\n        printf(\"%d \", i);\n    }\n    printf(\"\\n\");\n    return 0;\n}\n",
+      "exampleOutput": "1 2",
+      "walkthrough": "按顺序执行上面的语句。break 结束所在的最近一层循环；后续循环体语句不会执行。\n程序输出：1 2",
+      "mistakes": [
+        "把 break 当作 return，误判函数是否结束。",
+        "嵌套循环中期待一个 break 同时退出两层。"
+      ],
+      "summary": "break 结束所在的最近一层循环；后续循环体语句不会执行。"
+    },
+    {
+      "id": "c6-5",
+      "chapter": 6,
+      "index": 4,
+      "en": "Continue",
+      "title": "continue 语句",
+      "objective": "跳过本轮剩余工作，继续下一轮。",
+      "explanation": [
+        "continue 像分拣时把不需要的物品放到一边：本轮的后续处理不做，但分拣流程继续。for 中会执行更新表达式，然后再次检查条件。",
+        "while 中没有独立的更新区。如果 continue 之前没有更新控制变量，就可能反复停在同一个值。先确定更新必然发生，再使用 continue。"
+      ],
+      "syntax": "if (n % 2 != 0) {\n    continue;\n}",
+      "syntaxNotes": "跳过当前循环体剩余语句；for 仍会执行 i++ 等更新操作。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    for (int i = 1; i <= 6; i++) {\n        if (i % 2 != 0) { continue; }\n        printf(\"%d \", i);\n    }\n    printf(\"\\n\");\n    return 0;\n}\n",
+      "exampleOutput": "2 4 6",
+      "walkthrough": "按顺序执行上面的语句。跳过当前循环体剩余语句；for 仍会执行 i++ 等更新操作。\n程序输出：2 4 6",
+      "mistakes": [
+        "把 continue 写成 break，提前结束整个循环。",
+        "while 中在更新之前 continue，导致变量不再变化。"
+      ],
+      "summary": "跳过当前循环体剩余语句；for 仍会执行 i++ 等更新操作。"
+    },
+    {
+      "id": "c6-6",
+      "chapter": 6,
+      "index": 5,
+      "en": "Recap Challenge #1",
+      "title": "循环综合练习一",
+      "objective": "建立累加器，逐轮维护一个结果。",
+      "explanation": [
+        "累加器像账本，每收到一项就更新当前总额。写循环前先确定初值：求和通常从 0 开始，求乘积通常从 1 开始，不能随意交换。",
+        "可以用循环不变式检查代码：执行完前 i 次后，sum 等于已经处理的所有数之和。这样能发现漏加第一项或多加最后一项等边界问题。"
+      ],
+      "syntax": "int sum = 0;\nfor (int i = 1; i <= n; i++) { sum += i; }",
+      "syntaxNotes": "sum 在循环外初始化一次；每轮把当前 i 累加进去。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int sum = 0;\n    for (int i = 1; i <= 4; i++) { sum += i; }\n    printf(\"%d\\n\", sum);\n    return 0;\n}\n",
+      "exampleOutput": "10",
+      "walkthrough": "按顺序执行上面的语句。sum 在循环外初始化一次；每轮把当前 i 累加进去。\n程序输出：10",
+      "mistakes": [
+        "在循环体内重新声明 sum=0，导致每轮丢失之前结果。",
+        "用未初始化变量累加，读取不确定值。"
+      ],
+      "summary": "sum 在循环外初始化一次；每轮把当前 i 累加进去。"
+    },
+    {
+      "id": "c6-7",
+      "chapter": 6,
+      "index": 6,
+      "en": "Nested Loops",
+      "title": "嵌套循环",
+      "objective": "按行列组织重复任务，计算总执行次数。",
+      "explanation": [
+        "嵌套循环像整理一张表：外层选择行，内层遍历这一行的列。每进入新的一行，内层计数器都需要重新开始。",
+        "如果外层执行 m 次、每轮内层都执行 n 次，总循环体次数为 m×n。输出图案时，行末换行应放在内层循环结束后，否则每个字符都会单独成行。"
+      ],
+      "syntax": "for (int r = 0; r < rows; r++) {\n    for (int c = 0; c < cols; c++) { /* 单元格 */ }\n}",
+      "syntaxNotes": "r 表示行，c 表示列；内层完整结束一次，外层才更新一次。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    for (int r = 0; r < 2; r++) {\n        for (int c = 0; c < 3; c++) { printf(\"*\"); }\n        printf(\"\\n\");\n    }\n    return 0;\n}\n",
+      "exampleOutput": "***\n***",
+      "walkthrough": "按顺序执行上面的语句。r 表示行，c 表示列；内层完整结束一次，外层才更新一次。\n程序输出：***\n***",
+      "mistakes": [
+        "内层变量没有按每行重置。",
+        "把换行放进内层，破坏行列布局。"
+      ],
+      "summary": "r 表示行，c 表示列；内层完整结束一次，外层才更新一次。"
+    },
+    {
+      "id": "c6-8",
+      "chapter": 6,
+      "index": 7,
+      "en": "Infinite Loops",
+      "title": "无限循环",
+      "objective": "识别非终止循环，并设计明确退出路径。",
+      "explanation": [
+        "while (1) 和 for (;;) 可以有意表达“不断重复，直到内部触发退出”。这种写法并不一定是错误，关键是是否存在可达的 break 或 return。",
+        "无意的无限循环通常来自条件无法改变、更新方向写反或边界判断错误。本工坊会终止超时的学生程序；看到超时时，先跟踪前几轮变量值，而不是继续加大等待时间。"
+      ],
+      "syntax": "while (1) {\n    if (done) { break; }\n}",
+      "syntaxNotes": "常量 1 始终为真，退出依靠循环体中的 break。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int count = 0;\n    while (1) {\n        if (count == 3) { break; }\n        count++;\n    }\n    printf(\"%d\\n\", count);\n    return 0;\n}\n",
+      "exampleOutput": "3",
+      "walkthrough": "按顺序执行上面的语句。常量 1 始终为真，退出依靠循环体中的 break。\n程序输出：3",
+      "mistakes": [
+        "计数器递增却等待它变小，条件永远不会达成。",
+        "在到达 break 前被 continue 跳过。"
+      ],
+      "summary": "常量 1 始终为真，退出依靠循环体中的 break。"
+    },
+    {
+      "id": "c6-9",
+      "chapter": 6,
+      "index": 8,
+      "en": "Recap Challenge #2",
+      "title": "循环综合练习二",
+      "objective": "组合输入、筛选和累计，完成统计任务。",
+      "explanation": [
+        "统计类题目通常同时维护几个状态，例如 sum 保存总和、count 保存符合条件的个数。先写清“什么情况下更新哪一个状态”，再写循环会更有条理。",
+        "读入 n 个值时循环应准确执行 n 次，每轮都检查读取成功。筛选只影响统计，不应改变读入次数，否则可能把后续数据读错位。"
+      ],
+      "syntax": "for (int i = 0; i < n; i++) {\n    if (x > 0) { sum += x; }\n}",
+      "syntaxNotes": "循环处理固定数量的输入，条件分支决定当前值是否被累计。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int n, x, count = 0;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    for (int i = 0; i < n; i++) {\n        if (scanf(\"%d\", &x) != 1) { return 1; }\n        if (x > 0) { count++; }\n    }\n    printf(\"%d\\n\", count);\n    return 0;\n}\n",
+      "exampleOutput": "2",
+      "walkthrough": "输入 4 -2 0 4 5：读取四个数，只有 4 和 5 增加 count，最终输出 2。",
+      "mistakes": [
+        "只在值为正时推进输入计数，可能无法读完固定数量的数据。",
+        "把 >0 写成 >=0，将零错误计入正数。"
+      ],
+      "summary": "循环处理固定数量的输入，条件分支决定当前值是否被累计。",
+      "exampleInput": "4 -2 0 4 5"
+    }
+  ]
+}

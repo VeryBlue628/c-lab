@@ -1,0 +1,38 @@
+{
+  "name": "c-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "node scripts/check-content.mjs",
+    "test:compiler": "node scripts/verify-compiler.mjs",
+    "test:progress": "node scripts/verify-progress.mjs",
+    "build:github": "tsc -b && vite build --base=/c-lab/ --outDir=docs && node scripts/finalize-github-pages.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/view": "^6.38.0",
+    "@codemirror/language": "^6.11.3",
+    "@codemirror/autocomplete": "^6.19.0",
+    "@codemirror/commands": "^6.8.1",
+    "@runno/wasi": "0.10.0",
+    "lucide-react": "^0.468.0",
+    "fflate": "^0.8.2",
+    "@lezer/highlight": "^1.2.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.2"
+  }
+}

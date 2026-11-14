@@ -1,0 +1,250 @@
+{
+  "id": 2,
+  "en": "Variables",
+  "title": "变量",
+  "description": "用合适的数据类型，保存并表达信息。",
+  "lessons": [
+    {
+      "id": "c2-1",
+      "chapter": 2,
+      "index": 0,
+      "en": "Data Types",
+      "title": "数据类型",
+      "objective": "根据数据的性质选择 int、double 或 char。",
+      "explanation": [
+        "变量就像贴了标签的盒子：名字说明用途，类型决定可以放入什么值，以及编译器怎样解释这些值。整数、带小数的测量值和单个字符应选不同的盒子。",
+        "C11 中 int 存整数，double 存浮点数，char 存字符。类型大小依赖实现，不能假设所有计算机上的 int 都一样大；本工坊的 wasm32 环境中 int 为 32 位。"
+      ],
+      "syntax": "int count = 3;\ndouble price = 2.5;\nchar grade = 'A';",
+      "syntaxNotes": "类型 + 变量名 + = 初始值。单字符用单引号；小数通常选 double。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int count = 3;\n    double price = 2.5;\n    printf(\"%d %.1f\\n\", count, price);\n    return 0;\n}\n",
+      "exampleOutput": "3 2.5",
+      "walkthrough": "按顺序执行上面的语句。类型 + 变量名 + = 初始值。单字符用单引号；小数通常选 double。\n程序输出：3 2.5",
+      "mistakes": [
+        "使用 int 存储 2.5，小数部分会丢弃。",
+        "以为 char 可以直接存储一个多字节汉字。"
+      ],
+      "summary": "类型 + 变量名 + = 初始值。单字符用单引号；小数通常选 double。"
+    },
+    {
+      "id": "c2-2",
+      "chapter": 2,
+      "index": 1,
+      "en": "Integer",
+      "title": "整数类型",
+      "objective": "声明和修改整数变量，理解整数除法。",
+      "explanation": [
+        "int 适合计数，例如人数、页数和库存。先声明并初始化，再通过赋值修改。右边的表达式先计算，结果再存进左边的变量。",
+        "两个整数相除仍得到整数，小数部分向零截断：7 / 2 是 3，-7 / 2 是 -3。有符号整数溢出属于未定义行为，不能依赖绕回结果。"
+      ],
+      "syntax": "int pages = 7;\npages = pages + 2;",
+      "syntaxNotes": "第二条语句读取旧值 7，加 2 后写回 9；= 表示赋值。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int pages = 7;\n    pages = pages + 2;\n    printf(\"%d %d\\n\", pages, 7 / 2);\n    return 0;\n}\n",
+      "exampleOutput": "9 3",
+      "walkthrough": "按顺序执行上面的语句。第二条语句读取旧值 7，加 2 后写回 9；= 表示赋值。\n程序输出：9 3",
+      "mistakes": [
+        "未初始化就读取局部变量，结果没有可靠意义。",
+        "以为整数除法自动保留小数。"
+      ],
+      "summary": "第二条语句读取旧值 7，加 2 后写回 9；= 表示赋值。"
+    },
+    {
+      "id": "c2-3",
+      "chapter": 2,
+      "index": 2,
+      "en": "Float - Double",
+      "title": "浮点数与双精度",
+      "objective": "使用 double 处理小数，并控制输出精度。",
+      "explanation": [
+        "浮点数用有限的二进制位近似表示实数，像用有限刻度的尺子测量。double 通常比 float 保留更多有效数字；小数常量默认就是 double，float 常量可写成 1.5f。",
+        "很多十进制小数无法精确表示，所以不要依赖计算后的浮点数完全相等。printf 的 %.2f 表示显示小数点后两位，它只改变显示，不改变变量存储的值。"
+      ],
+      "syntax": "double total = 10.0 / 4;\nprintf(\"%.2f\", total);",
+      "syntaxNotes": "10.0 使除法在浮点数中进行；%.2f 控制显示两位小数。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    double average = (8.0 + 9.0) / 2;\n    printf(\"%.2f\\n\", average);\n    return 0;\n}\n",
+      "exampleOutput": "8.50",
+      "walkthrough": "按顺序执行上面的语句。10.0 使除法在浮点数中进行；%.2f 控制显示两位小数。\n程序输出：8.50",
+      "mistakes": [
+        "把 5 / 2 的整数结果赋给 double，得到的是 2.0，不是 2.5。",
+        "认为 %.2f 会永久修改变量精度。"
+      ],
+      "summary": "10.0 使除法在浮点数中进行；%.2f 控制显示两位小数。"
+    },
+    {
+      "id": "c2-4",
+      "chapter": 2,
+      "index": 3,
+      "en": "Characters",
+      "title": "字符类型",
+      "objective": "用 char 保存单个字符，并使用 %c 输出。",
+      "explanation": [
+        "字符也以数值编码存储。char 可以保存一个基本执行字符集中的字符；单引号表示字符常量，双引号表示字符串，两者不能随意替换。",
+        "本工坊使用 ASCII 兼容环境，因此字母 A 的编码为 65。不过在可移植 C 中不要假设所有字符编码都是 ASCII，也不要假设一个 char 能保存一个汉字。"
+      ],
+      "syntax": "char grade = 'A';\nprintf(\"%c\", grade);",
+      "syntaxNotes": "%c 按字符输出；%d 会按整数显示经过提升的编码。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    char grade = 'B';\n    printf(\"%c\\n\", grade);\n    return 0;\n}\n",
+      "exampleOutput": "B",
+      "walkthrough": "按顺序执行上面的语句。%c 按字符输出；%d 会按整数显示经过提升的编码。\n程序输出：B",
+      "mistakes": [
+        "写 char grade = \"A\"，把字符串地址误当成字符。",
+        "忽略字符编码，直接将中文字符放进单个 char。"
+      ],
+      "summary": "%c 按字符输出；%d 会按整数显示经过提升的编码。"
+    },
+    {
+      "id": "c2-5",
+      "chapter": 2,
+      "index": 4,
+      "en": "Booleans",
+      "title": "布尔类型",
+      "objective": "在 C11 中引入 stdbool.h 并使用 bool。",
+      "explanation": [
+        "布尔值只表达真假，适合描述开关或条件。C11 的原生布尔类型叫 _Bool，标准头文件 stdbool.h 提供更易读的 bool、true、false 宏。",
+        "在条件中，0 表示假，任意非零值都表示真；赋给 bool 时会规范化为 0 或 1。输出时用 %d，经过整型提升后会显示 0 或 1。"
+      ],
+      "syntax": "#include <stdbool.h>\nbool ready = true;",
+      "syntaxNotes": "stdbool.h 提供 bool、true 和 false；布尔量用于表达条件。",
+      "example": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    bool ready = true;\n    bool empty = false;\n    printf(\"%d %d\\n\", ready, empty);\n    return 0;\n}\n",
+      "exampleOutput": "1 0",
+      "walkthrough": "按顺序执行上面的语句。stdbool.h 提供 bool、true 和 false；布尔量用于表达条件。\n程序输出：1 0",
+      "mistakes": [
+        "在 C11 中遗漏 stdbool.h 却直接使用 bool。",
+        "以为只有整数 1 才代表真，实际任意非零都是真。"
+      ],
+      "summary": "stdbool.h 提供 bool、true 和 false；布尔量用于表达条件。"
+    },
+    {
+      "id": "c2-6",
+      "chapter": 2,
+      "index": 5,
+      "en": "Constants",
+      "title": "常量",
+      "objective": "用 const 声明不应修改的值。",
+      "explanation": [
+        "有些数值在程序运行期间应保持不变，例如税率和数组的设计容量。const 让变量的使用意图更清楚，并阻止通过这个名字直接修改它。",
+        "注意，C 中的 const int 不等同于 C++ 的编译期常量表达式。某些要求整型常量表达式的位置应使用枚举或宏；本节先使用 const 保存固定计算参数。"
+      ],
+      "syntax": "const double RATE = 0.08;",
+      "syntaxNotes": "const 限制通过该变量修改值；声明时就提供初值，名字大写只是约定。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    const int DAYS = 7;\n    printf(\"%d\\n\", DAYS * 2);\n    return 0;\n}\n",
+      "exampleOutput": "14",
+      "walkthrough": "按顺序执行上面的语句。const 限制通过该变量修改值；声明时就提供初值，名字大写只是约定。\n程序输出：14",
+      "mistakes": [
+        "声明后再次给 const 对象赋值。",
+        "以为 const 可以防止所有间接修改行为；强行绕过类型修改原 const 对象是未定义行为。"
+      ],
+      "summary": "const 限制通过该变量修改值；声明时就提供初值，名字大写只是约定。"
+    },
+    {
+      "id": "c2-7",
+      "chapter": 2,
+      "index": 6,
+      "en": "printf Basics",
+      "title": "printf 输出基础",
+      "objective": "让格式控制符与参数类型和顺序一致。",
+      "explanation": [
+        "格式字符串像带空位的句子，%d、%f、%c 等标记说明每个空位如何填。后面的参数按顺序进入这些位置。",
+        "printf 是可变参数函数，编译器并不总能在运行前拦住所有错误。控制符和类型不匹配可能导致未定义行为。想输出百分号本身，要写 %% 而不是单独一个 %。"
+      ],
+      "syntax": "printf(\"%d %.1f %c %%\", n, x, ch);",
+      "syntaxNotes": "%d 对应 int，%f 对应提升后的 double，%c 对应字符的整型提升，%% 不消费参数。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int n = 3;\n    printf(\"Count: %d, rate: %.1f%%\\n\", n, 12.5);\n    return 0;\n}\n",
+      "exampleOutput": "Count: 3, rate: 12.5%",
+      "walkthrough": "按顺序执行上面的语句。%d 对应 int，%f 对应提升后的 double，%c 对应字符的整型提升，%% 不消费参数。\n程序输出：Count: 3, rate: 12.5%",
+      "mistakes": [
+        "控制符数量比参数多，导致读取不存在的参数。",
+        "用 %d 输出 double，属于类型不匹配。"
+      ],
+      "summary": "%d 对应 int，%f 对应提升后的 double，%c 对应字符的整型提升，%% 不消费参数。"
+    },
+    {
+      "id": "c2-8",
+      "chapter": 2,
+      "index": 7,
+      "en": "Variable Naming Rules",
+      "title": "变量命名规则",
+      "objective": "辨认合法标识符并使用清晰的变量名。",
+      "explanation": [
+        "变量名是给值起的可读标签。基础规则是使用字母、数字和下划线，不能以数字开头，也不能使用 int、return 等关键字。C 区分大小写，score 与 Score 是不同名字。",
+        "尽量选择 total_score、item_count 这类能表达含义的名字。初学时避免以下划线开头的名字，因为许多这种名字保留给标准库或实现使用。"
+      ],
+      "syntax": "int item_count = 5;",
+      "syntaxNotes": "item_count 是完整标识符，中间不能有空格或连字符；连字符会被视为减号。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int item_count = 5;\n    int Item_count = 2;\n    printf(\"%d\\n\", item_count + Item_count);\n    return 0;\n}\n",
+      "exampleOutput": "7",
+      "walkthrough": "按顺序执行上面的语句。item_count 是完整标识符，中间不能有空格或连字符；连字符会被视为减号。\n程序输出：7",
+      "mistakes": [
+        "以数字开头，如 2count。",
+        "使用连字符，如 item-count，它会被解析为两个名字相减。"
+      ],
+      "summary": "item_count 是完整标识符，中间不能有空格或连字符；连字符会被视为减号。"
+    },
+    {
+      "id": "c2-9",
+      "chapter": 2,
+      "index": 8,
+      "en": "Type Casting Part 1",
+      "title": "类型转换（一）",
+      "objective": "在运算前显式转换类型，保留小数。",
+      "explanation": [
+        "转换就像在计算前更换量尺。将整数转换为 double 后参与除法，可以保留小数部分。如果先做整数除法再转换，丢掉的小数不会回来。",
+        "写法是 (目标类型)表达式。显式转换并不是纠正所有数据问题的万能工具；它只告诉编译器采用另一种类型解释或转换这个值。"
+      ],
+      "syntax": "double average = (double)total / count;",
+      "syntaxNotes": "先把 total 转为 double；count 也会参与浮点运算；最终结果存入 average。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    int total = 7, count = 2;\n    printf(\"%.1f\\n\", (double)total / count);\n    return 0;\n}\n",
+      "exampleOutput": "3.5",
+      "walkthrough": "按顺序执行上面的语句。先把 total 转为 double；count 也会参与浮点运算；最终结果存入 average。\n程序输出：3.5",
+      "mistakes": [
+        "写 (double)(total / count)，转换发生得太晚。",
+        "把类型转换误认为会修改原变量本身的类型。"
+      ],
+      "summary": "先把 total 转为 double；count 也会参与浮点运算；最终结果存入 average。"
+    },
+    {
+      "id": "c2-10",
+      "chapter": 2,
+      "index": 9,
+      "en": "Type Casting Part 2",
+      "title": "类型转换（二）",
+      "objective": "识别浮点转整数的截断和范围风险。",
+      "explanation": [
+        "把 double 转成 int 会丢弃小数部分，朝零截断，而不是四舍五入。比如 3.9 变成 3，-3.9 变成 -3。",
+        "转换前要确保结果可以被目标类型表示。浮点数超过整数范围再转换会产生未定义行为；不能用强制转换来掩盖溢出。混合有符号和无符号整数的比较也需要格外小心。"
+      ],
+      "syntax": "int whole = (int)3.9;",
+      "syntaxNotes": "(int) 只在值处于可表示范围时有定义；它不会进行四舍五入。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    double a = 3.9, b = -3.9;\n    printf(\"%d %d\\n\", (int)a, (int)b);\n    return 0;\n}\n",
+      "exampleOutput": "3 -3",
+      "walkthrough": "按顺序执行上面的语句。(int) 只在值处于可表示范围时有定义；它不会进行四舍五入。\n程序输出：3 -3",
+      "mistakes": [
+        "以为 (int)3.9 得到 4。",
+        "忽略目标类型范围，错误地认为任何转换都是安全的。"
+      ],
+      "summary": "(int) 只在值处于可表示范围时有定义；它不会进行四舍五入。"
+    },
+    {
+      "id": "c2-11",
+      "chapter": 2,
+      "index": 10,
+      "en": "Recap Challenge",
+      "title": "变量综合练习",
+      "objective": "组合变量、常量与格式化输出完成计算。",
+      "explanation": [
+        "综合练习的第一步不是写代码，而是给每个量选择类型。件数用 int，单价用 double；总额在计算完成后用固定小数位显示。",
+        "先写清计算公式，再用变量表达它。让公式中的含义一目了然，可以减少把单价与数量写反的错误，也方便稍后接入输入数据。"
+      ],
+      "syntax": "double total = price * count;",
+      "syntaxNotes": "整数 count 在与 double 相乘时转换为浮点数；总额用 %.2f 显示。",
+      "example": "#include <stdio.h>\n\nint main(void) {\n    const double price = 8.5;\n    int count = 4;\n    printf(\"%.2f\\n\", price * count);\n    return 0;\n}\n",
+      "exampleOutput": "34.00",
+      "walkthrough": "按顺序执行上面的语句。整数 count 在与 double 相乘时转换为浮点数；总额用 %.2f 显示。\n程序输出：34.00",
+      "mistakes": [
+        "用 int 保存总价导致小数丢失。",
+        "打印货币时遗漏两位小数的显示要求。"
+      ],
+      "summary": "整数 count 在与 double 相乘时转换为浮点数；总额用 %.2f 显示。"
+    }
+  ]
+}

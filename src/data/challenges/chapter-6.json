@@ -1,0 +1,254 @@
+{
+  "c6-1": {
+    "title": "输出连续整数",
+    "difficulty": "进阶",
+    "description": "输入 n（1～100），输出 1 到 n 的整数，用空白分隔。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "3",
+        "output": "1 2 3"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "5",
+        "output": "1 2 3 4 5"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 输入 n（1～100），输出 1 到 n 的整数，用空白分隔\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    for (int i = 1; i <= n; i++) { printf(\"%d \", i); }\n    printf(\"\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "使用初始化、继续条件和更新控制重复次数。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "从 i=1 开始，以 i<=n 为继续条件，每轮 i++。"
+    ]
+  },
+  "c6-2": {
+    "title": "倒计时",
+    "difficulty": "进阶",
+    "description": "输入 n（0～100），用 while 倒序输出 n 到 1；n=0 时不输出数字。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "3",
+        "output": "3 2 1"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "0",
+        "output": ""
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 输入 n（0～100），用 while 倒序输出 n 到 1；n=0 时不输出数字\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    while (n > 0) { printf(\"%d \", n); n--; }\n    printf(\"\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "在重复次数不确定时先检查条件再循环。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "每轮先判断 n>0；进入循环后更新 n；最终 n 降到 0。"
+    ]
+  },
+  "c6-3": {
+    "title": "至少执行一次的倒数",
+    "difficulty": "进阶",
+    "description": "输入 n（0～5），用 do-while 从 n 开始输出并递减，直到输出 0；n=0 时也输出 0。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "2",
+        "output": "2 1 0"
+      },
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "4",
+        "output": "4 3 2 1 0"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 输入 n（0～5），用 do-while 从 n 开始输出并递减，直到输出 0；n=0 时也输出 0\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    do { printf(\"%d \", n); n--; } while (n >= 0);\n    printf(\"\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "理解先执行后判断的循环方式。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "先执行花括号里的语句，再检查 condition；末尾必须有分号。"
+    ]
+  },
+  "c6-4": {
+    "title": "遇到零就停止",
+    "difficulty": "进阶",
+    "description": "持续读入整数直到读到 0 或输入结束，输出 0 之前所有数的和。各数及总和在 int 范围内。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "3 4 0 9",
+        "output": "7"
+      },
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "-2 8 0",
+        "output": "6"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 持续读入整数直到读到 0 或输入结束，输出 0 之前所有数的和\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int x, sum = 0;\n    while (scanf(\"%d\", &x) == 1) {\n        if (x == 0) { break; }\n        sum += x;\n    }\n    printf(\"%d\\n\", sum);\n    return 0;\n}\n",
+    "hints": [
+      "满足停止条件时退出最近一层循环。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "break 结束所在的最近一层循环；后续循环体语句不会执行。"
+    ]
+  },
+  "c6-5": {
+    "title": "跳过不需要的数",
+    "difficulty": "进阶",
+    "description": "输入 n（1～20），用 continue 跳过 3 的倍数，输出 1 到 n 中剩余的整数。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "5",
+        "output": "1 2 4 5"
+      },
+      {
+        "input": "3",
+        "output": "1 2"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 输入 n（1～20），用 continue 跳过 3 的倍数，输出 1 到 n 中剩余的整数\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    for (int i = 1; i <= n; i++) {\n        if (i % 3 == 0) { continue; }\n        printf(\"%d \", i);\n    }\n    printf(\"\\n\");\n    return 0;\n}\n",
+    "hints": [
+      "跳过本轮剩余工作，继续下一轮。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "跳过当前循环体剩余语句；for 仍会执行 i++ 等更新操作。"
+    ]
+  },
+  "c6-6": {
+    "title": "累加平方和",
+    "difficulty": "进阶",
+    "description": "输入 n（0～1000），输出 1 到 n 的平方和。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "3",
+        "output": "14"
+      },
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "5",
+        "output": "55"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 输入 n（0～1000），输出 1 到 n 的平方和\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n, sum = 0;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    for (int i = 1; i <= n; i++) { sum += i * i; }\n    printf(\"%d\\n\", sum);\n    return 0;\n}\n",
+    "hints": [
+      "建立累加器，逐轮维护一个结果。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "sum 在循环外初始化一次；每轮把当前 i 累加进去。"
+    ]
+  },
+  "c6-7": {
+    "title": "绘制星号矩形",
+    "difficulty": "进阶",
+    "description": "输入 rows cols（各 1～8），输出对应大小的星号矩形，每行 cols 个 *。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "2 3",
+        "output": "***\n***"
+      },
+      {
+        "input": "1 1",
+        "output": "*"
+      },
+      {
+        "input": "3 2",
+        "output": "**\n**\n**"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 输入 rows cols（各 1～8），输出对应大小的星号矩形，每行 cols 个 *\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int rows, cols;\n    if (scanf(\"%d %d\", &rows, &cols) != 2) { return 1; }\n    for (int r = 0; r < rows; r++) {\n        for (int c = 0; c < cols; c++) { printf(\"*\"); }\n        printf(\"\\n\");\n    }\n    return 0;\n}\n",
+    "hints": [
+      "按行列组织重复任务，计算总执行次数。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "r 表示行，c 表示列；内层完整结束一次，外层才更新一次。"
+    ]
+  },
+  "c6-8": {
+    "title": "给重复任务设置出口",
+    "difficulty": "进阶",
+    "description": "输入正整数 limit（1～100），使用 while(1) 和 break，输出最小的满足 2*k >= limit 的非负整数 k。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "5",
+        "output": "3"
+      },
+      {
+        "input": "2",
+        "output": "1"
+      },
+      {
+        "input": "9",
+        "output": "5"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 输入正整数 limit（1～100），使用 while(1) 和 break，输出最小的满足 2*k >= limit 的非负整数 k\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int limit, k = 0;\n    if (scanf(\"%d\", &limit) != 1) { return 1; }\n    while (1) {\n        if (2 * k >= limit) { break; }\n        k++;\n    }\n    printf(\"%d\\n\", k);\n    return 0;\n}\n",
+    "hints": [
+      "识别非终止循环，并设计明确退出路径。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "常量 1 始终为真，退出依靠循环体中的 break。"
+    ]
+  },
+  "c6-9": {
+    "title": "统计正数",
+    "difficulty": "进阶",
+    "description": "先输入 n（1～20），再输入 n 个整数（-100～100）。输出所有正数的和，以及正数个数。",
+    "input": "按示例输入，以空白分隔数值。",
+    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "tests": [
+      {
+        "input": "4 -2 0 4 5",
+        "output": "9 2"
+      },
+      {
+        "input": "3 -1 -2 0",
+        "output": "0 0"
+      },
+      {
+        "input": "1 7",
+        "output": "7 1"
+      }
+    ],
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 先输入 n（1～20），再输入 n 个整数（-100～100）\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int n, x, sum = 0, count = 0;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    for (int i = 0; i < n; i++) {\n        if (scanf(\"%d\", &x) != 1) { return 1; }\n        if (x > 0) { sum += x; count++; }\n    }\n    printf(\"%d %d\\n\", sum, count);\n    return 0;\n}\n",
+    "hints": [
+      "组合输入、筛选和累计，完成统计任务。",
+      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
+      "循环处理固定数量的输入，条件分支决定当前值是否被累计。"
+    ]
+  }
+}
