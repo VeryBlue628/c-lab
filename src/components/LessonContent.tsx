@@ -290,7 +290,7 @@ export function LessonContent({
                   <pre>{lesson.challenge.tests[0].input || "（无）"}</pre>
                 </div>
                 <div>
-                  <span>示例输出</span>
+                  <span>预计输出结果（示例）</span>
                   <pre>{lesson.challenge.tests[0].output || "（无输出）"}</pre>
                 </div>
               </div>

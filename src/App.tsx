@@ -426,6 +426,7 @@ export default function App() {
           <Workbench
             key={lesson.id + activeChallenge}
             lesson={lesson}
+            showExpectedOutput={tab === "practice"}
             record={displayRecord}
             files={task.files ?? lesson.challenge.files ?? {}}
             args={task.args ?? lesson.challenge.args ?? []}

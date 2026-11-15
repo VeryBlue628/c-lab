@@ -1215,6 +1215,82 @@ h1 {
   flex: 1 0 auto;
   background: #101813;
 }
+.expected-output-panel {
+  padding: 16px;
+  flex-shrink: 0;
+  min-width: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #19251c;
+}
+.expected-output-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.expected-output-heading h2 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--green);
+  font-size: 13px;
+}
+.expected-output-heading select {
+  min-height: 44px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: inherit;
+  background: var(--bg);
+  font: inherit;
+  font-size: 12px;
+}
+.expected-output-heading > span,
+.expected-output-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.expected-output-note {
+  margin: 8px 0 12px;
+}
+.expected-output-panel h3 {
+  color: #c3d3b8;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 12px 0 6px;
+  overflow-wrap: anywhere;
+}
+.expected-output-panel pre {
+  font: 13px/1.7 Consolas, "JetBrains Mono", monospace;
+  white-space: pre;
+  overflow: auto;
+  max-height: 200px;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: #e0ead8;
+  background: var(--bg);
+  tab-size: 4;
+}
+.expected-output-input pre {
+  max-height: 90px;
+  color: #b7c6af;
+}
+.expected-output-context summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+}
 .terminal-heading {
   height: 40px;
   display: flex;

@@ -1,4 +1,5 @@
 import { VirtualFiles, RunFiles } from "./VirtualFiles";
+import { ExpectedOutput } from "./ExpectedOutput";
 import { diagnose } from "../engine/diagnostics";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -39,6 +40,7 @@ const titles = {
 const strip = (s: string) => s.replace(/\x1b\[[0-9;]*m/g, "");
 export function Workbench({
   lesson,
+  showExpectedOutput,
   record,
   files,
   args,
@@ -57,6 +59,7 @@ export function Workbench({
   onFiles: (f: Record<string, string>) => void;
   onArgs: (a: string[]) => void;
   lesson: Lesson;
+  showExpectedOutput: boolean;
   record: RecordState;
   onDraft: (s: string) => void;
   onPassed: () => void;
@@ -296,6 +299,7 @@ export function Workbench({
           </button>
         )}
       </div>
+      {showExpectedOutput && <ExpectedOutput challenge={lesson.challenge} />}
       <div className="terminal-panel" ref={terminal}>
         <div className="terminal-heading">
           <div>
