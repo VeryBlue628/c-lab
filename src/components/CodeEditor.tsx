@@ -29,15 +29,15 @@ import {
   completionKeymap,
 } from "@codemirror/autocomplete";
 import { tags } from "@lezer/highlight";
-const darkHighlight = HighlightStyle.define([
-  { tag: tags.keyword, color: "#c8b5e8" },
-  { tag: tags.typeName, color: "#99d2aa" },
-  { tag: tags.string, color: "#ddc590" },
-  { tag: tags.number, color: "#d4b1d3" },
-  { tag: tags.comment, color: "#8c9c87", fontStyle: "italic" },
-  { tag: tags.meta, color: "#aabda4" },
-  { tag: tags.function(tags.variableName), color: "#abcde2" },
-  { tag: tags.operator, color: "#bdceb4" },
+const lightHighlight = HighlightStyle.define([
+  { tag: tags.keyword, color: "#77359a" },
+  { tag: tags.typeName, color: "#176744" },
+  { tag: tags.string, color: "#8a5319" },
+  { tag: tags.number, color: "#913675" },
+  { tag: tags.comment, color: "#617168", fontStyle: "italic" },
+  { tag: tags.meta, color: "#52675a" },
+  { tag: tags.function(tags.variableName), color: "#245c8f" },
+  { tag: tags.operator, color: "#405a4c" },
 ]);
 const words = [
   "printf",
@@ -98,7 +98,7 @@ export function CodeEditor({
           highlightActiveLine(),
           highlightActiveLineGutter(),
           cpp(),
-          syntaxHighlighting(darkHighlight),
+          syntaxHighlighting(lightHighlight),
           autocompletion({
             override: [
               (context) => {
@@ -132,32 +132,47 @@ export function CodeEditor({
             EditorView.theme({ "&": { fontSize: fontSize + "px" } }),
           ),
           EditorView.theme({
-            "&": { height: "100%", background: "#141b19", color: "#dee7e0" },
+            "&": {
+              height: "100%",
+              background: "var(--panel)",
+              color: "var(--text)",
+            },
             ".cm-content": {
               fontFamily:
                 '"Cascadia Code", "JetBrains Mono", Consolas, monospace',
               padding: "20px 0",
-              caretColor: "#b3e8b7",
+              caretColor: "var(--green)",
             },
             ".cm-line": { padding: "0 16px", lineHeight: "1.9" },
             ".cm-gutters": {
-              background: "#141b19",
-              color: "#65766e",
+              background: "var(--panel)",
+              color: "var(--muted)",
               border: "none",
               paddingRight: "8px",
             },
-            ".cm-activeLineGutter": { background: "#202c25", color: "#b9cabb" },
-            ".cm-activeLine": { background: "#1b2520" },
+            ".cm-activeLineGutter": {
+              background: "var(--surface-soft)",
+              color: "var(--text-secondary)",
+            },
+            ".cm-activeLine": { background: "var(--surface-soft)" },
             "&.cm-focused": { outline: "none" },
             ".cm-scroller": { overflow: "auto" },
             ".cm-selectionBackground, &.cm-focused .cm-selectionBackground": {
-              background: "#334d3b",
+              background: "#cce5d4",
             },
-            ".cm-cursor": { borderLeftColor: "#b3e8b7" },
+            ".cm-cursor": { borderLeftColor: "var(--green)" },
+            ".cm-matchingBracket": {
+              background: "var(--green-dim)",
+              color: "var(--green)",
+            },
+            ".cm-tooltip-autocomplete > ul > li[aria-selected]": {
+              background: "var(--green-dim)",
+              color: "var(--text)",
+            },
             ".cm-tooltip": {
-              background: "#202c25",
-              color: "#fff",
-              border: "1px solid #42584a",
+              background: "var(--surface-soft)",
+              color: "var(--text)",
+              border: "1px solid var(--line)",
             },
           }),
           EditorView.updateListener.of((update) => {
