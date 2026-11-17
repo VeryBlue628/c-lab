@@ -3237,3 +3237,20 @@ code::selection {
   background: var(--green-dim);
   color: var(--text);
 }
+
+/* Learning audit: readable controls and a single mobile reading scroll. */
+.quiz h2 { white-space: pre-wrap; }
+.answer-label textarea { width:100%; min-height:80px; padding:12px; font:inherit; }
+.lesson-inner section p { font-size:15px; }
+.lesson-tabs button, .review-button { font-size:13px; }
+@media(max-width:760px) {
+ .lesson-pane { height:auto; min-height:0; overflow:visible; }
+ .lesson-scroll { overflow:visible; }
+ .lesson-inner section p { font-size:16px; }
+ .lesson-tabs { position:sticky; top:0; z-index:2; }
+ .lesson-tabs button { font-size:12px; }
+ .review-button { min-height:44px; font-size:12px; }
+ .editor-tools > .icon-button { width:40px; height:44px; }
+ .editor-toolbar { height:48px; }
+ .lesson-meta > span { font-size:11px !important; }
+}

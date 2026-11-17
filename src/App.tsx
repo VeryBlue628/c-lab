@@ -56,6 +56,14 @@ export default function App() {
       id?: string;
       data?: Progress;
     } | null>(null);
+  useEffect(() => {
+    const mq = matchMedia("(max-width:1050px)");
+    const sync = () => { const aside = document.querySelector<HTMLElement>(".sidebar"); if (aside) aside.inert = mq.matches && !mobileNav; };
+    const key = (e: KeyboardEvent) => { if (e.key === "Escape") { setMobileNav(false); document.querySelector<HTMLButtonElement>(".nav-toggle")?.focus(); } };
+    sync(); mq.addEventListener("change", sync); window.addEventListener("keydown", key);
+    if (mobileNav) document.querySelector<HTMLButtonElement>(".mobile-close")?.focus();
+    return () => { mq.removeEventListener("change", sync); window.removeEventListener("keydown", key); };
+  }, [mobileNav]);
   const gateDialog = useRef<HTMLDialogElement>(null),
     timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined),
     latest = useRef(progress);
@@ -371,7 +379,14 @@ export default function App() {
               }}
               activeChallenge={activeChallenge}
               onQuiz={quiz}
+              onRestoreDraft={() => {
+                const raw = localStorage.getItem("c-lab-draft-recovery-" + lesson.id + activeChallenge);
+                if (!raw) { notify("本题还没有示例载入前的备份"); return; }
+                try { const restored = JSON.parse(raw); updateTask(restored); setInput(restored.input || ""); notify("已恢复载入示例前的解答"); } catch { notify("备份无法读取，请导出本机数据"); }
+              }}
               onLoadExample={() => {
+                if (displayRecord.draft && !window.confirm("载入示例将替换当前代码。将保留上一份解答，可通过“恢复我的解答”找回。是否继续？")) return;
+                if (displayRecord.draft) localStorage.setItem("c-lab-draft-recovery-" + lesson.id + activeChallenge, JSON.stringify({ ...task, draft: displayRecord.draft, input, files: task.files ?? lesson.challenge.files ?? {}, args: task.args ?? lesson.challenge.args ?? [] }));
                 updateTask({
                   draft: lesson.example,
                   input: lesson.exampleInput || "",

@@ -4,14 +4,14 @@
     "difficulty": "进阶",
     "description": "定义 void greet(void)，每次输出 Welcome，并在 main 中调用两次。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
         "output": "Welcome\nWelcome"
       }
     ],
-    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 定义 void greet(void)，每次输出 Welcome，并在 main 中调用两次\n    \n    return 0;\n}\n",
+    "starter": "#include <stdio.h>\n\n// TODO: 定义 void greet(void)，每次输出 Welcome，并在 main 中调用两次\n\nint main(void) {\n    // TODO: 读取输入并调用上面定义的函数\n    \n    return 0;\n}\n",
     "solution": "#include <stdio.h>\n\nvoid greet(void) {\n    puts(\"Welcome\");\n}\n\nint main(void) {\n    greet();\n    greet();\n    return 0;\n}\n",
     "hints": [
       "定义一个无参数函数，并从 main 调用。",
@@ -24,7 +24,7 @@
     "difficulty": "进阶",
     "description": "定义 int cube(int n) 返回立方。输入 x（-20～20），输出 cube(x)。",
     "input": "按示例输入，以空白分隔数值。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "3",
@@ -39,7 +39,7 @@
         "output": "-8"
       }
     ],
-    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 定义 int cube(int n) 返回立方\n    \n    return 0;\n}\n",
+    "starter": "#include <stdio.h>\n\n// TODO: 定义 int cube(int n) 返回立方\n\nint main(void) {\n    // TODO: 读取输入并调用上面定义的函数\n    \n    return 0;\n}\n",
     "solution": "#include <stdio.h>\n\nint cube(int n) {\n    return n * n * n;\n}\n\nint main(void) {\n    int x;\n    if (scanf(\"%d\", &x) != 1) { return 1; }\n    printf(\"%d\\n\", cube(x));\n    return 0;\n}\n",
     "hints": [
       "用 return 把计算结果交回调用处。",
@@ -52,7 +52,7 @@
     "difficulty": "进阶",
     "description": "定义 int difference(int a,int b) 返回 a-b。读入 a、b（-1000～1000），输出函数结果。",
     "input": "按示例输入，以空白分隔数值。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "8 3",
@@ -67,12 +67,12 @@
         "output": "0"
       }
     ],
-    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 定义 int difference(int a,int b) 返回 a-b\n    \n    return 0;\n}\n",
+    "starter": "#include <stdio.h>\n\n// TODO: 定义 int difference(int a,int b) 返回 a-b\n\nint main(void) {\n    // TODO: 读取输入并调用上面定义的函数\n    \n    return 0;\n}\n",
     "solution": "#include <stdio.h>\n\nint difference(int a, int b) { return a - b; }\n\nint main(void) {\n    int a, b;\n    if (scanf(\"%d %d\", &a, &b) != 2) { return 1; }\n    printf(\"%d\\n\", difference(a, b));\n    return 0;\n}\n",
     "hints": [
       "通过参数传入数据，理解 C 的值传递。",
       "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
-      "a、b 是独立的局部形参；调用 add(3,5) 时获得 3、5 的副本。"
+      "difference 的两个形参接收实参副本，返回 a-b，由 main 输出返回值。"
     ]
   },
   "c7-4": {
@@ -80,7 +80,7 @@
     "difficulty": "进阶",
     "description": "定义 int in_range(int x,int low,int high)，判断 x 是否在闭区间内。输入 x low high，保证 low<=high，输出 0 或 1。",
     "input": "按示例输入，以空白分隔数值。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "5 1 10",
@@ -99,7 +99,7 @@
         "output": "1"
       }
     ],
-    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 定义 int in_range(int x,int low,int high)，判断 x 是否在闭区间内\n    \n    return 0;\n}\n",
+    "starter": "#include <stdio.h>\n\n// TODO: 定义 int in_range(int x,int low,int high)，判断 x 是否在闭区间内\n\nint main(void) {\n    // TODO: 读取输入并调用上面定义的函数\n    \n    return 0;\n}\n",
     "solution": "#include <stdio.h>\n\nint in_range(int x, int low, int high) {\n    return x >= low && x <= high;\n}\n\nint main(void) {\n    int x, low, high;\n    if (scanf(\"%d %d %d\", &x, &low, &high) != 3) { return 1; }\n    printf(\"%d\\n\", in_range(x, low, high));\n    return 0;\n}\n",
     "hints": [
       "把可重复的判断封装成有返回值的函数。",
@@ -112,7 +112,7 @@
     "difficulty": "进阶",
     "description": "用递归函数 sum_to 计算 1 到 n 的和。输入 n（0～100），n=0 时返回 0。",
     "input": "按示例输入，以空白分隔数值。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "4",
@@ -140,7 +140,7 @@
     "difficulty": "进阶",
     "description": "声明 int max_of(int a,int b)，定义该函数并返回较大值。读入两个整数，输出结果。",
     "input": "按示例输入，以空白分隔数值。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "3 8",
@@ -168,7 +168,7 @@
     "difficulty": "进阶",
     "description": "定义 int digit_sum(int n)，输入 n（0～1000000），输出十进制各位数字之和。",
     "input": "按示例输入，以空白分隔数值。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "507",
@@ -187,7 +187,7 @@
         "output": "1"
       }
     ],
-    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 定义 int digit_sum(int n)，输入 n（0～1000000），输出十进制各位数字之和\n    \n    return 0;\n}\n",
+    "starter": "#include <stdio.h>\n\n// TODO: 定义 int digit_sum(int n)，输入 n（0～1000000），输出十进制各位数字之和\n\nint main(void) {\n    // TODO: 读取输入并调用上面定义的函数\n    \n    return 0;\n}\n",
     "solution": "#include <stdio.h>\n\nint digit_sum(int n) {\n    int sum = 0;\n    while (n > 0) { sum += n % 10; n /= 10; }\n    return sum;\n}\n\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n) != 1) { return 1; }\n    printf(\"%d\\n\", digit_sum(n));\n    return 0;\n}\n",
     "hints": [
       "组合辅助函数、循环和输入，解决数字问题。",

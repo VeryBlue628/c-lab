@@ -40,6 +40,7 @@ export function LessonContent({
   activeChallenge,
   onQuiz,
   onLoadExample,
+  onRestoreDraft,
   onSkip,
   onNext,
 }: {
@@ -52,6 +53,7 @@ export function LessonContent({
   onChallenge: (mode: "practice" | "mastery") => void;
   activeChallenge: "practice" | "mastery";
   onLoadExample: () => void;
+  onRestoreDraft: () => void;
   onSkip: () => void;
   onNext: () => void;
 }) {
@@ -109,7 +111,7 @@ export function LessonContent({
             </span>
             <span>
               <Clock3 size={13} />
-              {lesson.chapter === 9 ? "15–20" : "5–10"} 分钟
+              {lesson.chapter >= 9 ? "15–30" : "5–15"} 分钟
             </span>
           </div>
           <h1>{lesson.title}</h1>
@@ -149,9 +151,10 @@ export function LessonContent({
               <section>
                 <div className="section-title">
                   <h2>看一个完整例子</h2>
+                  <button className="text-button" onClick={onRestoreDraft}>恢复我的解答</button>
                   <button className="text-button" onClick={onLoadExample}>
                     <Play size={13} />
-                    在编辑器中运行
+                    载入示例
                     <ArrowRight size={13} />
                   </button>
                 </div>
@@ -268,10 +271,11 @@ export function LessonContent({
                 <span className="tiny-badge">
                   {lesson.challenge.difficulty}
                 </span>
-                <span>{lesson.challenge.tests.length} 组测试 · 输出校验</span>
+                <span>{lesson.challenge.tests.length} 组测试 · 输出校验（不验证算法结构）</span>
               </div>
               <section>
                 <h2>{lesson.challenge.title}</h2>
+                {lesson.example === lesson.challenge.solution && <p className="callout">这是示例跟练：请先独立重写，再用不同输入验证。通过表示程序输出符合测试，不代表独立能力评估。</p>}
                 <p>{lesson.challenge.description}</p>
               </section>
               <div className="io-spec">

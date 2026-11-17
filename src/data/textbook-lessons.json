@@ -48,11 +48,11 @@
           {
             "id": "c10-1-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-2 -5\"\n\n#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if (scanf(\"%d%d\",&a,&b)!=2) return 1;\n    printf(\"%d\\n\", a>b?a:b);\n    return 0;\n}\n",
             "answer": [
-              "9"
+              "-2"
             ],
-            "explanation": "先定义输入与输出，再让两个分支各产生一个结果；相等时输出任意一个即可。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-2"
           },
           {
             "id": "c10-1-q3",
@@ -153,11 +153,11 @@
           {
             "id": "c10-2-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"17 13\"\n\n#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2 || a<=0 || b<=0) return 1;\n    while(b){int r=a%b; a=b; b=r;}\n    printf(\"%d\\n\",a);\n    return 0;\n}\n",
             "answer": [
-              "6"
+              "1"
             ],
-            "explanation": "输入均为 1..1000000；b 递减到零后 a 为所求结果。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1"
           },
           {
             "id": "c10-2-q3",
@@ -227,7 +227,7 @@
         "objective": "输出当前 C 标准版本宏",
         "explanation": [
           "C 语言把源代码交给编译系统处理。通常先预处理头文件与宏，再编译、汇编得到目标文件，最后链接库和其他目标文件成为可执行程序。编译通过只说明语言和链接检查通过，算法是否正确还要用测试验证。",
-          "本网站使用 C99 模式。C99 支持 // 注释、块内混合声明、for 初始化声明、long long、_Bool 和标准头文件 stdbool.h；_Generic 和 _Static_assert 是后来的 C99 特性。本机的 ABI、终端和系统库可能与浏览器 WASI 环境不同。",
+          "本网站使用 C99 模式。C99 支持 // 注释、块内混合声明、for 初始化声明、long long、_Bool 和标准头文件 stdbool.h；_Generic 和 _Static_assert 属于 C11，本工坊的严格 C99 模式不支持。本机的 ABI、终端和系统库可能与浏览器 WASI 环境不同。",
           "在有宿主环境的 C99 程序中，main 执行到末尾等价于返回0，显式 return 0; 更便于初学阅读。程序设计还包括需求分析、算法、编码、调试、测试与文档；“编译通过”只验证了其中一部分。表达式语句和空语句有分号，复合语句及 if/while 的结构不能笼统地每行补分号。"
         ],
         "syntax": "printf(\"%ld\\n\", (long)__STDC_VERSION__);",
@@ -259,7 +259,7 @@
           {
             "id": "c10-3-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"无\"\n\n#include <stdio.h>\n\nint main(void) {\n    printf(\"%ld\\n\",(long)__STDC_VERSION__);\n    return 0;\n}\n",
             "answer": [
               "199901"
             ],
@@ -356,11 +356,11 @@
           {
             "id": "c10-4-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 0\"\n\n#include <stdio.h>\n\nint main(void) {\n    long long a,b;\n    if(scanf(\"%lld%lld\",&a,&b)!=2) return 1;\n    printf(\"%lld\\n\",a+b);\n    return 0;\n}\n",
             "answer": [
-              "10000000020"
+              "0"
             ],
-            "explanation": "本题每个加数为 0..1000000000000，和远小于 long long 的最小保证上界。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c10-4-q3",
@@ -461,11 +461,11 @@
           {
             "id": "c10-5-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"ABC\"\n\n#include <stdio.h>\n\nint main(void) {\n    int ch,n=0;\n    while((ch=getchar())!=EOF) if(ch>='a' && ch<='z') n++;\n    printf(\"%d\\n\",n);\n    return 0;\n}\n",
             "answer": [
-              "5"
+              "0"
             ],
-            "explanation": "用赋值外层的括号保证先保存返回值，再与 EOF 比较；输入结束后循环自然退出。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c10-5-q3",
@@ -566,11 +566,11 @@
           {
             "id": "c10-6-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-3 5\"\n\n#include <stdio.h>\n\nint main(void) {\n    double a,b;\n    if(scanf(\"%lf%lf\",&a,&b)!=2) return 1;\n    printf(\"%.2f\\n\",(a+b)/2.0);\n    return 0;\n}\n",
             "answer": [
-              "1.50"
+              "1.00"
             ],
-            "explanation": "输入两个 double，scanf 返回 2 后才计算；用 %.2f 控制最终显示的小数位数。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1.00"
           },
           {
             "id": "c10-6-q3",
@@ -672,11 +672,11 @@
           {
             "id": "c10-7-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 0\"\n\n#include <stdio.h>\n\nint main(void) {\n    int a,b;\n    if(scanf(\"%d%d\",&a,&b)!=2) return 1;\n    a+=1,b+=a;\n    printf(\"%d %d\\n\",a,b);\n    return 0;\n}\n",
             "answer": [
-              "3 6"
+              "1 1"
             ],
-            "explanation": "a 先加一，再把更新后的 a 加到 b；输入绝对值均不超过 1000，不会溢出。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1 1"
           },
           {
             "id": "c10-7-q3",
@@ -777,11 +777,11 @@
           {
             "id": "c10-8-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"49\"\n\n#include <stdio.h>\n\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1) return 1;\n    int prime=n>=2;\n    for(int d=2;d<=n/d;++d) if(n%d==0){prime=0;break;}\n    printf(\"%d\\n\",prime);\n    return 0;\n}\n",
             "answer": [
-              "1"
+              "0"
             ],
-            "explanation": "初始化 prime 为 n>=2；一旦找到因数就将标志清零。输出 1 表示素数，0 表示合数或小于 2。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c10-8-q3",
@@ -882,11 +882,11 @@
           {
             "id": "c10-9-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"9\"\n\n#include <stdio.h>\n#include <math.h>\n\nint main(void) {\n    double x; if(scanf(\"%lf\",&x)!=1 || x<=0) return 1;\n    double t=x>1?x:1;\n    for(int i=0;i<100;i++){double next=(t+x/t)/2; if(fabs(next-t)<1e-10){t=next;break;} t=next;}\n    printf(\"%.4f\\n\",t);\n    return 0;\n}\n",
             "answer": [
-              "1.4142"
+              "3.0000"
             ],
-            "explanation": "从 x>1?x:1 开始，最多迭代 100 次；输出保留四位小数。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：3.0000"
           },
           {
             "id": "c10-9-q3",
@@ -995,11 +995,11 @@
           {
             "id": "c11-1-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"C\"\n\n#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[81];\n    if(scanf(\"%80s\",s)!=1) return 1;\n    printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
             "answer": [
-              "5"
+              "1"
             ],
-            "explanation": "容量为 81，最多读取 80 个非空白字节；长度不包含终止符。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1"
           },
           {
             "id": "c11-1-q3",
@@ -1101,11 +1101,11 @@
           {
             "id": "c11-2-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"\\n\"\n\n#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[82];\n    if(!fgets(s,sizeof s,stdin)) return 1;\n    s[strcspn(s,\"\\n\")]='\\0';\n    printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
             "answer": [
-              "7"
+              "0"
             ],
-            "explanation": "本题一行最多 80 字节，用容量 82 读取整行，然后删除末尾换行。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c11-2-q3",
@@ -1207,11 +1207,11 @@
           {
             "id": "c11-3-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"a z\"\n\n#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char a[31],b[31],out[62];\n    if(scanf(\"%30s%30s\",a,b)!=2) return 1;\n    strcpy(out,a);strcat(out,\"-\");strcat(out,b);\n    puts(out);\n    return 0;\n}\n",
             "answer": [
-              "red-blue"
+              "a-z"
             ],
-            "explanation": "两段文本最长各 30 字节，最大结果长度 61，再留 1 字节给终止符。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：a-z"
           },
           {
             "id": "c11-3-q3",
@@ -1312,11 +1312,11 @@
           {
             "id": "c11-4-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"cat cat\"\n\n#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char a[41],b[41];\n    if(scanf(\"%40s%40s\",a,b)!=2) return 1;\n    int r=strcmp(a,b);\n    printf(\"%d\\n\",(r>0)-(r<0));\n    return 0;\n}\n",
             "answer": [
-              "-1"
+              "0"
             ],
-            "explanation": "相同输出 0，前者较小输出 -1，前者较大输出 1；只依赖返回值符号。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c11-4-q3",
@@ -1417,11 +1417,11 @@
           {
             "id": "c11-5-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"x\"\n\n#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[81];if(scanf(\"%80s\",s)!=1)return 1;\n    size_t n=strlen(s);\n    for(size_t i=0;i<n/2;i++){char t=s[i];s[i]=s[n-1-i];s[n-1-i]=t;}\n    puts(s);\n    return 0;\n}\n",
             "answer": [
-              "dcba"
+              "x"
             ],
-            "explanation": "每次交换一对对称位置，最多处理一半字符；最后由 puts 输出一个换行。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：x"
           },
           {
             "id": "c11-5-q3",
@@ -1530,11 +1530,11 @@
           {
             "id": "c12-1-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-2\"\n\n#include <stdio.h>\nint value=10;\nstatic void show(void){printf(\"%d\\n\",value); }\nint main(void) {\n    int value; if(scanf(\"%d\",&value)!=1)return 1;\n    printf(\"%d \",value);show();\n    return 0;\n}\n",
             "answer": [
-              "7 10"
+              "-2 10"
             ],
-            "explanation": "先打印 main 中读入的局部 value，再调用 show 打印全局的固定值 10。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-2 10"
           },
           {
             "id": "c12-1-q3",
@@ -1635,11 +1635,11 @@
           {
             "id": "c12-2-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\nstatic int tick(void){static int n=0;return ++n;}\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1 || n<1 || n>20)return 1;\n    for(int i=0;i<n;i++)printf(\"%s%d\",i?\" \":\"\",tick());\n    putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "1 2 3"
+              "1"
             ],
-            "explanation": "调用次数 n 为 1..20，函数内计数器保留上一次的值，每次返回加一后的值。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1"
           },
           {
             "id": "c12-2-q3",
@@ -1741,7 +1741,7 @@
           {
             "id": "c12-3-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"3\"\n\n#include <stdio.h>\n #include \"calc.h\"\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    printf(\"%d\\n\",twice(n)+bias);\n    return 0;\n}\n",
             "answer": [
               "7"
             ],
@@ -1854,11 +1854,11 @@
           {
             "id": "c12-4-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 0 0 0 0 0\"\n\n#include <stdio.h>\nstatic int sum(int rows,int a[][3]){int s=0;for(int i=0;i<rows;i++)for(int j=0;j<3;j++)s+=a[i][j];return s;}\nint main(void) {\n    int a[2][3];for(int i=0;i<2;i++)for(int j=0;j<3;j++)if(scanf(\"%d\",&a[i][j])!=1)return 1;\n    printf(\"%d\\n\",sum(2,a));\n    return 0;\n}\n",
             "answer": [
-              "21"
+              "0"
             ],
-            "explanation": "函数收到行数和固定列宽；双重循环分别遍历行、列，元素值限制在 -100..100。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c12-4-q3",
@@ -1960,11 +1960,11 @@
           {
             "id": "c12-5-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0\"\n\n#include <stdio.h>\nstatic int digits(int n){return n<10?n:n%10+digits(n/10); }\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1 || n<0)return 1;\n    printf(\"%d\\n\",digits(n));\n    return 0;\n}\n",
             "answer": [
-              "6"
+              "0"
             ],
-            "explanation": "输入 0..1000000000，整数除以 10 逐步缩短位数；零也满足终止情况。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c12-5-q3",
@@ -2074,11 +2074,11 @@
           {
             "id": "c13-1-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-5\"\n\n#include <stdio.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    int *p=&n;*p+=5;printf(\"%d\\n\",n);\n    return 0;\n}\n",
             "answer": [
-              "8"
+              "0"
             ],
-            "explanation": "p 保存 n 的地址，对 *p 赋值会修改 n 本身；n 取 -1000..1000。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c13-1-q3",
@@ -2179,11 +2179,11 @@
           {
             "id": "c13-2-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 -1\"\n\n#include <stdio.h>\nstatic void swap(int*a,int*b){int t=*a;*a=*b;*b=t;}\nint main(void) {\n    int a,b;if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    swap(&a,&b);printf(\"%d %d\\n\",a,b);\n    return 0;\n}\n",
             "answer": [
-              "9 2"
+              "-1 0"
             ],
-            "explanation": "先保存 *a，再复制 *b，最后回写临时值；调用处必须传入变量地址。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-1 0"
           },
           {
             "id": "c13-2-q3",
@@ -2286,11 +2286,11 @@
           {
             "id": "c13-3-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 -7\"\n\n#include <stdio.h>\n\nint main(void) {\n    int n,a[20],sum=0;if(scanf(\"%d\",&n)!=1||n<1||n>20)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    for(int*p=a;p<a+n;p++)sum+=*p;\n    printf(\"%d\\n\",sum);\n    return 0;\n}\n",
             "answer": [
-              "12"
+              "-7"
             ],
-            "explanation": "n 为 1..20，数组元素为 -100..100；p 逐元素移动，到尾后位置立即停止。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-7"
           },
           {
             "id": "c13-3-q3",
@@ -2392,11 +2392,11 @@
           {
             "id": "c13-4-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 -1 0 0 1 0 0\"\n\n#include <stdio.h>\n\nint main(void) {\n    int k,a[2][3];if(scanf(\"%d\",&k)!=1||k<0||k>2)return 1;\n    for(int i=0;i<2;i++)for(int j=0;j<3;j++)if(scanf(\"%d\",&a[i][j])!=1)return 1;\n    int(*p)[3]=a;printf(\"%d\\n\",p[0][k]+p[1][k]);\n    return 0;\n}\n",
             "answer": [
-              "7"
+              "0"
             ],
-            "explanation": "输入 k 为 0..2，随后按行输入六个元素，计算 p[0][k]+p[1][k]。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c13-4-q3",
@@ -2498,11 +2498,11 @@
           {
             "id": "c13-5-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"hello\"\n\n#include <stdio.h>\n\nint main(void) {\n    char s[81];if(scanf(\"%80s\",s)!=1)return 1;\n    for(char*p=s;*p;p++)if(*p>='a'&&*p<='z')*p=(char)(*p-'a'+'A');\n    puts(s);\n    return 0;\n}\n",
             "answer": [
-              "ABC9"
+              "HELLO"
             ],
-            "explanation": "只转换 ASCII 小写字母，其余字节保持不变；容量为 81，输入最多 80 字节。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：HELLO"
           },
           {
             "id": "c13-5-q3",
@@ -2603,11 +2603,11 @@
           {
             "id": "c13-6-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 3 4\"\n\n#include <stdio.h>\nstatic int add(int a,int b){return a+b;}\nstatic int mul(int a,int b){return a*b;}\nstatic int apply(int a,int b,int(*op)(int,int)){return op(a,b); }\nint main(void) {\n    int mode,a,b;if(scanf(\"%d%d%d\",&mode,&a,&b)!=3)return 1;\n    int(*op)(int,int)=mode?mul:add;\n    printf(\"%d\\n\",apply(a,b,op));\n    return 0;\n}\n",
             "answer": [
-              "7"
+              "12"
             ],
-            "explanation": "输入模式 0 表示相加、1 表示相乘；a、b 的绝对值不超过 100。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：12"
           },
           {
             "id": "c13-6-q3",
@@ -2708,11 +2708,11 @@
           {
             "id": "c13-7-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 -3\"\n\n#include <stdio.h>\nstatic int*findmax(int*a,int n){int*p=a;for(int i=1;i<n;i++)if(a[i]>*p)p=a+i;return p;}\nint main(void) {\n    int n,a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    ++*findmax(a,n);\n    for(int i=0;i<n;i++)printf(\"%s%d\",i?\" \":\"\",a[i]);putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "2 8 1"
+              "-2"
             ],
-            "explanation": "n 为 1..10，元素为 -100..100；相同最大值只修改第一次出现的那个。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-2"
           },
           {
             "id": "c13-7-q3",
@@ -2813,11 +2813,11 @@
           {
             "id": "c13-8-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 -7\"\n\n#include <stdio.h>\nstatic void select_second(int**out,int*items[2]){*out=items[1]; }\nint main(void) {\n    int a,b;if(scanf(\"%d%d\",&a,&b)!=2)return 1;\n    int*items[2]={&a,&b},*p=&a;\n    select_second(&p,items);printf(\"%d\\n\",*p);\n    return 0;\n}\n",
             "answer": [
-              "9"
+              "-7"
             ],
-            "explanation": "输入两个整数，输出重新指向的第二个整数；没有复制整数内容，只改变了指针指向。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-7"
           },
           {
             "id": "c13-8-q3",
@@ -2918,7 +2918,7 @@
           {
             "id": "c13-9-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"无\"\n\n#include <stdio.h>\nint main(int argc,char*argv[]){printf(\"%d %s\\n\",argc-1,argc>1?argv[1]:\"NONE\");return 0;}\n",
             "answer": [
               "2 apple"
             ],
@@ -3040,11 +3040,11 @@
           {
             "id": "c13-10-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 -9\"\n\n#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<1||n>100)return 1;\n    int*p=calloc((size_t)n,sizeof*p);if(!p)return 1;\n    int sum=0;for(int i=0;i<n;i++){if(scanf(\"%d\",&p[i])!=1){free(p);return 1;}sum+=p[i];}\n    printf(\"%d\\n\",sum);free(p);\n    return 0;\n}\n",
             "answer": [
-              "6"
+              "-9"
             ],
-            "explanation": "输入 n 为 1..100，元素为 -1000..1000；读入失败和正常结束两条路径都释放内存。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-9"
           },
           {
             "id": "c13-10-q3",
@@ -3145,11 +3145,11 @@
           {
             "id": "c13-11-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 -3 0\"\n\n#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<1||n>20)return 1;\n    int*p=malloc((size_t)n*sizeof*p);if(!p)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d\",&p[i])!=1){free(p);return 1;}\n    int x;if(scanf(\"%d\",&x)!=1){free(p);return 1;}\n    int*next=realloc(p,(size_t)(n+1)*sizeof*p);if(!next){free(p);return 1;}p=next;p[n]=x;\n    for(int i=0;i<=n;i++)printf(\"%s%d\",i?\" \":\"\",p[i]);putchar('\\n');free(p);\n    return 0;\n}\n",
             "answer": [
-              "1 2 9"
+              "-3 0"
             ],
-            "explanation": "分配初始 n 个元素，读入新元素 x 后扩为 n+1，把 x 写到 p[n]，再输出整个数组。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-3 0"
           },
           {
             "id": "c13-11-q3",
@@ -3259,11 +3259,11 @@
           {
             "id": "c14-1-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-2 2\"\n\n#include <stdio.h>\nstruct Point {int x,y;};\nint main(void) {\n    struct Point p;\n    if(scanf(\"%d%d\",&p.x,&p.y)!=2)return 1;\n    printf(\"%d\\n\",p.x+p.y);\n    return 0;\n}\n",
             "answer": [
-              "7"
+              "0"
             ],
-            "explanation": "把输入存入 p.x、p.y，再输出两者之和；每个坐标绝对值不超过 1000。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c14-1-q3",
@@ -3364,11 +3364,11 @@
           {
             "id": "c14-2-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"2 4 90 5 90\"\n\n#include <stdio.h>\nstruct Record{int id,score;};\nint main(void) {\n    int n;struct Record a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;i++)if(scanf(\"%d%d\",&a[i].id,&a[i].score)!=2)return 1;\n    int best=0;for(int i=1;i<n;i++)if(a[i].score>a[best].score)best=i;\n    printf(\"%d\\n\",a[best].id);\n    return 0;\n}\n",
             "answer": [
-              "12"
+              "4"
             ],
-            "explanation": "n 为 1..10，成绩为 0..100；并列保留第一条，输出它的 id。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：4"
           },
           {
             "id": "c14-2-q3",
@@ -3469,11 +3469,11 @@
           {
             "id": "c14-3-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 0 -1\"\n\n#include <stdio.h>\nstruct Point{int x,y;};\nstatic void move(struct Point*p,int d){p->x+=d;p->y+=d;}\nint main(void) {\n    struct Point p;int d;if(scanf(\"%d%d%d\",&p.x,&p.y,&d)!=3)return 1;\n    move(&p,d);printf(\"%d %d\\n\",p.x,p.y);\n    return 0;\n}\n",
             "answer": [
-              "4 5"
+              "-1 -1"
             ],
-            "explanation": "输入 x、y、d 均为 -100..100，函数更新原对象并输出新的两个成员。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-1 -1"
           },
           {
             "id": "c14-3-q3",
@@ -3574,11 +3574,11 @@
           {
             "id": "c14-4-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 -1 5\"\n\n#include <stdio.h>\nstruct Node{int value;struct Node*next;};\nint main(void) {\n    struct Node a,b,c;if(scanf(\"%d%d%d\",&a.value,&b.value,&c.value)!=3)return 1;\n    a.next=&c;c.next=&b;b.next=NULL;\n    int first=1;for(struct Node*p=&a;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "1 3 2"
+              "0 5 -1"
             ],
-            "explanation": "输入三个数，节点按第一个、第三个、第二个的顺序连接，输出该逻辑顺序。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0 5 -1"
           },
           {
             "id": "c14-4-q3",
@@ -3679,11 +3679,11 @@
           {
             "id": "c14-5-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0\"\n\n#include <stdio.h>\n#include <stdlib.h>\nstruct Node{int value;struct Node*next;};\nstatic void destroy(struct Node*p){while(p){struct Node*next=p->next;free(p);p=next;}}\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<0||n>20)return 1;\n    struct Node*head=NULL;\n    for(int i=0;i<n;i++){int x;if(scanf(\"%d\",&x)!=1){destroy(head);return 1;}struct Node*p=malloc(sizeof*p);if(!p){destroy(head);return 1;}p->value=x;p->next=head;head=p;}\n    int sum=0;for(struct Node*p=head;p;p=p->next)sum+=p->value;\n    printf(\"%d\\n\",sum);destroy(head);\n    return 0;\n}\n",
             "answer": [
-              "9"
+              "0"
             ],
-            "explanation": "输入 n 为 0..20，使用头插法建立，累加后逐一释放；空链表的总和为 0。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c14-5-q3",
@@ -3784,11 +3784,11 @@
           {
             "id": "c14-6-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 2 3 2\"\n\n#include <stdio.h>\n#include <stdlib.h>\nstruct Node{int value;struct Node*next;};\nstatic void destroy(struct Node*p){while(p){struct Node*n=p->next;free(p);p=n;}}\nint main(void) {\n    struct Node*head=NULL,**tail=&head;int target;\n    for(int i=0;i<3;i++){int x;if(scanf(\"%d\",&x)!=1){destroy(head);return 1;}struct Node*p=malloc(sizeof*p);if(!p){destroy(head);return 1;}p->value=x;p->next=NULL;*tail=p;tail=&p->next;}\n    if(scanf(\"%d\",&target)!=1){destroy(head);return 1;}\n    struct Node**link=&head;while(*link&&(*link)->value!=target)link=&(*link)->next;\n    if(*link){struct Node*old=*link;*link=old->next;free(old);}\n    int first=1;for(struct Node*p=head;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}putchar('\\n');destroy(head);\n    return 0;\n}\n",
             "answer": [
-              "2 3"
+              "1 3"
             ],
-            "explanation": "读取三个值和一个目标，只删除首个匹配。剩余节点按原顺序输出，以空格分隔。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1 3"
           },
           {
             "id": "c14-6-q3",
@@ -3890,11 +3890,11 @@
           {
             "id": "c14-7-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 2.5\"\n\n#include <stdio.h>\nunion Value{int i;double d;};\nint main(void) {\n    int tag;union Value v;if(scanf(\"%d\",&tag)!=1)return 1;\n    if(tag==0){if(scanf(\"%d\",&v.i)!=1)return 1;printf(\"%d\\n\",v.i);}\n    else{if(scanf(\"%lf\",&v.d)!=1)return 1;printf(\"%.2f\\n\",v.d);}\n    return 0;\n}\n",
             "answer": [
-              "42"
+              "2.50"
             ],
-            "explanation": "模式为 0 时输入 int 并原样输出；模式为 1 时输入 double 并保留两位小数输出。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：2.50"
           },
           {
             "id": "c14-7-q3",
@@ -3996,11 +3996,11 @@
           {
             "id": "c14-8-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\ntypedef enum{READY=0,RUNNING=1,DONE=2}State;\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1||n<0||n>2)return 1;\n    State s=(State)n;switch(s){case READY:puts(\"READY\");break;case RUNNING:puts(\"RUNNING\");break;case DONE:puts(\"DONE\");break;}\n    return 0;\n}\n",
             "answer": [
-              "READY"
+              "RUNNING"
             ],
-            "explanation": "输入 0..2，通过 switch 输出 READY、RUNNING 或 DONE；超出范围报告输入失败。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：RUNNING"
           },
           {
             "id": "c14-8-q3",
@@ -4110,11 +4110,11 @@
           {
             "id": "c15-1-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"C99\"\n\n#include <stdio.h>\n#include <string.h>\n\nint main(void) {\n    char s[41];if(scanf(\"%40s\",s)!=1)return 1;\n    FILE*f=fopen(\"note.txt\",\"w\");if(!f)return 1;\n    if(fprintf(f,\"%s\\n\",s)<0){fclose(f);return 1;}\n    if(fclose(f)!=0)return 1;printf(\"%zu\\n\",strlen(s));\n    return 0;\n}\n",
             "answer": [
-              "5"
+              "3"
             ],
-            "explanation": "读取最多 40 字节的单词，写入文件并加换行；输出单词字节数，文件内容也会参加判题。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：3"
           },
           {
             "id": "c15-1-q3",
@@ -4224,7 +4224,7 @@
           {
             "id": "c15-2-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"无\"\n\n#include <stdio.h>\n\nint main(void) {\n    FILE*in=fopen(\"source.txt\",\"r\");if(!in)return 1;\n    FILE*out=fopen(\"copy.txt\",\"w\");if(!out){fclose(in);return 1;}\n    int ch,n=0,ok=1;while((ch=fgetc(in))!=EOF){if(fputc(ch,out)==EOF){ok=0;break;}n++;}\n    if(ferror(in))ok=0;if(fclose(in)!=0)ok=0;if(fclose(out)!=0)ok=0;\n    if(!ok)return 1;printf(\"%d\\n\",n);\n    return 0;\n}\n",
             "answer": [
               "4"
             ],
@@ -4354,7 +4354,7 @@
           {
             "id": "c15-3-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"无\"\n\n#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"lines.txt\",\"r\");if(!f)return 1;\n    char line[82];int n=0;while(fgets(line,sizeof line,f))n++;\n    int ok=!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    printf(\"%d\\n\",n);\n    return 0;\n}\n",
             "answer": [
               "2"
             ],
@@ -4474,7 +4474,7 @@
           {
             "id": "c15-4-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"无\"\n\n#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"scores.txt\",\"r\");if(!f)return 1;\n    int id,s,r,sum=0;while((r=fscanf(f,\"%d%d\",&id,&s))==2)sum+=s;\n    int ok=r==EOF&&!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    FILE*out=fopen(\"total.txt\",\"w\");if(!out)return 1;\n    ok=fprintf(out,\"sum=%d\\n\",sum)>=0;if(fclose(out)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",sum);\n    return 0;\n}\n",
             "answer": [
               "170"
             ],
@@ -4604,11 +4604,11 @@
           {
             "id": "c15-5-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-2 0 2\"\n\n#include <stdio.h>\n\nint main(void) {\n    int a[3],b[3];for(int i=0;i<3;i++)if(scanf(\"%d\",&a[i])!=1)return 1;\n    FILE*f=fopen(\"numbers.bin\",\"wb\");if(!f)return 1;\n    int ok=fwrite(a,sizeof a[0],3,f)==3;if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    f=fopen(\"numbers.bin\",\"rb\");if(!f)return 1;ok=fread(b,sizeof b[0],3,f)==3;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",b[0]+b[1]+b[2]);\n    return 0;\n}\n",
             "answer": [
-              "6"
+              "0"
             ],
-            "explanation": "先用 wb 保存，关闭后再用 rb 打开读取；必须确认写入、读取都完成三个对象。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c15-5-q3",
@@ -4710,7 +4710,7 @@
           {
             "id": "c15-6-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"2\"\n\n#include <stdio.h>\n\nint main(void) {\n    long k;if(scanf(\"%ld\",&k)!=1||k<0||k>4)return 1;\n    FILE*f=fopen(\"data.txt\",\"rb\");if(!f)return 1;\n    if(fseek(f,k,SEEK_SET)!=0){fclose(f);return 1;}int ch=fgetc(f);\n    rewind(f);int first=fgetc(f);int ok=!ferror(f)&&ch!=EOF&&first!=EOF;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%c %c\\n\",ch,first);\n    return 0;\n}\n",
             "answer": [
               "C A"
             ],
@@ -4822,7 +4822,7 @@
           {
             "id": "c15-7-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"无\"\n\n#include <stdio.h>\n\nint main(void) {\n    FILE*f=fopen(\"end.txt\",\"r\");if(!f)return 1;\n    while(fgetc(f)!=EOF){}\n    if(ferror(f)){fclose(f);return 1;}\n    int before=feof(f)!=0;clearerr(f);int after=feof(f)!=0;\n    if(fclose(f)!=0)return 1;printf(\"%d %d\\n\",before,after);\n    return 0;\n}\n",
             "answer": [
               "1 0"
             ],
@@ -4950,11 +4950,11 @@
           {
             "id": "c16-1-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-4\"\n\n#include <stdio.h>\n#define SQUARE(x) ((x)*(x))\nint main(void) {\n    int n;if(scanf(\"%d\",&n)!=1)return 1;\n    printf(\"%d\\n\",SQUARE(n));\n    return 0;\n}\n",
             "answer": [
-              "9"
+              "16"
             ],
-            "explanation": "宏将无副作用的输入变量代入平方表达式；输入为 -1000..1000。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：16"
           },
           {
             "id": "c16-1-q3",
@@ -5055,11 +5055,11 @@
           {
             "id": "c16-2-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0\"\n\n#include <stdio.h>\n\nint main(void) {\n    unsigned n;if(scanf(\"%u\",&n)!=1||n>65535u)return 1;\n    int count=0;while(n){count+=(int)(n&1u);n>>=1;}\n    printf(\"%d\\n\",count);\n    return 0;\n}\n",
             "answer": [
-              "3"
+              "0"
             ],
-            "explanation": "每次取最低位再右移一位；输入范围 0..65535，零的计数为 0。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c16-2-q3",
@@ -5161,11 +5161,11 @@
           {
             "id": "c16-3-q2",
             "type": "predict",
-            "question": "按示例输入运行本节完整例子，终端输出是什么？（保留输出中的换行）",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"\"\n\n#include <stdio.h>\n#include <ctype.h>\n\nint main(void) {\n    int ch,letters=0,digits=0;\n    while((ch=getchar())!=EOF){if(isalpha(ch))letters++;if(isdigit(ch))digits++;}\n    printf(\"%d %d\\n\",letters,digits);\n    return 0;\n}\n",
             "answer": [
-              "2 3"
+              "0 0"
             ],
-            "explanation": "遍历标准输入到 EOF，输出字母数和数字数；两个独立计数均从零开始。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0 0"
           },
           {
             "id": "c16-3-q3",
@@ -5274,11 +5274,11 @@
           {
             "id": "c17-1-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"\"\n\n#include <stdio.h>\n#include <ctype.h>\nint main(void) {\n    int ch, in_word = 0, count = 0;\n    while ((ch = getchar()) != EOF) {\n        if (isspace(ch)) in_word = 0;\n        else if (!in_word) { ++count; in_word = 1; }\n    }\n    printf(\"%d\\n\", count);\n    return 0;\n}\n",
             "answer": [
-              "4"
+              "0"
             ],
-            "explanation": "循环直到 EOF；用 isspace 识别空格、制表和换行。abc 后连续两个空格仍只结束一个单词。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c17-1-q3",
@@ -5313,7 +5313,7 @@
           "title": "统计输入中的单词数",
           "difficulty": "Medium",
           "description": "统计输入中的单词数。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "流程：读字符 → 空白？置0 : 若原状态0则 count++、置1 → 再读\nN-S：┌ 当读取成功 ─────────┐\n     │ 空白 │ 非空白且状态0 │\n     │ 置0  │ 计数+1，置1   │\n     └───────────────────┘",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -5379,11 +5379,11 @@
           {
             "id": "c17-2-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\nint main(void) {\n    int n, sign = 1;\n    double s = 0.0, t = 0.0, term = 1.0;\n    if (scanf(\"%d\", &n) != 1 || n < 1 || n > 20) return 1;\n    for (int k = 1; k <= n; ++k) {\n        s += sign / (double)k;\n        sign = -sign;\n        term /= k;\n        t += term;\n    }\n    printf(\"%.6f %.6f\\n\", s, t);\n    return 0;\n}\n",
             "answer": [
-              "0.833333 1.666667"
+              "1.000000 1.000000"
             ],
-            "explanation": "n=3 时交错和为 5/6，阶乘倒数和为 5/3；每项先做浮点除法，再更新累加器。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1.000000 1.000000"
           },
           {
             "id": "c17-2-q3",
@@ -5418,7 +5418,7 @@
           "title": "计算交错调和和与阶乘倒数和",
           "difficulty": "Medium",
           "description": "计算交错调和和与阶乘倒数和。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..20。循环 k=1..n：s += sign/(double)k；sign=-sign；term/=k；t+=term。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -5484,11 +5484,11 @@
           {
             "id": "c17-3-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 0 1\"\n\n#include <stdio.h>\n#include <math.h>\nint main(void) {\n    int ai, bi, ci;\n    if (scanf(\"%d%d%d\", &ai, &bi, &ci) != 3) return 1;\n    double a=ai, b=bi, c=ci;\n    if (a == 0) {\n        if (b != 0) printf(\"ONE %.3f\\n\", c==0 ? 0.0 : -c/b);\n        else puts(c==0 ? \"ALL\" : \"NONE\");\n    } else {\n        double d=b*b-4*a*c, real=-b/(2*a);\n        if (d > 0) {\n            double u=real-sqrt(d)/(2*a), v=real+sqrt(d)/(2*a);\n            if (u>v) { double t=u; u=v; v=t; }\n            printf(\"TWO %.3f %.3f\\n\", u==0?0.0:u, v==0?0.0:v);\n        } else if (d == 0) printf(\"ONE %.3f\\n\", real==0?0.0:real);\n        else printf(\"COMPLEX %.3f %.3f\\n\", real==0?0.0:real, sqrt(-d)/(2*fabs(a)));\n    }\n    return 0;\n}\n",
             "answer": [
-              "TWO 1.000 2.000"
+              "COMPLEX 0.000 1.000"
             ],
-            "explanation": "a=1,b=−3,c=2 得到 1 和 2；复根输出 real±imag*i 的两个组成量，而不向 sqrt 传负数。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：COMPLEX 0.000 1.000"
           },
           {
             "id": "c17-3-q3",
@@ -5523,7 +5523,7 @@
           "title": "分类输出方程的实根、复根或退化结果",
           "difficulty": "Medium",
           "description": "分类输出方程的实根、复根或退化结果。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入整数 a,b,c（−100..100）。输出 TWO x1 x2 / ONE x / COMPLEX real imag / NONE / ALL；实数保留三位。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -5601,11 +5601,11 @@
           {
             "id": "c17-4-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0\"\n\n#include <stdio.h>\nint main(void) {\n    int n, total;\n    if (scanf(\"%d\", &n)!=1 || n<0 || n>1000) return 1;\n    if (n<=10) total=2*n;\n    else if (n<=20) total=20+3*(n-10);\n    else total=50+5*(n-20);\n    printf(\"%d\\n\", total);\n    return 0;\n}\n",
             "answer": [
-              "75"
+              "0"
             ],
-            "explanation": "n=25 时，前两段合计 50，再加 5*5，共 75；不能直接用 25*5。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0"
           },
           {
             "id": "c17-4-q3",
@@ -5640,7 +5640,7 @@
           "title": "按分段单价计算总额",
           "difficulty": "Medium",
           "description": "按分段单价计算总额。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入整数用量 n：0..1000。n≤10：2n；10<n≤20：20+3(n−10)；n>20：50+5(n−20)。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -5710,11 +5710,11 @@
           {
             "id": "c17-5-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\nint main(void) {\n    int n;\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>20) return 1;\n    unsigned long long a=1, b=1, amount=1;\n    for (int i=2; i<n; ++i) { unsigned long long t=a+b; a=b; b=t; }\n    for (int i=1; i<n; ++i) amount=2*(amount+1);\n    printf(\"%llu %llu\\n\", n==1?a:b, amount);\n    return 0;\n}\n",
             "answer": [
-              "2 10"
+              "1 1"
             ],
-            "explanation": "n=3：F3=2；倒推 1→4→10，所以输出 2 10。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1 1"
           },
           {
             "id": "c17-5-q3",
@@ -5749,7 +5749,7 @@
           "title": "计算 Fibonacci 项和反向递推的初值",
           "difficulty": "Medium",
           "description": "计算 Fibonacci 项和反向递推的初值。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..20。F1=F2=1；末日剩1，共n天，每日前半减1，则倒推 n−1 次 x=2*(x+1)。输出 Fn 与初始量。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -5815,11 +5815,11 @@
           {
             "id": "c17-6-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"5\"\n\n#include <stdio.h>\nstatic int perfect(int x) {\n    int sum=0;\n    for (int d=1; d<=x/2; ++d) if (x%d==0) sum+=d;\n    return sum==x;\n}\nint main(void) {\n    int n, found=0;\n    if (scanf(\"%d\", &n)!=1 || n<2 || n>1000) return 1;\n    for (int x=2; x<=n; ++x) if (perfect(x)) {\n        printf(\"%s%d\", found?\" \":\"\", x); found=1;\n    }\n    if (!found) printf(\"NONE\");\n    putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "6 28"
+              "NONE"
             ],
-            "explanation": "上界 30 得到 6 和 28；每个候选数开始时都要重新把 sum 清零。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：NONE"
           },
           {
             "id": "c17-6-q3",
@@ -5854,7 +5854,7 @@
           "title": "列出上界内的完数",
           "difficulty": "Medium",
           "description": "列出上界内的完数。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入上界 n：2..1000。候选 x=2..n；sum=0；枚举 d=1..x/2，若 x%d==0 则累加。没有结果输出 NONE。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -5920,11 +5920,11 @@
           {
             "id": "c17-7-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"200 300\"\n\n#include <stdio.h>\nint main(void) {\n    int lo, hi, found=0;\n    if (scanf(\"%d%d\", &lo, &hi)!=2 || lo<100 || hi>999 || lo>hi) return 1;\n    for (int x=lo; x<=hi; ++x) {\n        int a=x/100, b=x/10%10, c=x%10;\n        if (a*a*a+b*b*b+c*c*c==x) { printf(\"%s%d\", found?\" \":\"\", x); found=1; }\n    }\n    if (!found) printf(\"NONE\");\n    putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "153 370 371"
+              "NONE"
             ],
-            "explanation": "在 100..400 中满足条件的有 153 和 370、371；逐个验证条件后按升序输出。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：NONE"
           },
           {
             "id": "c17-7-q3",
@@ -5959,7 +5959,7 @@
           "title": "列出区间内的三位水仙花数",
           "difficulty": "Medium",
           "description": "列出区间内的三位水仙花数。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 lo hi：100≤lo≤hi≤999。对 x∈[lo,hi] 检查百位³+十位³+个位³==x；无结果输出 NONE。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6025,11 +6025,11 @@
           {
             "id": "c17-8-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0\"\n\n#include <stdio.h>\nint main(void) {\n    int t;\n    if (scanf(\"%d\", &t)!=1 || t<0 || t>100) return 1;\n    if (t==0) { puts(\"0.000000\"); return 0; }\n    double lo=1.0, hi=6.0;\n    for (int i=0; i<80; ++i) {\n        double m=lo+(hi-lo)/2;\n        if (m*m*m-m<t) lo=m; else hi=m;\n    }\n    printf(\"%.6f\\n\", (lo+hi)/2);\n    return 0;\n}\n",
             "answer": [
-              "2.000000"
+              "0.000000"
             ],
-            "explanation": "t=6 时根为2；只修改一个端点，让目标根始终留在闭区间里。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0.000000"
           },
           {
             "id": "c17-8-q3",
@@ -6064,7 +6064,7 @@
           "title": "用二分法求 x³−x−t=0 的非负根",
           "difficulty": "Medium",
           "description": "用二分法求 x³−x−t=0 的非负根。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 t：0..100。t=0 输出0；否则令 lo=1,hi=6，取 mid；mid³−mid<t 时移动 lo，否则移动 hi，重复80次。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6130,11 +6130,11 @@
           {
             "id": "c17-9-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\n#include <math.h>\nint main(void) {\n    int t;\n    if (scanf(\"%d\", &t)!=1 || t<1 || t>1000) return 1;\n    double x=t;\n    int ok=0;\n    for (int i=0; i<100; ++i) {\n        double d=3*x*x;\n        if (fabs(d)<1e-14) break;\n        double next=x-(x*x*x-t)/d;\n        if (fabs(next-x)<1e-10) { x=next; ok=1; break; }\n        x=next;\n    }\n    if (!ok) return 1;\n    printf(\"%.6f\\n\", x);\n    return 0;\n}\n",
             "answer": [
-              "3.000000"
+              "1.000000"
             ],
-            "explanation": "t=27 收敛到3。先保存 next 与误差再覆盖 x，避免把新旧状态相减写成零。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1.000000"
           },
           {
             "id": "c17-9-q3",
@@ -6169,7 +6169,7 @@
           "title": "迭代求 x³−t=0 的正根",
           "difficulty": "Medium",
           "description": "迭代求 x³−t=0 的正根。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入整数 t：1..1000。x=t；next=x−(x*x*x−t)/(3*x*x)；步长<1e−10 时停止，最多100次。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6243,11 +6243,11 @@
           {
             "id": "c18-1-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 7\"\n\n#include <stdio.h>\nint main(void) {\n    int n, sum=0;\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>100) return 1;\n    int a[n];\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    for (int i=0; i<n; ++i) sum+=a[i];\n    printf(\"%d\\n\", sum);\n    return 0;\n}\n",
             "answer": [
-              "6"
+              "7"
             ],
-            "explanation": "数组声明必须位于验证之后；循环写满所有元素后，再读取已初始化的元素。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：7"
           },
           {
             "id": "c18-1-q3",
@@ -6282,7 +6282,7 @@
           "title": "验证长度后建立变长数组并求和",
           "difficulty": "Practice",
           "description": "验证长度后建立变长数组并求和。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "先读 n 并验证 1..100，再声明 int a[n]。后续输入 n 个 −1000..1000 的整数，输出总和。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6348,11 +6348,11 @@
           {
             "id": "c18-2-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"2\"\n\n#include <stdio.h>\nint main(void) {\n    int n, composite[1001]={0}, first=1;\n    if (scanf(\"%d\", &n)!=1 || n<2 || n>1000) return 1;\n    for (int p=2; p<=n/p; ++p) if (!composite[p])\n        for (int k=p*p; k<=n; k+=p) composite[k]=1;\n    for (int p=2; p<=n; ++p) if (!composite[p]) {\n        printf(\"%s%d\", first?\"\":\" \", p); first=0;\n    }\n    putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "2 3 5 7"
+              "2"
             ],
-            "explanation": "n=10：2、3 标记各自倍数，最后保留2 3 5 7。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：2"
           },
           {
             "id": "c18-2-q3",
@@ -6387,7 +6387,7 @@
           "title": "列出上界内的全部素数",
           "difficulty": "Practice",
           "description": "列出上界内的全部素数。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：2..1000。mark[1001]={0}；p=2..sqrt(n)，未标记时标 p*p,p*p+p,…；输出未标记的2..n。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6453,11 +6453,11 @@
           {
             "id": "c18-3-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 5\"\n\n#include <stdio.h>\nstatic void sort(int a[], int n) {\n    for (int i=0; i<n-1; ++i) {\n        int k=i;\n        for (int j=i+1; j<n; ++j) if (a[j]<a[k]) k=j;\n        int t=a[i]; a[i]=a[k]; a[k]=t;\n    }\n}\nint main(void) {\n    int n, a[20];\n    if (scanf(\"%d\", &n)!=1 || n<1 || n>20) return 1;\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    sort(a,n);\n    for (int i=0; i<n; ++i) printf(\"%s%d\", i?\" \":\"\", a[i]);\n    putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "-2 1 3 3"
+              "5"
             ],
-            "explanation": "输入 4 3 1 3 −2：首趟把−2换到最前，后续只处理剩余区间。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：5"
           },
           {
             "id": "c18-3-q3",
@@ -6492,7 +6492,7 @@
           "title": "使用选择排序排列整数",
           "difficulty": "Practice",
           "description": "使用选择排序排列整数。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..20，随后 n 个整数（−1000..1000）。i=0..n−2；k=i；j=i+1..n−1，选更小的下标；最后交换 a[i],a[k]。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6558,11 +6558,11 @@
           {
             "id": "c18-4-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 8\"\n\n#include <stdio.h>\nint main(void) {\n    int n, a[21], x;\n    if (scanf(\"%d\", &n)!=1 || n<0 || n>20) return 1;\n    for (int i=0; i<n; ++i) if (scanf(\"%d\", &a[i])!=1) return 1;\n    if (scanf(\"%d\", &x)!=1) return 1;\n    int lo=0, hi=n;\n    while (lo<hi) {\n        int m=lo+(hi-lo)/2;\n        if (a[m]<x) lo=m+1; else hi=m;\n    }\n    for (int i=n; i>lo; --i) a[i]=a[i-1];\n    a[lo]=x;\n    for (int i=0; i<=n; ++i) printf(\"%s%d\", i?\" \":\"\", a[i]);\n    printf(\"\\n%d\\n\", lo);\n    return 0;\n}\n",
             "answer": [
-              "1 3 3 3\n1"
+              "8\n0"
             ],
-            "explanation": "在1 3 3中插入3，二分得到位置1，从数组末端向后移动后得到1 3 3 3。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：8\n0"
           },
           {
             "id": "c18-4-q3",
@@ -6597,7 +6597,7 @@
           "title": "插入一个整数并查找其首次位置",
           "difficulty": "Practice",
           "description": "插入一个整数并查找其首次位置。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n（0..20），n 个非降序整数及 x（均−1000..1000）。插入到相等元素之前；输出新数组，下一行输出0起算的位置。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6663,11 +6663,11 @@
           {
             "id": "c18-5-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 1 -7\"\n\n#include <stdio.h>\nint main(void) {\n    int r,c,a[5][5],b[5][5],mr=0,mc=0,diag=0;\n    if (scanf(\"%d%d\", &r,&c)!=2 || r<1 || r>5 || c<1 || c>5) return 1;\n    for (int i=0;i<r;++i) for (int j=0;j<c;++j) {\n        if (scanf(\"%d\", &a[i][j])!=1) return 1;\n        b[j][i]=a[i][j];\n    }\n    int max=a[0][0];\n    for(int i=0;i<r;++i) for(int j=0;j<c;++j) {\n        if(a[i][j]>max) {max=a[i][j];mr=i;mc=j;}\n        if(i==j) diag+=a[i][j];\n    }\n    for(int i=0;i<c;++i) {for(int j=0;j<r;++j) printf(\"%s%d\",j?\" \":\"\",b[i][j]);putchar('\\n');}\n    printf(\"%d %d %d %d\\n\",max,mr,mc,diag);\n    return 0;\n}\n",
             "answer": [
-              "1 4\n2 5\n3 6\n6 1 2 6"
+              "-7\n-7 0 0 -7"
             ],
-            "explanation": "2×3矩阵1..6转成3×2；最大值6在(1,2)，主对角线1+5=6。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-7\n-7 0 0 -7"
           },
           {
             "id": "c18-5-q3",
@@ -6702,7 +6702,7 @@
           "title": "转置矩阵并报告最大值坐标与对角线和",
           "difficulty": "Practice",
           "description": "转置矩阵并报告最大值坐标与对角线和。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 r,c：1..5，再按行输入 r*c 个−100..100整数。输出转置，每行空格分隔；再输出 max row col diag，坐标从0开始。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6768,11 +6768,11 @@
           {
             "id": "c18-6-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\nint main(void) {\n    int n; unsigned long long a[10][10]={0};\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>10) return 1;\n    for(int r=0;r<n;++r) {\n        a[r][0]=a[r][r]=1;\n        for(int j=1;j<r;++j) a[r][j]=a[r-1][j-1]+a[r-1][j];\n        for(int j=0;j<=r;++j) printf(\"%s%llu\",j?\" \":\"\",a[r][j]);\n        putchar('\\n');\n    }\n    return 0;\n}\n",
             "answer": [
-              "1\n1 1\n1 2 1\n1 3 3 1"
+              "1"
             ],
-            "explanation": "n=4时第三行内部由上一行1和1相加得到2，下一行内部得到3和3。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1"
           },
           {
             "id": "c18-6-q3",
@@ -6807,7 +6807,7 @@
           "title": "输出前 n 行杨辉三角",
           "difficulty": "Practice",
           "description": "输出前 n 行杨辉三角。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..10。a[r][0]=a[r][r]=1；1≤j<r 时 a[r][j]=a[r−1][j−1]+a[r−1][j]；逐行输出。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6873,11 +6873,11 @@
           {
             "id": "c18-7-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\nint main(void) {\n    int n,a[9][9]={0};\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>9 || n%2==0) return 1;\n    int r=0,c=n/2;\n    for(int x=1;x<=n*n;++x) {\n        a[r][c]=x;\n        int nr=(r+n-1)%n,nc=(c+1)%n;\n        if(a[nr][nc]) r=(r+1)%n;\n        else {r=nr;c=nc;}\n    }\n    for(int i=0;i<n;++i) {for(int j=0;j<n;++j) printf(\"%s%d\",j?\" \":\"\",a[i][j]);putchar('\\n');}\n    return 0;\n}\n",
             "answer": [
-              "8 1 6\n3 5 7\n4 9 2"
+              "1"
             ],
-            "explanation": "n=3 时结果为8 1 6 / 3 5 7 / 4 9 2，各行列与主对角线和均为15。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1"
           },
           {
             "id": "c18-7-q3",
@@ -6912,7 +6912,7 @@
           "title": "构造奇阶魔方阵",
           "difficulty": "Practice",
           "description": "构造奇阶魔方阵。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入奇数 n：1,3,5,7,9。起点(0,n/2)；候选((r+n−1)%n,(c+1)%n)；占用则r=(r+1)%n，否则移到候选。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -6978,11 +6978,11 @@
           {
             "id": "c18-8-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"2 2 1 2 2 1\"\n\n#include <stdio.h>\nint main(void) {\n    int r,c,a[4][4],found=0;\n    if(scanf(\"%d%d\",&r,&c)!=2 || r<1 || r>4 || c<1 || c>4) return 1;\n    for(int i=0;i<r;++i) for(int j=0;j<c;++j) if(scanf(\"%d\",&a[i][j])!=1) return 1;\n    for(int i=0;i<r;++i) {\n        int max=a[i][0];\n        for(int j=1;j<c;++j) if(a[i][j]>max) max=a[i][j];\n        for(int j=0;j<c;++j) if(a[i][j]==max) {\n            int ok=1;\n            for(int k=0;k<r;++k) if(a[k][j]<max) ok=0;\n            if(ok) {printf(\"%d %d %d\\n\",i,j,max);found=1;}\n        }\n    }\n    if(!found) puts(\"NONE\");\n    return 0;\n}\n",
             "answer": [
-              "0 1 2"
+              "NONE"
             ],
-            "explanation": "矩阵1 2 / 3 4的鞍点是(0,1)=2：它在首行最大，并在第二列最小。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：NONE"
           },
           {
             "id": "c18-8-q3",
@@ -7017,7 +7017,7 @@
           "title": "输出行最大且列最小的全部鞍点",
           "difficulty": "Practice",
           "description": "输出行最大且列最小的全部鞍点。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 r,c：1..4，随后 r*c 个−100..100整数。按行列顺序输出 row col value（0起算）；行最大、列最小均允许并列。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7083,11 +7083,11 @@
           {
             "id": "c18-9-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"3 0 1 2 3\"\n\n#include <stdio.h>\nstatic void reverse(int a[],int lo,int hi) {\n    while(lo<hi) {--hi; if(lo>=hi) break; int t=a[lo];a[lo]=a[hi];a[hi]=t;++lo;}\n}\nint main(void) {\n    int n,m,a[20];\n    if(scanf(\"%d%d\",&n,&m)!=2 || n<1 || n>20 || m<0 || m>1000) return 1;\n    for(int i=0;i<n;++i) if(scanf(\"%d\",&a[i])!=1) return 1;\n    m%=n;\n    reverse(a,0,n);reverse(a,0,m);reverse(a,m,n);\n    for(int i=0;i<n;++i) printf(\"%s%d\",i?\" \":\"\",a[i]);\n    putchar('\\n');\n    return 0;\n}\n",
             "answer": [
-              "4 5 1 2 3"
+              "1 2 3"
             ],
-            "explanation": "1 2 3 4 5右移2位：全反转5 4 3 2 1，再分段反转得到4 5 1 2 3。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1 2 3"
           },
           {
             "id": "c18-9-q3",
@@ -7122,7 +7122,7 @@
           "title": "使用三次反转将数组循环右移",
           "difficulty": "Practice",
           "description": "使用三次反转将数组循环右移。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..20、m：0..1000，再输入 n 个−1000..1000整数。依次 reverse(0,n)、reverse(0,m)、reverse(m,n)。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7196,11 +7196,11 @@
           {
             "id": "c19-1-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1\"\n\n#include <stdio.h>\nstatic void hanoi(int n,char from,char via,char to) {\n    if(n==1) {printf(\"%c->%c\\n\",from,to);return;}\n    hanoi(n-1,from,to,via);\n    printf(\"%c->%c\\n\",from,to);\n    hanoi(n-1,via,from,to);\n}\nint main(void) {\n    int n;\n    if(scanf(\"%d\",&n)!=1 || n<1 || n>8) return 1;\n    hanoi(n,'A','B','C');\n    return 0;\n}\n",
             "answer": [
-              "A->B\nA->C\nB->C"
+              "A->C"
             ],
-            "explanation": "n=2 时先 A->B，再 A->C，最后 B->C；每个子任务返回后，父任务从调用处继续执行。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：A->C"
           },
           {
             "id": "c19-1-q3",
@@ -7235,7 +7235,7 @@
           "title": "输出汉诺塔移动步骤",
           "difficulty": "Practice",
           "description": "输出汉诺塔移动步骤。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..8。hanoi(n,from,via,to)：递归前 n−1 盘→输出 from->to→递归后 n−1 盘。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7301,11 +7301,11 @@
           {
             "id": "c19-2-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 0.3\"\n\n#include <stdio.h>\nstatic double legendre(int n,double x) {\n    if(n==0) return 1.0;\n    if(n==1) return x;\n    return ((2*n-1)*x*legendre(n-1,x)-(n-1)*legendre(n-2,x))/n;\n}\nint main(void) {\n    int n;double x;\n    if(scanf(\"%d%lf\",&n,&x)!=2 || n<0 || n>12 || x< -1 || x>1) return 1;\n    printf(\"%.6f\\n\",legendre(n,x));\n    return 0;\n}\n",
             "answer": [
-              "-0.125000"
+              "1.000000"
             ],
-            "explanation": "n=2,x=0.5：P2=(3x²−1)/2=−0.125。零阶必须在任何递归分支之前返回。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1.000000"
           },
           {
             "id": "c19-2-q3",
@@ -7340,7 +7340,7 @@
           "title": "递归计算勒让德多项式",
           "difficulty": "Practice",
           "description": "递归计算勒让德多项式。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：0..12，x：−1..1。输出 Pn(x)，保留六位小数。P0=1，P1=x，按递推式计算其余。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7406,11 +7406,11 @@
           {
             "id": "c19-3-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 1 50\"\n\n#include <stdio.h>\nstatic double mean(const double a[],int n) {\n    double s=0;for(int i=0;i<n;++i)s+=a[i];return s/n;\n}\nint main(void) {\n    int r,c,mr=0,mc=0;double a[4][4],row[4],col[4]={0};\n    if(scanf(\"%d%d\",&r,&c)!=2 || r<1 || r>4 || c<1 || c>4)return 1;\n    for(int i=0;i<r;++i)for(int j=0;j<c;++j)if(scanf(\"%lf\",&a[i][j])!=1)return 1;\n    double max=a[0][0];\n    for(int i=0;i<r;++i){\n        row[i]=mean(a[i],c);\n        for(int j=0;j<c;++j){col[j]+=a[i][j];if(a[i][j]>max){max=a[i][j];mr=i;mc=j;}}\n    }\n    for(int i=0;i<r;++i)printf(\"%s%.2f\",i?\" \":\"\",row[i]);putchar('\\n');\n    for(int j=0;j<c;++j)printf(\"%s%.2f\",j?\" \":\"\",col[j]/r);putchar('\\n');\n    double avg=mean(row,r),variance=0;\n    for(int i=0;i<r;++i){double d=row[i]-avg;variance+=d*d;}\n    printf(\"%.2f %d %d\\n%.2f\\n\",max,mr,mc,variance/r);\n    return 0;\n}\n",
             "answer": [
-              "90.00 70.00\n70.00 90.00\n100.00 0 1\n100.00"
+              "50.00\n50.00\n50.00 0 0\n0.00"
             ],
-            "explanation": "2×2成绩80 100 / 60 80：学生均分90、70，课程均分70、90；最高100在(0,1)，均分方差100。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：50.00\n50.00\n50.00 0 0\n0.00"
           },
           {
             "id": "c19-3-q3",
@@ -7445,7 +7445,7 @@
           "title": "计算学生与课程平均分、最高分位置和均分方差",
           "difficulty": "Practice",
           "description": "计算学生与课程平均分、最高分位置和均分方差。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 r,c：1..4，再输入 r*c 个0..100分数。四行依次为学生均分、课程均分、max row col、学生均分总体方差；小数两位。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7511,11 +7511,11 @@
           {
             "id": "c19-4-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1900 3 1\"\n\n#include <stdio.h>\ntypedef struct {int year,month,day;} Date;\nstatic int ordinal(Date d){\n    int days[12]={31,28,31,30,31,30,31,31,30,31,30,31};\n    if(d.year<1600||d.year>2400||d.month<1||d.month>12)return -1;\n    if((d.year%4==0&&d.year%100!=0)||d.year%400==0)days[1]=29;\n    if(d.day<1||d.day>days[d.month-1])return -1;\n    int result=d.day;for(int m=0;m<d.month-1;++m)result+=days[m];return result;\n}\nint main(void){\n    Date d;if(scanf(\"%d%d%d\",&d.year,&d.month,&d.day)!=3)return 1;\n    int n=ordinal(d);if(n<0)puts(\"INVALID\");else printf(\"%d\\n\",n);\n    return 0;\n}\n",
             "answer": [
-              "61"
+              "60"
             ],
-            "explanation": "2000-03-01：31+29+1=61。1900-03-01只有60，因为世纪年不一定是闰年。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：60"
           },
           {
             "id": "c19-4-q3",
@@ -7550,7 +7550,7 @@
           "title": "验证日期并计算年内序号",
           "difficulty": "Practice",
           "description": "验证日期并计算年内序号。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 year month day，年1600..2400。有效日期输出1起算的年内序号，无效输出 INVALID。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7620,11 +7620,11 @@
           {
             "id": "c19-5-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 3\"\n\n#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node {int value;struct Node *next;} Node;\nstatic void clear(Node *p){while(p){Node *next=p->next;free(p);p=next;}}\nint main(void){\n    int n,k;if(scanf(\"%d%d\",&n,&k)!=2||n<1||n>50||k<1||k>20)return 1;\n    Node *head=NULL,*tail=NULL;\n    for(int i=1;i<=n;++i){\n        Node *p=malloc(sizeof *p);if(!p){clear(head);return 1;}\n        p->value=i;p->next=NULL;\n        if(tail)tail->next=p;else head=p;tail=p;\n    }\n    tail->next=head;Node *prev=tail,*cur=head;\n    while(cur->next!=cur){\n        for(int count=1;count<k;++count){prev=cur;cur=cur->next;}\n        Node *next=cur->next;prev->next=next;free(cur);cur=next;\n    }\n    printf(\"%d\\n\",cur->value);free(cur);\n    return 0;\n}\n",
             "answer": [
-              "4"
+              "1"
             ],
-            "explanation": "n=5,k=3 时依次删除3、1、5、2，最后剩4。保存后继后再 free，不能释放后读取 next。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：1"
           },
           {
             "id": "c19-5-q3",
@@ -7659,7 +7659,7 @@
           "title": "按报数规则删除节点并输出幸存者",
           "difficulty": "Practice",
           "description": "按报数规则删除节点并输出幸存者。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..50、k：1..20。编号1..n围成圈，从1开始报数，到k删除，输出最后的原始编号。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7729,11 +7729,11 @@
           {
             "id": "c19-6-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"abc?!\"\n\n#include <stdio.h>\n#include <ctype.h>\nint main(void){\n    unsigned long value=0,values[161];int ch,active=0,count=0;\n    while((ch=getchar())!=EOF){\n        if(isdigit(ch)){\n            unsigned long d=(unsigned long)(ch-'0');\n            if(value>(1000000000UL-d)/10){puts(\"OVERFLOW\");return 0;}\n            value=value*10+d;active=1;\n        }else if(active){values[count++]=value;active=0;value=0;}\n    }\n    if(active)values[count++]=value;\n    for(int i=0;i<count;++i)printf(\"%s%lu\",i?\" \":\"\",values[i]);\n    if(!count)printf(\"NONE\");putchar('\\n');return 0;\n}\n",
             "answer": [
-              "123 45 0"
+              "NONE"
             ],
-            "explanation": "A123x045z0 提取为123 45 0。零本身也是一个数字段，不能以 value!=0 判断是否有数。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：NONE"
           },
           {
             "id": "c19-6-q3",
@@ -7768,7 +7768,7 @@
           "title": "提取每段连续十进制数字",
           "difficulty": "Practice",
           "description": "提取每段连续十进制数字。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入最多160个ASCII字符，各数字段表示0..10^9。依次输出数，以空格分隔；无数字输出 NONE；超界输出 OVERFLOW 并停止。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7838,11 +7838,11 @@
           {
             "id": "c19-7-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 0\"\n\n#include <stdio.h>\n#include <math.h>\nstatic double square(double x){return x*x;}\nstatic double integrate(double b,double (*f)(double)){\n    const int n=100000;double h=b/n,sum=0;\n    for(int i=0;i<n;++i)sum+=f((i+0.5)*h);\n    return sum*h;\n}\nint main(void){\n    int mode;double b;\n    if(scanf(\"%d%lf\",&mode,&b)!=2||mode<0||mode>2||b<0||b>3)return 1;\n    double (*f)(double)=mode==0?square:mode==1?sin:exp;\n    printf(\"%.6f\\n\",integrate(b,f));return 0;\n}\n",
             "answer": [
-              "0.333333"
+              "0.000000"
             ],
-            "explanation": "mode=0,b=1 时近似∫x²dx=1/3；传入哪个回调决定计算对象，积分循环本身不变。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：0.000000"
           },
           {
             "id": "c19-7-q3",
@@ -7877,7 +7877,7 @@
           "title": "用同一个积分函数计算不同被积函数",
           "difficulty": "Practice",
           "description": "用同一个积分函数计算不同被积函数。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 mode（0平方、1正弦、2指数）、b（0..3）。中点矩形法固定100000段，输出近似积分六位小数。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -7943,11 +7943,11 @@
           {
             "id": "c19-8-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 C99\"\n\n#include <stdio.h>\n#include <string.h>\nstatic void sort(char *words[],int n){\n    for(int i=0;i<n-1;++i){\n        int k=i;for(int j=i+1;j<n;++j)if(strcmp(words[j],words[k])<0)k=j;\n        char *t=words[i];words[i]=words[k];words[k]=t;\n    }\n}\nint main(void){\n    int n;char data[5][21],*words[5];\n    if(scanf(\"%d\",&n)!=1||n<1||n>5)return 1;\n    for(int i=0;i<n;++i){if(scanf(\"%20s\",data[i])!=1)return 1;words[i]=data[i];}\n    sort(words,n);for(int i=0;i<n;++i)puts(words[i]);return 0;\n}\n",
             "answer": [
-              "apple\npear\npear"
+              "C99"
             ],
-            "explanation": "pear apple pear 经选择排序交换指针后，依次输出apple、pear、pear。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：C99"
           },
           {
             "id": "c19-8-q3",
@@ -7982,7 +7982,7 @@
           "title": "交换指针排列字符串",
           "difficulty": "Practice",
           "description": "交换指针排列字符串。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..5，再输入 n 个不含空白的ASCII单词，每个最多20字节。按 strcmp 非降序输出，每行一个。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8048,11 +8048,11 @@
           {
             "id": "c19-9-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"\\t \\n\"\n\n#include <stdio.h>\n#include <ctype.h>\n#include <string.h>\nint main(void){\n    char s[162],vowels[162];if(!fgets(s,sizeof s,stdin))s[0]='\\0';\n    size_t best=0,bestlen=0,i=0,v=0;\n    while(s[i]){\n        if(strchr(\"aeiouAEIOU\",s[i]))vowels[v++]=s[i];\n        if(isspace((unsigned char)s[i])){++i;continue;}\n        size_t start=i;\n        while(s[i]&&!isspace((unsigned char)s[i])){\n            if(i!=start&&strchr(\"aeiouAEIOU\",s[i]))vowels[v++]=s[i];++i;\n        }\n        if(i-start>bestlen){best=start;bestlen=i-start;}\n    }\n    vowels[v]='\\0';\n    if(!bestlen)puts(\"NONE\");else printf(\"%.*s\\n\",(int)bestlen,s+best);\n    puts(vowels);return 0;\n}\n",
             "answer": [
-              "makes\naeoeu"
+              "NONE"
             ],
-            "explanation": "C makes code fun 的最长词为makes；元音依次为a,e,o,e,u，输出aeoeu。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：NONE"
           },
           {
             "id": "c19-9-q3",
@@ -8087,7 +8087,7 @@
           "title": "找出最长单词并收集元音字母",
           "difficulty": "Practice",
           "description": "找出最长单词并收集元音字母。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入一行最多160个ASCII字符。第一行输出最长空白分隔词，无词为NONE；第二行按原顺序输出元音，无元音输出空行。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8161,11 +8161,11 @@
           {
             "id": "c20-1-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-12 C\"\n\n#include <stdio.h>\nint main(void){\n    int n;char s[11];if(scanf(\"%d%10s\",&n,s)!=2)return 1;\n    printf(\"|%6d|%-6d|\\n|%.3s|\\n\",n,n,s);return 0;\n}\n",
             "answer": [
-              "|     7|7     |\n|hel|"
+              "|   -12|-12   |\n|C|"
             ],
-            "explanation": "n=7 时第一字段左侧5个空格，第二字段右侧5个空格；hello 的 %.3s 只输出hel。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：|   -12|-12   |\n|C|"
           },
           {
             "id": "c20-1-q3",
@@ -8269,11 +8269,11 @@
           {
             "id": "c20-2-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-3:0:A\"\n\n#include <stdio.h>\nint main(void){\n    int id;char mark;\n    if(scanf(\"%d:%*d: %c\",&id,&mark)!=2)puts(\"INVALID\");\n    else printf(\"%d %c\\n\",id,mark);\n    return 0;\n}\n",
             "answer": [
-              "12 Z"
+              "-3 A"
             ],
-            "explanation": "12:999: Z 中999被消耗但不赋值，返回值为2；Z前空白由格式里的空格跳过。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-3 A"
           },
           {
             "id": "c20-2-q3",
@@ -8308,7 +8308,7 @@
           "title": "按固定文本格式解析记录",
           "difficulty": "Practice",
           "description": "按固定文本格式解析记录。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入形如 12:999: Z；格式 %d:%*d: %c。成功时输出编号和字符，失败输出 INVALID。两个整数范围−1000..1000。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8374,11 +8374,11 @@
           {
             "id": "c20-3-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"C99\"\n\n#include <stdio.h>\nint main(void){\n    char src[21],dst[6];if(scanf(\"%20s\",src)!=1)return 1;\n    int needed=snprintf(dst,sizeof dst,\"%s\",src);\n    if(needed<0)return 1;printf(\"%s\\n%d\\n\",dst,needed);return 0;\n}\n",
             "answer": [
-              "alpha\n8"
+              "C99\n3"
             ],
-            "explanation": "alphabet 原需8字节，dst 只保存alpha及末尾零，输出alpha和8。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：C99\n3"
           },
           {
             "id": "c20-3-q3",
@@ -8413,7 +8413,7 @@
           "title": "生成有限容量内的文本并报告所需长度",
           "difficulty": "Practice",
           "description": "生成有限容量内的文本并报告所需长度。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入一个最多20字节的ASCII单词。写入 char dst[6]，输出截断文本，再输出 snprintf 返回的原需长度。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8479,11 +8479,11 @@
           {
             "id": "c20-4-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-ff\"\n\n#include <stdio.h>\n#include <stdlib.h>\n#include <errno.h>\nint main(void){\n    char s[64],*end;if(scanf(\"%63s\",s)!=1)return 1;\n    errno=0;long value=strtol(s,&end,16);\n    if(end==s||*end!='\\0'||errno==ERANGE||value< -1000000||value>1000000)puts(\"INVALID\");\n    else printf(\"%ld\\n\",value);return 0;\n}\n",
             "answer": [
-              "42"
+              "-255"
             ],
-            "explanation": "0x2A 得到42；2G读到G停止，因剩余非零字符而被拒绝。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-255"
           },
           {
             "id": "c20-4-q3",
@@ -8518,7 +8518,7 @@
           "title": "严格转换一个十六进制整数字符串",
           "difficulty": "Practice",
           "description": "严格转换一个十六进制整数字符串。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入一个最多63字节、不含空白的文本单词。按16进制转换，值须在−1000000..1000000；失败输出 INVALID，否则输出十进制整数。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8536,6 +8536,18 @@
             {
               "input": "0",
               "output": "0\n"
+            },
+            {
+              "input": "100000",
+              "output": "INVALID\n"
+            },
+            {
+              "input": "-100000",
+              "output": "INVALID\n"
+            },
+            {
+              "input": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+              "output": "INVALID\n"
             }
           ],
           "starter": "#include <stdio.h>\n\nint main(void) {\n    /* 根据题意补全算法与边界检查。 */\n    return 0;\n}\n",
@@ -8588,11 +8600,11 @@
           {
             "id": "c20-5-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"abc z zz\"\n\n#include <stdio.h>\n#include <string.h>\n#include <stddef.h>\nint main(void){\n    char s[81],part[21],ch;\n    if(scanf(\"%80s %c%20s\",s,&ch,part)!=3)return 1;\n    const char *p=strchr(s,ch),*q=strstr(s,part);\n    ptrdiff_t a=p?p-s:-1,b=q?q-s:-1;\n    printf(\"%td %td\\n\",a,b);return 0;\n}\n",
             "answer": [
-              "1 1"
+              "-1 -1"
             ],
-            "explanation": "banana a ana 的两个首次位置均为1；找到的指针与主串属于同一个数组，才能合法做差。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：-1 -1"
           },
           {
             "id": "c20-5-q3",
@@ -8627,7 +8639,7 @@
           "title": "输出字符和子串首次出现的位置",
           "difficulty": "Practice",
           "description": "输出字符和子串首次出现的位置。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入三个单词：主串（≤80字节）、一个字符、子串（≤20字节），均ASCII。输出两个0起算位置；找不到用−1。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8693,11 +8705,11 @@
           {
             "id": "c20-6-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"-1\"\n\n#include <stdio.h>\n#include <stdlib.h>\n#include <math.h>\nint main(void){\n    int x;if(scanf(\"%d\",&x)!=1||x< -100||x>100)return 1;\n    if(x<0)puts(\"DOMAIN\");else printf(\"%.3f\\n\",sqrt((double)x));\n    srand(1);int ok=1;\n    for(int i=0;i<20;++i){int v=rand();if(v<0||v>RAND_MAX)ok=0;}\n    printf(\"%d\\n\",ok);return 0;\n}\n",
             "answer": [
-              "3.000\n1"
+              "DOMAIN\n1"
             ],
-            "explanation": "输入9先得到3.000，再输出1表示范围检查通过；不对具体随机值作跨平台假设。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：DOMAIN\n1"
           },
           {
             "id": "c20-6-q3",
@@ -8732,7 +8744,7 @@
           "title": "检查平方根定义域并验证随机数范围",
           "difficulty": "Practice",
           "description": "检查平方根定义域并验证随机数范围。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入整数 x：−100..100。x<0 输出 DOMAIN，否则输出sqrt(x)三位小数；再输出连续20次 rand 均满足标准范围的布尔值。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8798,11 +8810,11 @@
           {
             "id": "c20-7-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"1 9 Dee 0\"\n\n#include <stdio.h>\ntypedef struct {int id;char name[21];int score;} Record;\nstatic int before(Record a,Record b){return a.score>b.score||(a.score==b.score&&a.id<b.id);}\nint main(void){\n    int n;Record a[10];if(scanf(\"%d\",&n)!=1||n<1||n>10)return 1;\n    for(int i=0;i<n;++i)if(scanf(\"%d%20s%d\",&a[i].id,a[i].name,&a[i].score)!=3)return 1;\n    for(int i=0;i<n-1;++i){int k=i;for(int j=i+1;j<n;++j)if(before(a[j],a[k]))k=j;Record t=a[i];a[i]=a[k];a[k]=t;}\n    for(int i=0;i<n;++i)printf(\"%d %s %d\\n\",a[i].id,a[i].name,a[i].score);return 0;\n}\n",
             "answer": [
-              "1 Ann 90\n2 Bob 90\n3 Cat 80"
+              "9 Dee 0"
             ],
-            "explanation": "2 Bob 90、1 Ann 90、3 Cat 80排序后为Ann、Bob、Cat，姓名与分数始终绑定。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：9 Dee 0"
           },
           {
             "id": "c20-7-q3",
@@ -8837,7 +8849,7 @@
           "title": "按成绩降序和编号升序排列完整记录",
           "difficulty": "Practice",
           "description": "按成绩降序和编号升序排列完整记录。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n：1..10，再输入每条 id（1..10000且唯一）、name（≤20字节单词）、score（0..100整数）。按分数降序、同分id升序，每行输出完整记录。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -8903,11 +8915,11 @@
           {
             "id": "c20-8-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "使用新的输入预测以下程序输出（可用空格分隔各行）。输入：\"0 0\"\n\n#include <stdio.h>\n#include <stdlib.h>\ntypedef struct Node {int value;struct Node *next;} Node;\nstatic void clear(Node *p){while(p){Node *next=p->next;free(p);p=next;}}\nstatic int read_list(int n,Node **head){\n    Node **tail=head;*head=NULL;\n    for(int i=0;i<n;++i){int x;if(scanf(\"%d\",&x)!=1)return 0;Node *p=malloc(sizeof *p);if(!p)return 0;p->value=x;p->next=NULL;*tail=p;tail=&p->next;}\n    return 1;\n}\nstatic Node *merge(Node *a,Node *b){\n    Node dummy={0,NULL},*tail=&dummy;\n    while(a&&b){if(a->value<=b->value){tail->next=a;a=a->next;}else{tail->next=b;b=b->next;}tail=tail->next;}\n    tail->next=a?a:b;return dummy.next;\n}\nint main(void){\n    int n,m;Node *a=NULL,*b=NULL;\n    if(scanf(\"%d%d\",&n,&m)!=2||n<0||n>10||m<0||m>10)return 1;\n    if(!read_list(n,&a)||!read_list(m,&b)){clear(a);clear(b);return 1;}\n    Node *head=merge(a,b);int first=1;\n    for(Node *p=head;p;p=p->next){printf(\"%s%d\",first?\"\":\" \",p->value);first=0;}\n    if(first)printf(\"EMPTY\");putchar('\\n');clear(head);return 0;\n}\n",
             "answer": [
-              "1 2 3 3 5"
+              "EMPTY"
             ],
-            "explanation": "1 3 5与2 3归并得到1 2 3 3 5；相等时先取左表，保证确定的顺序。"
+            "explanation": "请按照代码逐步跟踪新输入对应的分支与变量变化。该输入的输出为：EMPTY"
           },
           {
             "id": "c20-8-q3",
@@ -8942,7 +8954,7 @@
           "title": "合并两个有序链表并释放全部节点",
           "difficulty": "Practice",
           "description": "合并两个有序链表并释放全部节点。使用本节方法完成程序，注意边界与输入约束。",
-          "input": "输入范围与顺序见本节语法说明；样例不包含提示文字。",
+          "input": "输入 n,m：0..10；接着 n 个非降序整数、m个非降序整数（−1000..1000）。输出合并序列，两个都为空输出 EMPTY。",
           "output": "输出规定结果，以样例的顺序和换行为准。",
           "tests": [
             {
@@ -9008,7 +9020,7 @@
           {
             "id": "c20-9-q2",
             "type": "predict",
-            "question": "按本节示例输入运行完整程序，输出是什么？",
+            "question": "阅读以下程序并预测输出（可用空格分隔各行）。输入：\"2 90\"\n\n#include <stdio.h>\ntypedef struct {int id,score;} Record;\nint main(void){\n    Record add,a[10];int n=0;\n    if(scanf(\"%d%d\",&add.id,&add.score)!=2)return 1;\n    FILE *f=fopen(\"records.txt\",\"a+\");if(!f)return 1;\n    int ok=fprintf(f,\"%d %d\\n\",add.id,add.score)>=0;\n    if(fflush(f)!=0)ok=0;\n    if(fseek(f,0L,SEEK_SET)!=0)ok=0;\n    if(!ok){fclose(f);return 1;}\n    while(n<10){int got=fscanf(f,\"%d%d\",&a[n].id,&a[n].score);if(got==EOF)break;if(got!=2){fclose(f);return 1;}++n;}\n    ok=!ferror(f);if(fclose(f)!=0)ok=0;if(!ok)return 1;\n    for(int i=0;i<n-1;++i)for(int j=i+1;j<n;++j)\n        if(a[j].score>a[i].score||(a[j].score==a[i].score&&a[j].id<a[i].id)){Record t=a[i];a[i]=a[j];a[j]=t;}\n    f=fopen(\"records.txt\",\"w\");if(!f)return 1;\n    for(int i=0;i<n;++i)if(fprintf(f,\"%d %d\\n\",a[i].id,a[i].score)<0)ok=0;\n    if(fclose(f)!=0)ok=0;if(!ok)return 1;printf(\"%d\\n\",n);return 0;\n}\n",
             "answer": [
               "3"
             ],

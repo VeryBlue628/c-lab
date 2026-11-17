@@ -4,7 +4,7 @@
     "difficulty": "进阶",
     "description": "令 temperature=38，温度大于等于 37 时输出 High，然后总是输出 Done。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -24,7 +24,7 @@
     "difficulty": "进阶",
     "description": "令 balance=20、price=25，够钱输出 Buy，否则输出 Save。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -44,7 +44,7 @@
     "difficulty": "进阶",
     "description": "令 s=59，按 >=90 输出 A、>=60 输出 B、其余输出 C。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -64,7 +64,7 @@
     "difficulty": "进阶",
     "description": "令 command=3，1 输出 Play，2 输出 Pause，其他输出 Stop。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -84,7 +84,7 @@
     "difficulty": "进阶",
     "description": "令 a=14、b=9，使用三目运算符输出较小的值。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -104,7 +104,7 @@
     "difficulty": "进阶",
     "description": "令 s=60，先判断有效范围 0～100，再按及格线 60 输出 Invalid、Pass 或 Fail。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -124,7 +124,7 @@
     "difficulty": "进阶",
     "description": "令 open=true、stock=5，营业且有货输出 Buy，营业无货输出 Sold out，不营业输出 Closed。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",

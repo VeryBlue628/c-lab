@@ -24,7 +24,7 @@ export function Completion({
       completed(progress.records[l.id]),
     ).length;
   return (
-    <dialog
+    <dialog aria-label="学习对话框" 
       ref={dialog}
       className="small-dialog completion-dialog"
       onCancel={onClose}

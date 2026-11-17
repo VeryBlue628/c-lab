@@ -29,6 +29,7 @@ export async function runCode(
   });
   return new Promise((resolve) => {
     let timer: ReturnType<typeof setTimeout>;
+    let stage = "loading";
     const partial: Execution[] = [];
     const finish = (runs: Execution[], terminate = false) => {
       clearTimeout(timer);
@@ -54,7 +55,7 @@ export async function runCode(
               {
                 status: "timeout",
                 stdout: "",
-                stderr: "运行超时，已终止沙箱。检查循环条件或递归出口。",
+                stderr: stage === "loading" ? "编译器下载超时，请检查网络后重试。" : stage === "compile" ? "编译超时，请简化代码后重试。" : "运行超时，已终止沙箱。检查循环条件或递归出口。",
                 exitCode: -1,
                 duration: ms,
               },
@@ -79,6 +80,7 @@ export async function runCode(
       );
     worker!.onmessage = ({ data }) => {
       if (data.type === "stage") {
+        stage = data.stage;
         onStage(data.message);
         deadline(
           data.stage === "loading"

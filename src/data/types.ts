@@ -1,5 +1,6 @@
 export type Quiz = {
   id?: string;
+  acceptedAnswers?: string[];
   type: "single" | "multi" | "boolean" | "fill" | "predict" | "debug";
   question: string;
   options?: string[];

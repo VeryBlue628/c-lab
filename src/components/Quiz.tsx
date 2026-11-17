@@ -35,7 +35,8 @@ export function Quiz({
         )
         .sort()
         .join("\0");
-    const correct = clean(answer) === clean(quiz.answer);
+    const variants = [quiz.answer, ...(quiz.acceptedAnswers || []).map(a => [a])];
+    const correct = variants.some(a => clean(answer) === clean(a));
     setResult(correct);
     onSubmit(correct, answer);
   };
@@ -89,7 +90,7 @@ export function Quiz({
               setAnswer([e.target.value]);
             }}
             onKeyDown={(e) => {
-              if (e.key === "Enter") check();
+              if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) check();
             }}
           />
         </label>

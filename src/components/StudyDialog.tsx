@@ -90,7 +90,7 @@ export function StudyDialog({
     setFinished(false);
   };
   return (
-    <dialog className="study-dialog" ref={dialog} onCancel={onClose}>
+    <dialog aria-label="学习对话框" className="study-dialog" ref={dialog} onCancel={onClose}>
       <div className="dialog-header">
         <div>
           <span className="eyebrow">YOUR LEARNING SPACE</span>
@@ -204,6 +204,7 @@ export function StudyDialog({
             <div className="backup-section">
               <div>
                 <h3>给学习记录留一份备份</h3>
+                <button className="secondary" onClick={() => { const data = Object.fromEntries(Object.keys(localStorage).filter(k => k.startsWith("c-lab-")).map(k => [k, localStorage.getItem(k)])); const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:"application/json"})); const a = document.createElement("a"); a.href=url; a.download="c-lab-recovery.json"; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000); }}>导出本机恢复档案</button>
                 <p>进度和代码保存在当前浏览器；换设备前，请导出备份。</p>
               </div>
               <div>

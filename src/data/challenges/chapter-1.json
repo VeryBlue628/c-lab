@@ -4,7 +4,7 @@
     "difficulty": "基础",
     "description": "向屏幕输出 C is powerful!，末尾换行。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -24,7 +24,7 @@
     "difficulty": "基础",
     "description": "分两行输出 Hello 和 C Lab。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -44,7 +44,7 @@
     "difficulty": "基础",
     "description": "写一条注释解释输出，然后只输出 Keep learning。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",
@@ -64,7 +64,7 @@
     "difficulty": "基础",
     "description": "保留正确的 main 结构，先后输出 Start 和 Finish。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白和空白字符数量。",
+    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
     "tests": [
       {
         "input": "",

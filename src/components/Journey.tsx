@@ -22,7 +22,7 @@ export function Journey({
     return () => dialog.current?.close();
   }, []);
   return (
-    <dialog
+    <dialog aria-label="学习对话框" 
       ref={dialog}
       className="study-dialog journey-dialog"
       onCancel={onClose}

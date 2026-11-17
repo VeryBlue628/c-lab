@@ -501,7 +501,7 @@ export function Workbench({
           </div>
         )}
       </div>
-      <dialog
+      <dialog aria-label="学习对话框" 
         ref={dialog}
         className="small-dialog"
         onCancel={() => setConfirm(null)}

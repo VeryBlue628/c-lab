@@ -55,7 +55,7 @@ function number(n: unknown, max = 1000000) {
     throw Error("计数或提示层级不正确");
   return n as number;
 }
-function text(s: unknown, max = 100000) {
+function text(s: unknown, max = 1000000) {
   if (typeof s !== "string" || s.length > max)
     throw Error("文本或代码草稿不正确");
   return s;
@@ -200,7 +200,16 @@ export function validate(value: unknown): Progress {
 export function load(): Progress {
   try {
     const raw = localStorage.getItem(key);
-    return raw ? validate(JSON.parse(raw)) : fresh();
+    if (!raw) return fresh();
+    const parsed = JSON.parse(raw);
+    try { return validate(parsed); } catch {
+      localStorage.setItem(key + "-recovery", raw);
+      const recovered = { ...parsed, records: {} } as Progress;
+      for (const [id, record] of Object.entries(parsed.records || {})) {
+        try { Object.assign(recovered.records, validate({ ...parsed, records: { [id]: record } }).records); } catch {}
+      }
+      return validate(recovered);
+    }
   } catch {
     return fresh();
   }

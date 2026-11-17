@@ -19,7 +19,7 @@ export function TextbookGuide({
     return () => dialog.current?.close();
   }, []);
   return (
-    <dialog
+    <dialog aria-label="学习对话框" 
       ref={dialog}
       className="study-dialog textbook-dialog"
       onCancel={onClose}

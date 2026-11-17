@@ -259,7 +259,12 @@
         "返回类型"
       ],
       "explanation": "函数名前的类型规定返回值的类型。",
-      "id": "c1-4-q2"
+      "id": "c1-4-q2",
+      "acceptedAnswers": [
+        "返回值类型",
+        "函数返回类型",
+        "函数返回值类型"
+      ]
     },
     {
       "type": "boolean",
@@ -622,7 +627,10 @@
         "f"
       ],
       "explanation": "2.5f 的类型是 float，不带后缀默认 double。",
-      "id": "c2-3-q4"
+      "id": "c2-3-q4",
+      "acceptedAnswers": [
+        "F"
+      ]
     },
     {
       "type": "boolean",
@@ -1271,7 +1279,12 @@
         "(double)total"
       ],
       "explanation": "目标类型放在括号中，再接要转换的表达式。",
-      "id": "c2-9-q5"
+      "id": "c2-9-q5",
+      "acceptedAnswers": [
+        "(double) total",
+        "(double)(total)",
+        "(double) (total)"
+      ]
     },
     {
       "type": "single",
@@ -3759,7 +3772,10 @@
         "i<n"
       ],
       "explanation": "合法迭代值为 0 到 n-1，共 n 次。",
-      "id": "c6-9-q4"
+      "id": "c6-9-q4",
+      "acceptedAnswers": [
+        "i < n"
+      ]
     },
     {
       "type": "debug",
@@ -3810,7 +3826,11 @@
         "不返回值"
       ],
       "explanation": "返回类型与参数列表中的 void 含义不同。",
-      "id": "c7-1-q2"
+      "id": "c7-1-q2",
+      "acceptedAnswers": [
+        "无返回值",
+        "没有返回值"
+      ]
     },
     {
       "type": "boolean",
@@ -4073,7 +4093,12 @@
         "基本情况"
       ],
       "explanation": "基本情况给递归提供出口。",
-      "id": "c7-5-q2"
+      "id": "c7-5-q2",
+      "acceptedAnswers": [
+        "递归出口",
+        "终止条件",
+        "递归终止条件"
+      ]
     },
     {
       "type": "boolean",
@@ -4363,7 +4388,10 @@
         "n-1"
       ],
       "explanation": "有效范围是 0 到 n-1。",
-      "id": "c8-2-q4"
+      "id": "c8-2-q4",
+      "acceptedAnswers": [
+        "n - 1"
+      ]
     },
     {
       "type": "debug",
@@ -4628,7 +4656,11 @@
         "有效长度"
       ],
       "explanation": "函数参数不会自动携带调用者数组长度。",
-      "id": "c8-6-q3"
+      "id": "c8-6-q3",
+      "acceptedAnswers": [
+        "长度",
+        "数组长度"
+      ]
     },
     {
       "type": "boolean",
@@ -4762,7 +4794,10 @@
         "n-1"
       ],
       "explanation": "n 本身不属于数组有效范围。",
-      "id": "c8-8-q2"
+      "id": "c8-8-q2",
+      "acceptedAnswers": [
+        "n - 1"
+      ]
     },
     {
       "type": "boolean",
