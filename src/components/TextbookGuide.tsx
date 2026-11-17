@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { X, ArrowRight, Check, BookOpen } from "lucide-react";
 import { BookAudit, LibraryReference } from "./BookAudit";
 import guide from "../data/textbook-guide.json";
-import { lessonById } from "../data/curriculum";
+import { lessonById } from "../data/runtime-curriculum";
 import { completed, type Progress } from "../services/progress";
 export function TextbookGuide({
   progress,

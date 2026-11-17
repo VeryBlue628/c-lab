@@ -1,3 +1,4 @@
+import { checkStructure } from "../engine/structure";
 import { VirtualFiles, RunFiles } from "./VirtualFiles";
 import { ExpectedOutput } from "./ExpectedOutput";
 import { diagnose } from "../engine/diagnostics";
@@ -69,6 +70,7 @@ export function Workbench({
   onInput: (s: string) => void;
   notify: (s: string) => void;
 }) {
+  const [structure, setStructure] = useState<ReturnType<typeof checkStructure>>([]);
   const [busy, setBusy] = useState(false),
     [stage, setStage] = useState(""),
     [runs, setRuns] = useState<Execution[] | null>(null),
@@ -106,6 +108,8 @@ export function Workbench({
     setBusy(true);
     setSubmitted(submit);
     setRuns(null);
+    const checks = submit ? checkStructure(code, lesson.challenge.structure, files) : [];
+    setStructure(checks);
     setStage("正在准备编译器…");
     try {
       const result = await runCode(
@@ -123,7 +127,7 @@ export function Workbench({
       setRuns(result);
       if (submit) {
         const verdict = judge(lesson.challenge.tests, result);
-        if (verdict.every((t) => t.passed)) onPassed();
+        if (verdict.every((t) => t.passed) && checks.every(c => c.passed)) onPassed();
         else if (
           !result.some((r) => ["cancelled", "system-error"].includes(r.status))
         )
@@ -358,10 +362,10 @@ export function Workbench({
                   <div
                     className={
                       "output-status " +
-                      (verdict.every((t) => t.passed) ? "success" : "error")
+                      (verdict.every((t) => t.passed) && structure.every(c => c.passed) ? "success" : "error")
                     }
                   >
-                    {verdict.every((t) => t.passed) ? (
+                    {verdict.every((t) => t.passed) && structure.every(c => c.passed) ? (
                       <CheckCircle2 size={15} />
                     ) : (
                       <XCircle size={15} />
@@ -369,6 +373,7 @@ export function Workbench({
                     通过 {verdict.filter((t) => t.passed).length} /{" "}
                     {verdict.length} 组测试
                   </div>
+                  {structure.length > 0 && <section className="structure-results" aria-label="方法检查"><strong>方法检查</strong>{structure.map((c,i)=><p key={i} className={c.passed?"success-note":"error-advice"}>{c.passed?"✓":"✗"} {c.label}</p>)}<small>同时通过输出测试和方法检查才算挑战通过。</small></section>}
                   {verdict.map((v, i) => (
                     <details
                       open={!v.passed}

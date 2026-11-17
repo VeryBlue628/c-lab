@@ -1,3 +1,4 @@
+import { stageFor } from "../data/pathway";
 import { useEffect, useRef, useState } from "react";
 import {
   BookOpen,
@@ -11,7 +12,7 @@ import {
   SkipForward,
   Code2,
 } from "lucide-react";
-import { chapters, lessons } from "../data/curriculum";
+import { learningChapters as chapters, lessons } from "../data/runtime-curriculum";
 import { completed, unlocked, type Progress } from "../services/progress";
 export function Sidebar({
   progress,
@@ -133,6 +134,7 @@ export function Sidebar({
           const open = search || expanded.includes(ch.id);
           return (
             <div className="chapter" key={ch.id}>
+              {stageFor(ch.id).chapters[0] === ch.id && <p className="sidebar-stage">{stageFor(ch.id).title}</p>}
               <button
                 className={
                   "chapter-button " +

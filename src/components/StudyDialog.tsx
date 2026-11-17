@@ -12,7 +12,7 @@ import {
   Code2,
   Lightbulb,
 } from "lucide-react";
-import { chapters, lessons, curriculumStats } from "../data/curriculum";
+import { chapters, lessons, curriculumStats, ensureChapter } from "../data/runtime-curriculum";
 import { reinforcement } from "../data/reinforcement";
 import { accuracy, completed, type Progress } from "../services/progress";
 import { Quiz } from "./Quiz";
@@ -89,6 +89,10 @@ export function StudyDialog({
     setAnswers({});
     setFinished(false);
   };
+  if (chapter) ensureChapter(chapter.id);
+  if (active === "review") for (const l of lessons) {
+    if (progress.records[l.id]?.questions || (progress.records[l.id]?.failures || 0) > 0) ensureChapter(l.chapter);
+  }
   return (
     <dialog aria-label="学习对话框" className="study-dialog" ref={dialog} onCancel={onClose}>
       <div className="dialog-header">

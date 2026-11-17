@@ -1,6 +1,7 @@
+import { stageFor } from "../data/pathway";
 import { useEffect, useRef, useState } from "react";
 import { X, Check, Lock, ArrowRight, Target, SkipForward } from "lucide-react";
-import { chapters, lessons, curriculumStats } from "../data/curriculum";
+import { learningChapters as chapters, lessons, curriculumStats } from "../data/runtime-curriculum";
 import { completed, unlocked, type Progress } from "../services/progress";
 export function Journey({
   progress,
@@ -83,6 +84,7 @@ export function Journey({
               }
             >
               <strong>
+                <small className="path-stage">{stageFor(c.id).title} · {stageFor(c.id).goal}</small>
                 {String(c.id).padStart(2, "0")} · {c.title}
               </strong>
               <span>

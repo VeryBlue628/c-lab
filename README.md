@@ -31,7 +31,7 @@ npm.cmd run dev
 - CodeMirror 6：语法高亮、行号、缩进、括号匹配、自动闭合、基础补全、复制、清空、撤销、默认代码、字号调整、拖动调整高度、全屏。
 - 真实 Clang C99 编译与 wasm-ld 链接；支持 printf、scanf 和多行标准输入。
 - 编译错误与行号定位、运行错误、超时、手动停止；输出与测试结果分别展示。
-- 168 道编程挑战（147 基础 + 21 Mastery）、458 个测试用例；按程序真实标准输出以及指定输出文件判题，提供逐个用例的输入、预期、实际结果。
+- 168 道编程挑战（147 基础 + 21 Mastery）、586 个测试用例；按程序真实标准输出以及指定输出文件判题，提供逐个用例的输入、预期、实际结果。
 - 编程挑战在运行前常显“预计输出结果”，可切换测试用例，对照输入、标准输出和应生成的文件；基础与 Mastery 分别显示对应结果，保留输出的空格与换行。
 - 663 道课程测验，覆盖单选、多选、判断、填空、输出预测、错误分析；另有 9 道变式巩固题。
 - 三级提示、用户主动查看参考解、错题回顾、连续出错后的讲解推荐。
@@ -119,3 +119,11 @@ GitHub 会自动重新发布 docs/。不要手工编辑 docs/assets/，它们由
 ## 参考
 
 [清华大学出版社教材介绍](https://www.tup.tsinghua.edu.cn/booksCenter/book_07645004.html)、[教材完整目录](https://www.tup.tsinghua.edu.cn/booksCenter/bookcatalog?id=07645004)、[Coddy C 目录](https://coddy.tech/landing/c)、[公开路线](https://github.com/coddytech/curriculum)。Journey 页面依赖动态加载，没有绕过访问限制。技术运行器参考 [Runno](https://github.com/taybenlor/runno) 与 [binji/wasm-clang](https://github.com/binji/wasm-clang)，第三方声明见 THIRD_PARTY.md。
+
+## 独立挑战与按章加载
+
+84 节教材课的挑战已与讲解示例区分。74 题检查明确列出的代码结构，并与输出测试共同决定通过状态；结构检查不是算法复杂度或全部执行路径的证明。旧版课程完成记录和草稿保留，新版挑战需重新提交。
+
+学习路径按五个阶段组织，输入输出提前到流程控制之前，课程 ID 保持不变。目录仅加载索引，正文与题目按章动态加载；章节自测和错题复习会加载所需章节。网络失败时可重新加载。
+
+`npm run dev`、`npm run build` 和 `npm run build:github` 会先从原始数据生成 `src/data/catalog.json` 与 `src/data/chapters/`；不要手工修改生成文件。运行 `npm run test:upgrade` 验证参考答案、旧示例无法直接过关、方法检查、加载和进度迁移。`rewrite-challenges.mjs` 与 `add-structure-rules.mjs` 为本轮一次性迁移脚本，不属于日常构建步骤。

@@ -3254,3 +3254,11 @@ code::selection {
  .editor-toolbar { height:48px; }
  .lesson-meta > span { font-size:11px !important; }
 }
+
+.course-loading { padding: 48px; max-width: 720px; margin: auto; line-height: 1.8; }
+.path-stage { display: block; color: var(--muted); font-size: 12px; margin-bottom: 8px; font-weight: 400; }
+
+.sidebar-stage { margin: 20px 12px 8px; font-size: 12px; font-weight: 700; color: #53637a; }
+.method-requirements { margin: 16px 0; padding: 12px 16px; background: #f3f6fa; border-radius: 10px; line-height: 1.7; }
+.method-requirements li { margin: 4px 0; }
+.structure-results { padding: 12px 0; border-bottom: 1px solid #dce4ef; }

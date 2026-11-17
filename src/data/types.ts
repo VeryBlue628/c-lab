@@ -1,3 +1,4 @@
+import type { StructureRule } from "../engine/structure";
 export type Quiz = {
   id?: string;
   acceptedAnswers?: string[];
@@ -38,6 +39,8 @@ export type Lesson = {
   quiz: Quiz;
   challenge: RunOptions & {
     id?: string;
+    revision?: number;
+    structure?: StructureRule[];
     title: string;
     difficulty: string;
     description: string;

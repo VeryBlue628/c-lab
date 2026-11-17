@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { CheckCircle2, ArrowRight, X } from "lucide-react";
 import type { Lesson } from "../data/types";
-import { chapters } from "../data/curriculum";
+import { chapters } from "../data/runtime-curriculum";
 import { completed, type Progress } from "../services/progress";
 export function Completion({
   lesson,

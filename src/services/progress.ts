@@ -1,4 +1,4 @@
-import { lessons, lessonById } from "../data/curriculum";
+import { lessons, lessonById } from "../data/runtime-curriculum";
 export type QuestionState = {
   passed: boolean;
   lastCorrect?: boolean;
@@ -16,6 +16,7 @@ export type TaskState = {
   failures?: number;
 };
 export type RecordState = {
+  practiceRevision?: number;
   quizPassed?: boolean;
   practicePassed?: boolean;
   quizAttempts?: number;
@@ -81,6 +82,7 @@ export function validate(value: unknown): Progress {
     const lesson = lessonById[id];
     if (!lesson || !r || typeof r !== "object") continue;
     const c: RecordState = {};
+    if (r.practiceRevision !== undefined) c.practiceRevision = number(r.practiceRevision, 100);
     for (const k of [
       "quizPassed",
       "practicePassed",
@@ -187,6 +189,11 @@ export function validate(value: unknown): Progress {
         c.tasks[taskId] = task;
       }
     }
+    if (lesson.challenge.revision === 2 && c.practiceRevision !== 2) {
+      if (completed(c)) c.legacyCompleted = true;
+      c.practicePassed = false;
+      if (c.tasks?.practice) c.tasks.practice.passed = false;
+    }
     records[id] = c;
   }
   return {
@@ -224,7 +231,7 @@ export function save(p: Progress) {
 }
 export function unlocked(id: string, p: Progress) {
   if (!lessonById[id]) return false;
-  if (p.freeMode) return true;
+  if (p.freeMode || p.current === id) return true;
   const i = lessons.findIndex((l) => l.id === id);
   return (
     i === 0 ||

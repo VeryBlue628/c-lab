@@ -21,7 +21,9 @@ export default defineConfig({
             id.includes("node_modules/scheduler")
           )
             return "react";
-          if (id.includes("/src/data/")) return "curriculum";
+          const chapter = id.match(/\/src\/data\/chapters\/chapter-(\d+)\.json$/);
+          if (chapter) return "chapter-" + chapter[1];
+          if (id.includes("/src/data/")) return "catalog";
         },
       },
     },

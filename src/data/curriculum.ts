@@ -1,3 +1,4 @@
+import { chapterOrder } from "./pathway";
 import textbookChapters from "./textbook-lessons.json";
 import questionBank from "./question-bank.json";
 import masteryBank from "./mastery-challenges.json";
@@ -69,7 +70,7 @@ export const chapters: Chapter[] = [
   ...baseChapters,
   ...(textbookChapters as Chapter[]),
 ];
-export const lessons = chapters.flatMap((c) => c.lessons);
+export const lessons = chapterOrder.flatMap(id => chapters.find(c => c.id === id)!.lessons);
 export const lessonById: Record<string, (typeof lessons)[number]> =
   Object.assign(
     Object.create(null),

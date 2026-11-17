@@ -12,29 +12,34 @@
     "test:progress": "node scripts/verify-progress.mjs",
     "build:github": "tsc -b && vite build --base=/c-lab/ --outDir=docs && node scripts/finalize-github-pages.mjs",
     "test:expanded": "node scripts/verify-expanded.mjs",
-    "test:textbook": "node scripts/verify-textbook.mjs"
+    "test:textbook": "node scripts/verify-textbook.mjs",
+    "predev": "node scripts/generate-chapters.mjs",
+    "prebuild": "node scripts/generate-chapters.mjs",
+    "prebuild:github": "node scripts/generate-chapters.mjs",
+    "test:upgrade": "node scripts/generate-chapters.mjs && node scripts/verify-compiler.mjs && node scripts/verify-learning-upgrade.mjs"
   },
   "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "@codemirror/lang-cpp": "^6.0.3",
-    "@codemirror/state": "^6.5.2",
-    "@codemirror/view": "^6.38.0",
-    "@codemirror/language": "^6.11.3",
     "@codemirror/autocomplete": "^6.19.0",
     "@codemirror/commands": "^6.8.1",
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/language": "^6.11.3",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/view": "^6.38.0",
+    "@lezer/cpp": "^1.1.6",
+    "@lezer/highlight": "^1.2.3",
     "@runno/wasi": "0.10.0",
-    "lucide-react": "^0.468.0",
     "fflate": "^0.8.2",
-    "@lezer/highlight": "^1.2.3"
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "vite": "^7.2.2",
-    "@vitejs/plugin-react": "^5.1.0",
+    "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "@types/node": "^24.0.0",
-    "esbuild": "^0.28.2"
+    "@vitejs/plugin-react": "^5.1.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2"
   }
 }

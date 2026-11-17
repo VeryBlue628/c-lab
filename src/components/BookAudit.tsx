@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import audit from "../data/page-review.json";
-import { lessonById } from "../data/curriculum";
+import { lessonById } from "../data/runtime-curriculum";
 
 export function BookAudit({ onSelect }: { onSelect: (id: string) => void }) {
   const [query, setQuery] = useState("");

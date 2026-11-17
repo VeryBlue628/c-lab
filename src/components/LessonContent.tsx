@@ -271,12 +271,14 @@ export function LessonContent({
                 <span className="tiny-badge">
                   {lesson.challenge.difficulty}
                 </span>
-                <span>{lesson.challenge.tests.length} 组测试 · 输出校验（不验证算法结构）</span>
+                <span>{lesson.challenge.tests.length} 组测试 · {lesson.challenge.structure?.length ? "输出测试 + 方法检查" : "输出测试"}</span>
               </div>
               <section>
                 <h2>{lesson.challenge.title}</h2>
                 {lesson.example === lesson.challenge.solution && <p className="callout">这是示例跟练：请先独立重写，再用不同输入验证。通过表示程序输出符合测试，不代表独立能力评估。</p>}
                 <p>{lesson.challenge.description}</p>
+                {!!lesson.challenge.structure?.length && <details className="method-requirements" open><summary>本题的方法要求</summary><ul>{lesson.challenge.structure.map((r,i)=><li key={i}>{r.label}</li>)}</ul><p className="subtext">检查以下代码结构；函数名称以此处为准。结构检查不证明算法复杂度，也不能覆盖所有执行路径。</p></details>}
+                {lesson.challenge.revision === 2 && record.legacyCompleted && !record.practicePassed && <p className="callout">旧版课程完成记录已保留。此题已更新为独立挑战，请重新提交新版解答。</p>}
               </section>
               <div className="io-spec">
                 <div>

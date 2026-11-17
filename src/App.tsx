@@ -15,7 +15,7 @@ import {
   Save,
   BookOpen,
 } from "lucide-react";
-import { chapters, lessons, lessonById } from "./data/curriculum";
+import { chapters, lessons, lessonById, ensureChapter, learningChapters } from "./data/runtime-curriculum";
 import {
   load,
   save,
@@ -255,7 +255,7 @@ export default function App() {
             ...r,
             streak: 0,
             ...(activeChallenge === "practice"
-              ? { practicePassed: true, skipped: false }
+              ? { practicePassed: true, practiceRevision: lesson.challenge.revision || 1, skipped: false }
               : {}),
             tasks: {
               ...r.tasks,
@@ -280,7 +280,7 @@ export default function App() {
       for (const l of chapters[id - 1].lessons)
         if (!completed(records[l.id]))
           records[l.id] = { ...records[l.id], skipped: true };
-      const next = chapters[id]?.lessons[0];
+      const next = learningChapters[learningChapters.findIndex(c => c.id === id) + 1]?.lessons[0];
       return {
         ...p,
         records,
@@ -291,6 +291,7 @@ export default function App() {
     setInput("");
     notify("本章已标记为已掌握，跳过记录已单独保存。");
   };
+  ensureChapter(baseLesson.chapter);
   return (
     <div className="app">
       <aside className={"sidebar " + (mobileNav ? "open" : "")}>

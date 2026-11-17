@@ -1,0 +1,110 @@
+const a=9,n="Final Challenges",i="基础阶段综合挑战",t="把基础知识连起来，独立解决完整问题。",e=[{id:"c9-1",chapter:9,index:0,en:"Grades",title:"成绩管理挑战",objective:"组合数组、统计和函数，完成成绩报告。",explanation:["成绩统计需要同时维护总分、最大值和及格人数。把输入存进数组后，可以多次遍历做不同分析，也可以在读入时一次完成统计。两种方式都要保证初值正确。","平均分需要在除法前转换为 double；最大值应从首个成绩初始化；及格条件使用 >=60。编程前先列出这些边界，比写完后反复猜测错误更高效。"],syntax:"double average = (double)sum / n;",syntaxNotes:"n 保证至少为 1；求和使用整数，在最后除法前转为 double。",example:`#include <stdio.h>
+
+int main(void) {
+    int a[4] = {50, 60, 90, 100};
+    int sum = 0, max = a[0], passed = 0;
+    for (int i = 0; i < 4; i++) {
+        sum += a[i];
+        if (a[i] > max) { max = a[i]; }
+        if (a[i] >= 60) { passed++; }
+    }
+    printf("%.2f %d %d\\n", (double)sum / 4, max, passed);
+    return 0;
+}
+`,exampleOutput:"75.00 100 3",walkthrough:`按顺序执行上面的语句。n 保证至少为 1；求和使用整数，在最后除法前转为 double。
+程序输出：75.00 100 3`,mistakes:["先做整数除法再转换，平均分丢失小数。","把 60 分排除在及格人数之外。"],summary:"n 保证至少为 1；求和使用整数，在最后除法前转为 double。",textbook:"课后综合训练",quiz:{type:"single",question:"成绩 60、61 的平均分与及格人数是？",options:["60.50 和 2","60.00 和 1","60.50 和 1"],answer:["60.50 和 2"],explanation:"平均分为 121/2=60.5；两项都满足 >=60。"},challenge:{title:"生成成绩报告",difficulty:"综合",description:"输入 n（1～50）以及 n 个成绩（0～100）。输出平均分（两位小数）、最高分和及格人数（>=60），用空白分隔。",input:"按示例输入，以空白分隔数值。",output:"严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",tests:[{input:"4 50 60 90 100",output:"75.00 100 3"},{input:"1 0",output:"0.00 0 0"},{input:"2 60 61",output:"60.50 61 2"},{input:"3 59 59 59",output:"59.00 59 0"}],starter:`#include <stdio.h>
+
+int main(void) {
+    // TODO: 输入 n（1～50）以及 n 个成绩（0～100）
+    
+    return 0;
+}
+`,solution:`#include <stdio.h>
+
+int main(void) {
+    int n, a[50], sum = 0, passed = 0;
+    if (scanf("%d", &n) != 1) { return 1; }
+    for (int i = 0; i < n; i++) { if (scanf("%d", &a[i]) != 1) { return 1; } }
+    int max = a[0];
+    for (int i = 0; i < n; i++) {
+        sum += a[i];
+        if (a[i] > max) { max = a[i]; }
+        if (a[i] >= 60) { passed++; }
+    }
+    printf("%.2f %d %d\\n", (double)sum / n, max, passed);
+    return 0;
+}
+`,hints:["使用累加、最大值和条件计数三个基本模式。","先检查平均分是否在除法前转换了类型；再检查 >=60 的边界。","sum 从 0 开始、max 从 a[0] 开始、passed 从 0 开始，遍历一次后输出。"]},quizzes:[{type:"single",question:"成绩 60、61 的平均分与及格人数是？",options:["60.50 和 2","60.00 和 1","60.50 和 1"],answer:["60.50 和 2"],explanation:"平均分为 121/2=60.5；两项都满足 >=60。",id:"c9-1-q1"}]},{id:"c9-2",chapter:9,index:1,en:"Peaks",title:"数组峰值挑战",objective:"根据相邻元素关系识别局部峰值。",explanation:["局部峰值比左右两个相邻元素都大，不一定是整个数组最大值。本题只考虑内部元素，因此第一项和最后一项都不算峰值。平台上相等的相邻元素也不能构成严格峰值。","遍历需要同时访问 a[i-1] 与 a[i+1]，所以 i 的范围应从 1 到 n-2。先根据访问范围推导循环边界，是避免越界的可靠方法。"],syntax:"a[i] > a[i - 1] && a[i] > a[i + 1]",syntaxNotes:"使用严格大于；有效 i 满足 1<=i<n-1；n<3 时没有内部元素。",example:`#include <stdio.h>
+
+int main(void) {
+    int a[5] = {1, 4, 2, 5, 3};
+    int peaks = 0;
+    for (int i = 1; i < 4; i++) {
+        if (a[i] > a[i - 1] && a[i] > a[i + 1]) { peaks++; }
+    }
+    printf("%d\\n", peaks);
+    return 0;
+}
+`,exampleOutput:"2",walkthrough:`按顺序执行上面的语句。使用严格大于；有效 i 满足 1<=i<n-1；n<3 时没有内部元素。
+程序输出：2`,mistakes:["把两端点当成内部峰值，或访问不存在的邻居。","用 >= 把平台也算成严格峰值。"],summary:"使用严格大于；有效 i 满足 1<=i<n-1；n<3 时没有内部元素。",textbook:"课后综合训练",quiz:{type:"fill",question:"数组 1 3 3 1 有几个严格内部峰值？",answer:["0"],explanation:"两个 3 相等，任何一个都没有严格大于左右两邻居，因此不构成严格峰值。"},challenge:{title:"寻找严格局部峰值",difficulty:"综合",description:"输入 n（1～50）和 n 个整数。输出严格大于左右相邻值的内部元素个数。端点不计，相等不计。",input:"按示例输入，以空白分隔数值。",output:"严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",tests:[{input:"5 1 4 2 5 3",output:"2"},{input:"4 1 3 3 1",output:"0"},{input:"1 9",output:"0"},{input:"3 -5 -1 -4",output:"1"},{input:"5 5 4 3 2 1",output:"0"}],starter:`#include <stdio.h>
+
+int main(void) {
+    // TODO: 输入 n（1～50）和 n 个整数
+    
+    return 0;
+}
+`,solution:`#include <stdio.h>
+
+int main(void) {
+    int n, a[50], count = 0;
+    if (scanf("%d", &n) != 1) { return 1; }
+    for (int i = 0; i < n; i++) { if (scanf("%d", &a[i]) != 1) { return 1; } }
+    for (int i = 1; i < n - 1; i++) {
+        if (a[i] > a[i - 1] && a[i] > a[i + 1]) { count++; }
+    }
+    printf("%d\\n", count);
+    return 0;
+}
+`,hints:["需要比较相邻三个元素，只检查内部位置。","检查循环是否从 i=1 开始，并保证 i+1<n。","循环条件为 i<n-1；只有 a[i]>a[i-1] 且 a[i]>a[i+1] 时计数。"]},quizzes:[{type:"fill",question:"数组 1 3 3 1 有几个严格内部峰值？",answer:["0"],explanation:"两个 3 相等，任何一个都没有严格大于左右两邻居，因此不构成严格峰值。",id:"c9-2-q1"}]},{id:"c9-3",chapter:9,index:2,en:"TV",title:"综合编程挑战",objective:"用状态模拟、函数和数组完成频道操作统计。",explanation:["模拟题的核心是每条指令只更新规定的状态。把频道切换规则封装为函数，主循环负责读取指令，数组负责记录各频道的观看次数，职责就清楚了。","本题频道为 1～10，数组可以开 11 项并暂时不用第 0 项，让业务编号与下标一致。求最高观看次数时从小到大扫描，只有严格更大才更新，就自然保留最小频道的平局答案。"],syntax:`channel = next_channel(channel, direction);
+views[channel]++;`,syntaxNotes:"+1 和 -1 切换频道并循环回绕；只有指令 0 增加当前频道观看次数。",example:`#include <stdio.h>
+
+int next_channel(int channel, int direction) {
+    if (direction == 1) { return channel == 10 ? 1 : channel + 1; }
+    return channel == 1 ? 10 : channel - 1;
+}
+
+int main(void) {
+    int channel = 1;
+    channel = next_channel(channel, -1);
+    printf("%d\\n", channel);
+    return 0;
+}
+`,exampleOutput:"10",walkthrough:`按顺序执行上面的语句。+1 和 -1 切换频道并循环回绕；只有指令 0 增加当前频道观看次数。
+程序输出：10`,mistakes:["切换频道时也增加观看次数，但题目要求只在 0 指令时记录。","用 >= 更新最高次数，平局时错误保留较大频道。"],summary:"+1 和 -1 切换频道并循环回绕；只有指令 0 增加当前频道观看次数。",textbook:"课后综合训练",quiz:{type:"fill",question:"频道 1 执行 -1 切换指令后是几号频道？",answer:["10"],explanation:"频道向下切换时从 1 回绕到 10；向上则从 10 回绕到 1。"},challenge:{title:"模拟频道遥控器",difficulty:"综合",description:"输入指令数 n（0～50），再输入 n 个指令。起始频道为 1，共 10 个频道。1 上一档（10 后回到 1），-1 下一档（1 前回到 10），0 记录观看当前频道一次。输出最终频道和观看次数最多的频道；并列选编号最小的，无观看记录时选 1。",input:"按示例输入，以空白分隔数值。",output:"严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",tests:[{input:"6 0 1 0 0 -1 0",output:"1 1"},{input:"3 -1 0 1",output:"1 10"},{input:"0",output:"1 1"},{input:"5 1 1 0 0 0",output:"3 3"},{input:"4 0 1 0 1",output:"3 1"}],starter:`#include <stdio.h>
+
+int main(void) {
+    // TODO: 输入指令数 n（0～50），再输入 n 个指令
+    
+    return 0;
+}
+`,solution:`#include <stdio.h>
+
+int next_channel(int channel, int direction) {
+    if (direction == 1) { return channel == 10 ? 1 : channel + 1; }
+    return channel == 1 ? 10 : channel - 1;
+}
+
+int main(void) {
+    int n, command, channel = 1, views[11] = {0};
+    if (scanf("%d", &n) != 1) { return 1; }
+    for (int i = 0; i < n; i++) {
+        if (scanf("%d", &command) != 1) { return 1; }
+        if (command == 0) { views[channel]++; }
+        else { channel = next_channel(channel, command); }
+    }
+    int best = 1;
+    for (int c = 2; c <= 10; c++) { if (views[c] > views[best]) { best = c; } }
+    printf("%d %d\\n", channel, best);
+    return 0;
+}
+`,hints:["分别维护当前频道和 views[11] 观看计数。","注意频道回绕，切换不计观看，平局要选最小编号。","遍历指令更新状态；最后从频道 1 起扫描，只在 views[c]>views[best] 时更新 best。"]},quizzes:[{type:"fill",question:"频道 1 执行 -1 切换指令后是几号频道？",answer:["10"],explanation:"频道向下切换时从 1 回绕到 10；向上则从 10 回绕到 1。",id:"c9-3-q1"}]}],u={id:9,en:n,title:i,description:t,lessons:e};export{u as default,t as description,n as en,a as id,e as lessons,i as title};
