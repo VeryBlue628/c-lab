@@ -13,7 +13,7 @@ await build({
   platform: "node",
   outfile: target,
 });
-const { validate, fresh, unlocked, completed } = await import(
+const { validate, fresh, unlocked, completed, load, save } = await import(
   pathToFileURL(target)
 );
 const p = fresh();
@@ -39,3 +39,13 @@ assert.equal(
   "int main(void) {return 0;}",
 );
 console.log("Progress validation and unlock checks passed");
+
+const storage = new Map();
+globalThis.localStorage = { getItem: k => storage.get(k) ?? null, setItem: (k,v) => storage.set(k,v) };
+save({...fresh(), records:{'c1-1':{quizPassed:true,practicePassed:true},'c2-1':{hint:99}}});
+assert(completed(load().records['c1-1']));
+assert(storage.has('c-lab-progress-v1-recovery'));
+storage.set('c-lab-progress-v1','broken json');
+assert.deepEqual(load().records,{});
+assert.equal(storage.get('c-lab-progress-v1-recovery'),'broken json');
+console.log('Partial recovery and invalid JSON backup checks passed');

@@ -198,19 +198,21 @@ export function validate(value: unknown): Progress {
   };
 }
 export function load(): Progress {
+  let raw: string | null = null;
   try {
-    const raw = localStorage.getItem(key);
+    raw = localStorage.getItem(key);
     if (!raw) return fresh();
     const parsed = JSON.parse(raw);
     try { return validate(parsed); } catch {
-      localStorage.setItem(key + "-recovery", raw);
-      const recovered = { ...parsed, records: {} } as Progress;
+      try { localStorage.setItem(key + "-recovery", raw); } catch {}
+      const recovered = { ...fresh(), ...parsed, current: lessonById[parsed.current] ? parsed.current : lessons[0].id, records: {} } as Progress;
       for (const [id, record] of Object.entries(parsed.records || {})) {
-        try { Object.assign(recovered.records, validate({ ...parsed, records: { [id]: record } }).records); } catch {}
+        try { Object.assign(recovered.records, validate({ ...recovered, records: { [id]: record } }).records); } catch {}
       }
       return validate(recovered);
     }
   } catch {
+    if (raw) { try { localStorage.setItem(key + "-recovery", raw); } catch {} }
     return fresh();
   }
 }
