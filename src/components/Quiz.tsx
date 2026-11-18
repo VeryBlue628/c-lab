@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, ArrowRight, Lightbulb, X } from "lucide-react";
 import type { Quiz as QuizData } from "../data/types";
+import { quizOptions } from "../data/quiz-options";
 const labels = {
   single: "单选题",
   multi: "多选题",
@@ -26,6 +27,7 @@ export function Quiz({
 }) {
   const [answer, setAnswer] = useState<string[]>(initial),
     [result, setResult] = useState<boolean | null>(null);
+  const options = quizOptions(quiz);
   const check = () => {
     if (result !== null || !answer.length || !answer[0].trim()) return;
     const clean = (a: string[]) =>
@@ -48,9 +50,9 @@ export function Quiz({
       </div>
       <h2>{quiz.question}</h2>
       {quiz.type === "multi" && <p className="muted">选择所有正确选项</p>}
-      {quiz.options ? (
+      {options ? (
         <div className="options">
-          {quiz.options.map((option, i) => (
+          {options.map((option, i) => (
             <button
               key={option}
               className={
@@ -79,7 +81,8 @@ export function Quiz({
       ) : (
         <label className="answer-label">
           你的答案
-          <input
+          <textarea
+            rows={quiz.type === "predict" ? 3 : 1}
             autoComplete="off"
             value={answer[0] || ""}
             placeholder={

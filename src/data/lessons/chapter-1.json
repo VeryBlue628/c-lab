@@ -10,7 +10,7 @@
       "index": 0,
       "en": "C Language",
       "title": "认识 C 语言",
-      "objective": "理解源代码、编译器和程序之间的关系。",
+      "objective": "区分编译、链接和运行，并能修改程序实际打印的文字。",
       "explanation": [
         "把源代码想象成一份用文字写下的菜谱，CPU 需要的是可以直接执行的指令。C 编译器负责检查并翻译这份菜谱；有语法错误时，程序还没有开始运行。",
         "C 常用于操作系统和嵌入式设备。这个工坊使用 C99 标准：右侧的 Clang 把 C 源代码编译为 WebAssembly，再在浏览器沙箱中执行。你写的仍然是真正的 C 程序。",
@@ -20,12 +20,12 @@
       "syntaxNotes": "编译检查语法和类型；链接找到 printf 等函数的实现；运行阶段才产生输出。",
       "example": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, C!\\n\");\n    return 0;\n}\n",
       "exampleOutput": "Hello, C!",
-      "walkthrough": "按顺序执行上面的语句。编译检查语法和类型；链接找到 printf 等函数的实现；运行阶段才产生输出。\n程序输出：Hello, C!",
+      "walkthrough": "先猜一猜打印结果。执行进入 main 后，printf 将 Hello, C! 和一个换行写到终端，return 0 表示正常退出。代码实验室里的首次运行跟练是另一个程序，会打印 C is powerful!。载入本例后，运行的才是这里的讲解示例。",
       "mistakes": [
-        "把编译错误当成输出错误：编译失败时根本不会执行 main。",
-        "把 C 与 C++ 混用：本课程使用 printf，不使用 cout。"
+        "把编译诊断当成程序输出。出现编译错误时，main 不会执行。",
+        "只改讲解里的文字预期，忘了代码实验室运行的是编辑器中的程序。"
       ],
-      "summary": "编译检查语法和类型；链接找到 printf 等函数的实现；运行阶段才产生输出。",
+      "summary": "自查：如果 printf 末尾缺少分号，终端会出现程序原本要打印的文字吗？从编译、链接、运行的顺序说明原因。",
       "textbook": "第1章（1.1—1.6）"
     },
     {

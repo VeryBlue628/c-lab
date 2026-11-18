@@ -10,6 +10,7 @@ export type TaskState = {
   files?: Record<string, string>;
   args?: string[];
   draft?: string;
+  draftHistory?: string[];
   input?: string;
   hint?: number;
   passed?: boolean;
@@ -155,6 +156,10 @@ export function validate(value: unknown): Progress {
         if (!t || typeof t !== "object") continue;
         const task: TaskState = {};
         if (t.draft !== undefined) task.draft = text(t.draft);
+        if (t.draftHistory !== undefined) {
+          if (!Array.isArray(t.draftHistory) || t.draftHistory.length > 5) throw Error("草稿历史不正确");
+          task.draftHistory = t.draftHistory.map(code => text(code));
+        }
         if (t.input !== undefined) task.input = text(t.input);
         if (t.args !== undefined) {
           if (!Array.isArray(t.args) || t.args.length > 20)

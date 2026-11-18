@@ -40,6 +40,7 @@ export function LessonContent({
   activeChallenge,
   onQuiz,
   onLoadExample,
+  onGoToCode,
   onRestoreDraft,
   onSkip,
   onNext,
@@ -53,6 +54,7 @@ export function LessonContent({
   onChallenge: (mode: "practice" | "mastery") => void;
   activeChallenge: "practice" | "mastery";
   onLoadExample: () => void;
+  onGoToCode: () => void;
   onRestoreDraft: () => void;
   onSkip: () => void;
   onNext: () => void;
@@ -73,6 +75,8 @@ export function LessonContent({
         ).map(([id, label, Icon], i) => (
           <button
             role="tab"
+            id={"study-tab-" + id}
+            aria-controls={"study-panel-" + id}
             aria-selected={tab === id}
             tabIndex={tab === id ? 0 : -1}
             onKeyDown={(e) => {
@@ -96,13 +100,16 @@ export function LessonContent({
           >
             <Icon size={15} />
             {label}
-            <span>{i + 1}</span>
             {id === "quiz" && record.quizPassed && <Check size={12} />}{" "}
             {id === "practice" && record.practicePassed && <Check size={12} />}
           </button>
         ))}
       </div>
-      <div className="lesson-scroll" ref={scroll}>
+      {(["lesson", "quiz", "practice"] as const).filter(id => id !== tab).map(id =>
+        <div key={id} hidden role="tabpanel" id={"study-panel-" + id} aria-labelledby={"study-tab-" + id} />,
+      )}
+      <div key={tab} className="lesson-scroll" ref={scroll} role="tabpanel"
+        id={"study-panel-" + tab} aria-labelledby={"study-tab-" + tab} tabIndex={0}>
         <div className="lesson-inner">
           <div className="lesson-meta">
             <span className="eyebrow">
@@ -116,6 +123,7 @@ export function LessonContent({
           </div>
           <h1>{lesson.title}</h1>
           <p className="english-title">{lesson.en}</p>
+          {tab === "practice" && <button className="primary mobile-code-jump" onClick={onGoToCode}>去写代码 <ArrowRight size={15} /></button>}
           {tab === "lesson" ? (
             <>
               <ReadAloud key={lesson.id} lesson={lesson} />
@@ -150,7 +158,7 @@ export function LessonContent({
               </section>
               <section>
                 <div className="section-title">
-                  <h2>看一个完整例子</h2>
+                  <h2>讲解示例</h2>
                   <button className="text-button" onClick={onRestoreDraft}>恢复我的解答</button>
                   <button className="text-button" onClick={onLoadExample}>
                     <Play size={13} />
@@ -190,7 +198,7 @@ export function LessonContent({
                   <span>程序输出</span>
                   <pre>{lesson.exampleOutput || "（无输出）"}</pre>
                 </div>
-                <p className="subtext">{lesson.walkthrough}</p>
+                {lesson.walkthrough !== lesson.syntaxNotes && <p className="example-walkthrough">{lesson.walkthrough}</p>}
               </section>
               <div className="mistakes">
                 <ShieldAlert size={19} />
@@ -203,13 +211,13 @@ export function LessonContent({
                   </ul>
                 </div>
               </div>
-              <div className="takeaway">
+              {lesson.summary !== lesson.objective && lesson.summary !== lesson.syntaxNotes && <div className="takeaway">
                 <Lightbulb size={18} />
                 <div>
                   <strong>记住这一点</strong>
                   <p>{lesson.summary}</p>
                 </div>
-              </div>
+              </div>}
               <div className="lesson-cta">
                 <span>读懂了？用一组题确认每个细节。</span>
                 <button className="primary" onClick={() => onTab("quiz")}>
@@ -269,12 +277,13 @@ export function LessonContent({
               </div>
               <div className="challenge-heading">
                 <span className="tiny-badge">
-                  {lesson.challenge.difficulty}
+                  {({ Easy: "入门", Medium: "进阶", Hard: "挑战" } as Record<string, string>)[lesson.challenge.difficulty] ?? lesson.challenge.difficulty}
                 </span>
                 <span>{lesson.challenge.tests.length} 组测试 · {lesson.challenge.structure?.length ? "输出测试 + 方法检查" : "输出测试"}</span>
               </div>
               <section>
                 <h2>{lesson.challenge.title}</h2>
+                {lesson.id === "c1-1" && <p className="callout"><strong>首次运行跟练</strong> · 先运行给定的代码，再改一行完成独立挑战。</p>}
                 {lesson.example === lesson.challenge.solution && <p className="callout">这是示例跟练：请先独立重写，再用不同输入验证。通过表示程序输出符合测试，不代表独立能力评估。</p>}
                 <p>{lesson.challenge.description}</p>
                 {!!lesson.challenge.structure?.length && <details className="method-requirements" open><summary>本题的方法要求</summary><ul>{lesson.challenge.structure.map((r,i)=><li key={i}>{r.label}</li>)}</ul><p className="subtext">检查以下代码结构；函数名称以此处为准。结构检查不证明算法复杂度，也不能覆盖所有执行路径。</p></details>}
@@ -305,7 +314,7 @@ export function LessonContent({
                 <div>
                   <strong>轮到你来写了</strong>
                   <p>
-                    在右侧编辑器完成代码。“运行代码”使用你的标准输入；“提交答案”运行全部测试用例。
+                    在代码实验室完成代码。“运行代码”使用当前输入，“提交答案”运行全部测试用例。
                   </p>
                 </div>
               </div>

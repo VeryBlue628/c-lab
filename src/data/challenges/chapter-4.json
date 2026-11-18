@@ -102,22 +102,47 @@
   "c4-6": {
     "title": "带边界检查的评定",
     "difficulty": "进阶",
-    "description": "令 s=60，先判断有效范围 0～100，再按及格线 60 输出 Invalid、Pass 或 Fail。",
-    "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
+    "description": "读入一个整数分数。小于 0 或大于 100 时输出 Invalid。合法范围内，从 60 分起输出 Pass，否则输出 Fail。",
+    "input": "一个 −1000 至 1000 的整数。",
+    "output": "输出 Invalid、Pass 或 Fail 中的一个单词，区分大小写。",
     "tests": [
       {
-        "input": "",
+        "input": "88",
         "output": "Pass"
+      },
+      {
+        "input": "0",
+        "output": "Fail"
+      },
+      {
+        "input": "59",
+        "output": "Fail"
+      },
+      {
+        "input": "60",
+        "output": "Pass"
+      },
+      {
+        "input": "100",
+        "output": "Pass"
+      },
+      {
+        "input": "-1",
+        "output": "Invalid"
+      },
+      {
+        "input": "101",
+        "output": "Invalid"
       }
     ],
-    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 令 s=60，先判断有效范围 0～100，再按及格线 60 输出 Invalid、Pass 或 Fail\n    \n    return 0;\n}\n",
-    "solution": "#include <stdio.h>\n\nint main(void) {\n    int s = 60;\n    if (s < 0 || s > 100) { puts(\"Invalid\"); }\n    else if (s >= 60) { puts(\"Pass\"); }\n    else { puts(\"Fail\"); }\n    return 0;\n}\n",
+    "starter": "#include <stdio.h>\n\nint main(void) {\n    // TODO: 读取分数并判断合法性与是否及格。\n    \n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    int s;\n    if (scanf(\"%d\", &s) != 1) return 1;\n    if (s < 0 || s > 100) { puts(\"Invalid\"); }\n    else if (s >= 60) { puts(\"Pass\"); }\n    else { puts(\"Fail\"); }\n    return 0;\n}\n",
     "hints": [
-      "把条件顺序和边界检查组合为完整规则。",
-      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
-      "无效输入优先拦截；合法范围内再作分级。"
-    ]
+      "先判断是否在闭区间 [0, 100]，再判断及格线。",
+      "59 和 60 都合法，但只有 60 通过 s >= 60 的判断。",
+      "分别运行 −1、0、59、60、100 和 101，检查四个界点及其相邻值。"
+    ],
+    "revision": 2
   },
   "c4-7": {
     "title": "判断能否下单",

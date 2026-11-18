@@ -19,13 +19,15 @@ async function load(toolchainBase = "/toolchain/") {
   if (base) return;
   send(
     "loading",
-    "首次运行：正在加载 Clang 编译器（约 19 MB），之后使用浏览器缓存…",
+    "正在下载编译器（约 19 MB） · 0 / 3 个资源",
   );
+  let downloaded = 0;
   const fetchAsset = async (name: string) => {
     const r = await fetch(toolchainBase + name);
     if (!r.ok)
       throw Error("编译器资源加载失败：" + name + " (" + r.status + ")");
     const bytes = new Uint8Array(await r.arrayBuffer());
+    send("loading", "正在下载编译器 · " + ++downloaded + " / 3 个资源");
     return bytes[0] === 0x1f && bytes[1] === 0x8b
       ? gunzipSync(bytes).buffer
       : bytes.buffer;
@@ -33,6 +35,7 @@ async function load(toolchainBase = "/toolchain/") {
   const [c, l, archive] = await Promise.all(
     ["clang.wasm.gzip", "wasm-ld.wasm.gzip", "clang-fs.tar.gz"].map(fetchAsset),
   );
+  send("preparing", "正在准备运行环境…");
   [clang, ld] = await Promise.all([
     WebAssembly.compile(c),
     WebAssembly.compile(l),

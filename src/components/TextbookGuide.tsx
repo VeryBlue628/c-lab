@@ -19,7 +19,7 @@ export function TextbookGuide({
     return () => dialog.current?.close();
   }, []);
   return (
-    <dialog aria-label="学习对话框" 
+    <dialog aria-labelledby="textbook-title"
       ref={dialog}
       className="study-dialog textbook-dialog"
       onCancel={onClose}
@@ -27,7 +27,7 @@ export function TextbookGuide({
       <div className="dialog-header">
         <div>
           <span className="eyebrow">TEXTBOOK COMPANION · C99</span>
-          <h2>按教材章节学习</h2>
+          <h2 id="textbook-title">按教材章节学习</h2>
         </div>
         <button
           className="icon-button"

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { learningChapters as chapters, lessons } from "../data/runtime-curriculum";
 import { completed, unlocked, type Progress } from "../services/progress";
+import { matchesLesson, textbookLabel } from "../data/lesson-search";
 export function Sidebar({
   progress,
   onSelect,
@@ -108,7 +109,7 @@ export function Sidebar({
         <Search size={16} />
         <input
           ref={searchInput}
-          placeholder="搜索课程…"
+          placeholder="搜课程、函数或教材节号"
           aria-label="搜索课程"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -117,11 +118,7 @@ export function Sidebar({
       </label>
       <nav aria-label="课程导航" className="course-nav">
         {chapters.map((ch) => {
-          const filtered = ch.lessons.filter((l) =>
-            (l.en + l.title + ch.title + ch.en)
-              .toLowerCase()
-              .includes(search.toLowerCase()),
-          );
+          const filtered = ch.lessons.filter(l => matchesLesson(l, ch, search));
           if (!filtered.length) return null;
           const count = ch.lessons.filter((l) =>
             completed(progress.records[l.id]),
@@ -196,7 +193,7 @@ export function Sidebar({
                         </span>
                         <span>
                           {l.title}
-                          <small>{l.en}</small>
+                          <small>{search.trim() && l.textbook ? textbookLabel(l.textbook, ch.id) : l.en}</small>
                         </span>
                         {active && <span className="active-dot" />}
                       </button>
@@ -207,13 +204,8 @@ export function Sidebar({
             </div>
           );
         })}
-        {!chapters.some((ch) =>
-          ch.lessons.some((l) =>
-            (l.en + l.title + ch.title + ch.en)
-              .toLowerCase()
-              .includes(search.toLowerCase()),
-          ),
-        ) && <p className="empty-search">没有匹配的课程，试试英文名称。</p>}
+        {!chapters.some(ch => ch.lessons.some(l => matchesLesson(l, ch, search))) &&
+          <p className="empty-search">没有匹配的课程。可以试试函数名、教材节号，或在教材目录按页码查找。</p>}
       </nav>
       <div className="sidebar-bottom">
         <div className="progress-label">

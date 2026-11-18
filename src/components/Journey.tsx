@@ -23,7 +23,7 @@ export function Journey({
     return () => dialog.current?.close();
   }, []);
   return (
-    <dialog aria-label="学习对话框" 
+    <dialog aria-labelledby="journey-title"
       ref={dialog}
       className="study-dialog journey-dialog"
       onCancel={onClose}
@@ -31,7 +31,7 @@ export function Journey({
       <div className="dialog-header">
         <div>
           <span className="eyebrow">C FUNDAMENTALS</span>
-          <h2>从理解到实践的学习路径</h2>
+          <h2 id="journey-title">从理解到实践的学习路径</h2>
         </div>
         <button
           className="icon-button"

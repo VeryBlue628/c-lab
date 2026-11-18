@@ -53,9 +53,12 @@ export async function runCode(
             [
               ...partial,
               {
-                status: "timeout",
+                status: stage === "loading" || stage === "preparing" ? "system-error" : "timeout",
                 stdout: "",
-                stderr: stage === "loading" ? "编译器下载超时，请检查网络后重试。" : stage === "compile" ? "编译超时，请简化代码后重试。" : "运行超时，已终止沙箱。检查循环条件或递归出口。",
+                stderr: stage === "loading" ? "编译器下载超时，请检查网络后重试。" :
+                  stage === "preparing" ? "运行环境准备超时，请重试。" :
+                  stage === "compile" ? "编译超时，请简化代码后重试。" :
+                  "运行超时，已终止沙箱。检查循环条件或递归出口。",
                 exitCode: -1,
                 duration: ms,
               },
@@ -85,12 +88,13 @@ export async function runCode(
         deadline(
           data.stage === "loading"
             ? 120000
+            : data.stage === "preparing" ? 60000
             : data.stage === "compile"
               ? 20000
               : 2500,
         );
       } else if (data.type === "partial") partial.push(data.result);
-      else if (data.type === "result") finish(data.runs);
+      else if (data.type === "result") finish(data.runs, data.runs.some((run: Execution) => run.status === "system-error"));
     };
     worker!.onerror = (e) =>
       finish(

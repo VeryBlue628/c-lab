@@ -3262,3 +3262,44 @@ code::selection {
 .method-requirements { margin: 16px 0; padding: 12px 16px; background: #f3f6fa; border-radius: 10px; line-height: 1.7; }
 .method-requirements li { margin: 4px 0; }
 .structure-results { padding: 12px 0; border-bottom: 1px solid #dce4ef; }
+
+.example-walkthrough { white-space: pre-line; }
+.mobile-code-jump, .code-return { display: none; }
+#code-lab-title { scroll-margin-top: 1rem; }
+.learning-tools { position: relative; display: none; }
+.learning-tools-menu, .editor-more > div {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  display: grid;
+  min-width: max-content;
+  gap: 4px;
+  padding: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px #1e32241a;
+}
+.learning-tools summary, .editor-more summary, .draft-history summary { cursor: pointer; }
+.editor-toolbar { min-width: 0; height: auto; min-height: 48px; flex-wrap: wrap; }
+.editor-more { position: relative; }
+.editor-more button { display: flex; align-items: center; gap: 8px; padding: 10px; text-align: left; }
+.editor-status, .read-aloud small { font-size: 12px; }
+.starter-label, .run-action-help { font-size: 12px; color: var(--text-secondary); padding: 8px 14px; margin: 0; }
+.editor-wait { margin: 16px; }
+.draft-history { padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.draft-history pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 12rem; overflow: auto; }
+.answer-label textarea { width: 100%; min-height: 44px; resize: vertical; padding: 10px; border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+@media (max-width: 760px) {
+  .learning-tools { display: block; }
+  .desktop-learning-tool { display: none; }
+  .mobile-code-jump, .code-return { display: inline-flex; min-height: 44px; align-items: center; }
+  .mobile-code-jump { margin-bottom: 16px; }
+  .workbench-top > span { display: none; }
+  .workspace-heading { padding: 8px 14px; gap: 8px; }
+  .workspace-heading > div:first-child { display: none; }
+  .editor-toolbar { height: auto; min-height: 48px; }
+  .editor-tools { gap: 4px; }
+  .lesson-tabs { gap: 4px; padding-inline: 6px; }
+  .lesson-tabs button { min-height: 44px; }
+}

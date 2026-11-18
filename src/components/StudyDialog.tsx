@@ -66,9 +66,16 @@ export function StudyDialog({
       (l) =>
         !completed(progress.records[l.id]) && progress.records[l.id]?.skipped,
     ).length;
-  const review = lessons.filter(
-    (l) => (progress.records[l.id]?.failures || 0) > 0,
-  );
+  const review = lessons.flatMap(l => {
+    const record = progress.records[l.id];
+    const questions = Object.values(record?.questions ?? {});
+    const pending = questions.filter(q => !(q.lastCorrect ?? q.passed)).length;
+    const corrected = questions.filter(q => (q.lastCorrect ?? q.passed) && q.attempts > q.correct).length;
+    const attempts = Object.values(record?.tasks ?? {}).reduce((n, task) => n + (task.failures ?? 0), 0);
+    return pending || corrected || attempts || record?.failures
+      ? [{ lesson: l, pending, corrected, attempts, historical: record?.failures ?? 0 }]
+      : [];
+  }).sort((a, b) => b.pending - a.pending || b.attempts - a.attempts);
   const exportProgress = () => {
     const blob = new Blob([JSON.stringify(progress, null, 2)], {
       type: "application/json",
@@ -90,15 +97,14 @@ export function StudyDialog({
     setFinished(false);
   };
   if (chapter) ensureChapter(chapter.id);
-  if (active === "review") for (const l of lessons) {
-    if (progress.records[l.id]?.questions || (progress.records[l.id]?.failures || 0) > 0) ensureChapter(l.chapter);
-  }
+  if (active === "review") for (const { lesson, pending, corrected } of review)
+    if (pending || corrected) ensureChapter(lesson.chapter);
   return (
-    <dialog aria-label="学习对话框" className="study-dialog" ref={dialog} onCancel={onClose}>
+    <dialog aria-labelledby="study-dialog-title" className="study-dialog" ref={dialog} onCancel={onClose}>
       <div className="dialog-header">
         <div>
           <span className="eyebrow">YOUR LEARNING SPACE</span>
-          <h2>按自己的节奏，学好 C。</h2>
+          <h2 id="study-dialog-title">{active === "records" ? "学习记录与备份" : active === "diagnostic" ? "章节自测" : "错题与巩固"}</h2>
         </div>
         <button
           className="icon-button"
@@ -208,7 +214,18 @@ export function StudyDialog({
             <div className="backup-section">
               <div>
                 <h3>给学习记录留一份备份</h3>
-                <button className="secondary" onClick={() => { const data = Object.fromEntries(Object.keys(localStorage).filter(k => k.startsWith("c-lab-")).map(k => [k, localStorage.getItem(k)])); const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:"application/json"})); const a = document.createElement("a"); a.href=url; a.download="c-lab-recovery.json"; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000); }}>导出本机恢复档案</button>
+                <button className="secondary" onClick={() => {
+                  const data = Object.fromEntries(Object.keys(localStorage)
+                    .filter(key => key.startsWith("c-lab-"))
+                    .map(key => [key, localStorage.getItem(key)]));
+                  const blob = new Blob([JSON.stringify({ progress, legacyStorage: data }, null, 2)], { type: "application/json" });
+                  const url = URL.createObjectURL(blob);
+                  const link = document.createElement("a");
+                  link.href = url;
+                  link.download = "c-lab-recovery.json";
+                  link.click();
+                  setTimeout(() => URL.revokeObjectURL(url), 1000);
+                }}>导出本机恢复档案</button>
                 <p>进度和代码保存在当前浏览器；换设备前，请导出备份。</p>
               </div>
               <div>
@@ -231,8 +248,8 @@ export function StudyDialog({
                   onChange={async (e) => {
                     const f = e.target.files?.[0];
                     if (!f) return;
-                    if (f.size > 3000000) {
-                      notify("备份超过 3 MB，无法导入");
+                    if (f.size > 64 * 1024 * 1024) {
+                      notify("备份超过 64 MiB，无法导入");
                       return;
                     }
                     onImport(await f.text());
@@ -392,7 +409,7 @@ export function StudyDialog({
               <span>{review.length} 个</span>
             </div>
             {review.length ? (
-              review.map((l) => (
+              review.map(({ lesson: l, pending, corrected, attempts, historical }) => (
                 <button
                   className="review-row"
                   key={l.id}
@@ -405,10 +422,12 @@ export function StudyDialog({
                   <span>
                     {l.title}
                     <small>
-                      累计 {progress.records[l.id].failures} 次错误 ·{" "}
-                      {completed(progress.records[l.id])
-                        ? "已完成，可复习"
-                        : "建议回顾讲解与挑战"}
+                      {[
+                        pending ? pending + " 题待纠正" : "",
+                        corrected ? corrected + " 题已纠正" : "",
+                        attempts ? attempts + " 次编程挑战未通过" : "",
+                        !pending && !corrected && !attempts ? historical + " 次历史错误" : "",
+                      ].filter(Boolean).join(" · ")}
                     </small>
                   </span>
                   <ArrowRight size={15} />

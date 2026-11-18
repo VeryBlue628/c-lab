@@ -2,22 +2,24 @@
   "c1-1": {
     "title": "和 C 打个招呼",
     "difficulty": "基础",
-    "description": "向屏幕输出 C is powerful!，末尾换行。",
+    "description": "先点击“运行代码”，观察跟练代码输出 C is powerful!。再把 printf 双引号中的文字改为 My first C program!，保留末尾换行，然后提交独立挑战。",
     "input": "本题不需要输入。",
-    "output": "严格按要求输出；判题忽略首尾空白及每行内连续空格，但保留换行结构。",
+    "output": "只输出 My first C program! 和一个换行。空格、大小写和标点必须匹配。",
     "tests": [
       {
         "input": "",
-        "output": "C is powerful!"
+        "output": "My first C program!\n",
+        "exact": true
       }
     ],
     "starter": "#include <stdio.h>\n\nint main(void) {\n    printf(\"C is powerful!\\n\");\n    return 0;\n}\n",
-    "solution": "#include <stdio.h>\n\nint main(void) {\n    printf(\"C is powerful!\\n\");\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n\nint main(void) {\n    printf(\"My first C program!\\n\");\n    return 0;\n}\n",
     "hints": [
-      "理解源代码、编译器和程序之间的关系。",
-      "先确认数据类型、运算顺序和输出格式，再对照示例手算一次。",
-      "在 main 中调用 printf(\"C is powerful!\\n\");，字符串放在双引号里。"
-    ]
+      "printf 会输出双引号中的文字。找到编辑器里负责打印的一行。",
+      "把 C is powerful! 替换为 My first C program!，保留后面的换行转义。",
+      "再次运行，检查终端只有一行，且末尾有感叹号和换行，然后提交。"
+    ],
+    "revision": 2
   },
   "c1-2": {
     "title": "两行问候",

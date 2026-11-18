@@ -5,6 +5,7 @@ const read = async n => JSON.parse(await fs.readFile(new URL(n, dir), 'utf8'));
 const questions = await read('question-bank.json'), mastery = await read('mastery-challenges.json');
 await fs.mkdir(new URL('chapters/', dir), {recursive:true});
 const catalog = [], imports = [];
+const libraryNames = /\b(?:printf|scanf|snprintf|sscanf|puts|gets|fgets|fputs|getchar|putchar|strlen|strcmp|strcpy|strcat|strtol|malloc|calloc|realloc|free|qsort|fopen|fclose|fgetc|fputc|fread|fwrite|fseek|rewind|ftell|feof|ferror|sqrt|fabs)\b/g;
 for (const id of await chapterIds()) {
   const chapter = await readChapter(id);
   if (id <= 9) for (const l of chapter.lessons) { l.quizzes = questions[l.id]; l.mastery = mastery[l.id]; }
@@ -12,6 +13,7 @@ for (const id of await chapterIds()) {
   imports.push(`  ${id}: () => import('./chapters/chapter-${id}.json'),`);
   catalog.push({...chapter, lessons: chapter.lessons.map(l => ({
     id:l.id, chapter:l.chapter, index:l.index, en:l.en, title:l.title, textbook:l.textbook,
+    keywords:[...new Set((l.syntax + ' ' + l.syntaxNotes).match(libraryNames) ?? [])].join(' ') || undefined,
     objective:l.objective, challenge:{revision:l.challenge.revision}, quizzes:l.quizzes.map(q=>({id:q.id})), mastery:l.mastery?{}:undefined,
   }))});
 }

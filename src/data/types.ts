@@ -22,6 +22,7 @@ export type Lesson = {
   en: string;
   title: string;
   textbook?: string;
+  keywords?: string;
   objective: string;
   explanation: string[];
   syntax: string;

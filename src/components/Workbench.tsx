@@ -1,8 +1,8 @@
-import { checkStructure } from "../engine/structure";
+import type { checkStructure } from "../engine/structure";
 import { VirtualFiles, RunFiles } from "./VirtualFiles";
 import { ExpectedOutput } from "./ExpectedOutput";
 import { diagnose } from "../engine/diagnostics";
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   Play,
   Send,
@@ -26,10 +26,10 @@ import {
 } from "lucide-react";
 import type { Lesson } from "../data/types";
 import type { RecordState } from "../services/progress";
-import { CodeEditor } from "./CodeEditor";
 import { runCode, stop } from "../engine/compiler";
 import { judge } from "../engine/judge";
 import type { Execution } from "../engine/types";
+const CodeEditor = lazy(() => import("./CodeEditor").then(module => ({ default: module.CodeEditor })));
 const titles = {
   success: "运行成功",
   "compile-error": "编译错误",
@@ -48,6 +48,9 @@ export function Workbench({
   onFiles,
   onArgs,
   onDraft,
+  draftHistory,
+  onRestoreDraft,
+  onReturnToLesson,
   onPassed,
   onFailed,
   onHint,
@@ -63,6 +66,9 @@ export function Workbench({
   showExpectedOutput: boolean;
   record: RecordState;
   onDraft: (s: string) => void;
+  draftHistory: string[];
+  onRestoreDraft: (code: string) => void;
+  onReturnToLesson: () => void;
   onPassed: () => void;
   onFailed: () => void;
   onHint: (n: number) => void;
@@ -80,7 +86,17 @@ export function Workbench({
     [fullscreen, setFullscreen] = useState(false),
     [confirm, setConfirm] = useState<"reset" | "clear" | "answer" | null>(null);
   const mounted = useRef(true);
+  const editor = useRef<HTMLDivElement>(null);
+  const [editorReady, setEditorReady] = useState(() => matchMedia("(min-width:761px)").matches);
   const terminal = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (editorReady || !editor.current) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) setEditorReady(true);
+    }, { rootMargin: "200px" });
+    observer.observe(editor.current);
+    return () => observer.disconnect();
+  }, [editorReady]);
   useEffect(() => {
     if (runs)
       terminal.current?.scrollIntoView({
@@ -108,10 +124,14 @@ export function Workbench({
     setBusy(true);
     setSubmitted(submit);
     setRuns(null);
-    const checks = submit ? checkStructure(code, lesson.challenge.structure, files) : [];
-    setStructure(checks);
+    setStructure([]);
     setStage("正在准备编译器…");
     try {
+      const checks = submit && lesson.challenge.structure?.length
+        ? (await import("../engine/structure")).checkStructure(code, lesson.challenge.structure, files)
+        : [];
+      if (!mounted.current) return;
+      setStructure(checks);
       const result = await runCode(
         code,
         submit ? lesson.challenge.tests.map((t) => t.input) : [input],
@@ -150,7 +170,7 @@ export function Workbench({
   };
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && !document.querySelector('dialog[open], [aria-modal="true"]')) {
         e.preventDefault();
         void run(e.shiftKey);
       }
@@ -169,12 +189,13 @@ export function Workbench({
       <div className="workbench-top">
         <div>
           <FileCode2 size={16} />
-          <strong>代码实验室</strong>
+          <strong id="code-lab-title" tabIndex={-1}>代码实验室</strong>
         </div>
         <span>
           <i />
           Clang · C99
         </span>
+        <button className="text-button code-return" onClick={onReturnToLesson}>返回课文</button>
         <button
           className="icon-button"
           aria-label={fullscreen ? "退出全屏编辑器" : "全屏编辑器"}
@@ -222,32 +243,36 @@ export function Workbench({
           >
             <Copy size={14} />
           </button>
-          <button
-            className="icon-button"
-            aria-label="清空代码"
-            title="清空代码"
-            onClick={() => setConfirm("clear")}
-          >
-            <Trash2 size={14} />
-          </button>
-          <button
-            className="icon-button"
-            aria-label="恢复默认代码"
-            title="恢复默认代码"
-            onClick={() => setConfirm("reset")}
-          >
-            <RotateCcw size={14} />
-          </button>
+          <details className="editor-more">
+            <summary>更多</summary>
+            <div>
+              <button onClick={() => setConfirm("clear")}><Trash2 size={14} />清空代码</button>
+              <button onClick={() => setConfirm("reset")}><RotateCcw size={14} />恢复默认代码</button>
+            </div>
+          </details>
         </div>
       </div>
-      <div className="editor-resize">
+      {lesson.id === "c1-1" && <p className="starter-label">
+        {code === lesson.example ? "讲解示例 · 已载入" :
+          code === lesson.challenge.starter ? "本题代码 · 首次运行跟练" : "本题代码 · 我的解答"}
+      </p>}
+      <div className="editor-resize" ref={editor}>
+        {editorReady ? <Suspense fallback={<p className="editor-wait" role="status">正在加载代码编辑器…</p>}>
         <CodeEditor
           value={code}
           onChange={onDraft}
           fontSize={font}
           errorLine={errorLine}
         />
+        </Suspense> : <button className="editor-wait text-button" onClick={() => setEditorReady(true)}>打开代码编辑器</button>}
       </div>
+      {draftHistory.length > 0 && <details className="draft-history">
+        <summary>恢复其他草稿版本（{draftHistory.length}）</summary>
+        {draftHistory.map((draft, i) => <div key={draft}>
+          <pre>{draft}</pre>
+          <button className="secondary" onClick={() => onRestoreDraft(draft)}>恢复版本 {i + 1}</button>
+        </div>)}
+      </details>}
       <div className="editor-status">
         <span>
           C99<span>UTF-8</span>
@@ -287,6 +312,7 @@ export function Workbench({
           className="run-button"
           disabled={busy}
           onClick={() => run(false)}
+          aria-describedby="run-action-help"
         >
           {busy ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
           运行代码<kbd>Ctrl ↵</kbd>
@@ -297,12 +323,13 @@ export function Workbench({
             停止
           </button>
         ) : (
-          <button className="primary submit-button" onClick={() => run(true)}>
+          <button className="primary submit-button" onClick={() => run(true)} aria-describedby="run-action-help">
             <Send size={15} />
             提交答案
           </button>
         )}
       </div>
+      <p id="run-action-help" className="run-action-help">运行使用当前输入，提交检查整组用例。</p>
       {showExpectedOutput && <ExpectedOutput challenge={lesson.challenge} />}
       <div className="terminal-panel" ref={terminal}>
         <div className="terminal-heading">
@@ -506,12 +533,12 @@ export function Workbench({
           </div>
         )}
       </div>
-      <dialog aria-label="学习对话框" 
+      <dialog aria-labelledby="workbench-dialog-title"
         ref={dialog}
         className="small-dialog"
         onCancel={() => setConfirm(null)}
       >
-        <h2>
+        <h2 id="workbench-dialog-title">
           {confirm === "answer"
             ? "查看参考答案？"
             : confirm === "clear"

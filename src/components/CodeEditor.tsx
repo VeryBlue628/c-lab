@@ -8,7 +8,7 @@ import {
   drawSelection,
   highlightActiveLineGutter,
 } from "@codemirror/view";
-import { EditorState, Compartment } from "@codemirror/state";
+import { EditorState, Compartment, Annotation } from "@codemirror/state";
 import { cpp } from "@codemirror/lang-cpp";
 import {
   defaultKeymap,
@@ -65,6 +65,8 @@ const words = [
   "true",
   "false",
 ];
+const externalDraft = Annotation.define<boolean>();
+
 export function CodeEditor({
   value,
   onChange,
@@ -176,7 +178,7 @@ export function CodeEditor({
             },
           }),
           EditorView.updateListener.of((update) => {
-            if (update.docChanged)
+            if (update.docChanged && !update.transactions.some(tx => tx.annotation(externalDraft)))
               callback.current(update.state.doc.toString());
           }),
         ],
@@ -188,6 +190,7 @@ export function CodeEditor({
     const v = view.current;
     if (v && v.state.doc.toString() !== value)
       v.dispatch({
+        annotations: externalDraft.of(true),
         changes: { from: 0, to: v.state.doc.length, insert: value },
       });
   }, [value]);

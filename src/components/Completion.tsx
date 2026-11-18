@@ -24,7 +24,7 @@ export function Completion({
       completed(progress.records[l.id]),
     ).length;
   return (
-    <dialog aria-label="学习对话框" 
+    <dialog aria-labelledby="completion-title"
       ref={dialog}
       className="small-dialog completion-dialog"
       onCancel={onClose}
@@ -37,7 +37,7 @@ export function Completion({
         <X size={18} />
       </button>
       <CheckCircle2 size={42} />
-      <h2>
+      <h2 id="completion-title">
         {count === chapter.lessons.length
           ? "这一章，完成了！"
           : "这一课，学会了！"}
